@@ -9,7 +9,7 @@ Band Protocol is a cross-chain data oracle platform that aggregates and connects
 
 This documentation is split into two sections:
 
-- [**Whitepaper**](./whitepaper): Contains our official whitepaper, covering BandChain's system overview, token economics, protocol messages, and much more.
+- [**Whitepaper**](./whitepaper): Our official whitepaper, covering BandChain's system design, token economics, protocol messages, and much more.
 - [**Developer Docs**](./developer): The go-to place for developers looking to learn more about Band and to integrate Band's oracle into their applications.
 
 ## Band Protocol At a Glance
