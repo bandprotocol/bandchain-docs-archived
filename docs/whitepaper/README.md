@@ -203,7 +203,7 @@ To illustrate how inflation incentivizes staking, imagine we have a network part
 
 ### Validators and Stakers
 
-As in other Cosmos-based blockhain, the one of the roles of Bandchain's validators is to provision new blocks and process transactions. By performing those tasks, they earn BAND tokens as a reward. In the case of block provisioning, the reward comes from the tokens newly minted on that block. Conversely, the reward for processing transactions comes from the [fee](#gas-and-network-fee that each validator chooses to set. Note that a percentage of the total block reward is diverted to the [community fund pool](#community-spending-pool).
+As in other Cosmos-based blockhain, the one of the roles of Bandchain's validators is to provision new blocks and process transactions. By performing those tasks, they earn BAND tokens as a reward. In the case of block provisioning, the reward comes from the tokens newly minted on that block. Conversely, the reward for processing transactions comes from the [fee](#gas-and-network-fee) that each validator chooses to set. Note that a percentage of the total block reward is diverted to the [community fund pool](#community-spending-pool).
 
 Those who do not wish to become validators themselves can still earn a portion of the validator rewards by becoming delegators. This is done through staking their holding on the network’s validators. By doing so, they will share the revenue earned by those validators.
 

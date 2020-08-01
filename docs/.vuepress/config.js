@@ -40,15 +40,15 @@ module.exports = {
       },
       {
         text: 'Developer',
-        link: '/dev/',
+        link: '/developer/',
       },
       {
-        text: 'Web',
+        text: 'Website',
         link: 'https://bandprotocol.com',
       },
     ],
     sidebar: {
-      '/dev/': [
+      '/developer/': [
         {
           title: 'Introduction to BandChain',
           sidebarDepth: 1,
