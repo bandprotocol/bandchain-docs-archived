@@ -56,6 +56,17 @@ module.exports = {
           children: [''],
         },
         {
+          title: 'Technical Specifications',
+          sidebarDepth: 1,
+          collapsable: false,
+          children: [
+            'technical-specifications/obi',
+            'technical-specifications/owasm',
+            'technical-specifications/remote-data-source-executor',
+            'technical-specifications/bandchain-cli-rest-endpoints',
+          ],
+        },
+        {
           title: 'For dApp Developers',
           sidebarDepth: 1,
           collapsable: false,
