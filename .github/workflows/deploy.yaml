@@ -20,7 +20,7 @@ jobs:
       with:
         cmd: build # will run `yarn build` command
     - name: Install Surge
-      run: yarn add global surge
+      run: yarn add surge
 
     - name: Deploy to Surge
       run:  surge ./docs/.vuepress/dist/ https://docs.bandchain.org/ --token ${{SECRETS.SURGE_TOKEN}}
