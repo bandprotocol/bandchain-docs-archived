@@ -1,3 +1,8 @@
+<!--
+order: 2
+-->
+
+
 # Supported Blockchains
 
 Currently BandChain supports the following blockchains:

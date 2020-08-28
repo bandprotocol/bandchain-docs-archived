@@ -1,3 +1,7 @@
+<!--
+order: 3
+-->
+
 # Remote Data Source Executor
 
 The remote data source executor executes the [data sources](https://github.com/bandprotocol/bandchain/wiki/Terminology#data-sources) stored on BandChain in order to retrieve data from the data providers. The executor itself is a [`Function-as-a-Service`](https://en.wikipedia.org/wiki/Function_as_a_service) hosted on a cloud service provider.

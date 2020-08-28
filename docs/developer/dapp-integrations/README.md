@@ -1,3 +1,9 @@
+<!--
+order: false
+parent:
+  order: 2
+-->
+
 # Getting Started with Using BandChain
 
 **Band Protocol allows supported blockchain to query data from traditional web APIs and use it on their blockchain**. Developers can make queries through BandChain, a Cosmos-based blockchain for facilitating oracle requests, and then use the data in their dApps through inter-chain communication. Integrating oracle data can be done in 3 simple steps:

@@ -1,88 +1,148 @@
-const { description } = require('../../package');
-
 module.exports = {
-  /**
-   * Ref：https://v1.vuepress.vuejs.org/config/#title
-   */
-  title: 'BandChain Documentation',
-  /**
-   * Ref：https://v1.vuepress.vuejs.org/config/#description
-   */
-  description: description,
-
-  /**
-   * Extra tags to be injected to the page HTML `<head>`
-   *
-   * ref：https://v1.vuepress.vuejs.org/config/#head
-   */
-  head: [
-    ['meta', { name: 'theme-color', content: '#516ffa' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }],
-  ],
-
-  /**
-   * Theme configuration, here is the default theme configuration for VuePress.
-   *
-   * ref：https://v1.vuepress.vuejs.org/theme/default-theme-config.html
-   */
+  theme: 'cosmos',
+  title: 'Band Protocol Documentation',
+  locales: {
+    '/': {
+      lang: 'en-US',
+    },
+  },
+  base: process.env.VUEPRESS_BASE || '/',
   themeConfig: {
-    repo: 'https://github.com/bandprotocol/bandchain',
-    editLinks: false,
-    docsDir: '',
-    editLinkText: '',
-    lastUpdated: false,
-    logo: 'https://i.imgur.com/3gNsqzZ.png',
-    nav: [
-      {
-        text: 'Whitepaper',
-        link: '/whitepaper/',
-      },
-      {
-        text: 'Developer',
-        link: '/developer/',
-      },
-      {
-        text: 'Website',
-        link: 'https://bandprotocol.com',
-      },
-    ],
+    repo: 'BandProtocol/bandchain',
+    docsRepo: 'BandProtocol/bandchain-docs',
+    docsDir: 'docs',
+    editLinks: true,
+    // docs 1.0.168: custom true hides subpages searchbar
+    // docs 1.0.168: custom true hides hub, ibc, core sidebar footer logos
+    custom: true,
+    logo: {
+      src: 'https://i.imgur.com/kzVQJi2.png',
+    },
+    algolia: {
+      id: 'BH4D9OD16A',
+      key: 'ac317234e6a42074175369b2f42e9754',
+      index: 'ethermint',
+    },
     sidebar: {
-      '/developer/': [
+      auto: false,
+      nav: [
         {
-          title: 'Introduction to BandChain',
-          sidebarDepth: 1,
-          collapsable: false,
-          children: [''],
-        },
-        {
-          title: 'Technical Specifications',
-          sidebarDepth: 1,
-          collapsable: false,
+          title: 'Reference',
           children: [
-            'technical-specifications/obi',
-            'technical-specifications/owasm',
-            'technical-specifications/remote-data-source-executor',
-            'technical-specifications/bandchain-cli-rest-endpoints',
+            {
+              title: 'Introduction',
+              directory: true,
+              path: '/introduction',
+            },
+            {
+              title: 'Whitepaper',
+              directory: true,
+              path: '/whitepaper',
+            },
           ],
         },
         {
-          title: 'For dApp Developers',
-          sidebarDepth: 1,
-          collapsable: false,
+          title: 'Developer',
           children: [
-            'dapp-developers/',
-            'dapp-developers/supported-blockchains',
-            'dapp-developers/requesting-data-from-bandchain',
-            'dapp-developers/using-bandchain-data-evm',
+            {
+              title: 'Technical Specifications',
+              directory: true,
+              path: '/developer/technical-specifications',
+            },
+            {
+              title: 'dApp Integrations',
+              directory: true,
+              path: '/developer/dapp-integrations',
+            },
+          ],
+        },
+      ],
+    },
+    gutter: {
+      title: 'Help & Support',
+      editLink: true,
+      chat: {
+        title: 'Developer Discord',
+        text: 'For technical-related discussions and queries',
+        url: 'https://100x.band/discord',
+        bg: 'linear-gradient(103.75deg, #1B1E36 0%, #22253F 100%)',
+      },
+      forum: {
+        title: 'Telegram Group',
+        text: 'General Chat for all things Band Protocol',
+        url: 'https://100x.band/tg',
+        bg: 'linear-gradient(221.79deg, #2eb1f3 -1.08%, #0289cc 95.88%)',
+        logo: 'telegram',
+      },
+      github: {
+        title: 'Found an Issue?',
+        text: 'Help us improve this page by suggesting edits on GitHub.',
+        url: 'https://github.com/ChainSafe/ethermint/edit/development/docs/README.md',
+        bg: '#F8F9FC',
+      },
+    },
+    footer: {
+      logo: 'https://i.imgur.com/kzVQJi2.png',
+      textLink: {
+        text: 'bandprotocol.com',
+        url: 'https://bandprotocol.com',
+      },
+      services: [
+        {
+          service: 'github',
+          url: 'https://github.com/BandProtocol/bandchain',
+        },
+        {
+          service: 'twitter',
+          url: 'https://twitter.com/bandprotocol',
+        },
+        {
+          service: 'telegram',
+          url: 'https://100x.band/tg',
+        },
+        {
+          service: 'discord',
+          url: 'https://100x.band/discord',
+        },
+        {
+          service: 'medium',
+          url: 'https://medium.com/bandprotocol',
+        },
+      ],
+      smallprint:
+        'This website is maintained by [Band Protocol](https://bandprotocol.com). The contents and opinions of this website are those of Band Protocol.',
+      links: [
+        {
+          title: 'Links',
+          children: [
+            {
+              title: 'Band Protocol Website',
+              url: 'https://bandprotocol.com',
+            },
+            {
+              title: 'BandChain Block Explorer',
+              url: 'https://cosmoscan.io',
+            },
+          ],
+        },
+        {
+          title: 'Community',
+          children: [
+            {
+              title: 'Telegram Group',
+              url: 'https://100x.band/tg',
+            },
+            {
+              title: 'Developer Discord',
+              url: 'https://100x.band/discord',
+            },
+            {
+              title: 'Band Protocol Blog',
+              url: 'https://medium.com/bandprotocol',
+            },
           ],
         },
       ],
     },
   },
-
-  /**
-   * Apply plugins，ref：https://v1.vuepress.vuejs.org/zh/plugin/
-   */
-  plugins: ['@vuepress/plugin-back-to-top', '@vuepress/plugin-medium-zoom'],
 };

@@ -1,8 +1,12 @@
+<!--
+order: 4
+-->
+
 # Using BandChain Data in EVM Smart Contract
 
-## Bridge Architecture
+## Prerequisite Readings
 
-TBA
+- [Developer / Requesting Data from BandChain](./requesting-data-from-bandchain.md) {prereq}
 
 ## Example Contract
 
@@ -10,13 +14,13 @@ Now that we know how to make a request to BandChain and retireve the correspondi
 
 The code below demonstrates an example contract that retrieves the latest price of Bitcoin from Band's bridge contract and saves it onto the contract's state.
 
-```solidity
-pragma solidity 0.6.0;
+```sol
+pragma solidity 0.6.11;
 pragma experimental ABIEncoderV2;
 
-import "./Obi.sol";
-import {IBridge} from "./IBridgeCache.sol";
-import {ParamsDecoder, ResultDecoder} from "./Decoders.sol";
+import {Obi} from "./libraries/Obi.sol";
+import {IBridge} from "./interfaces/IBridge.sol";
+import {IBridgeCache} from "./interfaces/IBridgeCache.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 
@@ -55,10 +59,10 @@ Let’s break down the code into sections.
 
 ### Imports
 
-```solidity
-import "./Obi.sol";
-import {IBridge} from "./IBridgeCache.sol";
-import {ParamsDecoder, ResultDecoder} from "./Decoders.sol";
+```sol
+import {Obi} from "./libraries/Obi.sol";
+import {IBridge} from "./interfaces/IBridge.sol";
+import {IBridgeCache} from "./interfaces/IBridgeCache.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 ```
 
@@ -70,7 +74,7 @@ This contains a set of function to help serialized and deserialize binary data w
 
 #### Decoders.sol
 
-This is what we will use to work with data related to requests made on BandChain. This will help us in extracting the various information, such as the price value, we may need from the request response from Band’s oracle. The file is available from an oracle script’s bridge code tab on the devnet explorer.
+This is what we will use to work with data related to requests made on BandChain. This will help us in extracting the various information, such as the price value, we may need from the request response from Band’s oracle. The file is available from an oracle script’s bridge code tab on the devnet explorer. For this particular example, the code is available [here](https://guanyu-devnet.cosmoscan.io/oracle-script/76#bridge).
 
 #### IBridgeCache.sol
 
@@ -78,7 +82,7 @@ The interface file for Band’s bridge contract. The code for this can also be f
 
 ### Contract
 
-```solidity
+```sol
 contract SimplePriceDB {
     using SafeMath for uint256;
     using ResultDecoder for bytes;
@@ -114,7 +118,7 @@ The contract itself can then be futher broken down into two parts: the construct
 
 #### Contract Constructor
 
-```solidity
+```sol
 constructor(IBridge bridge_) public {
      bridge = bridge_;
 
@@ -129,7 +133,8 @@ constructor(IBridge bridge_) public {
 
 The contract’s constructor takes one argument, the address of the bridge contract. It then sets the various fields of the req RequestPacket variable. This req variable will be what we will use as the key to match and retrieve the price from the bridge contract. Specifically, in this case, we set req to have the following parameters.
 
-- `clientId` (`"band_bsc"`): the unique identifier of this oracle request, as specified by the client
+- `bridge`: the address of Band's bridge contract on the blockchain this example contract is deployed to. See this [list](./supported-blockchains.md) for the chains that Band currently supports and corresponding contract addresses.
+- `clientId` (`"from_scan"`): the unique identifier of this oracle request, as specified by the client
 - `oracleScriptId` (`76`): The unique identifier number assigned to the oracle script when it was first registered on Bandchain.
 - `params` (`hex"00000003425443"`): The data passed over to the oracle script for the script to use during its execution. In this case, it is hex representation of the OBI-encoded request struct{"symbol":"BTC"}
 - `minCount` (`4`): The minimum number of validators necessary for the request to proceed to the execution phase
@@ -137,7 +142,7 @@ The contract’s constructor takes one argument, the address of the bridge contr
 
 #### getPrice Function
 
-```solidity
+```sol
 // getPrice fetches the latest BTC/USD price value from the bridge contract and saves it to state.
 function getPrice() public {
    (IBridge.ResponsePacket memory res,) = bridge.getLatestResponse(req);

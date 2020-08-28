@@ -1,0 +1,23 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: borales/actions-yarn@v2.0.0
+    with:
+      cmd: install # will run `yarn install` command
+    - uses: borales/actions-yarn@v2.0.0
+      with:
+        cmd: build # will run `yarn build` command
+    - name: Install Surge
+      run: yarn add global surge
+
+    - name: Deploy to Surge
+      run:  surge ./build https://docs.bandchain.org/ --token ${{SECRETS.SURGE_TOKEN}}

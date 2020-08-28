@@ -1,3 +1,7 @@
+<!--
+order: 3
+-->
+
 # Requesting Data from BandChain
 
 There are two main ways to request data from BandChain. First, requests can be made manually through interacting with our explorer. Alternatively, you can also use our provided developer SDK to request data programmatically.
@@ -25,7 +29,7 @@ On the Oracle Script page, you will see a list of all the oracle scripts current
 On the oracle script's page, you will see various tabs containing information related to the  script, including:
 
 - its execution parameters
-- its Owasm code (See our wiki for more details on Band's Owasm domain-specific-language)
+- its [Owasm](./../technical-specifications/owasm.md) code
 - its Bridge code to encode and decode the script's input and output structs
 - a history of all the requests that was made to this script
 
@@ -55,55 +59,49 @@ Once BandChain has successfully executed the requested oracle script, it will re
 
 ### Example Script
 
-To show an example requesting data using the library, we will write a simple Node file that queries the current Google stock price (`GOOGL`) from BandChain. The full code is shown below.
+To show an example requesting data using the library, we will write a simple Node file that queries the current Bitcoin price (`BTC`) from BandChain. The full code is shown below.
 
 ```javascript
-const { Obi } = require('@bandprotocol/obi.js');
 const BandChain = require('@bandprotocol/bandchain.js');
+const { Obi } = require('@bandprotocol/obi.js');
 
-// BandChain devnet endpoint URL
 const endpoint = 'http://guanyu-devnet.bandchain.org/rest';
-// Mnemonic of the account to make the query from.
-const mnemonic =
-  'ask jar coast prison educate decide elephant find pigeon truth reason double figure enroll scheme melt soldier damage debris recall brief jeans million essence';
 
-// Request parameters
-const oracleScriptID = 1;
-const minCount = 1;
-const askCount = 2;
-const gasAmount = 100;
-const gasLimit = 300000;
-
-(async () => {
+const getBTCPrice = async () => {
   // Instantiating BandChain with REST endpoint
   const bandchain = new BandChain(endpoint);
+
   // Create an instance of OracleScript with the script ID
-  const oracleScript = await bandchain.getOracleScript(oracleScriptID);
+  const oracleScript = await bandchain.getOracleScript(76);
 
-  // Initiate obi object to be used for decoding the result later
-  const obi = new Obi(oracleScript.schema);
-
-  // Create a new request, which will block into the tx is confirmed
+  // Create a new request, which will block until the tx is confirmed
   try {
-    const requestID = await bandchain.submitRequestTx(
+    const minCount = 3;
+    const askCount = 4;
+    const mnemonic =
+      'panther winner rain empower olympic attract find satoshi meadow panda job ten urge warfare piece walnut help jump usage vicious neither shallow mule laundry';
+    const requestId = await bandchain.submitRequestTx(
       oracleScript,
-      { symbol: 'BTC', multiplier: 10000 },
+      {
+        symbol: 'BTC',
+      },
       { minCount, askCount },
-      mnemonic,
-      gasAmount,
-      gasLimit
+      mnemonic
     );
 
-    // Get request result
-    const responseStruct = await bandchain.getRequestResult(requestID);
-    const encodedOutput = responseStruct.ResponsePacketData['result'];
-    const decodedOutput = obi.decodeOutput(Buffer.from(encodedOutput, 'base64'));
-    console.log(decodedOutput);
-  } catch (e) {
-    // Something went wrong (e.g. specified time is in the future)
-    console.error('Data request failed with reason: ', e);
+    // Get final result (blocking until the reports & aggregations are finished)
+    const finalResult = await bandchain.getRequestResult(requestId);
+    let result = new Obi(oracleScript.schema).decodeOutput(
+      Buffer.from(finalResult.response_packet_data.result, 'base64')
+    );
+    console.log('RequestID: ' + requestId);
+    console.log(result);
+  } catch {
+    console.error('Data request failed');
   }
-})();
+};
+
+getBTCPrice();
 ```
 
 Going through each section of the code:
@@ -127,65 +125,46 @@ The code requires two libraries
 const endpoint = 'http://guanyu-devnet.bandchain.org/rest';
 // Mnemonic of the account to make the query from.
 const mnemonic =
-  'ask jar coast prison educate decide elephant find pigeon truth reason double figure enroll scheme melt soldier damage debris recall brief jeans million essence';
+  'panther winner rain empower olympic attract find satoshi meadow panda job ten urge warfare piece walnut help jump usage vicious neither shallow mule laundry';
 
 // Request parameters
-const oracleScriptID = 1;
-const minCount = 1;
-const askCount = 2;
-const gasAmount = 100;
-const gasLimit = 300000;
+const bandchain = new BandChain(endpoint);
+const oracleScript = await bandchain.getOracleScript(76);
+const minCount = 3;
+const askCount = 4;
 ```
 
 Here we set the values that we will be using to make the request
 
 - `endpoint`: the endpoint we will make the query to
 - `mnemonic`: the mnemonic we will use to make the query. The associated account must have a balance to make a request
-- `oracleScriptID`: the ID of the oracle script that we will be executing to retrieve the data
+- `bandchain`: contains the necessary functions we’ll need to make the request
+- `oracleScript`: object containing details of the oracle script we will be querying
 - `minCount`: the minimum number of BandChain’s validators that responds for us to consider the request successful
 - `askCount`: the maximum number of validators that we want to respond to the request
-- gasAmount/gasLimit: transaction gas configuration
-
-### Instantiating the Necessary Variables and Objects
-
-```js
-// Instantiating BandChain with REST endpoint
-const bandchain = new BandChain(endpoint);
-// Create an instance of OracleScript with the script ID
-const oracleScript = await bandchain.getOracleScript(oracleScriptID);
-
-// Initiate obi object to be used for decoding the result later
-const obi = new Obi(schema);
-```
-
-After we have declared the base variable we need, we can begin to make the request.
-
-We begin by creating a new bandchain class object from the specified endpoint variable. The BandChain class contains the necessary functions we’ll need to make the request.
-
-We then retrieve information related to the oracle script we want to execute to get the requested data.
-
-Following that, we create a new [obi](https://github.com/bandprotocol/bandchain/wiki/Oracle-Binary-Encoding-(OBI)) object that we will use to decode the result we receive from BandChain.
 
 ### Making the Oracle Request and Getting the Results
 
 ```js
-const requestID = await bandchain.submitRequestTx(
+const requestId = await bandchain.submitRequestTx(
   oracleScript,
-  { symbol: 'BTC', multiplier: 10000 },
+  {
+    symbol: 'BTC',
+  },
   { minCount, askCount },
-  mnemonic,
-  gasAmount,
-  gasLimit
+  mnemonic
 );
 
-// Get request result
-const responseStruct = await bandchain.getRequestResult(requestID);
-const encodedOutput = responseStruct.ResponsePacketData['result'];
-const decodedOutput = obi.decodeOutput(Buffer.from(encodedOutput, 'base64'));
-console.log(decodedOutput);
+// Get final result (blocking until the reports & aggregations are finished)
+const finalResult = await bandchain.getRequestResult(requestId);
+let result = new Obi(oracleScript.schema).decodeOutput(
+  Buffer.from(finalResult.response_packet_data.result, 'base64')
+);
+console.log('RequestID: ' + requestId);
+console.log(result);
 ```
 
-Finally, we execute the submitRequestTx member function of the previously created bandchain object to make the oracle data request.
+Finally, we execute the `submitRequestTx` member function of the previously declare `bandchain` object to make the oracle data request.
 
 We can then do one of two things with regards to this request:
 
@@ -194,4 +173,4 @@ We can then do one of two things with regards to this request:
 
 Both of these functions take in one argument, the requestID of the request you want to retrieve the result/proof from.
 
-If the query is successful, the code should print a value similar to: `{ px: 91795049n }`.
+If the query is successful, the code should print a value similar to: `{ price: 11406282500000n }`, which is the retrieved price of Bitcoin multiplied by 1 billion.

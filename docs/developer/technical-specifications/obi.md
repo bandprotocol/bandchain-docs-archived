@@ -1,3 +1,7 @@
+<!--
+order: 1
+-->
+
 # Oracle Binary Encoding (OBI)
 
 Oracle Binary Encoding (OBI) is the standard way to serialized and deserialize binary data in the BandChain ecosystem. Similar to Ethereum's [Contract ABI Specification](https://solidity.readthedocs.io/en/latest/abi-spec.html) or Google's [ProtoBuf](https://developers.google.com/protocol-buffers), an OBI schema explains how a data object, in any supported programming language, can be encoded to and decoded from plain bytes.

@@ -1,3 +1,7 @@
+<!--
+order: 4
+-->
+
 # BandChain CLI & REST Endpoint
 
 ## Get Data Source by ID
