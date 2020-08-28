@@ -18,10 +18,8 @@ module.exports = {
     logo: {
       src: 'https://i.imgur.com/kzVQJi2.png',
     },
-    algolia: {
-      id: 'BH4D9OD16A',
-      key: 'ac317234e6a42074175369b2f42e9754',
-      index: 'ethermint',
+    topbar: {
+      banner: false,
     },
     sidebar: {
       auto: false,
@@ -77,7 +75,7 @@ module.exports = {
       github: {
         title: 'Found an Issue?',
         text: 'Help us improve this page by suggesting edits on GitHub.',
-        url: 'https://github.com/ChainSafe/ethermint/edit/development/docs/README.md',
+        url: 'https://github.com/BandProtocol/bandchain-docs',
         bg: '#F8F9FC',
       },
     },

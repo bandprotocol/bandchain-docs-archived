@@ -23,4 +23,4 @@ jobs:
       run: yarn add global surge
 
     - name: Deploy to Surge
-      run:  surge ./build https://docs.bandchain.org/ --token ${{SECRETS.SURGE_TOKEN}}
+      run:  surge ./docs/.vuepress/dist/ https://docs.bandchain.org/ --token ${{SECRETS.SURGE_TOKEN}}
