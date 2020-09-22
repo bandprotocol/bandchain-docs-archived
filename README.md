@@ -1,12 +1,21 @@
 # Band Protocol Documentation
 
-## Running
+## Automatic Deployment
+
+- 🧪 [**`master` branch**] Staging: https://docs.staging.bandprotocol.com
+- ⛳️ [**`prod` branch**] Production: https://docs.bandprotocol.com
+
+## Development
 
 ```bash
+# Install dependencies
+yarn
+
+# Running in dev mode
 yarn dev
 ```
 
-## Building
+## Build
 
 ```bash
 yarn build
