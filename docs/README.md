@@ -6,18 +6,18 @@ sections:
   - title: Introduction
     desc: High-level overview of Band's oracle.
     url: /introduction/overview
-    icon: basics
+    icon: intro
   - title: Whitepaper
     desc: Read about the core concepts of Band's oracle infrastructure
-    icon: core
+    icon: whitepaper
     url: /whitepaper/introduction
   - title: Decentralized Apps Integration
     desc: Discover how to integrate Band's oracle data into your applications
-    icon: modules
+    icon: dapp
     url: /developer/dapp-integrations/supported-blockchains
   - title: Technical Specifications
     desc: Specifications for the various standards used in BandChain's ecosystem
-    icon: interfaces
+    icon: spec
     url: /developer/technical-specifications/obi
 stack:
   - title: Cosmos SDK

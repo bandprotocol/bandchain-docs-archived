@@ -53,6 +53,10 @@
   .container h1 {
     margin-bottom: 1.5rem;
   }
+
+  .item__icon.item__icon__collapsed {
+    display: none;
+  }
 }
 
 .search {
