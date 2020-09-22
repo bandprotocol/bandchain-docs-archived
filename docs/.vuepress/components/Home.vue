@@ -18,13 +18,13 @@
           .features__item__text__h2 read
           .features__item__text__h1 Introduction to Band Protocol
           .features__item__text__p Learn about the various parts that make up Band Protocol and BandChain
-      router-link(to="/developer").features__item.features__item__dark
+      router-link(to="/band-standard-dataset/using-band-dataset").features__item.features__item__dark
         .features__item__image
           icon-code.features__item__image__img
         .features__item__text
           .features__item__text__h2 use
-          .features__item__text__h1 Developer Guide
-          .features__item__text__p For developers looking to learn more about Band and to integrate Band's oracle into their applications
+          .features__item__text__h1 Band Standard Dataset
+          .features__item__text__p For developers looking to integrate Band's oracle into their applications
     .sections__wrapper
       .h2 Learn
       .p__alt Get familiar with Band Protocol, BandChain, and other components in the Band ecosystem
