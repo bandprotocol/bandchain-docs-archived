@@ -1,12 +1,4 @@
-<!--
-order: 4
--->
-
 # Using BandChain Data in EVM Smart Contract
-
-## Prerequisite Readings
-
-- [Developer / Requesting Data from BandChain](./requesting-data-from-bandchain.md) {prereq}
 
 ## Example Contract
 

@@ -1,6 +1,7 @@
 <!--
 order: 8
 -->
+
 # Cosmos IBC Integration
 
 ## Prerequisite Readings

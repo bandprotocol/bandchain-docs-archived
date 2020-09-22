@@ -10,13 +10,13 @@ Oracle WebAssembly, or Owasm for short, is Band Protocol's  Domain Specific Lang
 
 The Owasm library consists of two primary modules: `owasm/oei` and `owasm/ext`.
 
-### `Owasm/OEI`
+### Owasm/OEI
 
 The OEI modules defines a set of functions that are part of the Owasm Oracle Environment Interface. These functions are then accessible to an oracle script during its execution.
 
 #### OEI Module Functions
 
-##### `getAskCount() -> i64`
+##### getAskCount()
 
 GetAskCount returns the number of validators asked to work for this oracle query.
 
@@ -24,7 +24,7 @@ Returns:
 
 - `askCount: i64` - The requested validator count.
 
-##### `getMinCount() -> i64`
+##### getMinCount()
 
 GetMinCount returns the minimum number of validators to move to aggregation phase.
 
@@ -32,7 +32,7 @@ Returns:
 
 - `minCount: i64` - The sufficient validator count.
 
-##### `getAnsCount() -> i64`
+##### getAnsCount()
 
 GetAnsCount returns the number of validators that submit answers. Zero during preparation.
 
@@ -40,7 +40,7 @@ Returns:
 
 - `ansCount: i64` - The received validator count.
 
-##### `getPrepareBlockTime() -> i64`
+##### getPrepareBlockTime()
 
 GetPrepareBlockTime returns the time of *preparation* phase was run.
 
@@ -48,7 +48,7 @@ Returns:
 
 - `timestamp: i64` - The block timestamp during the preparation phase.
 
-##### `getAggregateBlockTime() -> i64`
+##### getAggregateBlockTime()
 
 GetAggregateBlockTime returns the time of *aggregation* phase. Zero during preparation.
 
@@ -56,7 +56,7 @@ Returns:
 
 - `timestamp: i64` - The block timestamp during the aggregation phase.
 
-##### `pub fn readValidatorAddress(validatorIndex: i64, resultOffset: *mut u8) -> i64`
+##### readValidatorAddress(validatorIndex: i64, resultOffset: *mut u8)
 
 ReadValidatorAddress returns the 20-byte validator address at the specified index and offset
 
@@ -65,7 +65,7 @@ Parameters:
 - `validatorIndex: i64` - The validator index. Must be nonnegative and not greater than the number of requested validators.
 - `resultOffset: i32ptr` - The memory offset to save the validator's address
 
-##### `getCallDataSize() -> i32`
+##### getCallDataSize()
 
 GetCallDataSize returns the size of calldata set by the current function's caller in bytes. For the outermost function call, the data is always the data request's encoded parameters.
 
@@ -73,7 +73,7 @@ Returns:
 
 - `dataSize: i32`: - The size of the calldata in bytes.
 
-##### `readCallData(i32ptr, i32, i32) -> ()`
+##### readCallData(i32ptr, i32, i32)
 
 readCallData returns the specific part of calldata into the runtime memory. The function will fail if `seekOffset + resultSize > getCallDataSize()`.
 
@@ -83,7 +83,7 @@ Parameters:
 - `seekOffset: i32` - The starting offset of calldata to start copying.
 - `resultSize: i32` - The number of bytes to copy.
 
-##### `saveReturnData(i32ptr, i32, i32) -> ()`
+##### saveReturnData(i32ptr, i32, i32)
 
 saveReturnData saves the specific part of memory as the return data of the current Owasm execution.
 
@@ -92,7 +92,7 @@ Parameters:
 - `dateOffset: i32ptr` - The starting memory offset to copy return data into.
 - `dataSize: i32` - The number of bytes to copy.
 
-##### `requestExternalData(i64, i64, i32ptr, i32)`
+##### requestExternalData(i64, i64, i32ptr, i32)
 
 RequestExternalData issues a raw data request for a specific data source to block validators. The function can only be called during the preparation phase of an oracle script.
 
@@ -103,7 +103,7 @@ Parameters:
 - `dataOffset: i32ptr` - The starting memory offset of the parameter to data source.
 - `dataLength: i32` - The size of the parameter in bytes.
 
-##### `getExternalDataSize(i64, i32) -> i32`
+##### getExternalDataSize(i64, i32)
 
 GetExternalDataSize returns the size of raw data report for a specific raw data request from a specific block validator. Return `-1` if the validator did not report data.
 
@@ -112,7 +112,7 @@ Parameters:
 - `externalDataId: i64` - The unique identifier of the raw data request.
 - `validatorIndex: i32` - The index of block validators. 0 for the first, 1 for the second validator, and so on. Must be less than the number of requested validators.
 
-##### `readExternalData(i64, i32, i32ptr, i32, i32) -> ()`
+##### readExternalData(i64, i32, i32ptr, i32, i32)
 
 ReadExternalData reads the specific part of raw data reports into the runtime memory. The function will fail if `seekOffset + resultSize > getExternalDataSize()`.
 
@@ -124,7 +124,7 @@ Parameters:
 - `seekOffset: i32` - The starting offset of raw report data to start copying.
 - `resultSize: i32` - The
 
-### `Owasm/Ext`
+### Owasm/Ext
 
 The Owasm extension module provides a convenient way to write oracle scripts that connect to various public APIs. Examples of these are functions to calculate the mean, median, and majority values from the validator's reported results, which can be used during the aggregation phase of an oracle script. The full list of functions and its implementation can be found [here](https://github.com/bandprotocol/bandchain/blob/master/owasm/src/ext/mod.rs).
 

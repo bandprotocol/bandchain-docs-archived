@@ -25,7 +25,7 @@ module.exports = {
       auto: false,
       nav: [
         {
-          title: 'Reference',
+          title: 'Documentation',
           children: [
             {
               title: 'Introduction',
@@ -37,20 +37,58 @@ module.exports = {
               directory: true,
               path: '/whitepaper',
             },
-          ],
-        },
-        {
-          title: 'Developer',
-          children: [
             {
               title: 'Technical Specifications',
               directory: true,
-              path: '/developer/technical-specifications',
+              path: '/technical-specifications',
+            },
+          ],
+        },
+        {
+          title: 'Band Standard Dataset',
+          children: [
+            {
+              title: 'Introduction',
+              path: '/band-standard-dataset/',
             },
             {
-              title: 'dApp Integrations',
+              title: 'Supported Blockchains',
+              path: '/band-standard-dataset/supported-blockchains',
+            },
+            {
+              title: 'Supported Price Feeds',
+              path: '/band-standard-dataset/supported-feeds',
+            },
+            {
+              title: 'Using the Data',
               directory: true,
-              path: '/developer/dapp-integrations',
+              path: '/band-standard-dataset/using-band-dataset',
+            },
+          ],
+        },
+        {
+          title: 'Using Any Datasets',
+          children: [
+            {
+              title: 'Introduction',
+              path: '/using-any-datasets',
+            },
+            {
+              title: 'Supported Blockchains',
+              path: '/using-any-datasets/supported-blockchains',
+            },
+            {
+              title: 'Available Oracle Scripts',
+              path: '/using-any-datasets/default-oracle-scripts',
+            },
+          ],
+        },
+        {
+          title: 'Reference',
+          children: [
+            {
+              title: 'Contracts',
+              path: '/contracts/',
             },
           ],
         },
@@ -67,7 +105,7 @@ module.exports = {
       },
       forum: {
         title: 'Telegram Group',
-        text: 'General Chat for all things Band Protocol',
+        text: 'General chat for all things Band Protocol',
         url: 'https://100x.band/tg',
         bg: 'linear-gradient(221.79deg, #2eb1f3 -1.08%, #0289cc 95.88%)',
         logo: 'telegram',

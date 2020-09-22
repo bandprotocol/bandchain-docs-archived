@@ -1,4 +1,4 @@
-# BandChain's Oracle
+# The BandChain Oracle
 
 Oracle solutions such as Band’s **act as the middle layer**, operating between the smart contracts or decentralized applications and the various data sources. Their task is then to handle data requests coming from the dApps, query the data from the corresponding data sources, and report the results back to the application.
 

@@ -74,7 +74,7 @@ As an example, below is an example OBI schema of an oracle script to fetch the p
 - The input is a struct with 2 fields: a string symbol and a u64 multiplier.
 - The output is a struct with 2 fields: a u64 final price and a vector of struct each has string name and u64 timestamp.
 
-```sh
+```json
 # Compact OBI representation...
 {symbol:string,multiplier:u64}/{price:u64,sources:[{name:string,time:u64}]}
 
