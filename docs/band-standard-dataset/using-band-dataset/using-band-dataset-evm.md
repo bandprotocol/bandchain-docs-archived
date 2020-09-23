@@ -1,22 +1,10 @@
-<!--
-order: 2
--->
+# Using the Reference Prices in Smart Contracts
 
-# Using the Dataset in Smart Contracts
+For EVM-compatible chains, we've deployed a new `StdReference` contract. This contract exposes `getReferenceData` and `getRefenceDataBulk` functions.
 
-## Prerequisite Readings
+`getReferenceData` takes two strings as the inputs, the base and quote symbol, respectively. It then queries the `StdReference` contract for the latest rates for those two tokens, and returns a `ReferenceData` struct, shown below.
 
-- [Supported Blockchains](../supported-blockchain.md) {prereq}
-
-For EVM-compatible chains, we've deployed a new `StdReference` contract. This contract exposes two functions: `getReferenceData` and `getRefenceDataBulk`.
-
-## Functions
-
-### getReferenceData
-
-`getReferenceData` takes two strings as inputs; the base and quote symbol of the pair you want to query. It then retrieves the latest updated price of those two tokens, and returns the result as a `ReferenceData` struct, shown below.
-
-```js
+```solidity
 struct ReferenceData {
     uint256 rate; // base/quote exchange rate, multiplied by 1e18.
     uint256 lastUpdatedBase; // UNIX epoch of the last time when base price gets updated.
@@ -24,21 +12,18 @@ struct ReferenceData {
 }
 ```
 
-### getReferenceDataBulk
-
 `getReferenceDataBulk` instead takes two lists, one of the `base` tokens, and one of the `quotes`. It then proceeds to similarly queries the price for each base/quote pair at each index, and returns an array of `ReferenceData` structs.
 
-For example, if we call `getReferenceDataBulk` with `['BTC','BTC','ETH']` and `['USD','ETH','BAND']`, the returned `ReferenceData` array will contain information regarding the pairs:
-
+For example, if we call `getReferenceDataBulk` with `['BTC','BTC','ETH']` and `['USD','ETH','BNB']`, the returned `ReferenceData` array will contain information regarding the pairs:
 - `BTC/USD`
 - `BTC/ETH`
-- `ETH/BAND`
+- `ETH/BNB`
 
-## Example Usage
+### Example Usage
 
-The contract code below demonstrates a simple usage of the new `StdReference` contract and the `getReferenceData` / `getReferenceDataBulk` functions.
+The contract code below demonstrates a simple usage of the new `StdReference` contract and the `getReferenceData` function. 
 
-```js
+```solidity
 pragma solidity 0.6.11;
 pragma experimental ABIEncoderV2;
 
@@ -72,28 +57,24 @@ contract DemoOracle {
         ref = _ref;
     }
 
-    function getPrice(string memory base, string memory quote) external view returns (uint256){
-        IStdReference.ReferenceData memory data = ref.getReferenceData(base,quote);
+    function getPrice() external view returns (uint256){
+        IStdReference.ReferenceData memory data = ref.getReferenceData("BTC","USD");
         return data.rate;
     }
 
-    function getMultiPrices() external view returns (uint256[3] memory){
-        string[] memory baseSymbols = new string[](3);
+    function getMultiPrices() external view returns (uint256[] memory){
+        string[] memory baseSymbols = new string[](2);
         baseSymbols[0] = "BTC";
-        baseSymbols[1] = "BTC";
-        baseSymbols[2] = "ETH";
+        baseSymbols[1] = "ETH";
 
-        string[] memory quoteSymbols = new string[](3);
+        string[] memory quoteSymbols = new string[](2);
         quoteSymbols[0] = "USD";
-        quoteSymbols[1] = "ETH";
-        quoteSymbols[2] = "BAND;
-
+        quoteSymbols[1] = "USD";
         IStdReference.ReferenceData[] memory data = ref.getRefenceDataBulk(baseSymbols,quoteSymbols);
 
-        uint256[] memory prices = new uint256[](3);
+        uint256[] memory prices = new uint256[](2);
         prices[0] = data[0].rate;
         prices[1] = data[1].rate;
-        prices[2] = data[2].rate;
 
         return prices;
     }
@@ -104,11 +85,3 @@ contract DemoOracle {
     }
 }
 ```
-
-This contract has 3 main functions to show the different general ways that the `StdReference` contract might be used.
-
-### getPrice
-
-### getMultiPrice
-
-### savePrice
