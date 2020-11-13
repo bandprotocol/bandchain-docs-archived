@@ -1,6 +1,9 @@
 module.exports = {
   theme: 'cosmos',
   title: 'Band Protocol Documentation',
+  plugins: [
+    'vuepress-plugin-element-tabs'
+  ],
   locales: {
     '/': {
       lang: 'en-US',
@@ -41,6 +44,11 @@ module.exports = {
               title: 'Technical Specifications',
               directory: true,
               path: '/technical-specifications',
+            },
+            {
+              title: 'Client Library',
+              directory: true,
+              path: '/client-library',
             },
           ],
         },
