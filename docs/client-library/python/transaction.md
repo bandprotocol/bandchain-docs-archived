@@ -8,6 +8,8 @@ For sent the transaction on BandChain, ...
 | ---------- | ------------- |
 | ValueError | Invalid value |
 
+---
+
 ## with_messages(msgs)
 
 Add one or multiple [`<Msg>`] to [`<Transaction>`].
@@ -19,6 +21,8 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
+
+---
 
 ## with_auto(client)
 
@@ -32,6 +36,8 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 
 [`<Transaction>`]
 
+---
+
 ## with_account_num(account_num)
 
 Set account number to [`<Transaction>`].
@@ -43,6 +49,8 @@ Set account number to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
+
+---
 
 ## with_sequence(sequence)
 
@@ -56,6 +64,8 @@ Set sequence number to [`<Transaction>`].
 
 [`<Transaction>`]
 
+---
+
 ## with_chain_id(chain_id)
 
 Set chain id to [`<Transaction>`].
@@ -67,6 +77,8 @@ Set chain id to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
+
+---
 
 ## with_fee(fee)
 
@@ -80,6 +92,8 @@ Set fee to [`<Transaction>`].
 
 [`<Transaction>`]
 
+---
+
 ## with_gas(gas)
 
 Set gas to [`<Transaction>`].
@@ -91,6 +105,8 @@ Set gas to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
+
+---
 
 ## with_memo(memo)
 
@@ -104,6 +120,8 @@ Set memo to [`<Transaction>`].
 
 [`<Transaction>`]
 
+---
+
 ## get_sign_data()
 
 Get sign data from [`<Transaction>`].
@@ -111,6 +129,8 @@ Get sign data from [`<Transaction>`].
 #### Return
 
 `<bytes>`
+
+---
 
 ## get_tx_data(signature, pubkey)
 
@@ -124,6 +144,8 @@ Get transaction data from [`<Transaction>`].
 #### Return
 
 `<dict>`
+
+---
 
 #### Example
 
@@ -156,6 +178,8 @@ def main():
 ```python
 b'{"account_number":"100","chain_id":"bandchain","fee":{"amount":[{"amount":"10","denom":"uband"}],"gas":"500000"},"memo":"","msgs":[{"type":"oracle/Request","value":{"ask_count":"4","calldata":"AAAAA0JUQwAAAAAAAAAB","client_id":"from_pyband","min_count":"3","oracle_script_id":"1","sender":"band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"}}],"sequence":"30"}'
 ```
+
+---
 
 #### Example
 
