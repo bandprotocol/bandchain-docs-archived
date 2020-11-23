@@ -2,31 +2,9 @@
 
 Message to be included in [`<Transaction>`]
 
-## Msg
+---
 
-## as_json()
-
-#### Return
-
-`<dict>`
-
-## get_sender()
-
-Return sender's address.
-
-#### Return
-
-[`<Address>`]
-
-## validate()
-
-Validate data in Message.
-
-#### Return
-
-`<bool>`
-
-## MsgRequest(Msg)
+## MsgRequest()
 
 #### Constructor
 
@@ -45,6 +23,7 @@ from pyband.wallet import Address
 
 def main():
   addr = Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte")
+
   msg_request = MsgRequest(
                   oracle_script_id=1,
                   calldata=bytes.fromhex("000000034254430000000000000001"),
@@ -53,25 +32,11 @@ def main():
                   client_id="from_pyband",
                   sender=addr
                 )
-  print(msg_request.as_json())
 ```
 
-#### Result
+---
 
-```json
-{
-  "type": "oracle/Request",
-  "value": {
-    "oracle_script_id": "1",
-    "calldata": "AAAAA0JUQwAAAAAAAAAB",
-    "ask_count": "4",
-    "min_count": "3",
-    "client_id": "from_pyband",
-    "sender": "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"
-}
-```
-
-## MsgSend(Msg)
+## MsgSend()
 
 #### Constructor
 
@@ -89,35 +54,26 @@ from pyband.wallet import Address
 def main():
   to_addr = Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte")
   from_addr = Address.from_acc_bech32("band1acavyhqpxmz6jt390xze705620q23e4tx4r5he")
+  coin = Coin(amount=1000000, denom="uband")
+
   msg_send = MsgSend(
-    to_address=to_addr,
-    from_address=from_addr,
-    amount=[Coin(amount=1000000, denom="uband")]
-  )
-
-  print(msg_send.as_json())
+              to_address=to_addr,
+              from_address=from_addr,
+              amount=[coin]
+            )
 ```
 
-#### Result
+---
 
-```json
-{
-  "type": "cosmos-sdk/MsgSend",
-  "value": {
-    "to_address": "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte",
-    "from_address": "band1acavyhqpxmz6jt390xze705620q23e4tx4r5he",
-    "amount": [{ "amount": "1000000", "denom": "uband" }]
-  }
-}
-```
-
-## MsgDelegate(Msg)
+## MsgDelegate()
 
 #### Constructor
 
 - **delegator_address** [`<Address>`]
 - **validator_address** [`<Address>`]
 - **amount** [`<Coin>`]
+
+#### Example
 
 ```python
 from pyband.data import Coin
@@ -127,26 +83,13 @@ from pyband.wallet import Address
 def main():
   delegator_addr = Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte")
   validator_addr = Address.from_val_bech32("bandvaloper1j9vk75jjty02elhwqqjehaspfslaem8pr20qst")
+  coin = Coin(amount=1000000, denom="uband")
+
   msg_delegate = MsgDelegate(
-    delegator_address=delegator_addr,
-    validator_address=validator_addr,
-    amount=Coin(amount=1000000, denom="uband")
-  )
-
-  print(msg_delegate.as_json())
-```
-
-#### Result
-
-```json
-{
-  "type": "cosmos-sdk/MsgDelegate",
-  "value": {
-    "delegator_address": "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte",
-    "validator_address": "bandvaloper1j9vk75jjty02elhwqqjehaspfslaem8pr20qst",
-    "amount": { "amount": "1000000", "denom": "uband" }
-  }
-}
+                  delegator_address=delegator_addr,
+                  validator_address=validator_addr,
+                  amount=coin
+                )
 ```
 
 [`<transaction>`]: /client-library/python/transaction.html "Transaction"
