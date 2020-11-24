@@ -80,7 +80,7 @@ The function helps you to get the account details
 
 #### Parameter
 
-- address [`<Address>`]
+- **address** [`<Address>`]
 
 #### Return
 
@@ -116,7 +116,7 @@ The function helps you to get the data source details by id
 
 #### Parameter
 
-- id `<int>` Data source ID
+- **id** `<int>` Data source ID
 
 #### Return
 
@@ -151,7 +151,7 @@ The function helps you to get the oracle script details by id
 
 #### Parameter
 
-- id `<int>` Oracle Script ID
+- **id** `<int>` Oracle Script ID
 
 #### Return
 
@@ -186,7 +186,7 @@ The function helps you to get the request details by id
 
 #### Parameter
 
-- id `<int>` Request ID
+- **id** `<int>` Request ID
 
 #### Return
 
@@ -221,7 +221,7 @@ The function helps you to get the reporters of validator
 
 #### Parameter
 
-- validator [`<Address>`]
+- **validator** [`<Address>`]
 
 #### Return
 
@@ -257,10 +257,10 @@ The function helps you to get the latest request
 
 #### Parameter
 
-- oid `<int>` oracle script ID
-- calldata `<bytes>` The input parameters associated with the request
-- min_count `<int>` The minimum number of validators necessary for the request to proceed to the execution phase
-- ask_count `<int>` The number of validators that are requested to respond to this request
+- **oid** `<int>` oracle script ID
+- **calldata** `<bytes>` The input parameters associated with the request
+- **min_count** `<int>` The minimum number of validators necessary for the request to proceed to the execution phase
+- **ask_count** `<int>` The number of validators that are requested to respond to this request
 
 #### Return
 
@@ -302,7 +302,7 @@ The function helps you to send transaction block mode.
 
 #### Parameter
 
-- data `<dict>` The signed transaction
+- **data** `<dict>` The signed transaction
 
 #### Return
 
@@ -368,7 +368,7 @@ The function helps you to send transaction sync mode.
 
 #### Parameter
 
-- data `<dict>` The signed transaction
+- **data** `<dict>` The signed transaction
 
 #### Return
 
@@ -434,7 +434,7 @@ The function helps you to send transaction async mode.
 
 #### Parameter
 
-- data `<dict>` The signed transaction
+- **data** `<dict>` The signed transaction
 
 #### Return
 
@@ -500,8 +500,8 @@ The function helps you to get price symbols based on min count and ask count
 
 #### Parameter
 
-- min_count `<int>` The minimum number of validators necessary for the request to proceed to the execution phase
-- ask_count `<int>` The number of validators that are requested to respond to this request
+- **min_count** `<int>` The minimum number of validators necessary for the request to proceed to the execution phase
+- **ask_count** `<int>` The number of validators that are requested to respond to this request
 
 #### Return
 
@@ -537,7 +537,7 @@ The function helps you to get price symbols based on min count and ask count
 
 #### Parameter
 
-- tx_hash `<HexBytes>(bytes type alias)` Transaction hash
+- **tx_hash** `<HexBytes>(bytes type alias)` Transaction hash
 
 #### Return
 
