@@ -280,7 +280,7 @@ def main():
 }
 ```
 
-[`<transaction>`]: /client-library/python/transaction.html "Transaction"
-[`<client>`]: /client-library/python/client.html "Client"
-[`<msg>`]: /client-library/python/message.html "Message"
-[`<publickey>`]: /client-library/python/wallet.html "PublicKey"
+[`<transaction>`]: /client-library/pyband/transaction.html "Transaction"
+[`<client>`]: /client-library/pyband/client.html "Client"
+[`<msg>`]: /client-library/pyband/message.html "Message"
+[`<publickey>`]: /client-library/pyband/wallet.html "PublicKey"

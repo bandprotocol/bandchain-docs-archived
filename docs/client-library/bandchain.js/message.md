@@ -111,9 +111,9 @@ const coin = new Coin(100000, "uband");
 const msgDelegate = new MsgDelegate(delAddr, valAddr, coin);
 ```
 
-[`<transaction>`]: /client-library/typescript/transaction.html "Transaction"
-[`<client>`]: /client-library/typescript/client.html "Client"
-[`<msg>`]: /client-library/typescript/message.html "Message"
-[`<address>`]: /client-library/typescript/wallet.html "Address"
-[`<publickey>`]: /client-library/typescript/wallet.html "PublicKey"
-[`<coin>`]: /client-library/typescript/data.html "Coin"
+[`<transaction>`]: /client-library/bandchain.js/transaction.html "Transaction"
+[`<client>`]: /client-library/bandchain.js/client.html "Client"
+[`<msg>`]: /client-library/bandchain.js/message.html "Message"
+[`<address>`]: /client-library/bandchain.js/wallet.html "Address"
+[`<publickey>`]: /client-library/bandchain.js/wallet.html "PublicKey"
+[`<coin>`]: /client-library/bandchain.js/data.html "Coin"
