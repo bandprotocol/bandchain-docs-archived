@@ -49,14 +49,14 @@ module.exports = {
           title: "Client Library",
           children: [
             {
-              title: "Python",
+              title: "PyBand",
               directory: true,
-              path: "/client-library/python",
+              path: "/client-library/pyband",
             },
             {
-              title: "TypeScript",
+              title: "Bandchain.js",
               directory: true,
-              path: "/client-library/typescript",
+              path: "/client-library/bandchain.js",
             },
           ],
         },
