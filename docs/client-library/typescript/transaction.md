@@ -36,6 +36,12 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 
 [`<Promise<Transaction>>`]
 
+#### Exceptions
+
+| Type  | Description                                                   |
+| ----- | ------------------------------------------------------------- |
+| Error | Message is empty, please use withMessages at least 1 message. |
+
 ---
 
 ## withAccountNum(accountNum)
@@ -50,6 +56,14 @@ Set account number to [`<Transaction>`].
 
 [`<Transaction>`]
 
+#### Exceptions
+
+| Type  | Description                  |
+| ----- | ---------------------------- |
+| Error | accountNum is not an integer |
+
+---
+
 ---
 
 ## with_sequence(sequence)
@@ -63,6 +77,12 @@ Set sequence number to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
+
+#### Exceptions
+
+| Type  | Description                |
+| ----- | -------------------------- |
+| Error | sequence is not an integer |
 
 ---
 
@@ -92,6 +112,12 @@ Set fee to [`<Transaction>`].
 
 [`<Transaction>`]
 
+#### Exceptions
+
+| Type  | Description           |
+| ----- | --------------------- |
+| Error | fee is not an integer |
+
 ---
 
 ## withGas(gas)
@@ -105,6 +131,12 @@ Set gas to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
+
+#### Exceptions
+
+| Type  | Description           |
+| ----- | --------------------- |
+| Error | gas is not an integer |
 
 ---
 
@@ -130,6 +162,15 @@ Get sign data from [`<Transaction>`].
 
 `<Buffer>`
 
+#### Exceptions
+
+| Type  | Description                  |
+| ----- | ---------------------------- |
+| Error | message is empty             |
+| Error | accountNum should be defined |
+| Error | sequence should be defined   |
+| Error | chainID should be defined    |
+
 ---
 
 ## getTxData(signature, pubkey)
@@ -144,6 +185,13 @@ Get transaction data from [`<Transaction>`].
 #### Return
 
 `<object>`
+
+#### Exceptions
+
+| Type  | Description                  |
+| ----- | ---------------------------- |
+| Error | accountNum should be defined |
+| Error | sequence should be defined   |
 
 ---
 

@@ -15,6 +15,15 @@ Message to be included in [`<Transaction>`]
 - **client_id** `<str>` Length is limited to 128.
 - **sender** [`<Address>`]
 
+#### Exceptions
+
+| Type       | Description                                                        |
+| ---------- | ------------------------------------------------------------------ |
+| ValueError | oracleScriptID cannot less than zero                               |
+| ValueError | too large calldata                                                 |
+| ValueError | invalid minCount, got: minCount: \${minCount}                      |
+| ValueError | invalid askCount got: minCount: ${minCount}, askCount: ${askCount} |
+
 #### Example
 
 ```python
@@ -43,6 +52,12 @@ def main():
 - **to_address** [`<Address>`]
 - **from_address** [`<Address>`]
 - **amount** [`<[Coin]>`](/client-library/python/data.html)
+
+#### Exceptions
+
+| Type       | Description            |
+| ---------- | ---------------------- |
+| ValueError | Expect at least 1 coin |
 
 #### Example
 

@@ -2,12 +2,6 @@
 
 For sent the transaction on BandChain, ...
 
-## Exceptions
-
-| Type       | Description   |
-| ---------- | ------------- |
-| ValueError | Invalid value |
-
 ---
 
 <!-- prettier-ignore-start -->
@@ -39,6 +33,12 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
+
+#### Exceptions
+
+| Type       | Description                                                    |
+| ---------- | -------------------------------------------------------------- |
+| ValueError | Message is empty, please use with_messages at least 1 message. |
 
 ---
 
@@ -147,6 +147,15 @@ Get sign data from [`<Transaction>`].
 #### Return
 
 `<bytes>`
+
+#### Exceptions
+
+| Type       | Description                   |
+| ---------- | ----------------------------- |
+| ValueError | message is empty              |
+| ValueError | account_num should be defined |
+| ValueError | sequence should be defined    |
+| ValueError | chain_id should be defined    |
 
 ---
 
