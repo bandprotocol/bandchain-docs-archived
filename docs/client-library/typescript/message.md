@@ -15,6 +15,18 @@ Message to be included in [`<Transaction>`]
 - **clientID** `<string>` Length is limited to 128.
 - **sender** [`<Address>`]
 
+#### Exceptions
+
+| Type  | Description                                                        |
+| ----- | ------------------------------------------------------------------ |
+| Error | oracleScriptID cannot less than zero                               |
+| Error | oracleScriptID is not an integer                                   |
+| Error | too large calldata                                                 |
+| Error | askCount is not an integer                                         |
+| Error | minCount is not an integer                                         |
+| Error | invalid minCount, got: minCount: \${minCount}                      |
+| Error | invalid askCount got: minCount: ${minCount}, askCount: ${askCount} |
+
 #### Example
 
 ```javascript
@@ -42,6 +54,12 @@ const msgRequest = new MsgRequest(1, calldata, 2, 2, memo, senderAddr);
 - **toAddress** [`<Address>`]
 - **fromAddress** [`<Address>`]
 - **amount** [`<[Coin]>`](/client-library/typescript/data.html)
+
+#### Exceptions
+
+| Type  | Description            |
+| ----- | ---------------------- |
+| Error | Expect at least 1 coin |
 
 #### Example
 
