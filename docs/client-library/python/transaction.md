@@ -10,7 +10,9 @@ For sent the transaction on BandChain, ...
 
 ---
 
-## with_messages(msgs)
+<!-- prettier-ignore-start -->
+## with\_messages(msgs)
+<!-- prettier-ignore-end -->
 
 Add one or multiple [`<Msg>`] to [`<Transaction>`].
 
@@ -24,7 +26,9 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 
 ---
 
-## with_auto(client)
+<!-- prettier-ignore-start -->
+## with\_auto(client)
+<!-- prettier-ignore-end -->
 
 [`<Transaction>`] must have at least 1 message already before using `withAuto()`. This function set `accountNumber` and `sequence` from [`<Client>`] with address from sender in `self.msgs[0]`.
 
@@ -38,7 +42,9 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 
 ---
 
-## with_account_num(account_num)
+<!-- prettier-ignore-start -->
+## with\_account\_num(account\_num)
+<!-- prettier-ignore-end -->
 
 Set account number to [`<Transaction>`].
 
@@ -52,7 +58,9 @@ Set account number to [`<Transaction>`].
 
 ---
 
-## with_sequence(sequence)
+<!-- prettier-ignore-start -->
+## with\_sequence(sequence)
+<!-- prettier-ignore-end -->
 
 Set sequence number to [`<Transaction>`].
 
@@ -66,7 +74,9 @@ Set sequence number to [`<Transaction>`].
 
 ---
 
-## with_chain_id(chain_id)
+<!-- prettier-ignore-start -->
+## with\_chain\_id(chain\_id)
+<!-- prettier-ignore-end -->
 
 Set chain id to [`<Transaction>`].
 
@@ -80,7 +90,9 @@ Set chain id to [`<Transaction>`].
 
 ---
 
-## with_fee(fee)
+<!-- prettier-ignore-start -->
+## with\_fee(fee)
+<!-- prettier-ignore-end -->
 
 Set fee to [`<Transaction>`].
 
@@ -94,7 +106,9 @@ Set fee to [`<Transaction>`].
 
 ---
 
-## with_gas(gas)
+<!-- prettier-ignore-start -->
+## with\_gas(gas)
+<!-- prettier-ignore-end -->
 
 Set gas to [`<Transaction>`].
 
@@ -108,7 +122,9 @@ Set gas to [`<Transaction>`].
 
 ---
 
+<!-- prettier-ignore-start -->
 ## with_memo(memo)
+<!-- prettier-ignore-end -->
 
 Set memo to [`<Transaction>`].
 
@@ -122,7 +138,9 @@ Set memo to [`<Transaction>`].
 
 ---
 
-## get_sign_data()
+<!-- prettier-ignore-start -->
+## get\_sign\_data()
+<!-- prettier-ignore-end -->
 
 Get sign data from [`<Transaction>`].
 
@@ -132,7 +150,9 @@ Get sign data from [`<Transaction>`].
 
 ---
 
-## get_tx_data(signature, pubkey)
+<!-- prettier-ignore-start -->
+## get\_tx\_data(signature, pubkey)
+<!-- prettier-ignore-end -->
 
 Get transaction data from [`<Transaction>`].
 
