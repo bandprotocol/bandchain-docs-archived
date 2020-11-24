@@ -38,7 +38,9 @@ curtain diamond ... never title tackle skin pave fiber
 
 ---
 
-### from_mnemonic(word, path)
+<!-- prettier-ignore-start -->
+### from\_mnemonic(word, path)
+<!-- prettier-ignore-end -->
 
 Create a PrivateKey instance from a given mnemonic phrase and a HD derivation path.
 
@@ -70,7 +72,9 @@ print(priv)
 
 ---
 
-### from_hex(priv)
+<!-- prettier-ignore-start -->
+### from\_hex(priv)
+<!-- prettier-ignore-end -->
 
 Create a PrivateKey instance from a given a hex representation of signing key.
 
@@ -92,7 +96,9 @@ priv = PrivateKey.from_hex("2442b724db7189468f16accc0fc505f0609817eb129e13702e69
 
 ---
 
-### to_hex
+<!-- prettier-ignore-start -->
+### to\_hex
+<!-- prettier-ignore-end -->
 
 Return a hex representation of signing key.
 
@@ -117,7 +123,9 @@ print(priv.to_hex())
 
 ---
 
-### to_pubkey
+<!-- prettier-ignore-start -->
+### to\_pubkey
+<!-- prettier-ignore-end -->
 
 Return the PublicKey associated with this private key.
 
@@ -175,7 +183,9 @@ print(priv.sign(b"test message").hex())
 
 Class for wraping VerifyKey using for signature verification. Adding method to encode/decode to Bech32 format.
 
-### from_acc_bech32(bech)
+<!-- prettier-ignore-start -->
+### from\_acc\_bech32(bech)
+<!-- prettier-ignore-end -->
 
 Create a PublicKey instance from a bech32-encoded with account public key prefix.
 
@@ -197,7 +207,9 @@ publickey = PublicKey.from_acc_bech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vu
 
 ---
 
-### from_val_bech32(bech)
+<!-- prettier-ignore-start -->
+### from\_val\_bech32(bech)
+<!-- prettier-ignore-end -->
 
 Create a PublicKey instance from a bech32-encoded with validator public key prefix
 
@@ -219,7 +231,9 @@ publickey = PublicKey.from_val_bech32("bandvaloperpub1addwnpepqdg7nrsmuztj2re07s
 
 ---
 
-### from_cons_bech32(bech)
+<!-- prettier-ignore-start -->
+### from\_cons\_bech32(bech)
+<!-- prettier-ignore-end -->
 
 Create a PublicKey instance from a bech32-encoded with validator consensus public key prefix
 
@@ -241,7 +255,9 @@ publickey = PublicKey.from_cons_bech32("bandvalconspub1addwnpepqdg7nrsmuztj2re07
 
 ---
 
-### to_hex
+<!-- prettier-ignore-start -->
+### to\_hex
+<!-- prettier-ignore-end -->
 
 Return a hex representation of verifying key.
 
@@ -266,7 +282,9 @@ print(publickey.to_hex())
 
 ---
 
-### to_acc_bech32
+<!-- prettier-ignore-start -->
+### to\_acc\_bech32
+<!-- prettier-ignore-end -->
 
 Return bech32-encoded with account public key prefix
 
@@ -291,7 +309,10 @@ bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v
 
 ---
 
-### to_val_bech32
+<!-- prettier-ignore-start -->
+### to\_val\_bech32
+
+<!-- prettier-ignore-end -->
 
 Return bech32-encoded with validator public key prefix
 
@@ -316,7 +337,10 @@ bandvaloperpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q69gsm
 
 ---
 
-### to_cons_bech32
+<!-- prettier-ignore-start -->
+### to\_cons\_bech32
+
+<!-- prettier-ignore-end -->
 
 Return bech32-encoded with validator consensus public key prefix
 
@@ -341,7 +365,10 @@ bandvalconspub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6r8yt
 
 ---
 
-### to_address
+<!-- prettier-ignore-start -->
+### to\_address
+
+<!-- prettier-ignore-end -->
 
 Return address instance from this public key
 
@@ -403,7 +430,10 @@ True
 
 Class for wraping Address. Adding method to encode/decode to Bech32 format.
 
-### from_acc_bech32(bech)
+<!-- prettier-ignore-start -->
+### from\_acc\_bech32(bech)
+
+<!-- prettier-ignore-end -->
 
 Create a Address instance from a bech32-encoded with account prefix.
 
@@ -425,7 +455,10 @@ address = Address.from_acc_bech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c")
 
 ---
 
-### from_val_bech32(bech)
+<!-- prettier-ignore-start -->
+### from\_val\_bech32(bech)
+
+<!-- prettier-ignore-end -->
 
 Create a Address instance from a bech32-encoded with validator prefix
 
@@ -447,7 +480,10 @@ address = Address.from_val_bech32("bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8
 
 ---
 
-### from_cons_bech32(bech)
+<!-- prettier-ignore-start -->
+### from\_cons\_bech32(bech)
+
+<!-- prettier-ignore-end -->
 
 Create a Address instance from a bech32-encoded with validator consensus prefix
 
@@ -469,7 +505,9 @@ address = Address.from_cons_bech32("bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfm
 
 ---
 
-### to_hex
+<!-- prettier-ignore-start -->
+### to\_hex
+<!-- prettier-ignore-end -->
 
 Return a hex representation of Address.
 
@@ -494,7 +532,9 @@ print(address.to_hex())
 
 ---
 
-### to_acc_bech32
+<!-- prettier-ignore-start -->
+### to\_acc\_bech32
+<!-- prettier-ignore-end -->
 
 Return bech32-encoded with account prefix
 
@@ -519,7 +559,9 @@ band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c
 
 ---
 
-### to_val_bech32
+<!-- prettier-ignore-start -->
+### to\_val\_bech32
+<!-- prettier-ignore-end -->
 
 Return bech32-encoded with validator prefix
 
@@ -544,7 +586,9 @@ bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn
 
 ---
 
-### to_cons_bech32
+<!-- prettier-ignore-start -->
+### to\_cons\_bech32
+<!-- prettier-ignore-end -->
 
 Return bech32-encoded with validator consensus prefix
 
