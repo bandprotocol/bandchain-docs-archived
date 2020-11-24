@@ -4,7 +4,7 @@
 
 | Attribute      | Type           |
 | -------------- | -------------- |
-| address        | Address        |
+| address        | [`Address`]    |
 | coins          | list(dict)     |
 | public_key     | optional(dict) |
 | account_number | integer        |
@@ -41,30 +41,30 @@
 
 ## Block
 
-| Attribute | Type                          |
-| --------- | ----------------------------- |
-| block     | [`BlockHeader`](#blockheader) |
-| block_id  | [`BlockID`](#blockid)         |
+| Attribute | Type            |
+| --------- | --------------- |
+| block     | [`BlockHeader`] |
+| block_id  | [`BlockID`]     |
 
 ## DataSource
 
-| Attribute   | Type    |
-| ----------- | ------- |
-| owner       | Address |
-| name        | string  |
-| description | string  |
-| filename    | string  |
+| Attribute   | Type        |
+| ----------- | ----------- |
+| owner       | [`Address`] |
+| name        | string      |
+| description | string      |
+| filename    | string      |
 
 ## OracleScript
 
-| Attribute       | Type    |
-| --------------- | ------- |
-| owner           | Address |
-| name            | string  |
-| description     | string  |
-| filename        | string  |
-| schema          | string  |
-| source_code_url | string  |
+| Attribute       | Type        |
+| --------------- | ----------- |
+| owner           | [`Address`] |
+| name            | string      |
+| description     | string      |
+| filename        | string      |
+| schema          | string      |
+| source_code_url | string      |
 
 ## RawRequest
 
@@ -76,15 +76,15 @@
 
 ## Request
 
-| Attribute            | Type                              |
-| -------------------- | --------------------------------- |
-| oracle_script_id     | integer                           |
-| requested_validators | list(string)                      |
-| min_count            | integer                           |
-| request_height       | integer                           |
-| raw_requests         | list([`RawRequest`](#rawrequest)) |
-| client_id            | string                            |
-| calldata             | bytes                             |
+| Attribute            | Type                 |
+| -------------------- | -------------------- |
+| oracle_script_id     | integer              |
+| requested_validators | list(string)         |
+| min_count            | integer              |
+| request_height       | integer              |
+| raw_requests         | list([`RawRequest`]) |
+| client_id            | string               |
+| calldata             | bytes                |
 
 ## RawReport
 
@@ -95,11 +95,11 @@
 
 ## Report
 
-| Attribute         | Type                            |
-| ----------------- | ------------------------------- |
-| validator         | string                          |
-| raw_reports       | list([`RawReport`](#rawreport)) |
-| in_before_resolve | bool                            |
+| Attribute         | Type                |
+| ----------------- | ------------------- |
+| validator         | string              |
+| raw_reports       | list([`RawReport`]) |
+| in_before_resolve | bool                |
 
 ## RequestPacketData
 
@@ -125,18 +125,18 @@
 
 ## Result
 
-| Attribute            | Type                                        |
-| -------------------- | ------------------------------------------- |
-| request_packet_data  | [`RequestPacketData`](#requestpacketdata)   |
-| response_packet_data | [`ResponsePacketData`](#responsepacketdata) |
+| Attribute            | Type                   |
+| -------------------- | ---------------------- |
+| request_packet_data  | [`RequestPacketData`]  |
+| response_packet_data | [`ResponsePacketData`] |
 
 ## RequestInfo
 
-| Attribute | Type                                |
-| --------- | ----------------------------------- |
-| request   | [`Request`](#request)               |
-| reports   | optional(list([`Report`](#report))) |
-| result    | optional([`Result`](#result))       |
+| Attribute | Type                      |
+| --------- | ------------------------- |
+| request   | [`Request`]               |
+| reports   | optional(list([`Report`]) |
+| result    | optional([`Result`])      |
 
 ## TransactionSyncMode
 
@@ -163,3 +163,14 @@
 | code       | integer               |
 | log        | list(dict)            |
 | error_log  | optional(string)      |
+
+[`address`]: /client-library/pyband/wallet.html "Address"
+[`request`]: #request "Request"
+[`report`]: #report "Report"
+[`result`]: #result "Result"
+[`requestpacketdata`]: #requestpacketdata "RequestPacketData"
+[`responsepacketdata`]: #responsepacketdata "ResponsePacketData"
+[`blockheader`]: #blockheader "BlockHeader"
+[`blockid`]: #blockid "BlockID"
+[`blockheaderinfo`]: #blockheaderinfo "BlockHeaderInfo"
+[`coin`]: #coin "Coin"

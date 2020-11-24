@@ -48,7 +48,7 @@ The function helps you to get the latest block
 
 #### Return
 
-[`<Block>`](/client-library/bandchain.js/data.html#block)
+[`<Block>`]
 
 #### Example
 
@@ -76,11 +76,11 @@ The function helps you to get the account details
 
 #### Parameter
 
-- address [`<Address>`](#)
+- address [`<Address>`]
 
 #### Return
 
-[`<Account>`](/client-library/python/data.html#account)
+[`<Account>`]
 
 #### Example
 
@@ -153,7 +153,7 @@ The function helps you to get the data source details by id
 
 #### Return
 
-[`<DataSource>`](/client-library/bandchain.js/data.html#datasource)
+[`<DataSource>`]
 
 #### Example
 
@@ -218,7 +218,7 @@ The function helps you to get the oracle script details by id
 
 #### Return
 
-[`<OracleScript>`](/client-library/bandchain.js/data.html#oraclescript)
+[`<OracleScript>`]
 
 #### Example
 
@@ -284,7 +284,7 @@ The function helps you to get the request details by id
 
 #### Return
 
-[`<RequestInfo>`](/client-library/bandchain.js/data.html#requestinfo)
+[`<RequestInfo>`]
 
 #### Example
 
@@ -395,7 +395,7 @@ The function helps you to get the reporters of validator
 
 #### Parameter
 
-- validator [`<Address>`](#)
+- validator [`<Address>`]
 
 #### Return
 
@@ -603,7 +603,7 @@ The function helps you to get the latest request
 
 #### Return
 
-[`<RequestInfo>`](/client-library/bandchain.js/data.html#requestinfo)
+[`<RequestInfo>`]
 
 #### Example
 
@@ -4782,7 +4782,7 @@ The function helps you to send transaction block mode.
 
 #### Return
 
-[`<TransactionBlockMode>`](/client-library/bandchain.js/data.html#transactionblockmode)
+[`<TransactionBlockMode>`]
 
 #### Example
 
@@ -5030,7 +5030,7 @@ The function helps you to send transaction sync mode.
 
 #### Return
 
-[`<TransactionSyncMode>`](/client-library/bandchain.js/data.html#transactionsyncmode)
+[`<TransactionSyncMode>`]
 
 #### Example
 
@@ -5130,7 +5130,7 @@ The function helps you to send transaction async mode.
 
 #### Return
 
-[`<TransactionAsyncMode>`](/client-library/bandchain.js/data.html#transactionasyncmode)
+[`<TransactionAsyncMode>`]
 
 #### Example
 
@@ -5498,3 +5498,13 @@ const client = new Client("https://guanyu-testnet3-query.bandchain.org");
 ```json
 [403200]
 ```
+
+[`<address>`]: /client-library/bandchain.js/wallet.html "Address"
+[`<transactionasyncmode>`]: /client-library/bandchain.js/data.html#transactionasyncmode "TransactionAsyncMode"
+[`<transactionsyncmode>`]: /client-library/bandchain.js/data.html#transactionsyncmode "TransactionSyncMode"
+[`<transactionblockmode>`]: /client-library/bandchain.js/data.html#transactionblockmode "TransactionBlockMode"
+[`<block>`]: /client-library/bandchain.js/data.html#block "Block"
+[`<datasource>`]: /client-library/bandchain.js/data.html#datasource "DataSource"
+[`<oraclescript>`]: /client-library/bandchain.js/data.html#oraclescript "OracleScript"
+[`<requestinfo>`]: /client-library/bandchain.js/data.html#requestinfo "RequestInfo"
+[`<account>`]: /client-library/bandchain.js/data.html#account "Account"
