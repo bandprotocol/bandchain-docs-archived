@@ -51,7 +51,7 @@ The function helps you to get the latest block
 
 #### Return
 
-[`<Block>`](/client-library/python/data.html#block)
+[`<Block>`]
 
 #### Example
 
@@ -80,11 +80,11 @@ The function helps you to get the account details
 
 #### Parameter
 
-- address [`<Address>`](#)
+- address [`<Address>`]
 
 #### Return
 
-[`<Account>`](/client-library/python/data.html#account)
+[`<Account>`]
 
 #### Example
 
@@ -120,7 +120,7 @@ The function helps you to get the data source details by id
 
 #### Return
 
-[`<DataSource>`](/client-library/python/data.html#datasource)
+[`<DataSource>`]
 
 > Example
 
@@ -155,7 +155,7 @@ The function helps you to get the oracle script details by id
 
 #### Return
 
-[`<OracleScript>`](/client-library/python/data.html#oraclescript)
+[`<OracleScript>`]
 
 #### Example
 
@@ -190,7 +190,7 @@ The function helps you to get the request details by id
 
 #### Return
 
-[`<RequestInfo>`](/client-library/python/data.html#requestinfo)
+[`<RequestInfo>`]
 
 #### Example
 
@@ -221,7 +221,7 @@ The function helps you to get the reporters of validator
 
 #### Parameter
 
-- validator [`<Address>`](#)
+- validator [`<Address>`]
 
 #### Return
 
@@ -264,7 +264,7 @@ The function helps you to get the latest request
 
 #### Return
 
-[`<RequestInfo>`](/client-library/python/data.html#requestinfo)
+[`<RequestInfo>`]
 
 #### Example
 
@@ -306,7 +306,7 @@ The function helps you to send transaction block mode.
 
 #### Return
 
-[`<TransactionBlockMode>`](/client-library/python/data.html#transactionblockmode)
+[`<TransactionBlockMode>`]
 
 #### Example
 
@@ -372,7 +372,7 @@ The function helps you to send transaction sync mode.
 
 #### Return
 
-[`<TransactionSyncMode>`](/client-library/python/data.html#transactionsyncmode)
+[`<TransactionSyncMode>`]
 
 #### Example
 
@@ -438,7 +438,7 @@ The function helps you to send transaction async mode.
 
 #### Return
 
-[`<TransactionAsyncMode>`](/client-library/python/data.html#transactionasyncmode)
+[`<TransactionAsyncMode>`]
 
 #### Example
 
@@ -543,6 +543,12 @@ The function helps you to get price symbols based on min count and ask count
 
 `List<int>`
 
+#### Exception
+
+| Type       | Description                            |
+| ---------- | -------------------------------------- |
+| ValueError | There is no request message in this tx |
+
 #### Example
 
 ```python
@@ -563,8 +569,12 @@ print(c.get_request_id_by_tx_hash(tx_hash))
 [374762]
 ```
 
-#### Exception
-
-| Type       | Description                            |
-| ---------- | -------------------------------------- |
-| ValueError | There is no request message in this tx |
+[`<address>`]: /client-library/pyband/wallet.html "Address"
+[`<transactionasyncmode>`]: /client-library/pyband/data.html#transactionasyncmode "TransactionAsyncMode"
+[`<transactionsyncmode>`]: /client-library/pyband/data.html#transactionsyncmode "TransactionSyncMode"
+[`<transactionblockmode>`]: /client-library/pyband/data.html#transactionblockmode "TransactionBlockMode"
+[`<block>`]: /client-library/pyband/data.html#block "Block"
+[`<datasource>`]: /client-library/pyband/data.html#datasource "DataSource"
+[`<oraclescript>`]: /client-library/pyband/data.html#oraclescript "OracleScript"
+[`<requestinfo>`]: /client-library/pyband/data.html#requestinfo "RequestInfo"
+[`<account>`]: /client-library/pyband/data.html#account "Account"

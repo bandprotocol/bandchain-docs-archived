@@ -107,9 +107,9 @@ def main():
                 )
 ```
 
-[`<transaction>`]: /client-library/python/transaction.html "Transaction"
-[`<client>`]: /client-library/python/client.html "Client"
-[`<msg>`]: /client-library/python/message.html "Message"
-[`<address>`]: /client-library/python/wallet.html "Address"
-[`<publickey>`]: /client-library/python/wallet.html "PublicKey"
-[`<coin>`]: /client-library/python/data.html "Coin"
+[`<transaction>`]: /client-library/pyband/transaction.html "Transaction"
+[`<client>`]: /client-library/pyband/client.html "Client"
+[`<msg>`]: /client-library/pyband/message.html "Message"
+[`<address>`]: /client-library/pyband/wallet.html "Address"
+[`<publickey>`]: /client-library/pyband/wallet.html "PublicKey"
+[`<coin>`]: /client-library/pyband/data.html "Coin"

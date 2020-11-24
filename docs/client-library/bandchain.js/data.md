@@ -4,9 +4,9 @@
 
 | Attribute     | Type           |
 | ------------- | -------------- |
-| address       | string         |
-| coins         | list(dict)     |
-| publicKey     | optional(dict) |
+| address       | [`Address`]    |
+| coins         | list([`Coin`]) |
+| publicKey?    | object         |
 | accountNumber | number         |
 | sequence      | number         |
 
@@ -29,9 +29,9 @@
 
 ## BlockHeader
 
-| Attribute | Type                                  |
-| --------- | ------------------------------------- |
-| header    | [`BlockHeaderInfo`](#blockheaderinfo) |
+| Attribute | Type                |
+| --------- | ------------------- |
+| header    | [`BlockHeaderInfo`] |
 
 ## BlockID
 
@@ -41,10 +41,17 @@
 
 ## Block
 
-| Attribute | Type                          |
-| --------- | ----------------------------- |
-| block     | [`BlockHeader`](#blockheader) |
-| blockID   | [`BlockID`](#blockHeader)     |
+| Attribute | Type            |
+| --------- | --------------- |
+| block     | [`BlockHeader`] |
+| blockID   | [`BlockID`]     |
+
+## Coin
+
+| Attribute | Type   |
+| --------- | ------ |
+| amount    | number |
+| denom     | string |
 
 ## DataSource
 
@@ -125,18 +132,18 @@
 
 ## Result
 
-| Attribute          | Type                                        |
-| ------------------ | ------------------------------------------- |
-| requestPacketData  | [`RequestPacketData`](#requestpacketdata)   |
-| responsePacketData | [`ResponsePacketData`](#responsepacketdata) |
+| Attribute          | Type                   |
+| ------------------ | ---------------------- |
+| requestPacketData  | [`RequestPacketData`]  |
+| responsePacketData | [`ResponsePacketData`] |
 
 ## RequestInfo
 
-| Attribute | Type                          |
-| --------- | ----------------------------- |
-| request   | [`Request`](#request)         |
-| reports   | [`Report`](#report)[]         |
-| result    | optional([`Result`](#result)) |
+| Attribute | Type         |
+| --------- | ------------ |
+| request   | [`Request`]  |
+| reports   | [`Report`][] |
+| result?   | [`Result`]   |
 
 ## TransactionSyncMode
 
@@ -144,7 +151,7 @@
 | --------- | ---------------------- |
 | txHash    | HexBytes(Buffer alias) |
 | code      | number                 |
-| errorLog  | optional(string)       |
+| errorLog? | string                 |
 
 ## TransactionAsyncMode
 
@@ -162,4 +169,15 @@
 | gasUsed   | number                 |
 | code      | number                 |
 | log       | object[]               |
-| errorLog  | optional(string)       |
+| errorLog? | string                 |
+
+[`address`]: /client-library/bandchain.js/wallet.html "Address"
+[`request`]: #request "Request"
+[`report`]: #report "Report"
+[`result`]: #result "Result"
+[`requestpacketdata`]: #requestpacketdata "RequestPacketData"
+[`responsepacketdata`]: #responsepacketdata "ResponsePacketData"
+[`blockheader`]: #blockheader "BlockHeader"
+[`blockid`]: #blockid "BlockID"
+[`blockheaderinfo`]: #blockheaderinfo "BlockHeaderInfo"
+[`coin`]: #coin "Coin"

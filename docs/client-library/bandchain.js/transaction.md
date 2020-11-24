@@ -281,8 +281,8 @@ const tscExample = async () => {
 };
 ```
 
-[`<transaction>`]: /client-library/typescript/transaction.html "Transaction"
-[`<promise<transaction>>`]: /client-library/typescript/transaction.html "Transaction"
-[`<client>`]: /client-library/typescript/client.html "Client"
-[`<msg>`]: /client-library/typescript/message.html "Message"
-[`<publickey>`]: /client-library/typescript/wallet.html "PublicKey"
+[`<transaction>`]: /client-library/bandchain.js/transaction.html "Transaction"
+[`<promise<transaction>>`]: /client-library/bandchain.js/transaction.html "Transaction"
+[`<client>`]: /client-library/bandchain.js/client.html "Client"
+[`<msg>`]: /client-library/bandchain.js/message.html "Message"
+[`<publickey>`]: /client-library/bandchain.js/wallet.html "PublicKey"
