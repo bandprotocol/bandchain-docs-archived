@@ -6,14 +6,16 @@ Message to be included in [`<Transaction>`]
 
 ## MsgRequest()
 
+Requests a new data based on an existing oracle script. A data request will be assigned a unique identifier once the transaction is confirmed. After sufficient validators report the raw data points. The results of the data requests will be written and stored permanently on BandChain for future uses.
+
 #### Constructor
 
-- **oracleScriptID** `<number>` Can't be less than 0.
-- **calldata** `<Buffer>` Size is limited to 256.
-- **minCount** `<number>` Minimum is 1.
-- **askCount** `<number>` Can't be less than `min_count`.
-- **clientID** `<string>` Length is limited to 128.
-- **sender** [`<Address>`]
+- **oracleScriptID** `<number>` The unique identifier number assigned to the oracle script when it was first registered on Bandchain. Can't be less than 0.
+- **calldata** `<Buffer>` The data passed over to the oracle script for the script to use during its execution. Size is limited to 256.
+- **minCount** `<number>` The minimum number of validators necessary for the request to proceed to the execution phase. Minimum is 1.
+- **askCount** `<number>` The number of validators that are requested to respond to this request. Can't be less than `min_count`.
+- **clientID** `<string>` The unique identifier of this oracle request, as specified by the client. This same unique ID will be sent back to the requester with the oracle response.. Length is limited to 128.
+- **sender** [`<Address>`] The address of the message's sender.
 
 #### Exceptions
 
@@ -49,11 +51,13 @@ const msgRequest = new MsgRequest(1, calldata, 2, 2, memo, senderAddr);
 
 ## MsgSend()
 
+Send \$BAND to desired address.
+
 #### Constructor
 
-- **toAddress** [`<Address>`]
-- **fromAddress** [`<Address>`]
-- **amount** [`<[Coin]>`](/client-library/typescript/data.html)
+- **toAddress** [`<Address>`] The address of the receiver.
+- **fromAddress** [`<Address>`] The address of the sender.
+- **amount** [`<[Coin]>`](/client-library/bandchain.js/data.html) The amount of \$BAND to be sent.
 
 #### Exceptions
 
@@ -85,11 +89,13 @@ const msgSend = new MsgSend(fromAddr, toAddr, [coin]);
 
 ## MsgDelegate()
 
+Delegate \$BAND to the validator to help secure the network and get rewards.
+
 #### Constructor
 
-- **delegatorAddress** [`<Address>`]
-- **validatorAddress** [`<Address>`]
-- **amount** [`<Coin>`]
+- **delegatorAddress** [`<Address>`] The address of the delegator.
+- **validatorAddress** [`<Address>`] The address of the validator to delegate \$BAND.
+- **amount** [`<Coin>`] The amount of \$BAND to be delegated.
 
 #### Example
 
