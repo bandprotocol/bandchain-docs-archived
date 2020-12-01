@@ -1,14 +1,12 @@
 # Transaction Module
 
-For sent the transaction on BandChain, ...
+This module provides the functionality to send transaction on BandChain which requires [`<Msg>`] to be included.
 
 ## Exceptions
 
 | Type       | Description   |
 | ---------- | ------------- |
 | ValueError | Invalid value |
-
----
 
 ## withMessages(msgs)
 
@@ -21,8 +19,6 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
-
----
 
 ## withAuto(client)
 
@@ -42,8 +38,6 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 | ----- | ------------------------------------------------------------- |
 | Error | Message is empty, please use withMessages at least 1 message. |
 
----
-
 ## withAccountNum(accountNum)
 
 Set account number to [`<Transaction>`].
@@ -61,10 +55,6 @@ Set account number to [`<Transaction>`].
 | Type  | Description                  |
 | ----- | ---------------------------- |
 | Error | accountNum is not an integer |
-
----
-
----
 
 ## with_sequence(sequence)
 
@@ -84,8 +74,6 @@ Set sequence number to [`<Transaction>`].
 | ----- | -------------------------- |
 | Error | sequence is not an integer |
 
----
-
 ## withChainID(chainID)
 
 Set chain id to [`<Transaction>`].
@@ -97,8 +85,6 @@ Set chain id to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
-
----
 
 ## withFee(fee)
 
@@ -118,8 +104,6 @@ Set fee to [`<Transaction>`].
 | ----- | --------------------- |
 | Error | fee is not an integer |
 
----
-
 ## withGas(gas)
 
 Set gas to [`<Transaction>`].
@@ -138,8 +122,6 @@ Set gas to [`<Transaction>`].
 | ----- | --------------------- |
 | Error | gas is not an integer |
 
----
-
 ## withMemo(memo)
 
 Set memo to [`<Transaction>`].
@@ -151,8 +133,6 @@ Set memo to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
-
----
 
 ## getSignData()
 
@@ -170,8 +150,6 @@ Get sign data from [`<Transaction>`].
 | Error | accountNum should be defined |
 | Error | sequence should be defined   |
 | Error | chainID should be defined    |
-
----
 
 ## getTxData(signature, pubkey)
 
@@ -192,8 +170,6 @@ Get transaction data from [`<Transaction>`].
 | ----- | ---------------------------- |
 | Error | accountNum should be defined |
 | Error | sequence should be defined   |
-
----
 
 #### Example
 
@@ -248,8 +224,6 @@ print(tsc.get_sign_data());
   sequence: "30",
 };
 ```
-
----
 
 #### Example
 

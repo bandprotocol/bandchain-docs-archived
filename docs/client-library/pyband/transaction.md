@@ -1,6 +1,6 @@
 # Transaction Module
 
-This module provides the functionality to send transaction on BandChain which requires [`<msg>`] to be included.
+This module provides the functionality to send transaction on BandChain which requires [`<Msg>`] to be included.
 
 <!-- prettier-ignore-start -->
 ## with\_messages(msgs)
