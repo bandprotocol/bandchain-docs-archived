@@ -1,8 +1,6 @@
 # Transaction Module
 
-For sent the transaction on BandChain, ...
-
----
+This module provides the functionality to send transaction on BandChain which requires [`<msg>`] to be included.
 
 <!-- prettier-ignore-start -->
 ## with\_messages(msgs)
@@ -17,8 +15,6 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
-
----
 
 <!-- prettier-ignore-start -->
 ## with\_auto(client)
@@ -40,8 +36,6 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 | ---------- | -------------------------------------------------------------- |
 | ValueError | Message is empty, please use with_messages at least 1 message. |
 
----
-
 <!-- prettier-ignore-start -->
 ## with\_account\_num(account\_num)
 <!-- prettier-ignore-end -->
@@ -55,8 +49,6 @@ Set account number to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
-
----
 
 <!-- prettier-ignore-start -->
 ## with\_sequence(sequence)
@@ -72,8 +64,6 @@ Set sequence number to [`<Transaction>`].
 
 [`<Transaction>`]
 
----
-
 <!-- prettier-ignore-start -->
 ## with\_chain\_id(chain\_id)
 <!-- prettier-ignore-end -->
@@ -87,8 +77,6 @@ Set chain id to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
-
----
 
 <!-- prettier-ignore-start -->
 ## with\_fee(fee)
@@ -104,8 +92,6 @@ Set fee to [`<Transaction>`].
 
 [`<Transaction>`]
 
----
-
 <!-- prettier-ignore-start -->
 ## with\_gas(gas)
 <!-- prettier-ignore-end -->
@@ -120,8 +106,6 @@ Set gas to [`<Transaction>`].
 
 [`<Transaction>`]
 
----
-
 <!-- prettier-ignore-start -->
 ## with_memo(memo)
 <!-- prettier-ignore-end -->
@@ -135,8 +119,6 @@ Set memo to [`<Transaction>`].
 #### Return
 
 [`<Transaction>`]
-
----
 
 <!-- prettier-ignore-start -->
 ## get\_sign\_data()
@@ -157,8 +139,6 @@ Get sign data from [`<Transaction>`].
 | ValueError | sequence should be defined    |
 | ValueError | chain_id should be defined    |
 
----
-
 <!-- prettier-ignore-start -->
 ## get\_tx\_data(signature, pubkey)
 <!-- prettier-ignore-end -->
@@ -173,8 +153,6 @@ Get transaction data from [`<Transaction>`].
 #### Return
 
 `<dict>`
-
----
 
 #### Example
 
