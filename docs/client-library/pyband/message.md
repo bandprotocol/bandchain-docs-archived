@@ -53,7 +53,7 @@ Send \$BAND to desired address.
 
 - **to_address** [`<Address>`] The address of the receiver.
 - **from_address** [`<Address>`] The address of the sender.
-- **amount** [`<[Coin]>`](/client-library/python/data.html) The amount of \$BAND to be sent.
+- **amount** [`<[Coin]>`](/client-library/pyband/data.html) The amount of \$BAND to be sent.
 
 #### Exceptions
 
