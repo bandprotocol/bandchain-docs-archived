@@ -6,14 +6,16 @@ Message to be included in [`<Transaction>`]
 
 ## MsgRequest()
 
+Requests a new data based on an existing oracle script. A data request will be assigned a unique identifier once the transaction is confirmed. After sufficient validators report the raw data points. The results of the data requests will be written and stored permanently on BandChain for future uses.
+
 #### Constructor
 
-- **oracle_script_id** `<int>` Can't be less than 0.
-- **calldata** `<bytes>` Size is limited to 256.
-- **min_count** `<int>` Minimum is 1.
-- **ask_count** `<int>` Can't be less than `min_count`.
-- **client_id** `<str>` Length is limited to 128.
-- **sender** [`<Address>`]
+- **oracle_script_id** `<int>` The unique identifier number assigned to the oracle script when it was first registered on Bandchain. Can't be less than 0.
+- **calldata** `<bytes>` The data passed over to the oracle script for the script to use during its execution. Size is limited to 256.
+- **min_count** `<int>` The minimum number of validators necessary for the request to proceed to the execution phase. Minimum is 1.
+- **ask_count** `<int>` The number of validators that are requested to respond to this request. Can't be less than `min_count`.
+- **client_id** `<str>` The unique identifier of this oracle request, as specified by the client. This same unique ID will be sent back to the requester with the oracle response.. Length is limited to 128.
+- **sender** [`<Address>`] The address of the message's sender.
 
 #### Exceptions
 
@@ -43,15 +45,15 @@ def main():
                 )
 ```
 
----
-
 ## MsgSend()
+
+Send \$BAND to desired address.
 
 #### Constructor
 
-- **to_address** [`<Address>`]
-- **from_address** [`<Address>`]
-- **amount** [`<[Coin]>`](/client-library/python/data.html)
+- **to_address** [`<Address>`] The address of the receiver.
+- **from_address** [`<Address>`] The address of the sender.
+- **amount** [`<[Coin]>`](/client-library/python/data.html) The amount of \$BAND to be sent.
 
 #### Exceptions
 
@@ -78,15 +80,15 @@ def main():
             )
 ```
 
----
-
 ## MsgDelegate()
+
+Delegate \$BAND to the validator to help secure the network and get rewards.
 
 #### Constructor
 
-- **delegator_address** [`<Address>`]
-- **validator_address** [`<Address>`]
-- **amount** [`<Coin>`]
+- **delegator_address** [`<Address>`] The address of the delegator.
+- **validator_address** [`<Address>`] The address of the validator to delegate \$BAND.
+- **amount** [`<Coin>`] The amount of \$BAND to be delegated.
 
 #### Example
 
