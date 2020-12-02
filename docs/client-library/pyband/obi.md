@@ -1,10 +1,8 @@
-# Obi Module
+# OBI Module
 
 This module provides the functionality to serialize and deserialize data.
 
-## Obi
-
-### Constructor
+## Constructor
 
 - **schema** `<str>` The input and output schema.
 
@@ -18,19 +16,19 @@ obi = PyObi("{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string")
 
 ---
 
-### encode_input(value)
+## encode_input(value)
 
 Encode the input value by using input schema
 
-#### Parameter
+### Parameter
 
 - value `<any>` The value to encode
 
-#### Return
+### Return
 
 - `<bytes>` - A encoded value
 
-#### Example
+### Example
 
 ```python
 from pyband import Obi
@@ -41,7 +39,7 @@ test_input = {"symbol": "BTC", "px": 9000, "in": {"a": 1, "b": 2}, "tb": False}
 print(obi.encode_input(test_input))
 ```
 
-#### Result
+### Result
 
 ```
 000000034254430000000000002328010200
@@ -49,19 +47,19 @@ print(obi.encode_input(test_input))
 
 ---
 
-### encode_output(value)
+## encode_output(value)
 
 Encode the output value by using output schema
 
-#### Parameter
+### Parameter
 
 - value `<any>` The value to encode
 
-#### Return
+### Return
 
 - `<bytes>` - A encoded value
 
-#### Example
+### Example
 
 ```python
 from pyband import Obi
@@ -73,7 +71,7 @@ test_output = "test"
 print(obi.encode_output(test_output))
 ```
 
-#### Result
+### Result
 
 ```
 0000000474657374
@@ -81,19 +79,19 @@ print(obi.encode_output(test_output))
 
 ---
 
-### decode_input(value)
+## decode_input(value)
 
 Decode the input value by using input schema
 
-#### Parameter
+### Parameter
 
 - value `<bytes>` The value to decode
 
-#### Return
+### Return
 
 - `<any>` - A decoded value
 
-#### Example
+### Example
 
 ```python
 from pyband import Obi
@@ -102,7 +100,7 @@ obi = Obi("{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string")
 print(obi.decode_input(bytearray.fromhex("000000034254430000000000002328010200")))
 ```
 
-#### Result
+### Result
 
 ```
 {"symbol": "BTC", "px": 9000, "in": {"a": 1, "b": 2}, "tb": False}
@@ -110,19 +108,19 @@ print(obi.decode_input(bytearray.fromhex("000000034254430000000000002328010200")
 
 ---
 
-### decode_output(value)
+## decode_output(value)
 
 Decode the output value by using output schema
 
-#### Parameter
+### Parameter
 
 - value `<bytes>` The value to decode
 
-#### Return
+### Return
 
 - `<any>` - A decoded value
 
-#### Example
+### Example
 
 ```python
 from pyband import Obi
@@ -131,7 +129,7 @@ obi = Obi("{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string")
 print(obi.decode_output(bytearray.fromhex("0000000474657374")))
 ```
 
-#### Result
+### Result
 
 ```
 test
