@@ -22,6 +22,6 @@
   },
   "dependencies": {
     "vuepress-plugin-mathjax": "^1.2.8",
-    "vuepress-theme-cosmos": "./theme/vuepress-theme-cosmos"
+    "vuepress-theme-cosmos": "link:./theme/vuepress-theme-cosmos"
   }
 }
