@@ -1,6 +1,6 @@
 # Wallet Module
 
-This module provides the functionality to control account.
+This module provides the functionality to control the account.
 
 ## Private Key
 
@@ -197,6 +197,12 @@ Create a PublicKey instance from a bech32-encoded with account public key prefix
 
 - `<PublicKey>` - A PublicKey instance
 
+#### Exception
+
+| Type       | Description           |
+| ---------- | --------------------- |
+| ValueError | Invalid bech32 prefix |
+
 #### Example
 
 ```python
@@ -221,6 +227,12 @@ Create a PublicKey instance from a bech32-encoded with validator public key pref
 
 - `<PublicKey>` - A PublicKey instance
 
+#### Exception
+
+| Type       | Description           |
+| ---------- | --------------------- |
+| ValueError | Invalid bech32 prefix |
+
 #### Example
 
 ```python
@@ -244,6 +256,12 @@ Create a PublicKey instance from a bech32-encoded with validator consensus publi
 #### Return
 
 - `<PublicKey>` - A PublicKey instance
+
+#### Exception
+
+| Type       | Description           |
+| ---------- | --------------------- |
+| ValueError | Invalid bech32 prefix |
 
 #### Example
 
@@ -406,6 +424,12 @@ Verify a signature made over provided data.
 
 - `<bool>` True if the verification was successful
 
+#### Exception
+
+| Type              | Description                              |
+| ----------------- | ---------------------------------------- |
+| BadSignatureError | if the signature is invalid or malformed |
+
 #### Example
 
 ```python
@@ -445,6 +469,12 @@ Create a Address instance from a bech32-encoded with account prefix.
 
 - `<Address>` - A Address instance
 
+#### Exception
+
+| Type       | Description           |
+| ---------- | --------------------- |
+| ValueError | Invalid bech32 prefix |
+
 #### Example
 
 ```python
@@ -470,6 +500,12 @@ Create a Address instance from a bech32-encoded with validator prefix
 
 - `<Address>` - A Address instance
 
+#### Exception
+
+| Type       | Description           |
+| ---------- | --------------------- |
+| ValueError | Invalid bech32 prefix |
+
 #### Example
 
 ```python
@@ -494,6 +530,12 @@ Create a Address instance from a bech32-encoded with validator consensus prefix
 #### Return
 
 - `<Address>` - A Address instance
+
+#### Exception
+
+| Type       | Description           |
+| ---------- | --------------------- |
+| ValueError | Invalid bech32 prefix |
 
 #### Example
 
