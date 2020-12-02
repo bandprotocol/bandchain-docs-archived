@@ -4,13 +4,16 @@
     .menu__item__modal__item(v-for="item in $page.headers" v-if="!item.title.match(/{hide}/i)" :class="[item.level === 3 && `menu__item__small`]" @click="goto(item.slug)" tabindex="0") {{item.title}}
 </template>
 
-<style lang="stylus" scoped>
+<style lang="stylus" scoped> 
 .menu
   visibility hidden
 
   &__item
     position relative
     
+    &__small
+      margin-left 10px
+
     &__small
       margin-left 10px
 
