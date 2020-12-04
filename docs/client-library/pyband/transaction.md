@@ -1,3 +1,7 @@
+<!--
+order: 5
+-->
+
 # Transaction Module
 
 This module provides the functionality to send transaction on BandChain which requires [`<Msg>`] to be included.

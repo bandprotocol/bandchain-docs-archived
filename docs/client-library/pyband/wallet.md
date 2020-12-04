@@ -1,3 +1,7 @@
+<!--
+order: 6
+-->
+
 # Wallet Module
 
 This module provides the functionality to control the account.

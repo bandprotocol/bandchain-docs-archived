@@ -1,3 +1,7 @@
+<!--
+order: 3
+-->
+
 # Client Module
 
 This module provides the functionallity to get the data from Bandchain RPC and send the data to Bandchain RPC.
@@ -572,7 +576,7 @@ print(c.get_request_id_by_tx_hash(tx_hash))
 ---
 
 <!-- prettier-ignore-start -->
-## get\_reference\_data
+## get\_reference\_data(pairs, min\_count, ask\_count)
 <!-- prettier-ignore-end -->
 
 The function helps you to get price symbols based on min count and ask count

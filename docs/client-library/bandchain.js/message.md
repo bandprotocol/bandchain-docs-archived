@@ -1,10 +1,14 @@
+<!--
+order: 4
+-->
+
 # Message Module
 
 Message to be included in [`<Transaction>`]
 
 ---
 
-## MsgRequest()
+## MsgRequest
 
 Requests a new data based on an existing oracle script. A data request will be assigned a unique identifier once the transaction is confirmed. After sufficient validators report the raw data points. The results of the data requests will be written and stored permanently on BandChain for future uses.
 
@@ -49,7 +53,7 @@ const msgRequest = new MsgRequest(1, calldata, 2, 2, memo, senderAddr);
 
 ---
 
-## MsgSend()
+## MsgSend
 
 Send \$BAND to desired address.
 
@@ -87,7 +91,7 @@ const msgSend = new MsgSend(fromAddr, toAddr, [coin]);
 
 ---
 
-## MsgDelegate()
+## MsgDelegate
 
 Delegate \$BAND to the validator to help secure the network and get rewards.
 
