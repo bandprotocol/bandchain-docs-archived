@@ -1,3 +1,7 @@
+<!--
+order: 2
+-->
+
 # Data Module
 
 This module is to construct the data in term of dataclass to make sure that all the input and output are only in this data form.
@@ -47,6 +51,13 @@ This module is to construct the data in term of dataclass to make sure that all 
 | --------- | ------------- |
 | block     | [BlockHeader] |
 | block_id  | [BlockID]     |
+
+## Coin
+
+| Attribute | Type    | Description                                 |
+| --------- | ------- | ------------------------------------------- |
+| amount    | integer | The amount of coin in the unit e.g. 1000000 |
+| denom     | string  | The price unit e.g. "uband"                 |
 
 ## DataSource
 
@@ -165,13 +176,6 @@ This module is to construct the data in term of dataclass to make sure that all 
 | code       | integer               | Response code                            |
 | log        | list(dict)            | The output of the application's logger   |
 | error_log  | optional(string)      | The error log                            |
-
-## Coin
-
-| Attribute | Type    | Description                                 |
-| --------- | ------- | ------------------------------------------- |
-| amount    | integer | The amount of coin in the unit e.g. 1000000 |
-| denom     | string  | The price unit e.g. "uband"                 |
 
 ## ReferencePriceUpdated
 

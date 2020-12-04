@@ -1,10 +1,14 @@
+<!--
+order: 4
+-->
+
 # Message Module
 
 Message to be included in [`<Transaction>`]
 
 ---
 
-## MsgRequest()
+## MsgRequest
 
 Requests a new data based on an existing oracle script. A data request will be assigned a unique identifier once the transaction is confirmed. After sufficient validators report the raw data points. The results of the data requests will be written and stored permanently on BandChain for future uses.
 
@@ -32,7 +36,7 @@ Requests a new data based on an existing oracle script. A data request will be a
 from pyband.message import MsgRequest
 from pyband.wallet import Address
 
-def main():
+def main:
   addr = Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte")
 
   msg_request = MsgRequest(
@@ -45,7 +49,7 @@ def main():
                 )
 ```
 
-## MsgSend()
+## MsgSend
 
 Send \$BAND to desired address.
 
@@ -68,7 +72,7 @@ from pyband.data import Coin
 from pyband.message import MsgSend
 from pyband.wallet import Address
 
-def main():
+def main:
   to_addr = Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte")
   from_addr = Address.from_acc_bech32("band1acavyhqpxmz6jt390xze705620q23e4tx4r5he")
   coin = Coin(amount=1000000, denom="uband")
@@ -80,7 +84,7 @@ def main():
             )
 ```
 
-## MsgDelegate()
+## MsgDelegate
 
 Delegate \$BAND to the validator to help secure the network and get rewards.
 
@@ -97,7 +101,7 @@ from pyband.data import Coin
 from pyband.message import MsgDelegate
 from pyband.wallet import Address
 
-def main():
+def main:
   delegator_addr = Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte")
   validator_addr = Address.from_val_bech32("bandvaloper1j9vk75jjty02elhwqqjehaspfslaem8pr20qst")
   coin = Coin(amount=1000000, denom="uband")

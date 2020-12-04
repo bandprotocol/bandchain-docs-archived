@@ -1,6 +1,10 @@
+<!--
+order: 3
+-->
+
 # Client Module
 
-For getting the request information on BandChain, ...
+This module provides the functionallity to get the data from Bandchain RPC and send the data to Bandchain RPC.
 
 ## Exceptions
 
@@ -5499,7 +5503,67 @@ const client = new Client("https://guanyu-testnet3-query.bandchain.org");
 [403200]
 ```
 
-[`<address>`]: /client-library/bandchain.js/wallet.html "Address"
+## getReferenceData(pairs, minCount, askCount)
+
+The function helps you to get price symbols based on min count and ask count
+
+#### Parameter
+
+- **pairs** `<string[]>` The list of cryptocurrency pairs
+- **minCount** `<number>` The minimum number of validators necessary for the request to proceed to the execution phase
+- **askCount** `<number>` The number of validators that are requested to respond to this request
+
+#### Return
+
+[`<ReferencePrice>`]
+
+#### Exception
+
+| Type       | Description                |
+| ---------- | -------------------------- |
+| ValueError | Error quering prices       |
+| ValueError | minCount is not an integer |
+| ValueError | askCount is not an integer |
+
+#### Example
+
+```js
+import { Client } from "bandchain.js";
+
+const client = new Client("https://guanyu-testnet3-query.bandchain.org");
+
+const minCount = 10;
+const askCount = 16;
+
+const pairs = ["BTC/USDT", "ETH/USDT"];
+
+(async () => {
+  console.log(
+    JSON.stringify(await client.getReferenceData(pairs, minCount, askCount))
+  );
+})();
+```
+
+#### Result
+
+```json
+[
+  {
+    "pair": "BTC/USDT",
+    "rate": 19311.553805658896,
+    "updatedAt": { "base": 1607067650, "quote": 1607067650 }
+  },
+  {
+    "pair": "ETH/USDT",
+    "rate": 606.4386050528308,
+    "updatedAt": { "base": 1607067650, "quote": 1607067650 }
+  }
+]
+```
+
+---
+
+[`<address>`]: /client-library/bandchain.js/wallet.html#address "Address"
 [`<transactionasyncmode>`]: /client-library/bandchain.js/data.html#transactionasyncmode "TransactionAsyncMode"
 [`<transactionsyncmode>`]: /client-library/bandchain.js/data.html#transactionsyncmode "TransactionSyncMode"
 [`<transactionblockmode>`]: /client-library/bandchain.js/data.html#transactionblockmode "TransactionBlockMode"
@@ -5508,3 +5572,4 @@ const client = new Client("https://guanyu-testnet3-query.bandchain.org");
 [`<oraclescript>`]: /client-library/bandchain.js/data.html#oraclescript "OracleScript"
 [`<requestinfo>`]: /client-library/bandchain.js/data.html#requestinfo "RequestInfo"
 [`<account>`]: /client-library/bandchain.js/data.html#account "Account"
+[`<referenceprice>`]: /client-library/bandchain.js/data.html#account
