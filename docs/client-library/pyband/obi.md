@@ -69,8 +69,6 @@ Encode the output value by using output schema
 from pyband import Obi
 
 obi = Obi("{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string")
-test_input = {"symbol": "BTC", "px": 9000, "in": {"a": 1, "b": 2}, "tb": False}
-
 test_output = "test"
 print(obi.encode_output(test_output))
 ```
