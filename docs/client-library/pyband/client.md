@@ -1,6 +1,6 @@
 # Client Module
 
-For getting the request information on BandChain, ...
+This module provides the functionallity to get the data from Bandchain RPC and send the data to Bandchain RPC.
 
 ## Exceptions
 
@@ -29,7 +29,7 @@ string
 ```python
 from pyband import Client
 
-RPC_URL = "http://poa-api.bandchain.org"
+RPC_URL = "https://guanyu-testnet3-query.bandchain.org"
 
 c = Client(RPC_URL)
 print(c.get_chain_id())
@@ -38,7 +38,7 @@ print(c.get_chain_id())
 #### Result
 
 ```python
-band-guanyu-poa
+band-guanyu-testnet3
 ```
 
 ---
@@ -58,7 +58,7 @@ The function helps you to get the latest block
 ```python
 from pyband import Client
 
-RPC_URL = "http://poa-api.bandchain.org"
+RPC_URL = "https://guanyu-testnet3-query.bandchain.org"
 
 c = Client(RPC_URL)
 print(c.get_latest_block())
@@ -92,7 +92,7 @@ The function helps you to get the account details
 from pyband import Client
 from pyband.wallet import Address
 
-RPC_URL = "http://poa-api.bandchain.org"
+RPC_URL = "https://guanyu-testnet3-query.bandchain.org"
 
 address = Address.from_acc_bech32('band1xxj9mfe2ga45vtye8wss6jp4fsezyysqe3fstu')
 
@@ -127,7 +127,7 @@ The function helps you to get the data source details by id
 ```python
 from pyband import Client
 
-RPC_URL = "http://poa-api.bandchain.org"
+RPC_URL = "https://guanyu-testnet3-query.bandchain.org"
 
 id = 1
 
@@ -162,7 +162,7 @@ The function helps you to get the oracle script details by id
 ```python
 from pyband import Client
 
-RPC_URL = "http://poa-api.bandchain.org"
+RPC_URL = "https://guanyu-testnet3-query.bandchain.org"
 
 id = 1
 
@@ -197,7 +197,7 @@ The function helps you to get the request details by id
 ```python
 from pyband import Client
 
-RPC_URL = "http://poa-api.bandchain.org"
+RPC_URL = "https://guanyu-testnet3-query.bandchain.org"
 
 id = 1
 
@@ -233,7 +233,7 @@ The function helps you to get the reporters of validator
 from pyband import Client
 from pyband.wallet import Address
 
-RPC_URL = "http://poa-api.bandchain.org"
+RPC_URL = "https://guanyu-testnet3-query.bandchain.org"
 
 validator = Address.from_val_bech32("bandvaloper1trx2cm6vm9v63grg9uhmk7sy233zve4q25rgre")
 
@@ -272,7 +272,7 @@ The function helps you to get the latest request
 
 from pyband import Client
 
-RPC_URL = "http://poa-api.bandchain.org"
+RPC_URL = "https://guanyu-testnet3-query.bandchain.org"
 
 c = Client(RPC_URL)
 
@@ -512,7 +512,7 @@ The function helps you to get price symbols based on min count and ask count
 ```python
 from pyband import Client
 
-RPC_URL = "http://poa-api.bandchain.org"
+RPC_URL = "https://guanyu-testnet3-query.bandchain.org"
 
 min_count = 3
 ask_count = 4
@@ -569,7 +569,55 @@ print(c.get_request_id_by_tx_hash(tx_hash))
 [374762]
 ```
 
-[`<address>`]: /client-library/pyband/wallet.html "Address"
+---
+
+<!-- prettier-ignore-start -->
+## get\_reference\_data
+<!-- prettier-ignore-end -->
+
+The function helps you to get price symbols based on min count and ask count
+
+#### Parameter
+
+- **pairs** `List<str>` The list of cryptocurrency pairs
+- **min_count** `<int>` The minimum number of validators necessary for the request to proceed to the execution phase
+- **ask_count** `<int>` The number of validators that are requested to respond to this request
+
+#### Return
+
+[`<ReferencePrice>`]
+
+#### Exception
+
+| Type       | Description          |
+| ---------- | -------------------- |
+| ValueError | Error quering prices |
+
+#### Example
+
+```python
+from pyband import Client
+
+RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
+client = Client(RPC_URL)
+
+min_count = 10
+ask_count = 16
+
+pairs = ["BTC/USDT", "ETH/USDT"]
+
+print(client.get_reference_data(pairs, min_count, ask_count))
+```
+
+#### Result
+
+```python
+[ReferencePrice(pair='BTC/USDT', rate=19019.855592127566, updated_at=ReferencePriceUpdated(base=1606904123, quote=1606904123)), ReferencePrice(pair='ETH/USDT', rate=594.2266973347488, updated_at=ReferencePriceUpdated(base=1606904123, quote=1606904123))]
+```
+
+---
+
+[`<address>`]: /client-library/pyband/wallet.html#address "Address"
 [`<transactionasyncmode>`]: /client-library/pyband/data.html#transactionasyncmode "TransactionAsyncMode"
 [`<transactionsyncmode>`]: /client-library/pyband/data.html#transactionsyncmode "TransactionSyncMode"
 [`<transactionblockmode>`]: /client-library/pyband/data.html#transactionblockmode "TransactionBlockMode"
@@ -578,3 +626,4 @@ print(c.get_request_id_by_tx_hash(tx_hash))
 [`<oraclescript>`]: /client-library/pyband/data.html#oraclescript "OracleScript"
 [`<requestinfo>`]: /client-library/pyband/data.html#requestinfo "RequestInfo"
 [`<account>`]: /client-library/pyband/data.html#account "Account"
+[`<referenceprice>`]: /client-library/pyband/data.html#account
