@@ -296,6 +296,12 @@ if __name__ == "__main__":
 
 ```
 
+The result should look like this.
+
+```python
+TransactionBlockMode(height=2473122, tx_hash=b"\xe2\x04\x1c\xd7k\xcdA\x0c\xc5E\xccT\xc6\xadY\xed4\x10p\x1e\xc8o\xa2\x8b#\xc5'\x0e\xf6k\xc4\xad", gas_wanted=1000000, gas_used=1000000, code=0, log=[{'msg_index': 0, 'log': '', 'events': [{'type': 'message', 'attributes': [{'key': 'action', 'value': 'request'}]}, {'type': 'raw_request', 'attributes': [{'key': 'data_source_id', 'value': '4'}, {'key': 'data_source_hash', 'value': '93734983de34865551a03bd5b27c650f6f9496c8eeb25f3b1445ff89d32dbc7b'}, {'key': 'external_id', 'value': '11'}, {'key': 'calldata', 'value': 'BTC'}, {'key': 'data_source_id', 'value': '5'}, {'key': 'data_source_hash', 'value': '980a7da17f800b5006775a4e907bad29b52b9d9f1370bc7e8c10449dc95f020f'}, {'key': 'external_id', 'value': '12'}, {'key': 'calldata', 'value': 'BTC'}]}, {'type': 'request', 'attributes': [{'key': 'id', 'value': '493049'}, {'key': 'client_id', 'value': 'from_pyband'}, {'key': 'oracle_script_id', 'value': '5'}, {'key': 'calldata', 'value': '0000000342544300000003555344000000000000000a'}, {'key': 'ask_count', 'value': '16'}, {'key': 'min_count', 'value': '16'}, {'key': 'gas_used', 'value': '3130'}, {'key': 'validator', 'value': 'bandvaloper1unfg2zhnssl07tql8d85zc6rx7zsfs5qh206av'}, {'key': 'validator', 'value': 'bandvaloper1a05af3g6s0qltqdam569m43630zzhpnh99d4jn'}, {'key': 'validator', 'value': 'bandvaloper1s9s0knlc8mk62addjk98qcpqlcgvdfewt4muet'}, {'key': 'validator', 'value': 'bandvaloper1sy7ctj5qjgre7s9mgf7u8m5exdrfpcsxyqrxnc'}, {'key': 'validator', 'value': 'bandvaloper19gh30we6ypgec5plmnxd7smlqp66hel4lx573n'}, {'key': 'validator', 'value': 'bandvaloper1egcncstqyhm7njd5mva03lkrdtemmzehda940c'}, {'key': 'validator', 'value': 'bandvaloper1nykclk39ge2zyk7h3uyzkfncyxstnp4qkwtgvm'}, {'key': 'validator', 'value': 'bandvaloper1r9eslzfdj976hap6z06wlq7nwnn0w6x0y40zn3'}, {'key': 'validator', 'value': 'bandvaloper135hz0cvdv5vd7e6wl7qjgfv3j90dh2r4vry2cs'}, {'key': 'validator', 'value': 'bandvaloper133jj708vr92rfd6fvnzyc6snylflzafu5k9ege'}, {'key': 'validator', 'value': 'bandvaloper12w7p4e3suvjpg84mqdh5k5n9h6x7zsc3e8jtwn'}, {'key': 'validator', 'value': 'bandvaloper12wwz25zztfjpqx3fsq8rd4c48ew3vnywyplln8'}, {'key': 'validator', 'value': 'bandvaloper14mfaa40ude49q9pdklxxk7hfzyqf55ecdza9dz'}, {'key': 'validator', 'value': 'bandvaloper158q56s6zgnk4zf3sz6cz4jmpmxpanhxsfdra05'}, {'key': 'validator', 'value': 'bandvaloper1l6syuchpqj0jku2cswmxd5m8rdlzydcpug29cv'}, {'key': 'validator', 'value': 'bandvaloper1nlepx7xg53fsy6vslrss6adtmtl8a33kusv7fa'}]}]}], error_log=None)
+```
+
 ## Send BAND token
 
 We will show you how to send BAND by following steps
@@ -534,6 +540,12 @@ if __name__ == "__main__":
     main()
 ```
 
+The result should look like this.
+
+```python
+TransactionBlockMode(height=2473054, tx_hash=b'\xeb\xa8\x0ez"g^O]--\xaa)\x86[\x96m\xb0\x93^\x1e\xe3\xc1!\xb1\xe7\x7f\xd6\xbc\xe9\xce\xac', gas_wanted=1000000, gas_used=1000000, code=0, log=[{'msg_index': 0, 'log': '', 'events': [{'type': 'message', 'attributes': [{'key': 'action', 'value': 'send'}, {'key': 'sender', 'value': 'band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy'}, {'key': 'module', 'value': 'bank'}]}, {'type': 'transfer', 'attributes': [{'key': 'recipient', 'value': 'band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte'}, {'key': 'sender', 'value': 'band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy'}, {'key': 'amount', 'value': '1000000uband'}]}]}], error_log=None)
+```
+
 ## Get reference data
 
 We will show you how to get the reference data
@@ -582,6 +594,12 @@ def main():
 if __name__ == "__main__":
     main()
 
+```
+
+The result should look like this.
+
+```python
+[ReferencePrice(pair='BTC/USDT', rate=19244.632819484967, updated_at=ReferencePriceUpdated(base=1607053828, quote=1607053828)), ReferencePrice(pair='ETH/USDT', rate=605.512705379927, updated_at=ReferencePriceUpdated(base=1607053828, quote=1607053828))]
 ```
 
 [`get_tx_data`]: /client-library/pyband/transaction.html#get-tx-data-signature-pubkey
