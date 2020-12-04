@@ -30,14 +30,6 @@ Generate new private key with random mnemonic phrase.
 from pyband.wallet import PrivateKey
 
 mnemonic, priv = PrivateKey.generate(path="m/44'/494'/0'/0/3")
-print(mnemonic, priv)
-```
-
-#### Result
-
-```
-curtain diamond ... never title tackle skin pave fiber
-<pyband.wallet.PrivateKey object at ...>
 ```
 
 ---
@@ -65,13 +57,6 @@ Create a PrivateKey instance from a given mnemonic phrase and a HD derivation pa
 from pyband.wallet import PrivateKey
 
 priv = PrivateKey.from_mnemonic("test mnemonic")
-print(priv)
-```
-
-#### Result
-
-```
-<pyband.wallet.PrivateKey object at ...>
 ```
 
 ---
@@ -396,7 +381,7 @@ Return address instance from this public key
 
 #### Return
 
-- `<str>` A Address instance.
+- `<Address>` A Address instance.
 
 #### Example
 
@@ -404,7 +389,7 @@ Return address instance from this public key
 from pyband.wallet import PublicKey
 
 publickey = PublicKey.from_acc_bech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v")
-print(publickey.to_address())
+print(publickey.to_address().to_hex())
 ```
 
 #### Result
@@ -645,14 +630,14 @@ Return bech32-encoded with validator consensus prefix
 #### Example
 
 ```python
-from pyband.wallet import PublicKey
+from pyband.wallet import Address
 
-publickey = PublicKey.from_acc_bech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v")
-print(publickey.to_cons_bech32())
+address = Address.from_acc_bech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c")
+print(address.to_cons_bech32())
 ```
 
 #### Result
 
 ```
-bandvalconspub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6r8ytws
+bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj
 ```
