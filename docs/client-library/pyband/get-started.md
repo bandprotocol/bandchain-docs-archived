@@ -18,7 +18,7 @@ pip install pyband
 
 We will show you how to make a request by following steps
 
-**Step 1:** Import [`Client`] from pyband and put `RPC_URL` as parameter, and initial the client instance, now we can use every medthod on client module.
+**Step 1:** Import [`Client`] from `pyband` and put `RPC_URL` as parameter, and initial the client instance, now we can use every method on client module.
 
 ```python
 
@@ -34,7 +34,7 @@ if __name__ == "__main__":
 
 ```
 
-**Step 2:** The sender address is required for sending the transaction, so we have to initial the address first. So we have to import the [`PrivateKey`] from wallet, and get the privatekey, in this example we will get it from our test mnemonic `subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid`
+**Step 2:** The sender address is required for sending the transaction, so we have to initial the address first. So we have to import the [`PrivateKey`] from wallet, and get the private key, in this example we will get it from our test mnemonic `subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid`
 
 ```python
 
