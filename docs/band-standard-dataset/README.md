@@ -6,11 +6,11 @@ order: 1
 
 This section introduces our Band Standard Dataset, how we believe it will help developers, and the components behind it. {synopsis}
 
-The Band Standard Dataset introduces a standard for anyone looking to integrate price data from Band's oracle into their applications. The standard itself consists of two components: a new price dataset and our new aggregator interface.
+The Band Standard Dataset introduces a standard for anyone looking to integrate price data from Band's oracle into their applications. The standard itself consists of two components: a new price dataset and our new `StdReference` interface.
 
 The dataset supports a growing set of cryptocurrency tokens, local currency rates, and commodity  prices. The prices are aggregated from reputable crypto price aggregators, crypto exchanges, and premium APIs for foreign exchange rates.
 
-Our new aggregator interface then provides developers with a simple and cost-effective method to integrate price data from Band's oracle into their applications.
+Our new interface then provides developers with a simple and cost-effective method to integrate price data from Band's oracle into their applications.
 
 Smart contracts, backend services, and frontend applications can all effortlessly access exchange rates between any supported symbols, making oracle data more accessible than ever for both traditional and decentralized applications.
 
