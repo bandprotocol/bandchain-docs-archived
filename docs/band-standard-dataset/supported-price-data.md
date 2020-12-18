@@ -37,10 +37,9 @@ The status for the price feed (the update interval, deviation update threshold, 
 
 Alternatively, the list of supported tokens can also be retrieved using our API endpoint
 
-| Network |                                         API Endpoint                                         |
-| ------- | :------------------------------------------------------------------------------------------: |
-| Testnet | `https://guanyu-testnet3-query.bandchain.org/oracle/price_symbols?ask_count=16&min_count=10` |
-| Mainnet |       `https://api-gm-lb.bandchain.org/oracle/price_symbols?ask_count=16&min_count=10`       |
+| Network |                                   API Endpoint                                   |
+| ------- | :------------------------------------------------------------------------------: |
+| Mainnet | `https://api-gm-lb.bandchain.org/oracle/price_symbols?ask_count=16&min_count=10` |
 
 
 This should give you a result similar to:
