@@ -11,7 +11,7 @@ order: 4
 
 ```bash
 $ bandcli query oracle data-source 1
-$ curl -X GET http://localhost:1317/oracle/data_sources/1
+$ curl -X GET https://api-gm-lb.bandchain.org/oracle/data_sources/1
 {
   "height": "10000",
   "result": {
@@ -30,7 +30,7 @@ $ curl -X GET http://localhost:1317/oracle/data_sources/1
 
 ```bash
 $ bandcli query oracle oracle-script 1
-$ curl -X GET http://localhost:1317/oracle/oracle_scripts/1
+$ curl -X GET http://gyms1.bandchain.org:26657//oracle/oracle_scripts/1
 {
   "height": "10000",
   "result": {
@@ -51,7 +51,7 @@ $ curl -X GET http://localhost:1317/oracle/oracle_scripts/1
 
 ```bash
 $ bandcli query oracle request 1
-$ curl -X GET http://localhost:1317/oracle/requests/1
+$ curl -X GET https://api-gm-lb.bandchain.org/oracle/requests/1
 {
   "request": {
     "oracle_script_id": "1",
@@ -93,7 +93,7 @@ $ curl -X GET http://localhost:1317/oracle/requests/1
 
 ```bash
 $ bandcli query oracle requests --oid 1 --calldata AAAA --min-count 5 --limit 10 --page 2
-$ curl -X GET http://localhost:1317/oracle/requests?oid=1&calldata=AAAA&min-count=5&limit=10&page=2
+$ curl -X GET https://api-gm-lb.bandchain.org/oracle/requests?oid=1&calldata=AAAA&min-count=5&limit=10&page=2
 {
   "result": [{
       "request": {...},
@@ -111,7 +111,7 @@ $ curl -X GET http://localhost:1317/oracle/requests?oid=1&calldata=AAAA&min-coun
 **Method**: `GET`
 
 ```bash
-$ curl -X GET http://localhost:1317/oracle/data/c56de9061a78ac96748c83e8a22330accf6ee8ebb499c8525613149a70ec49d0
+$ curl -X GET https://api-gm-lb.bandchain.org/oracle/data/c56de9061a78ac96748c83e8a22330accf6ee8ebb499c8525613149a70ec49d0
 #!/usr/bin/env python3
 
 import json
@@ -126,7 +126,7 @@ import urllib.request
 
 ```bash
 $ bandcli query oracle reporters bandvaloper1p40yh3zkmhcv0ecqp3mcazy83sa57rgjde6wec
-$ curl -X GET http://localhost:1317/oracle/reporters/bandvaloper1p40yh3zkmhcv0ecqp3mcazy83sa57rgjde6wec
+$ curl -X GET https://api-gm-lb.bandchain.org/oracle/reporters/bandvaloper1p40yh3zkmhcv0ecqp3mcazy83sa57rgjde6wec
 {
   "height": "27",
   "result": [
@@ -143,7 +143,7 @@ $ curl -X GET http://localhost:1317/oracle/reporters/bandvaloper1p40yh3zkmhcv0ec
 
 ```bash
 $ bandcli query oracle report_info bandvaloper1p40yh3zkmhcv0ecqp3mcazy83sa57rgjde6wec
-$ curl -X GET http://localhost:1317/oracle/report_info/bandvaloper1p40yh3zkmhcv0ecqp3mcazy83sa57rgjde6wec
+$ curl -X GET https://api-gm-lb.bandchain.org/oracle/report_info/bandvaloper1p40yh3zkmhcv0ecqp3mcazy83sa57rgjde6wec
 {
   "height": "1083",
   "result": {
@@ -160,7 +160,7 @@ $ curl -X GET http://localhost:1317/oracle/report_info/bandvaloper1p40yh3zkmhcv0
 
 ```bash
 $ bandcli query oracle params
-$ curl -X GET http://localhost:1317/oracle/params
+$ curl -X GET https://api-gm-lb.bandchain.org/oracle/params
 {
   "height": "10000",
   "result": {
@@ -181,7 +181,7 @@ $ curl -X GET http://localhost:1317/oracle/params
 
 ```bash
 $ bandcli query oracle counts
-$ curl -X GET http://localhost:1317/oracle/counts
+$ curl -X GET https://api-gm-lb.bandchain.org/oracle/counts
 {
   "height": "3462",
   "result": {

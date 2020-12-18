@@ -12,13 +12,14 @@ We recommend experimenting with using our solution on a test network first befor
 
 ## Mainnets
 
-| Blockchain          |        Aggregator Contract Address         | Update Interval |                                    Explorer                                    |
-| ------------------- | :----------------------------------------: | :-------------: | :----------------------------------------------------------------------------: |
-| Binance Smart Chain | 0x2d12c12d17fbc9185d75baf216164130fc269ff1 |     20 mins     | [link](https://bscscan.com/address/0x2d12c12d17fbc9185d75baf216164130fc269ff1) |
+| Blockchain          |        Aggregator Contract Address         |                                    Explorer                                    |
+| ------------------- | :----------------------------------------: | :----------------------------------------------------------------------------: |
+| Binance Smart Chain | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://bscscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
 
 ## Testnets
 
-| Blockchain                    |        Aggregator Contract Address         | Update Interval |                                        Explorer                                        |
-| ----------------------------- | :----------------------------------------: | :-------------: | :------------------------------------------------------------------------------------: |
-| Ethereum (Kovan)              | 0x2d12c12d17fbc9185d75baf216164130fc269ff1 |     20 mins     | [link](https://kovan.etherscan.io/address/0x2d12c12d17fbc9185d75baf216164130fc269ff1)  |
-| Binance Smart Chain (Testnet) | 0x2d12c12d17fbc9185d75baf216164130fc269ff1 |     20 mins     | [link](https://testnet.bscscan.com/address/0x2d12c12d17fbc9185d75baf216164130fc269ff1) |
+| Blockchain                    |        Aggregator Contract Address         |                                        Explorer                                        |
+| ----------------------------- | :----------------------------------------: | :------------------------------------------------------------------------------------: |
+| Ethereum (Kovan)              | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://kovan.etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)  |
+| Binance Smart Chain (Testnet) | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://testnet.bscscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
+

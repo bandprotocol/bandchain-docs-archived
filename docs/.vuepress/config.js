@@ -6,6 +6,12 @@ module.exports = {
       lang: 'en-US',
     },
   },
+  plugins: [
+    '@maginapp/vuepress-plugin-katex',
+    {
+      delimiters: 'dollars',
+    },
+  ],
   base: process.env.VUEPRESS_BASE || '/',
   themeConfig: {
     repo: 'BandProtocol/bandchain',
@@ -56,8 +62,8 @@ module.exports = {
               path: '/band-standard-dataset/supported-blockchains',
             },
             {
-              title: 'Supported Price Feeds',
-              path: '/band-standard-dataset/supported-feeds',
+              title: 'Supported Price Data',
+              path: '/band-standard-dataset/supported-price-data',
             },
             {
               title: 'Using the Data',
@@ -66,7 +72,7 @@ module.exports = {
             },
           ],
         },
-        {
+        /* {
           title: 'Using Any Datasets',
           children: [
             {
@@ -82,8 +88,8 @@ module.exports = {
               path: '/using-any-datasets/default-oracle-scripts',
             },
           ],
-        },
-        {
+        }, */
+        /*         {
           title: 'Reference',
           children: [
             {
@@ -91,7 +97,7 @@ module.exports = {
               path: '/contracts/',
             },
           ],
-        },
+        }, */
       ],
     },
     gutter: {

@@ -4,6 +4,8 @@ order: 8
 
 # Cosmos IBC Integration
 
+> NOTE: Work in progress
+
 ## Prerequisite Readings
 
 - [Whitepaper / Protocol Messages](./protocol-messages.md) {prereq}
@@ -18,9 +20,9 @@ In addition to our own [lite client protocol](https://github.com/bandprotocol/ba
 
 This is the data packet that the blockchain looking to send a request to BandChain's oracle must send.
 
-| Parameter      | Type             | Description                                                                                                                                                |
-|----------------|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| ClientID       | string          | the unique identifier of this oracle request, as specified by the client. This same unique ID will be sent back to the requester with the oracle response. |
+| Parameter      | Type           | Description                                                                                                                                                |
+| -------------- | -------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ClientID       | string         | the unique identifier of this oracle request, as specified by the client. This same unique ID will be sent back to the requester with the oracle response. |
 | OracleScriptID | int64          | The unique identifier number assigned to the oracle script when it was first registered on Bandchain                                                       |
 | Sender         | sdk.AccAddress | The address of the message's sender.                                                                                                                       |
 | Calldata       | string         | The data passed over to the oracle script for the script to use during its execution                                                                       |
@@ -31,8 +33,8 @@ This is the data packet that the blockchain looking to send a request to BandCha
 
 Subsequently, this is the packet that will be relayed from BandChain back to the requester's chain. It contains information on the response parameters as well as the requested data itself.
 
-| Parameter     | Type     | Description                                                                                                                                                                    |
-|---------------|----------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Parameter     | Type   | Description                                                                                                                                                                    |
+| ------------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | ClientID      | string | The unique identifier of this oracle request, as specified by the client. This matches the ID stated in the corresponding OracleRequestPacketData                              |
 | RequestID     | uint64 | The unique identifier number of the particular request                                                                                                                         |
 | AnsCount      | uint64 | The number of validators that answers the request, retrieved the data, and submitted a report                                                                                  |

@@ -8,7 +8,7 @@ This section introduces our Band Standard Dataset, how we believe it will help d
 
 The Band Standard Dataset introduces a standard for anyone looking to integrate price data from Band's oracle into their applications. The standard itself consists of two components: a new price dataset and our new aggregator interface.
 
-The dataset supports a growing set of 125 crypto tokens, 14 foreign exchange rates and 2 commodity prices. The prices are aggregated from reputable crypto price aggregators, crypto exchanges, and premium APIs for foreign exchange rates.
+The dataset supports a growing set of cryptocurrency tokens, local currency rates, and commodity  prices. The prices are aggregated from reputable crypto price aggregators, crypto exchanges, and premium APIs for foreign exchange rates.
 
 Our new aggregator interface then provides developers with a simple and cost-effective method to integrate price data from Band's oracle into their applications.
 
@@ -18,11 +18,31 @@ Smart contracts, backend services, and frontend applications can all effortlessl
 
 ### Transparency
 
-For the cryptocurrency data, the price data is calculated by aggregating the result from 3 of the most reputable price aggregator sites (CoinGecko, CryptoCompare, and CoinMarketCap) as well as 9 major exchanges ([Binance](https://binance.com), [Huobi Pro](https://huobi.com), [Coinbase Pro](https://pro.coinbase.com), [Kraken](https://kraken.com), [Bitfinex](https://bitfinex.com), [Bittrex](https://bittrex.com), [Bitstamp](https://bitstamp.net), [OKEX](https://okex.com), [FTX](https://ftx.com), [HitBTC](https://hitbtc.com), [itBit](https://itbit.com)).
+For the cryptocurrency data, the price data is calculated by aggregating the result from a number of the mostreputable price aggregators, including
 
-For the FX and commodity prices, we also aggregate data from premium sources, including [Fixer](https://fixer.io), [Open Exchange Rates](https://openexchangerates.org/), [XE](https://xe.com), and [AlphaVantage](https://alphavantage.co).
+- [CoinGecko](https://coingecko.com)
+- [CryptoCompare](https://cryptocompare.com)
+- [CoinMarketCap](https://coinmarketcap.com)
 
-As with all of Band's other offering, the entire data query request associated with the price data is public. This means that information such as where and how the data have been aggregated, how it is relayed into other blockchains, and how they are used are all publicly viewable, auditable, and verifiable by anyone. Anyone looking to do so can view the calculation code or the data request transactions using our [PoA mainnet explorer](https://guanyu-poa.cosmoscan.io/oracle-script/8#code)
+Along with that, we also pull the price data directly from major exchanges such as 
+
+- [Binance](https://binance.com)
+- [Huobi Pro](https://huobi.com)
+- [Coinbase Pro](https://pro.coinbase.com)
+- [Kraken](https://kraken.com)
+- [Bitfinex](https://bitfinex.com)
+- [Bittrex](https://bittrex.com)
+- [Bitstamp](https://bitstamp.net)
+- [OKEX](https://okex.com)
+
+For the FX and commodity prices, we also aggregate data from premium sources
+
+- [Fixer](https://fixer.io)
+- [Open Exchange Rates](https://openexchangerates.org/)
+- [XE](https://xe.com)
+- [AlphaVantage](https://www.alphavantage.co).
+
+As with all of Band's other offering, the entire data query request associated with the price data is public. This means that information such as where and how the data have been aggregated, how it is relayed into other blockchains, and how they are used are all publicly viewable, auditable, and verifiable by anyone. Anyone looking to do so can view the calculation code or the data request transactions using our [CosmoScan block explorer](https://cosmoscan.io/oracle-script/3)
 
 ### Scalability
 

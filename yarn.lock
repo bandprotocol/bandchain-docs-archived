@@ -967,10 +967,10 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@cosmos-ui/vue@^0.33.0":
-  version "0.33.0"
-  resolved "https://registry.npmjs.org/@cosmos-ui/vue/-/vue-0.33.0.tgz#ddc7bdbafafb3a7b009a7cbc583850811b6fc8ba"
-  integrity sha512-fHRQcxd66nohpeUMiNm6A8XHhFtanrle/7RPv+XQH0ztbUzO4vyCjCI0FQd7QJsmlGWF/il7b9esunM0Y4Lx+A==
+"@cosmos-ui/vue@^0.35.0":
+  version "0.35.0"
+  resolved "https://registry.yarnpkg.com/@cosmos-ui/vue/-/vue-0.35.0.tgz#2056ede98afab0eef96e22082285b201b0e43de1"
+  integrity sha512-WTCJBWSoiDckgvXWPByKkQ7ZVSf9LSMsizIAHBnsi0Zp3GOaEqPNBpgjGt2JEhpDPr7+YwyIgmqQ0S3D+Hq5iQ==
   dependencies:
     algoliasearch "^4.1.0"
     axios "^0.19.2"
@@ -984,6 +984,14 @@
     querystring "^0.2.0"
     tiny-cookie "^2.3.1"
     vue "^2.6.10"
+
+"@maginapp/vuepress-plugin-katex@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@maginapp/vuepress-plugin-katex/-/vuepress-plugin-katex-1.0.7.tgz#72a284bdda61fc70b832de6e3934f57ad127d411"
+  integrity sha512-AJfPVRt5g+YYs1c8qwoSE47NKiTQURnbY7vqtKZIcEMdT+vFGlP/NbjyqHcmys1HzZvELVE1LHtX1vw/cZGK1w==
+  dependencies:
+    katex "^0.11.1"
+    markdown-it-texmath "^0.6.7"
 
 "@mrmlnc/readdir-enhanced@^2.2.1":
   version "2.2.1"
@@ -1309,10 +1317,10 @@
   dependencies:
     lodash.debounce "^4.0.8"
 
-"@vuepress/plugin-google-analytics@1.5.3":
-  version "1.5.3"
-  resolved "https://registry.npmjs.org/@vuepress/plugin-google-analytics/-/plugin-google-analytics-1.5.3.tgz#61510b1619cfffdb173c95a8e6e411817829591c"
-  integrity sha512-wVcQb4luvK9C/apvGJZG+fvoGQRJQ4rc2fWbn6MxlTN8xTFH5RkQHXzHWVqvUYLBc2gMP67lRdgZephdYpoYNA==
+"@vuepress/plugin-google-analytics@1.5.4":
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/@vuepress/plugin-google-analytics/-/plugin-google-analytics-1.5.4.tgz#43dff0a84b18b21ea597f3d97281c40d754a5083"
+  integrity sha512-JVmIPBqKNiOVvow+XAZE+jgGvIRMBVxZOpKb5HBQ0xwz/E81Opl7cxdX9VkPKX+i9VoRBPWEiD/874RivzbW1g==
 
 "@vuepress/plugin-last-updated@1.5.2":
   version "1.5.2"
@@ -1934,6 +1942,13 @@ axios@^0.19.2:
   integrity sha512-fjgm5MvRHLhx+osE2xoekY70AhARk3a6hkN+3Io1jc00jtquGvxYlKlsFUhmUET0V5te6CcZI7lcv2Ym61mjHA==
   dependencies:
     follow-redirects "1.5.10"
+
+axios@^0.20.0:
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/axios/-/axios-0.20.0.tgz#057ba30f04884694993a8cd07fa394cff11c50bd"
+  integrity sha512-ANA4rr2BDcmmAQLOKft2fufrtuvlqR+cXNNinUmvfeSNCOF98PZL+7M/v1zIdGo7OLjEA9J2gXJL+j4zGsl0bA==
+  dependencies:
+    follow-redirects "^1.10.0"
 
 babel-loader@^8.0.4:
   version "8.1.0"
@@ -2633,7 +2648,7 @@ commander@2.17.x:
   resolved "https://registry.npmjs.org/commander/-/commander-2.17.1.tgz#bd77ab7de6de94205ceacc72f1716d29f20a77bf"
   integrity sha512-wPMUt6FnH2yzG95SA6mzjQOEKUU3aLaDEmzs1ti+1E9h+CsrZghRlqEM/EJ4KscsQVG8uNN4uVreUeT8+drlgg==
 
-commander@^2.20.0:
+commander@^2.19.0, commander@^2.20.0:
   version "2.20.3"
   resolved "https://registry.npmjs.org/commander/-/commander-2.20.3.tgz#fd485e84c03eb4881c20722ba48035e8531aeb33"
   integrity sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==
@@ -3870,6 +3885,11 @@ follow-redirects@^1.0.0:
   resolved "https://registry.npmjs.org/follow-redirects/-/follow-redirects-1.12.1.tgz#de54a6205311b93d60398ebc01cf7015682312b6"
   integrity sha512-tmRv0AVuR7ZyouUHLeNSiO6pqulF7dYa3s19c6t+wz9LD69/uSzdMxJ2S91nTI9U3rt/IldxpzMOFejp6f0hjg==
 
+follow-redirects@^1.10.0:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.1.tgz#5f69b813376cee4fd0474a3aba835df04ab763b7"
+  integrity sha512-SSG5xmZh1mkPGyKzjZP8zLjltIfpW32Y5QpdNJyjcfGxK3qo3NDDkZOZSFiGn1A6SclQxY9GzEwAHQ3dmYRWpg==
+
 for-in@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/for-in/-/for-in-1.0.2.tgz#81068d295a8142ec0ac726c6e2200c30fb6d5e80"
@@ -3961,10 +3981,10 @@ function-bind@^1.1.1:
   resolved "https://registry.npmjs.org/function-bind/-/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
   integrity sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==
 
-fuse.js@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.npmjs.org/fuse.js/-/fuse.js-6.0.0.tgz#6fc16cd7555648deda392892402d4188553552b2"
-  integrity sha512-e5Ap6mhF/WQ9bKqsMFTTR5/DS9qbYab4VXHtMdxCanH+VZkdUV2LqcgMO31etSQv53NXsguQF1bdqkrrPAM2HQ==
+fuse.js@6.4.1:
+  version "6.4.1"
+  resolved "https://registry.yarnpkg.com/fuse.js/-/fuse.js-6.4.1.tgz#76f1b4ab9cd021b854a68381b35628033d27507e"
+  integrity sha512-+hAS7KYgLXontDh/vqffs7wIBw0ceb9Sx8ywZQhOsiQGcSO5zInGhttWOUYQYlvV/yYMJOacQ129Xs3mP3+oZQ==
 
 fuse.js@^3.4.6:
   version "3.6.1"
@@ -5027,6 +5047,13 @@ jstransformer@1.0.0:
     is-promise "^2.0.0"
     promise "^7.0.1"
 
+katex@^0.11.1:
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/katex/-/katex-0.11.1.tgz#df30ca40c565c9df01a466a00d53e079e84ffaa2"
+  integrity sha512-5oANDICCTX0NqYIyAiFCCwjQ7ERu3DQG2JFHLbYOf+fXaMoH8eg/zOq5WSYJsKMi/QebW+Eh3gSM+oss1H/bww==
+  dependencies:
+    commander "^2.19.0"
+
 keyv@^3.0.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/keyv/-/keyv-3.1.0.tgz#ecc228486f69991e49e9476485a5be1e8fc5c4d9"
@@ -5099,6 +5126,13 @@ linkify-it@^2.0.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/linkify-it/-/linkify-it-2.2.0.tgz#e3b54697e78bf915c70a38acd78fd09e0058b1cf"
   integrity sha512-GnAl/knGn+i1U/wjBz3akz2stz+HrHLsxMwHQGofCDfPvlf+gDKN58UtfmUquTY4/MXeE2x7k19KQmeoZi94Iw==
+  dependencies:
+    uc.micro "^1.0.1"
+
+linkify-it@^3.0.1:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/linkify-it/-/linkify-it-3.0.2.tgz#f55eeb8bc1d3ae754049e124ab3bb56d97797fb8"
+  integrity sha512-gDBO4aHNZS6coiZCKVhSNh43F9ioIL4JwRjLZPkoLIY4yZFwg264Y5lu2x6rb1Js42Gh6Yqm2f6L2AJcnkzinQ==
   dependencies:
     uc.micro "^1.0.1"
 
@@ -5315,6 +5349,11 @@ markdown-it-table-of-contents@^0.4.0:
   resolved "https://registry.npmjs.org/markdown-it-table-of-contents/-/markdown-it-table-of-contents-0.4.4.tgz#3dc7ce8b8fc17e5981c77cc398d1782319f37fbc"
   integrity sha512-TAIHTHPwa9+ltKvKPWulm/beozQU41Ab+FIefRaQV1NRnpzwcV9QOe6wXQS5WLivm5Q/nlo0rl6laGkMDZE7Gw==
 
+markdown-it-texmath@^0.6.7:
+  version "0.6.9"
+  resolved "https://registry.yarnpkg.com/markdown-it-texmath/-/markdown-it-texmath-0.6.9.tgz#709f45b3c7f76a5f0157baf819ae80b9499a9ab4"
+  integrity sha512-0Nz9yycwji3r776RCG2lmCsc2bk+lovsaPQklNR3VZMobQ9x45TRMWo2E/J5bejG3qN58MuBKDQWhIA0r1AWVw==
+
 markdown-it@^10.0.0:
   version "10.0.0"
   resolved "https://registry.npmjs.org/markdown-it/-/markdown-it-10.0.0.tgz#abfc64f141b1722d663402044e43927f1f50a8dc"
@@ -5323,6 +5362,17 @@ markdown-it@^10.0.0:
     argparse "^1.0.7"
     entities "~2.0.0"
     linkify-it "^2.0.0"
+    mdurl "^1.0.1"
+    uc.micro "^1.0.5"
+
+markdown-it@^11.0.1:
+  version "11.0.1"
+  resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-11.0.1.tgz#b54f15ec2a2193efa66dda1eb4173baea08993d6"
+  integrity sha512-aU1TzmBKcWNNYvH9pjq6u92BML+Hz3h5S/QpfTFwiQF852pLT+9qHsrhM9JYipkOXZxGn+sGH8oyJE9FD9WezQ==
+  dependencies:
+    argparse "^1.0.7"
+    entities "~2.0.0"
+    linkify-it "^3.0.1"
     mdurl "^1.0.1"
     uc.micro "^1.0.5"
 
@@ -8275,7 +8325,7 @@ vuepress-plugin-container@^2.0.2:
 
 vuepress-plugin-mathjax@^1.2.8:
   version "1.2.8"
-  resolved "https://registry.npmjs.org/vuepress-plugin-mathjax/-/vuepress-plugin-mathjax-1.2.8.tgz#decec38e9dbb82de9cf79f042463fa4a56e25340"
+  resolved "https://registry.yarnpkg.com/vuepress-plugin-mathjax/-/vuepress-plugin-mathjax-1.2.8.tgz#decec38e9dbb82de9cf79f042463fa4a56e25340"
   integrity sha512-vtRyDsBviQJfMgHhjzsVY+Rnr4HyEnUCgCKof5FV2ZG+mVe+YECfhVAe1Zo24XkkYjS/FBMFLn/sz4s0p5iuuQ==
   dependencies:
     lru-cache "^5.1.1"
@@ -8296,24 +8346,22 @@ vuepress-plugin-smooth-scroll@^0.0.3:
   dependencies:
     smoothscroll-polyfill "^0.4.3"
 
-vuepress-theme-cosmos@1.0.172:
+vuepress-theme-cosmos@./theme/vuepress-theme-cosmos:
   version "1.0.172"
-  resolved "https://registry.npmjs.org/vuepress-theme-cosmos/-/vuepress-theme-cosmos-1.0.172.tgz#3a1da55c92cc06a81683044ea7fa0a762d2a8458"
-  integrity sha512-/iSIA8CVzfsHWBL/DnlJNClHXZQQhHrmTIL6toTXfcWOo1UlGRcs+gNKcMbW+tToZjC140NBwX9sdNO8evx2mg==
   dependencies:
-    "@cosmos-ui/vue" "^0.33.0"
-    "@vuepress/plugin-google-analytics" "1.5.3"
+    "@cosmos-ui/vue" "^0.35.0"
+    "@vuepress/plugin-google-analytics" "1.5.4"
     algoliasearch "^4.2.0"
-    axios "^0.19.2"
+    axios "^0.20.0"
     cheerio "^1.0.0-rc.3"
     clipboard-copy "^3.1.0"
     entities "2.0.2"
     esm "^3.2.25"
-    fuse.js "6.0.0"
+    fuse.js "6.4.1"
     gray-matter "^4.0.2"
     hotkeys-js "3.8.1"
     jsonp "^0.2.1"
-    markdown-it "^10.0.0"
+    markdown-it "^11.0.1"
     markdown-it-attrs "^3.0.3"
     prismjs "^1.21.0"
     pug "^2.0.4"
