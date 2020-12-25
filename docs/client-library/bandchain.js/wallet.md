@@ -24,6 +24,12 @@ Generate new private key with random mnemonic phrase.
 
 - `[string, <PrivateKey>]` - A tuple of mnemonic phrase and PrivateKey instance
 
+#### Exception
+
+| Type        | Description               |
+| ----------- | ------------------------- |
+| CreateError | Cannot create private key |
+
 #### Example
 
 ```js
@@ -49,6 +55,12 @@ Create a PrivateKey instance from a given mnemonic phrase and a HD derivation pa
 #### Return
 
 - `<PrivateKey>` Initialized PrivateKey object
+
+#### Exception
+
+| Type        | Description               |
+| ----------- | ------------------------- |
+| CreateError | Cannot create private key |
 
 #### Example
 
@@ -186,9 +198,10 @@ Create a PublicKey instance from a bech32-encoded with account public key prefix
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type        | Description           |
+| ----------- | --------------------- |
+| ValueError  | Invalid bech32 prefix |
+| DecodeError | Cannot decode bech32  |
 
 #### Example
 
@@ -217,9 +230,10 @@ Create a PublicKey instance from a bech32-encoded with validator public key pref
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type        | Description           |
+| ----------- | --------------------- |
+| ValueError  | Invalid bech32 prefix |
+| DecodeError | Cannot decode bech32  |
 
 #### Example
 
@@ -248,9 +262,10 @@ Create a PublicKey instance from a bech32-encoded with validator consensus publi
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type        | Description           |
+| ----------- | --------------------- |
+| ValueError  | Invalid bech32 prefix |
+| DecodeError | Cannot decode bech32  |
 
 #### Example
 
@@ -329,6 +344,12 @@ Return bech32-encoded with validator public key prefix
 
 - `<string>` A bech32-encoded with validator public key prefix.
 
+### Exceptions
+
+| Type                  | Description                      |
+| --------------------- | -------------------------------- |
+| UnsuccessfulCallError | Unsuccessful bech32.toWords call |
+
 #### Example
 
 ```js
@@ -356,6 +377,12 @@ Return bech32-encoded with validator consensus public key prefix
 #### Return
 
 - `<string>` A bech32-encoded with validator consensus public key prefix.
+
+### Exceptions
+
+| Type                  | Description                      |
+| --------------------- | -------------------------------- |
+| UnsuccessfulCallError | Unsuccessful bech32.toWords call |
 
 #### Example
 
@@ -463,9 +490,10 @@ Create a Address instance from a bech32-encoded with account prefix.
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type        | Description           |
+| ----------- | --------------------- |
+| ValueError  | Invalid bech32 prefix |
+| DecodeError | Cannot decode bech32  |
 
 #### Example
 
@@ -492,9 +520,10 @@ Create a Address instance from a bech32-encoded with validator prefix
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type        | Description           |
+| ----------- | --------------------- |
+| ValueError  | Invalid bech32 prefix |
+| DecodeError | Cannot decode bech32  |
 
 #### Example
 
@@ -523,9 +552,10 @@ Create a Address instance from a bech32-encoded with validator consensus prefix
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type        | Description           |
+| ----------- | --------------------- |
+| ValueError  | Invalid bech32 prefix |
+| DecodeError | Cannot decode bech32  |
 
 #### Example
 
@@ -576,6 +606,12 @@ Return bech32-encoded with account prefix
 
 - `<string>` A bech32-encoded with account prefix.
 
+### Exceptions
+
+| Type                  | Description                      |
+| --------------------- | -------------------------------- |
+| UnsuccessfulCallError | Unsuccessful bech32.toWords call |
+
 #### Example
 
 ```js
@@ -604,6 +640,12 @@ Return bech32-encoded with validator prefix
 
 - `<string>` A bech32-encoded with validator prefix.
 
+### Exceptions
+
+| Type                  | Description                      |
+| --------------------- | -------------------------------- |
+| UnsuccessfulCallError | Unsuccessful bech32.toWords call |
+
 #### Example
 
 ```js
@@ -631,6 +673,12 @@ Return bech32-encoded with validator consensus prefix
 #### Return
 
 - `<string>` A bech32-encoded with validator consensus prefix.
+
+### Exceptions
+
+| Type                  | Description                      |
+| --------------------- | -------------------------------- |
+| UnsuccessfulCallError | Unsuccessful bech32.toWords call |
 
 #### Example
 

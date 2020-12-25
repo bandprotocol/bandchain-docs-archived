@@ -38,9 +38,9 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 
 #### Exceptions
 
-| Type  | Description                                                   |
-| ----- | ------------------------------------------------------------- |
-| Error | Message is empty, please use withMessages at least 1 message. |
+| Type          | Description                                                   |
+| ------------- | ------------------------------------------------------------- |
+| EmptyMsgError | Message is empty, please use withMessages at least 1 message. |
 
 ## withAccountNum(accountNum)
 
@@ -56,9 +56,9 @@ Set account number to [`<Transaction>`].
 
 #### Exceptions
 
-| Type  | Description                  |
-| ----- | ---------------------------- |
-| Error | accountNum is not an integer |
+| Type            | Description                  |
+| --------------- | ---------------------------- |
+| NotIntegerError | accountNum is not an integer |
 
 ## with_sequence(sequence)
 
@@ -74,9 +74,9 @@ Set sequence number to [`<Transaction>`].
 
 #### Exceptions
 
-| Type  | Description                |
-| ----- | -------------------------- |
-| Error | sequence is not an integer |
+| Type            | Description                |
+| --------------- | -------------------------- |
+| NotIntegerError | sequence is not an integer |
 
 ## withChainID(chainID)
 
@@ -104,9 +104,9 @@ Set fee to [`<Transaction>`].
 
 #### Exceptions
 
-| Type  | Description           |
-| ----- | --------------------- |
-| Error | fee is not an integer |
+| Type            | Description           |
+| --------------- | --------------------- |
+| NotIntegerError | fee is not an integer |
 
 ## withGas(gas)
 
@@ -122,9 +122,9 @@ Set gas to [`<Transaction>`].
 
 #### Exceptions
 
-| Type  | Description           |
-| ----- | --------------------- |
-| Error | gas is not an integer |
+| Type            | Description           |
+| --------------- | --------------------- |
+| NotIntegerError | gas is not an integer |
 
 ## withMemo(memo)
 
@@ -148,12 +148,12 @@ Get sign data from [`<Transaction>`].
 
 #### Exceptions
 
-| Type  | Description                  |
-| ----- | ---------------------------- |
-| Error | message is empty             |
-| Error | accountNum should be defined |
-| Error | sequence should be defined   |
-| Error | chainID should be defined    |
+| Type           | Description                  |
+| -------------- | ---------------------------- |
+| EmptyMsgError  | message is empty             |
+| UndefinedError | accountNum should be defined |
+| UndefinedError | sequence should be defined   |
+| UndefinedError | chainID should be defined    |
 
 ## getTxData(signature, pubkey)
 
@@ -170,10 +170,10 @@ Get transaction data from [`<Transaction>`].
 
 #### Exceptions
 
-| Type  | Description                  |
-| ----- | ---------------------------- |
-| Error | accountNum should be defined |
-| Error | sequence should be defined   |
+| Type           | Description                  |
+| -------------- | ---------------------------- |
+| UndefinedError | accountNum should be defined |
+| UndefinedError | sequence should be defined   |
 
 #### Example
 

@@ -98,6 +98,12 @@ Decode the input value by using input schema
 
 - `<any>` - A decoded value
 
+### Exceptions
+
+| Type        | Description                                    |
+| ----------- | ---------------------------------------------- |
+| DecodeError | Not all data is consumed after decoding output |
+
 ### Example
 
 ```js
@@ -130,6 +136,12 @@ Decode the output value by using output schema
 ### Return
 
 - `<any>` - A decoded value
+
+### Exceptions
+
+| Type        | Description                                    |
+| ----------- | ---------------------------------------------- |
+| DecodeError | Not all data is consumed after decoding output |
 
 ### Example
 

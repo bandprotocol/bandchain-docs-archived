@@ -549,9 +549,9 @@ The function helps you to get price symbols based on min count and ask count
 
 #### Exception
 
-| Type       | Description                            |
-| ---------- | -------------------------------------- |
-| ValueError | There is no request message in this tx |
+| Type              | Description                            |
+| ----------------- | -------------------------------------- |
+| EmptyRequestError | There is no request message in this tx |
 
 #### Example
 
@@ -595,7 +595,7 @@ The function helps you to get price symbols based on min count and ask count
 
 | Type       | Description          |
 | ---------- | -------------------- |
-| ValueError | Error quering prices |
+| QueryError | Error quering prices |
 
 #### Example
 
