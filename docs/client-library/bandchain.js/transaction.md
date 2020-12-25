@@ -134,6 +134,12 @@ Set memo to [`<Transaction>`].
 
 - **memo** `<str>` memo length is limited to 256.
 
+#### Exceptions
+
+| Type               | Description        |
+| ------------------ | ------------------ |
+| ValueTooLargeError | memo is too large. |
+
 #### Return
 
 [`<Transaction>`]
