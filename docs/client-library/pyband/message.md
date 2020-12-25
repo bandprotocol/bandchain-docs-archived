@@ -23,12 +23,13 @@ Requests a new data based on an existing oracle script. A data request will be a
 
 #### Exceptions
 
-| Type       | Description                                                        |
-| ---------- | ------------------------------------------------------------------ |
-| ValueError | oracleScriptID cannot less than zero                               |
-| ValueError | too large calldata                                                 |
-| ValueError | invalid minCount, got: minCount: \${minCount}                      |
-| ValueError | invalid askCount got: minCount: ${minCount}, askCount: ${askCount} |
+| Type                 | Description                                                        |
+| -------------------- | ------------------------------------------------------------------ |
+| NegativeIntegerError | oracleScriptID cannot less than zero                               |
+| ValueTooLargeError   | too large calldata                                                 |
+| ValueError           | invalid minCount, got: minCount: \${minCount}                      |
+| ValueError           | invalid askCount got: minCount: ${minCount}, askCount: ${askCount} |
+| ValueTooLargeError   | too long client id                                                 |
 
 #### Example
 
@@ -61,9 +62,9 @@ Send \$BAND to desired address.
 
 #### Exceptions
 
-| Type       | Description            |
-| ---------- | ---------------------- |
-| ValueError | Expect at least 1 coin |
+| Type                  | Description            |
+| --------------------- | ---------------------- |
+| InsufficientCoinError | Expect at least 1 coin |
 
 #### Example
 
@@ -93,6 +94,12 @@ Delegate \$BAND to the validator to help secure the network and get rewards.
 - **delegator_address** [`<Address>`] The address of the delegator.
 - **validator_address** [`<Address>`] The address of the validator to delegate \$BAND.
 - **amount** [`<Coin>`] The amount of \$BAND to be delegated.
+
+#### Exceptions
+
+| Type                  | Description            |
+| --------------------- | ---------------------- |
+| InsufficientCoinError | Expect at least 1 coin |
 
 #### Example
 

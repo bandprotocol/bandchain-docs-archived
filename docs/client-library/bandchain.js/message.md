@@ -23,15 +23,15 @@ Requests a new data based on an existing oracle script. A data request will be a
 
 #### Exceptions
 
-| Type  | Description                                                        |
-| ----- | ------------------------------------------------------------------ |
-| Error | oracleScriptID cannot less than zero                               |
-| Error | oracleScriptID is not an integer                                   |
-| Error | too large calldata                                                 |
-| Error | askCount is not an integer                                         |
-| Error | minCount is not an integer                                         |
-| Error | invalid minCount, got: minCount: \${minCount}                      |
-| Error | invalid askCount got: minCount: ${minCount}, askCount: ${askCount} |
+| Type                 | Description                                                  |
+| -------------------- | ------------------------------------------------------------ |
+| NegativeIntegerError | oracleScriptID cannot less than zero                         |
+| NotIntegerError      | oracleScriptID is not an integer                             |
+| ValueTooLargeError   | too large calldata                                           |
+| NotIntegerError      | askCount is not an integer                                   |
+| NotIntegerError      | minCount is not an integer                                   |
+| ValueError           | invalid minCount, got: minCount: minCount                    |
+| ValueError           | invalid askCount got: minCount: minCount, askCount: askCount |
 
 #### Example
 
@@ -65,9 +65,9 @@ Send \$BAND to desired address.
 
 #### Exceptions
 
-| Type  | Description            |
-| ----- | ---------------------- |
-| Error | Expect at least 1 coin |
+| Type                  | Description            |
+| --------------------- | ---------------------- |
+| InsufficientCoinError | Expect at least 1 coin |
 
 #### Example
 

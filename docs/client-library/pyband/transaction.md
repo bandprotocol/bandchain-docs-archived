@@ -36,9 +36,10 @@ Add one or multiple [`<Msg>`] to [`<Transaction>`].
 
 #### Exceptions
 
-| Type       | Description                                                    |
-| ---------- | -------------------------------------------------------------- |
-| ValueError | Message is empty, please use with_messages at least 1 message. |
+| Type          | Description                                                    |
+| ------------- | -------------------------------------------------------------- |
+| EmptyMsgError | Message is empty, please use with_messages at least 1 message. |
+| NotFoundError | Account doesn't exist.                                         |
 
 <!-- prettier-ignore-start -->
 ## with\_account\_num(account\_num)
@@ -124,6 +125,12 @@ Set memo to [`<Transaction>`].
 
 [`<Transaction>`]
 
+#### Exceptions
+
+| Type               | Description        |
+| ------------------ | ------------------ |
+| ValueTooLargeError | memo is too large. |
+
 <!-- prettier-ignore-start -->
 ## get\_sign\_data()
 <!-- prettier-ignore-end -->
@@ -136,12 +143,12 @@ Get sign data from [`<Transaction>`].
 
 #### Exceptions
 
-| Type       | Description                   |
-| ---------- | ----------------------------- |
-| ValueError | message is empty              |
-| ValueError | account_num should be defined |
-| ValueError | sequence should be defined    |
-| ValueError | chain_id should be defined    |
+| Type           | Description                   |
+| -------------- | ----------------------------- |
+| EmptyMsgError  | message is empty              |
+| UndefinedError | account_num should be defined |
+| UndefinedError | sequence should be defined    |
+| UndefinedError | chain_id should be defined    |
 
 <!-- prettier-ignore-start -->
 ## get\_tx\_data(signature, pubkey)

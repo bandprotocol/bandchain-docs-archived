@@ -5472,9 +5472,9 @@ The function helps you to get price symbols based on min count and ask count
 
 #### Exception
 
-| Type  | Description                            |
-| ----- | -------------------------------------- |
-| Error | There is no request message in this tx |
+| Type                 | Description                            |
+| -------------------- | -------------------------------------- |
+| EmptyRequestMsgError | There is no request message in this tx |
 
 #### Example
 
@@ -5519,11 +5519,11 @@ The function helps you to get price symbols based on min count and ask count
 
 #### Exception
 
-| Type       | Description                |
-| ---------- | -------------------------- |
-| ValueError | Error quering prices       |
-| ValueError | minCount is not an integer |
-| ValueError | askCount is not an integer |
+| Type            | Description                |
+| --------------- | -------------------------- |
+| QueryError      | Error quering prices       |
+| NotIntegerError | minCount is not an integer |
+| NotIntegerError | askCount is not an integer |
 
 #### Example
 

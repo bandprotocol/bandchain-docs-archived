@@ -188,9 +188,10 @@ Create a PublicKey instance from a bech32-encoded with account public key prefix
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type           | Description           |
+| -------------- | --------------------- |
+| AssertionError | Invalid bech32 prefix |
+| DecodeError    | Cannot decode bech32  |
 
 #### Example
 
@@ -218,9 +219,10 @@ Create a PublicKey instance from a bech32-encoded with validator public key pref
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type           | Description           |
+| -------------- | --------------------- |
+| AssertionError | Invalid bech32 prefix |
+| DecodeError    | Cannot decode bech32  |
 
 #### Example
 
@@ -248,9 +250,10 @@ Create a PublicKey instance from a bech32-encoded with validator consensus publi
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type           | Description           |
+| -------------- | --------------------- |
+| AssertionError | Invalid bech32 prefix |
+| DecodeError    | Cannot decode bech32  |
 
 #### Example
 
@@ -299,6 +302,12 @@ Return bech32-encoded with account public key prefix
 
 - `<str>` A bech32-encoded with account public key prefix.
 
+#### Exception
+
+| Type           | Description                          |
+| -------------- | ------------------------------------ |
+| AssertionError | Unsuccessful bech32.convertbits call |
+
 #### Example
 
 ```python
@@ -327,6 +336,12 @@ Return bech32-encoded with validator public key prefix
 
 - `<str>` A bech32-encoded with validator public key prefix.
 
+#### Exception
+
+| Type           | Description                          |
+| -------------- | ------------------------------------ |
+| AssertionError | Unsuccessful bech32.convertbits call |
+
 #### Example
 
 ```python
@@ -354,6 +369,12 @@ Return bech32-encoded with validator consensus public key prefix
 #### Return
 
 - `<str>` A bech32-encoded with validator consensus public key prefix.
+
+#### Exception
+
+| Type           | Description                          |
+| -------------- | ------------------------------------ |
+| AssertionError | Unsuccessful bech32.convertbits call |
 
 #### Example
 
@@ -460,9 +481,11 @@ Create a Address instance from a bech32-encoded with account prefix.
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type           | Description                          |
+| -------------- | ------------------------------------ |
+| AssertionError | Unsuccessful bech32.convertbits call |
+| DecodeError    | Cannot decode bech32                 |
+| ConvertError   | Cannot convert to 8 bit              |
 
 #### Example
 
@@ -491,9 +514,11 @@ Create a Address instance from a bech32-encoded with validator prefix
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type           | Description                          |
+| -------------- | ------------------------------------ |
+| AssertionError | Unsuccessful bech32.convertbits call |
+| DecodeError    | Cannot decode bech32                 |
+| ConvertError   | Cannot convert to 8 bit              |
 
 #### Example
 
@@ -522,9 +547,11 @@ Create a Address instance from a bech32-encoded with validator consensus prefix
 
 #### Exception
 
-| Type       | Description           |
-| ---------- | --------------------- |
-| ValueError | Invalid bech32 prefix |
+| Type           | Description                          |
+| -------------- | ------------------------------------ |
+| AssertionError | Unsuccessful bech32.convertbits call |
+| DecodeError    | Cannot decode bech32                 |
+| ConvertError   | Cannot convert to 8 bit              |
 
 #### Example
 
@@ -573,6 +600,12 @@ Return bech32-encoded with account prefix
 
 - `<str>` A bech32-encoded with account prefix.
 
+#### Exception
+
+| Type           | Description                          |
+| -------------- | ------------------------------------ |
+| AssertionError | Unsuccessful bech32.convertbits call |
+
 #### Example
 
 ```python
@@ -600,6 +633,12 @@ Return bech32-encoded with validator prefix
 
 - `<str>` A bech32-encoded with validator prefix.
 
+#### Exception
+
+| Type           | Description                          |
+| -------------- | ------------------------------------ |
+| AssertionError | Unsuccessful bech32.convertbits call |
+
 #### Example
 
 ```python
@@ -626,6 +665,12 @@ Return bech32-encoded with validator consensus prefix
 #### Return
 
 - `<str>` A bech32-encoded with validator consensus prefix.
+
+#### Exception
+
+| Type           | Description                          |
+| -------------- | ------------------------------------ |
+| AssertionError | Unsuccessful bech32.convertbits call |
 
 #### Example
 

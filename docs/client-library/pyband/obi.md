@@ -93,6 +93,12 @@ Decode the input value by using input schema
 
 - `<Any>` - A decoded value
 
+#### Exception
+
+| Type        | Description                                   |
+| ----------- | --------------------------------------------- |
+| DecodeError | Not all data is consumed after decoding input |
+
 ### Example
 
 ```python
@@ -121,6 +127,12 @@ Decode the output value by using output schema
 ### Return
 
 - `<Any>` - A decoded value
+
+#### Exception
+
+| Type        | Description                                   |
+| ----------- | --------------------------------------------- |
+| DecodeError | Not all data is consumed after decoding input |
 
 ### Example
 
