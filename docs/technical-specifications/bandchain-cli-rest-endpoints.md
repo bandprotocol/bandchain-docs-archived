@@ -30,7 +30,7 @@ $ curl -X GET https://api-gm-lb.bandchain.org/oracle/data_sources/1
 
 ```bash
 $ bandcli query oracle oracle-script 1
-$ curl -X GET http://gyms1.bandchain.org:26657//oracle/oracle_scripts/1
+$ curl -X GET https://api-gm-lb.bandchain.org/oracle/oracle_scripts/1
 {
   "height": "10000",
   "result": {
