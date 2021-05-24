@@ -199,9 +199,8 @@
       transition: transform 0.2s ease-out;
 
       &__img {
-        max-height: 14rem;
-        max-width: 10rem;
-        min-width: 8rem;
+        max-width: 80%;
+        min-width: 70%;
       }
     }
 
@@ -272,14 +271,14 @@
 
     &__icon {
       position: absolute;
-      top: 1rem;
+      top: 1.3rem;
       left: 1.25rem;
       font-size: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 3rem;
-      height: 3rem;
+      width: 2.7rem;
+      height: 2.7rem;
     }
 
     &__title {
