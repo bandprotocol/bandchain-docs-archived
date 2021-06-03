@@ -22,7 +22,7 @@ module.exports = {
     // docs 1.0.168: custom true hides hub, ibc, core sidebar footer logos
     custom: true,
     logo: {
-      src: 'https://i.imgur.com/kzVQJi2.png',
+      src: 'https://i.imgur.com/mAYHWdb.png',
     },
     topbar: {
       banner: false,
@@ -124,7 +124,7 @@ module.exports = {
       },
     },
     footer: {
-      logo: 'https://i.imgur.com/kzVQJi2.png',
+      logo: 'https://i.imgur.com/mAYHWdb.png',
       textLink: {
         text: 'bandprotocol.com',
         url: 'https://bandprotocol.com',

@@ -1,46 +1,47 @@
 <template>
   <svg
-    width="44px"
-    height="44px"
-    viewBox="0 0 44 44"
+    width="29px"
+    height="34px"
+    viewBox="0 0 29 34"
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
   >
-    <!-- Generator: Sketch 59.1 (86144) - https://sketch.com -->
     <title>Intro2</title>
-    <desc>Created with Sketch.</desc>
     <g
       id="Intro2"
       stroke="none"
       stroke-width="1"
       fill="none"
       fill-rule="evenodd"
-      stroke-linejoin="round"
     >
       <g
+        transform="translate(0.000000, 1.000000)"
+        fill-rule="nonzero"
         id="Group-2-Copy"
-        transform="translate(22.000000, 22.000000) scale(-1, 1) translate(-22.000000, -22.000000) translate(8.000000, 6.000000)"
         stroke="#000000"
         stroke-width="0.8"
       >
-        <path
-          d="M1.4971227e-15,24.4498692 L-6.38049509e-16,7.01486499 L13.7262424,2.13162821e-14 L27.4524847,7.01486499 L27.4524847,24.4498692 L13.7262424,17.4350042 L1.4971227e-15,24.4498692 Z"
-          id="Combined-Shape"
-          fill="#FFFFFF"
-        ></path>
-        <polygon
-          id="Rectangle"
-          fill="#FFFFFF"
-          points="0 7.29206626 13.7262424 14.3069312 13.7262424 31.7419355 0 24.7270705"
-        ></polygon>
-        <polygon
-          id="Rectangle-Copy"
-          fill="#5269FF"
-          transform="translate(20.589364, 19.517001) scale(-1, 1) translate(-20.589364, -19.517001) "
-          points="13.7262424 7.29206626 27.4524847 14.3069312 27.4524847 31.7419355 13.7262424 24.7270705"
-        ></polygon>
+        <g
+          transform="translate(14.000000, 16.000000) scale(-1, 1) translate(-14.000000, -16.000000) "
+        >
+          <polygon
+            id="Combined-Shape"
+            fill="#FFFFFF"
+            points="1.4971227e-15 24.4498692 -6.38049509e-16 7.01486499 13.7262424 2.13162821e-14 27.4524847 7.01486499 27.4524847 24.4498692 13.7262424 17.4350042"
+          ></polygon>
+          <polygon
+            id="Rectangle"
+            fill="#FFFFFF"
+            points="0 7.29206626 13.7262424 14.3069312 13.7262424 31.7419355 0 24.7270705"
+          ></polygon>
+          <polygon
+            id="Rectangle-Copy"
+            fill="#4520E6"
+            transform="translate(20.589364, 19.517001) scale(-1, 1) translate(-20.589364, -19.517001) "
+            points="13.7262433 7.29206626 27.4524856 14.3069312 27.4524856 31.7419355 13.7262433 24.7270705"
+          ></polygon>
+        </g>
       </g>
-    </g>
-  </svg>
-</template>
+    </g></svg
+></template>
