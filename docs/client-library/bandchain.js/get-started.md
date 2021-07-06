@@ -4,6 +4,12 @@ order: 1
 
 # Get started
 
+Bandchain.js is a library written in TypeScript used for interacting with BandChain. The library provides classes and methods for convenient to send transactions, query data, OBI encoding, and wallet management.
+
+The library is implemented based on [gRPC-web protocol](https://grpc.io/blog/state-of-grpc-web/) which sends HTTP/1.5 or HTTP/2 requests to a gRPC proxy server, before serving them as HTTP/2 to gRPC server.
+
+The library support both Node.js and browsers.
+
 ## Installation
 
 **NPM**
@@ -20,713 +26,424 @@ yarn add @bandprotocol/bandchain.js
 
 ## Example usage
 
-### Make a request
+### Make an oracle request
 
-We will show you how to make a request by following steps
+This section describes methods to send a transaction of oracle request to BandChain
 
-**Step 1:** Import [`Client`] from pyband and put `rpcURL` as parameter, and initial the client instance, now we can use every medthod on client module.
+**Step 1:** Import [`Client`] from `@bandprotocol/bandchain.js` and create an instance with gRPC URL endpoint as an argument. The instance contains all methods to interact with BandChain.
 
 ```js
-import { Client } from "bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js";
 
 // Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
+const grpcUrl = "https://grpc-proxy-laozi-testnet2.bandchain.org";
+const client = new Client(grpcUrl);
 ```
 
-**Step 2:** The sender address is required for sending the transaction, so we have to initial the address first. So we have to import the [`PrivateKey`] from wallet, and get the privatekey, in this example we will get it from our test mnemonic `subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid`
+**Step 2:** Specify an account wallet for sending the transaction. This can be done by import [`PrivateKey`] from `Wallet` module and input a 24-words mnemonic string as a seed. For this example, we will use following mnemonic for demonstration.
+
+```!
+subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid
+```
+
+Here is the example on how to get a private key as an account.
 
 ```js
-import { Client, Wallet } from "bandchain.js";
+import { Client, Wallet } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// Step 2
+const grpcUrl = "https://grpc-proxy-laozi-testnet2.bandchain.org";
+const client = new Client(grpcUrl);
+// Step 2.1
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
 );
 ```
 
-After that, we will transform the private key to the public key and then transform again to the address.
+Then, we will use the private key to generate public key and a BAND address, as shown below
 
 ```js
-import { Client, Wallet } from "bandchain.js";
+import { Client, Wallet } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// Step 2
-const privKey = PrivateKey.fromMnemonic(
+const grpcUrl = "https://grpc-proxy-laozi-testnet2.bandchain.org";
+const client = new Client(grpcUrl);
+// Step 2.1
+const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
 );
-const pubKey = privKey.toPubkey();
-const addr = pubKey.toAddress();
+// Step 2.2
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 ```
 
-**Step 3:** It is time to construct the transaction with request messsage, so we have to import [`Transaction`] and [`MsgRequest`] and start to construct the tx.
+**Step 3:** As we have both an Client instance and an account wallet, we can now construct a transaction by importing [`Transaction`] and [`MsgRequestData`].
 
-As the transaction object requires these attributes
+As the transaction object requires following attributes,
 
-- message
+- a list of messages
 - account number
-- sequence
-- chain id
+- sequence number
+- chain ID
 
-and there are optional fields
+with following optional fields
 
-- gas (default is 200000)
-- free (default is 0)
+- gas limit (default is 200000)
+- fee limit (default is 0)
 - memo (default is empty string)
 
-We will start with the message additional, so we can use [`withMessages`] function, then put the [`MsgRequest`] with params here
-
-- oracleScriptID: the oracle script that we will request
-- calldata: the calldata that needs to transform to bytes by using `Buffer.from('...','hex')` function
-- askCount: the integer of ask count
-- minCount: the integer of min count
-- clientID: the string of client id(it can be any text)
-- sender: the address that we got from public key transformation
+We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 6 fields as shown in the exmaple below.
 
 ```js
-import { Client, Wallet, Transaction, Message } from "bandchain.js";
+import { Client, Wallet, Message } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
-const { MsgRequest } = Message;
 // Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// Step 2
-const privKey = PrivateKey.fromMnemonic(
+const grpcUrl = "https://grpc-proxy-laozi-testnet2.bandchain.org";
+const client = new Client(grpcUrl);
+// Step 2.1
+const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
 );
-const pubKey = privKey.toPubkey();
-const addr = pubKey.toAddress();
-// Step 3
-const makeRequest = async () => {
-  const oracleScriptID = 5;
-  const calldata = Buffer.from(
-    "0000000342544300000003555344000000000000000a",
-    "hex"
-  );
-  const askCount = 16;
-  const minCount = 16;
-  const clientID = "from_bandchainjs";
+// Step 2.2
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 
-  const t = new Transaction().withMessages(
-    new MsgRequest(oracleScriptID, calldata, askCount, minCount, clientID, addr)
-  );
-};
+const makeRequest = async () => {
+  // Step 3.1
+  const { MsgRequestData } = Message
+  const oracleScriptId = 37
+  // calldata is { symbols: ['BTC', 'ETH'], multiplier: 100 }
+  const calldata = Buffer.from('0000000200000003425443000000034554480000000000000064', 'hex')
+  const askCount = 4
+  const minCount = 3
+  const clientId = "from_bandchain.js"
+  // fee, prepareGas, and executeGas can also be manually set in constructor's arguments
+  const msg = new MsgRequestData(
+    oracleScriptId,
+    calldata,
+    askCount,
+    minCount,
+    clientId,
+    sender
+  )
+}
 ```
 
-About account number and sequence, we recommend to use [`Account`] from [`getAccount`] function
-The chain id will be gotten from [`getChainID`] function
+After constructed [`MsgRequestData`], we can get other required fields by following methods to constructs a transaction
 
-All the rest is to optionally add [`withGas`] to increse the gas limit, and [`withMemo`].
+- Account number can be gathered from Client's [`getAccount`] method, under `accountNumber` field.
+- Sequence number can be gathered from Client's [`getAccount`] method, under `sequence` field.
+- Chain ID can be gathered from Client's [`getChainId`] method.
 
-Now the transaction is ready to use as the code below.
+For gas limit, fee limit, and memo can also be manually set
 
 ```js
-import { Client, Wallet, Transaction, Message } from "bandchain.js";
+import { Client, Wallet, Message, Transaction } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
-const { MsgRequest } = Message;
 // Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// Step 2
-const privKey = PrivateKey.fromMnemonic(
+const grpcUrl = "https://grpc-proxy-laozi-testnet2.bandchain.org";
+const client = new Client(grpcUrl);
+// Step 2.1
+const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
 );
-const pubKey = privKey.toPubkey();
-const addr = pubKey.toAddress();
-// Step 3
-const makeRequest = async () => {
-  const account = await client.getAccount(addr);
-  const chainID = await client.getChainID();
-  const oracleScriptID = 5;
-  const calldata = Buffer.from(
-    "0000000342544300000003555344000000000000000a",
-    "hex"
-  );
-  const askCount = 16;
-  const minCount = 16;
-  const clientID = "from_bandchainjs";
+// Step 2.2
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 
-  const t = new Transaction()
-    .withMessages(
-      new MsgRequest(
-        oracleScriptID,
-        calldata,
-        askCount,
-        minCount,
-        clientID,
-        addr
-      )
-    )
+const makeRequest = async () => {
+  // Step 3.1 constructs MsgRequestData message
+  const { MsgRequestData } = Message
+  const oracleScriptId = 37
+  // calldata is { symbols: ['BTC', 'ETH'], multiplier: 100 }
+  const calldata = Buffer.from('0000000200000003425443000000034554480000000000000064', 'hex')
+  const askCount = 4
+  const minCount = 3
+  const clientId = "from_bandchain.js"
+  // fee, prepareGas, and executeGas can also be manually set in constructor's arguments
+  const msg = new MsgRequestData(
+    oracleScriptId,
+    calldata,
+    askCount,
+    minCount,
+    clientId,
+    sender
+  )
+  // Step 3.2 constructs a transaction
+  const account = await client.getAccount(sender)
+  const chainId = "band-laozi-testnet2"
+  const tx = new Transaction()
+    .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
-    .withChainID(chainID)
-    .withGas(5000000)
-    .withMemo("bandchain.js example");
-};
+    .withChainID(chainId)
+    .withGas(1500000)
+}
 ```
 
-**Step 4:** Prepare the ready to send transaction
+**Step 4:** Sign and send the transaction
 
-Call [`getSignData`] to get the transaction object which is ready to sign, then we will get the signature by signing the transaction.
-
-After that, we will get the `raw transaction` by calling [`getTxData`], putting the signature and public key as parameters of this function.
+Now, we had an instance of constructed transaction. In order to sign the transaction, [`getSignDoc`] method in `Transaction` instance can be used to get serialzed data of the transaction to be used for signing. Then, use `PrivateKey`'s [`sign`] to sign transaction. Finally, use  [`getTxData`] to include signature and public key to the transaction to get a complete signed transaction.
 
 ```js
-import { Client, Wallet, Transaction, Message } from "bandchain.js";
+import { Client, Wallet, Message, Transaction } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
-const { MsgRequest } = Message;
 // Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// Step 2
-const privKey = PrivateKey.fromMnemonic(
+const grpcUrl = "https://grpc-proxy-laozi-testnet2.bandchain.org";
+const client = new Client(grpcUrl);
+// Step 2.1
+const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
 );
-const pubKey = privKey.toPubkey();
-const addr = pubKey.toAddress();
-// Step 3
-const makeRequest = async () => {
-  const account = await client.getAccount(addr);
-  const chainID = await client.getChainID();
-  const oracleScriptID = 5;
-  const calldata = Buffer.from(
-    "0000000342544300000003555344000000000000000a",
-    "hex"
-  );
-  const askCount = 16;
-  const minCount = 16;
-  const clientID = "from_bandchainjs";
+// Step 2.2
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 
-  const t = new Transaction()
-    .withMessages(
-      new MsgRequest(
-        oracleScriptID,
-        calldata,
-        askCount,
-        minCount,
-        clientID,
-        addr
-      )
-    )
+const makeRequest = async () => {
+  // Step 3.1 constructs MsgRequestData message
+  const { MsgRequestData } = Message
+  const oracleScriptId = 37
+  // calldata is { symbols: ['BTC', 'ETH'], multiplier: 100 }
+  const calldata = Buffer.from('0000000200000003425443000000034554480000000000000064', 'hex')
+  const askCount = 4
+  const minCount = 3
+  const clientId = "from_bandchain.js"
+  // fee, prepareGas, and executeGas can also be manually set in constructor's arguments
+  const msg = new MsgRequestData(
+    oracleScriptId,
+    calldata,
+    askCount,
+    minCount,
+    clientId,
+    sender
+  )
+  // Step 3.2 constructs a transaction
+  const account = await client.getAccount(sender)
+  const chainId = "band-laozi-testnet2"
+  const tx = new Transaction()
+    .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
-    .withChainID(chainID)
-    .withGas(5000000)
-    .withMemo("bandchain.js example");
-  // Step 4
-  const rawData = t.getSignData();
-  const signature = privKey.sign(rawData);
-  const rawTx = t.getTxData(signature, pubKey);
-};
+    .withChainID(chainId)
+    .withGas(1500000)
+  
+  // Step 4 sign the transaction
+  const txSignData = tx.getSignDoc(pubkey)
+  const signature = privkey.sign(txSignData)
+  const signedTx = tx.getTxData(signature, pubkey)
+}
 ```
 
-**Step 5:** After we got `raw transaction` from the previous step, now we can send the transaction.
+**Step 5:** Send the signed transaction to Bandchain be using following method of choices
 
-There are 3 modes for sending the transaction. We choose to use `block` mode in this example, we can call [`sendTxBlockMode`] with `raw transaction` as param.
+- `Transaction`'s [`sendTxBlockMode`] Send the transaction and wait until committed
+- `Transaction`'s [`sendTxSyncMode`] Send the transaction and wait until `CheckTx` phase is done
+- `Transaction`'s [`sendTxAsyncMode`] Send the transaction and immediately returned
+
+For our example, we will use `sendTxBlockMode` to send the transaction.
 
 The final code should now look like the code below.
 
 ```js
-import { Client, Wallet, Transaction, Message } from "bandchain.js";
+import { Client, Wallet, Message, Transaction } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
-const { MsgRequest } = Message;
-// step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// step 2
-const privKey = PrivateKey.fromMnemonic(
+// Step 1
+const grpcUrl = "https://grpc-proxy-laozi-testnet2.bandchain.org";
+const client = new Client(grpcUrl);
+// Step 2.1
+const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
 );
-const pubKey = privKey.toPubkey();
-const addr = pubKey.toAddress();
-// step 3
-const makeRequest = async () => {
-  const account = await client.getAccount(addr);
-  const chainID = await client.getChainID();
-  const oracleScriptID = 5;
-  const calldata = Buffer.from(
-    "0000000342544300000003555344000000000000000a",
-    "hex"
-  );
-  const askCount = 16;
-  const minCount = 16;
-  const clientID = "from_bandchainjs";
+// Step 2.2
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 
-  const t = new Transaction()
-    .withMessages(
-      new MsgRequest(
-        oracleScriptID,
-        calldata,
-        askCount,
-        minCount,
-        clientID,
-        addr
-      )
-    )
+const makeRequest = async () => {
+  // Step 3.1 constructs MsgRequestData message
+  const { MsgRequestData } = Message
+  const oracleScriptId = 37
+  // calldata is { symbols: ['BTC', 'ETH'], multiplier: 100 }
+  const calldata = Buffer.from('0000000200000003425443000000034554480000000000000064', 'hex')
+  const askCount = 4
+  const minCount = 3
+  const clientId = "from_bandchain.js"
+  // fee, prepareGas, and executeGas can also be manually set in constructor's arguments
+  const msg = new MsgRequestData(
+    oracleScriptId,
+    calldata,
+    askCount,
+    minCount,
+    clientId,
+    sender
+  )
+  // Step 3.2 constructs a transaction
+  const account = await client.getAccount(sender)
+  const chainId = "band-laozi-testnet2"
+  const tx = new Transaction()
+    .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
-    .withChainID(chainID)
-    .withGas(5000000)
-    .withMemo("bandchain.js example");
-  // Step 4
-  const rawData = t.getSignData();
-  const signature = privKey.sign(rawData);
-  const rawTx = t.getTxData(signature, pubKey);
-  // Step 5
-  client.sendTxBlockMode(rawTx).then((e) => console.log(JSON.stringify(e)));
-};
+    .withChainID(chainId)
+    .withGas(1500000)
+  
+  // Step 4 sign the transaction
+  const txSignData = tx.getSignDoc(pubkey)
+  const signature = privkey.sign(txSignData)
+  const signedTx = tx.getTxData(signature, pubkey)
+  
+
+  // Step 5 send the transaction
+  const response = await client.sendTxBlockMode(signedTx)
+  console.log(response)
+}
 
 (async () => {
   await makeRequest();
 })();
 ```
 
-After, we run `makeRequest` function, the result should look like this.
+After, we run the script above, the result should look like this. The following log contains logs, which have events related to sent request.
 
 ```json
 {
-  "height": 2480949,
-  "txHash": {
-    "type": "Buffer",
-    "data": [
-      200,
-      118,
-      1,
-      56,
-      125,
-      233,
-      113,
-      20,
-      15,
-      200,
-      63,
-      241,
-      205,
-      73,
-      250,
-      107,
-      67,
-      73,
-      159,
-      92,
-      203,
-      142,
-      10,
-      66,
-      20,
-      23,
-      49,
-      150,
-      99,
-      131,
-      15,
-      185
-    ]
-  },
-  "gasWanted": 5000000,
-  "gasUsed": 5000000,
-  "code": 0,
-  "log": [
-    {
-      "msg_index": 0,
-      "log": "",
-      "events": [
-        {
-          "type": "message",
-          "attributes": [{ "key": "action", "value": "request" }]
-        },
-        {
-          "type": "raw_request",
-          "attributes": [
-            { "key": "data_source_id", "value": "4" },
-            {
-              "key": "data_source_hash",
-              "value": "93734983de34865551a03bd5b27c650f6f9496c8eeb25f3b1445ff89d32dbc7b"
-            },
-            { "key": "external_id", "value": "11" },
-            { "key": "calldata", "value": "BTC" },
-            { "key": "data_source_id", "value": "5" },
-            {
-              "key": "data_source_hash",
-              "value": "980a7da17f800b5006775a4e907bad29b52b9d9f1370bc7e8c10449dc95f020f"
-            },
-            { "key": "external_id", "value": "12" },
-            { "key": "calldata", "value": "BTC" }
-          ]
-        },
-        {
-          "type": "request",
-          "attributes": [
-            { "key": "id", "value": "494500" },
-            { "key": "client_id", "value": "from_bandchainjs" },
-            { "key": "oracle_script_id", "value": "5" },
-            {
-              "key": "calldata",
-              "value": "0000000342544300000003555344000000000000000a"
-            },
-            { "key": "ask_count", "value": "16" },
-            { "key": "min_count", "value": "16" },
-            { "key": "gas_used", "value": "3130" },
-            {
-              "key": "validator",
-              "value": "bandvaloper135hz0cvdv5vd7e6wl7qjgfv3j90dh2r4vry2cs"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1nykclk39ge2zyk7h3uyzkfncyxstnp4qkwtgvm"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1unfg2zhnssl07tql8d85zc6rx7zsfs5qh206av"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1sy7ctj5qjgre7s9mgf7u8m5exdrfpcsxyqrxnc"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1h54f3tpfrl2gszkpqxmqaurkfkffd2qdrxw8hl"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1l6syuchpqj0jku2cswmxd5m8rdlzydcpug29cv"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper12w7p4e3suvjpg84mqdh5k5n9h6x7zsc3e8jtwn"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1egcncstqyhm7njd5mva03lkrdtemmzehda940c"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1vqvrrcwqudqqzurxqscdwg8qclad6m959l7mxj"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1a05af3g6s0qltqdam569m43630zzhpnh99d4jn"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1nlepx7xg53fsy6vslrss6adtmtl8a33kusv7fa"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1u3c40nglllu4upuddlz6l59afq7uuz7lq6z977"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1muydxugudsd64w4ng3vylm4gct5qvakjnfgm7x"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1n50c9uhawz6s0u5wqfa57qvy2x6kyg933vgkuw"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper158q56s6zgnk4zf3sz6cz4jmpmxpanhxsfdra05"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper19gh30we6ypgec5plmnxd7smlqp66hel4lx573n"
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "height":438884,
+  "txhash":"313DBAD237E3E672B432D7F9A422EF953EA42E1029F3562C9EE2AEFB70E7D5A3",
+  "codespace":"",
+  "code":0,
+  "data":"0A090A0772657175657374",
+  "rawLog":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"request\"}]},{\"type\":\"raw_request\",\"attributes\":[{\"key\":\"data_source_id\",\"value\":\"61\"},{\"key\":\"data_source_hash\",\"value\":\"07be7bd61667327aae10b7a13...",
+  "logsList":[{
+    "msgIndex":0,
+    "log":"",
+    "eventsList": [
+      {"type":"message","attributesList":[{"key":"action","value":"request"}]},
+      {"type":"raw_request","attributesList":[{"key":"data_source_id","value":"61"},
+      {"key":"data_source_hash","value":"07be7bd61667327aae10b7a13a542c7dfba31b8f4c52b0b60bf9c7b11b1a72ef"},
+      {"key":"external_id","value":"6"},
+      {"key":"calldata","value":"BTC ETH"},
+      {"key":"fee","value":""},
+      {"key":"data_source_id","value":"57"},
+      {"key":"data_source_hash","value":"61b369daa5c0918020a52165f6c7662d5b9c1eee915025cb3d2b9947a26e48c7"},
+      {"key":"external_id","value":"0"},
+      {"key":"calldata","value":"BTC ETH"},
+      {"key":"fee","value":""},
+      {"key":"data_source_id","value":"62"},
+      {"key":"data_source_hash","value":"107048da9dbf7960c79fb20e0585e080bb9be07d42a1ce09c5479bbada8d0289"},
+      {"key":"external_id","value":"3"},
+      {"key":"calldata","value":"BTC ETH"},
+      {"key":"fee","value":""},
+      {"key":"data_source_id","value":"60"},
+      ...,
+      {"key":"calldata","value":"BTC ETH"},
+      {"key":"fee","value":""}]},
+      {"type":"request","attributesList":[{"key":"id","value":"74473"},
+      {"key":"client_id","value":"from_bandchain.js"},
+      {"key":"oracle_script_id","value":"37"},
+      {"key":"calldata","value":"0000000200000003425443000000034554480000000000000064"},
+      {"key":"ask_count","value":"4"},
+      {"key":"min_count","value":"3"},
+      {"key":"gas_used","value":"111048"},
+      {"key":"total_fees","value":""},
+      {"key":"validator","value":"bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz"},
+      {"key":"validator","value":"bandvaloper1v0u0tsptnkcdrju4qlj0hswqhnqcn47d20prfy"},
+      {"key":"validator","value":"bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u"},
+      {"key":"validator","value":"bandvaloper19eu9g3gka6rxlevkjlvjq7s6c498tejnwxjwxx"}
+    ]}]}],
+  "info":"",
+  "gasWanted":1500000,
+  "gasUsed":660549,
+  "timestamp":""
 }
 ```
 
 ### Send BAND token
 
-We will show you how to send BAND by following steps
+Sending BAND token has code pattern similar to the previous section, except that different type of message is used.
 
-**Step 1:** Import [`Client`] from pyband and put `rpcURL` as parameter, and initial the client instance, now we can use every medthod on client module.
+The message used for this section is [`MsgSend`] which can be used as shown below
 
 ```js
-import { Client } from "bandchain.js";
-
-// Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
+const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+  const sendAmount = new Coin()
+  sendAmount.setDenom("uband")
+  sendAmount.setAmount("10")
+  const msg = new MsgSend(
+    sender,
+    receiver,
+    [sendAmount],
+  )
 ```
 
-**Step 2:** The sender address is required for sending the transaction, so we have to initial the address first. So we have to import the [`PrivateKey`] from wallet, and get the privatekey, in this example we will get it from our test mnemonic `subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid`
+Therefore, final result is as shown follow
 
 ```js
-import { Client, Wallet } from "bandchain.js";
+import { Client, Wallet, Message, Transaction, Coin } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// Step 2
+const grpcUrl = "https://grpc-proxy-laozi-testnet2.bandchain.org";
+const client = new Client(grpcUrl);
+// Step 2.1
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
 );
-```
+// Step 2.2
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 
-After that, we will transform the private key to the public key and then transform again to the address.
+const sendCoin = async () => {
+  // Step 3.1 constructs MsgSend message
+  const { MsgSend } = Message
 
-```js
-import { Client, Wallet } from "bandchain.js";
-const { PrivateKey } = Wallet;
-// Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// Step 2
-const privKey = PrivateKey.fromMnemonic(
-  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
-const pubKey = privKey.toPubkey();
-const addr = pubKey.toAddress();
-```
-
-**Step 3:** It is time to construct the transaction with request messsage, so we have to import [`Transaction`] and [`MsgRequest`] and start to construct the tx.
-
-As the transaction object requires these attributes
-
-- message
-- account number
-- sequence
-- chain id
-
-and there are optional fields
-
-- gas (default is 200000)
-- free (default is 0)
-- memo (default is empty string)
-
-We will start with the message additional, so we can use [`with_messages`] function, then put the [`MsgSend`] with params here
-
-- fromAddress: the sender address which is in [`Address`]
-- toAddress: the receiver address which is in [`Address`] , we can transform from string of address to [`Address`] by calling [`fromAccBech32`] function.
-- amount: the amount of BAND in [`Coin`] that you want to send. In this case, we want to send 1 BAND or 1000000 UBAND
-
-```js
-import { Client, Wallet, Transaction, Message, Data } from "bandchain.js";
-const { PrivateKey, Address } = Wallet;
-const { MsgSend } = Message;
-const { Coin } = Data;
-
-// Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// Step 2
-const privKey = PrivateKey.fromMnemonic(
-  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
-const pubKey = privKey.toPubkey();
-const addr = pubKey.toAddress();
-// Step 3
-const sendToken = async () => {
-  const fromAddress = addr;
-  const toAddress = Address.fromAccBech32(
-    "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"
-  );
-  const amount = [new Coin(1000000, "uband")];
-
-  const t = new Transaction().withMessages(
-    new MsgSend(fromAddress, toAddress, amount)
-  );
-};
-```
-
-**Step 4:** Prepare the ready to send transaction
-
-Call [`getSignData`] to get the transaction object which is ready to sign, then we will get the signature by signing the transaction.
-
-After that, we will get the `raw transaction` by calling [`getTxData`], putting the signature and public key as parameters of this function.
-
-```js
-import { Client, Wallet, Transaction, Message, Data } from "bandchain.js";
-const { PrivateKey, Address } = Wallet;
-const { MsgSend } = Message;
-const { Coin } = Data;
-// Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// Step 2
-const privKey = PrivateKey.fromMnemonic(
-  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
-const pubKey = privKey.toPubkey();
-const addr = pubKey.toAddress();
-// Step 3
-const sendToken = async () => {
-  const account = await client.getAccount(addr);
-  const chainID = await client.getChainID();
-  const fromAddress = addr;
-  const toAddress = Address.fromAccBech32(
-    "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"
-  );
-  const amount = [new Coin(1000000, "uband")];
-
-  const t = new Transaction()
-    .withMessages(new MsgSend(fromAddress, toAddress, amount))
+  // Here we use different message type, which is MsgSend
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+  const sendAmount = new Coin()
+  sendAmount.setDenom("uband")
+  sendAmount.setAmount("10")
+  const msg = new MsgSend(
+    sender,
+    receiver,
+    [sendAmount],
+  )
+  // Step 3.2 constructs a transaction
+  const account = await client.getAccount(sender)
+  const chainId = "band-laozi-testnet2"
+  const tx = new Transaction()
+    .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
-    .withChainID(chainID)
-    .withGas(5000000)
-    .withMemo("bandchain.js example");
-  // Step 4
-  const rawData = t.getSignData();
-  const signature = privKey.sign(rawData);
-  const rawTx = t.getTxData(signature, pubKey);
-};
-```
+    .withChainID(chainId)
+    .withGas(1500000)
+  
+  // Step 4 sign the transaction
+  const txSignData = tx.getSignDoc(pubkey)
+  const signature = privkey.sign(txSignData)
+  const signedTx = tx.getTxData(signature, pubkey)
+  
 
-**Step 5:** After we got `raw transaction` from the previous step, now we can send the transaction.
-
-There are 3 modes for sending the transaction. We choose to use `block` mode in this example, we can call [`sendTxBlockMode`] with `raw transaction` as param.
-
-The final code should now look like the code below.
-
-```js
-import { Client, Wallet, Transaction, Message } from "bandchain.js";
-const { PrivateKey, Address } = Wallet;
-const { MsgSend } = Message;
-const { Coin } = Data;
-// step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
-// step 2
-const privKey = PrivateKey.fromMnemonic(
-  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
-const pubKey = privKey.toPubkey();
-const addr = pubKey.toAddress();
-// step 3
-const sendToken = async () => {
-  const account = await client.getAccount(addr);
-  const chainID = await client.getChainID();
-  const fromAddress = addr;
-  const toAddress = Address.fromAccBech32(
-    "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"
-  );
-  const amount = [new Coin(1000000, "uband")];
-
-  const t = new Transaction()
-    .withMessages(new MsgSend(fromAddress, toAddress, amount))
-    .withAccountNum(account.accountNumber)
-    .withSequence(account.sequence)
-    .withChainID(chainID)
-    .withGas(5000000)
-    .withMemo("bandchain.js example");
-  // Step 4
-  const rawData = t.getSignData();
-  const signature = privKey.sign(rawData);
-  const rawTx = t.getTxData(signature, pubKey);
-  // Step 5
-  client.sendTxBlockMode(rawTx).then((e) => console.log(JSON.stringify(e)));
-};
+  // Step 5 send the transaction
+  const response = await client.sendTxBlockMode(signedTx)
+  console.log(response)
+}
 
 (async () => {
-  await sendToken();
+  await sendCoin();
 })();
-```
-
-The result should look like this.
-
-```json
-{
-  "height": 2483183,
-  "txHash": {
-    "type": "Buffer",
-    "data": [
-      125,
-      173,
-      55,
-      105,
-      25,
-      0,
-      184,
-      69,
-      184,
-      204,
-      152,
-      191,
-      159,
-      164,
-      41,
-      234,
-      21,
-      144,
-      173,
-      10,
-      132,
-      107,
-      195,
-      105,
-      113,
-      84,
-      205,
-      204,
-      180,
-      131,
-      44,
-      0
-    ]
-  },
-  "gasWanted": 5000000,
-  "gasUsed": 5000000,
-  "code": 0,
-  "log": [
-    {
-      "msg_index": 0,
-      "log": "",
-      "events": [
-        {
-          "type": "message",
-          "attributes": [
-            { "key": "action", "value": "send" },
-            {
-              "key": "sender",
-              "value": "band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy"
-            },
-            { "key": "module", "value": "bank" }
-          ]
-        },
-        {
-          "type": "transfer",
-          "attributes": [
-            {
-              "key": "recipient",
-              "value": "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"
-            },
-            {
-              "key": "sender",
-              "value": "band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy"
-            },
-            { "key": "amount", "value": "1000000uband" }
-          ]
-        }
-      ]
-    }
-  ]
-}
 ```
 
 ### Get reference data
 
-We will show you how to get the reference data
+This section shows an example on how to query data from BandChain. This example query standard price references based on given symbol pairs, min count, and ask count.
 
-**Step 1:** Import [`Client`] from pyband and put `RPC_URL` as parameter, and initial the client instance, now we can use every medthod on client module.
+**Step 1:** Import [`Client`] from `@bandprotocol/bandchain.js` and put string of gRPC URL endpoint as a parameter, then initialize the client instance as shown below.
 
 ```js
-import { Client } from "bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js";
 // Step 1
-const rpcURL = "https://guanyu-testnet3-query.bandchain.org";
-const client = new Client(rpcURL);
+const grpcUrl = "http://localhost:8080";
+const client = new Client(grpcUrl);
 ```
 
-**Step 2:** After we import the [`Client`] already, then we call the [`getReferenceData`] function to get the latest price
+**Step 2:** After we import the [`Client`] already, then we call the `Client`'s [`getReferenceData`] function to get the latest price
 
 There are 3 parameters
 
@@ -737,14 +454,15 @@ There are 3 parameters
 The final code should look like the code below.
 
 ```js
-import { Client } from "bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js";
 // Step 1
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
-// Step 2
-const minCount = 10;
-const askCount = 16;
+const grpcUrl = "http://localhost:8080";
+const client = new Client(grpcUrl);
 
-const pairs = ["BTC/USDT", "ETH/USDT"];
+// Step 2
+const minCount = 3;
+const askCount = 6;
+const pairs = ["BTC/USD", "ETH/USD"];
 
 (async () => {
   console.log(
@@ -755,36 +473,51 @@ const pairs = ["BTC/USDT", "ETH/USDT"];
 
 The result should look like this.
 
-```python
+```json
 [
   {
-    "pair": "BTC/USDT",
-    "rate": 19311.553805658896,
-    "updatedAt": { "base": 1607067650, "quote": 1607067650 }
+    "pair": "BTC/USD",
+    "rate": 34078.0954,
+    "updatedAt": {
+      "base": 1625579610,
+      "quote": 1625579627
+    },
+    "requestId": {
+      "base": 79538,
+      "quote": 0
+    }
   },
   {
-    "pair": "ETH/USDT",
-    "rate": 606.4386050528308,
-    "updatedAt": { "base": 1607067650, "quote": 1607067650 }
+    "pair": "ETH/BTC",
+    "rate": 0.06759872648278929,
+    "updatedAt": {
+      "base": 1625579610,
+      "quote": 1625579610
+    },
+    "requestId": {
+      "base": 79538,
+      "quote": 79538
+    }
   }
 ]
 ```
 
 [`gettxdata`]: /client-library/bandchain.js/transaction.html#get-tx-data-signature-pubkey
-[`getsigndata`]: /client-library/bandchain.js/transaction.html#getsigndata
+[`getsigndoc`]: /client-library/bandchain.js/transaction.html#getsigndata
 [`getchainid`]: /client-library/bandchain.js/client.html#getchainid
 [`getaccount`]: /client-library/bandchain.js/client.html#getaccount-address
 [`withgas`]: /client-library/bandchain.js/transaction.html#withgas-gas
 [`withmemo`]: /client-library/bandchain.js/transaction.html#withmemo-memo
 [`withmessages`]: /client-library/bandchain.js/transaction.html#withmessages-msgs
-[`msgrequest`]: /client-library/bandchain.js/message.html#msgrequest
+[`msgrequestdata`]: /client-library/bandchain.js/message.html#msgrequestdata
 [`msgsend`]: /client-library/bandchain.js/message.html#msgsend
 [`transaction`]: /client-library/bandchain.js/transaction.html
 [`account`]: /client-library/bandchain.js/data.html#account
 [`sendtxblockmode`]: /client-library/bandchain.js/client.html#send-tx-block-mode-data
+[`sendtxsyncmode`]: /client-library/bandchain.js/client.html#send-tx-sync-mode-data
+[`sendtxasyncmode`]: /client-library/bandchain.js/client.html#send-tx-async-mode-data
 [`privatekey`]: /client-library/bandchain.js/wallet.html#privatekey
 [`client`]: /client-library/bandchain.js/client.html
 [`coin`]: /client-library/bandchain.js/data.html#coin
 [`address`]: /client-library/bandchain.js/wallet.html#address
-[`fromaccbech32`]: /client-library/bandchain.js/wallet.html#from-acc-bech32-bech-2
 [`getreferencedata`]: /client-library/bandchain.js/client.html#getreferencedata-pairs-mincount-askcount
