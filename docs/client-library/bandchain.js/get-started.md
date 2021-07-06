@@ -430,6 +430,47 @@ const sendCoin = async () => {
 })();
 ```
 
+The response should be similar to as shown below
+
+```json
+{
+  "height": 443301,
+  "txhash": "026760F78665C03DD4A8786304E01848A4747F0B62F7DB4B31F93C792B2D3D52",
+  "codespace": "",
+  "code": 0,
+  "data": "0A060A0473656E64",
+  "rawLog": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"send\"},{\"key\":\"sender\",\"value\":\"band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f\"},{\"key\":\"sender\",\"value\":\"band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy\"},{\"key\":\"amount\",\"value\":\"10uband\"}]}]}]",
+  "logsList": [
+    {
+      "msgIndex": 0,
+      "log": "",
+      "eventsList": [
+        {
+          "type": "message",
+          "attributesList": [
+            { "key": "action", "value": "send" },
+            { "key": "sender", "value": "band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy" },
+            { "key": "module", "value": "bank" }
+          ]
+        },
+        {
+          "type": "transfer",
+          "attributesList": [
+            { "key": "recipient", "value": "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f" },
+            { "key": "sender", "value": "band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy" },
+            { "key": "amount", "value": "10uband" }
+          ]
+        }
+      ]
+    }
+  ],
+  "info": "",
+  "gasWanted": 1500000,
+  "gasUsed": 49013,
+  "timestamp": ""
+}
+```
+
 ### Get reference data
 
 This section shows an example on how to query data from BandChain. This example query standard price references based on given symbol pairs, min count, and ask count.
