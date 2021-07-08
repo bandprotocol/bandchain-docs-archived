@@ -21,14 +21,14 @@ In addition to our own [lite client protocol](https://docs.bandchain.org/whitepa
 | Parameter      | Type      | Description                                                                                                                                                |
 | -------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | ClientID       | string    | The unique identifier of this oracle request, as specified by the client. This same unique ID will be sent back to the requester with the oracle response  |
-| OracleScriptID | int64     | The unique identifier number assigned to the oracle script when it was first registered on Bandchain                                                       |  |
+| OracleScriptID | int64     | The unique identifier number assigned to the oracle script when it was first registered on Bandchain                                                       |
 | Calldata       | string    | The data that was passed over to the oracle script to use during its execution eg. list of requested symbols and multiplier                                |
 | AskCount       | uint64    | The number of validators that are requested to respond to this request                                                                                     |
 | MinCount       | uint64    | The minimum number of validators necessary for the request to proceed to the execution phase                                                               |
 | FeeLimit       | sdk.Coins | The maximum tokens that will be paid to all data source providers                                                                                          |
 | RequestKey     | string    | The key from the request chain which identifies the pool account on Bandchain to process data source fee                                                   |
 | PrepareGas     | uint64    | The amount of gas to pay to prepare raw requests                                                                                                           |
-| ExecuteGas     | uint64    | The amount of gas to reserve for executing the oracle script during execution phase                                                                        |
+| ExecuteGas     | uint64    | The amount of gas reserved for executing the oracle script during execution phase                                                                        |
 
 ### OracleResponsePacketData
 
