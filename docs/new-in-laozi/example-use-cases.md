@@ -14,8 +14,6 @@ With the next major upgrade of our Standard Dataset, we will be adding a new mec
 
 ![](https://i.imgur.com/gDL6llY.png)
 
-
-
 ## Verifiable Random Number Generators
 
 Aside from our Standard Dataset price oracle, the flexibility offered by Band's oracle design also allow it to support countless other use cases and data types.
@@ -25,20 +23,19 @@ One of these this is our upcoming Verifiable Random Function (VRF) functionality
 By providing a tamper-proof method of generating unpredictable yet verifiably random values, this upcoming addition to Band's oracle functionality will greatly extend the range of applications and use cases that Band can support. Examples of such areas are:
 
 - NFTs
-- gambling
-- randomized selection
+- Gambling
+- Randomized Selection
 
 This feature is currently in active development and we will have much more to share on this soon.
 
 ![](https://i.imgur.com/GzCvPyS.png)
 
+## Cross-Chain Communication
 
-## Cross Chain Communication
+BandChain's cross-chain first design and architecture, along with it operating as an independent blockchain, position it to be a key player in the ever-growing cross-chain and multi-chain narratives.
 
-BandChain's infrastructure design decision to be cross-chain compatible and operate on independent blockchain prepares its role as a key player in the ever-growing cross-chain and multi-chain narratives. 
+We believe that oracles such as Band will not only be useful wihtin the context of a single destination chain, but also will a core infrastructure in relaying information and faciliating communication between two independent chain.
 
-We believe that oracles such as Band will not only be useful wihtin the context of a single destination chain, but also will a core infrastructure in relaying information and faciliating communication between two independent chain. 
-
-This can be in the form of verifying token transfer transactions when bridging assets across chain, relaying transaction between chain, or any other arbitrary number of data or actions that needed to be tranasferred across networks. 
+This can be in the form of verifying token transfer transactions when bridging assets across chain, relaying transaction between chain, or any other arbitrary number of data or actions that needed to be tranasferred across networks.
 
 ![](https://i.imgur.com/QitF6gv.png)
