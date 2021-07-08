@@ -13,7 +13,7 @@ The person paying the fees depends on the origin of the request whether the requ
 
 ### Direct Request Payment Flow
 
-![onchain-direct](https://i.imgur.com/zoGGa0F.png)
+![onchain-direct](https://i.imgur.com/i0LVLMG.png)
 
 Above is an example of the on-chain payment flow when requesting an oracle data directly on BandChain. A user starts by making an oracle request with a certain oracle script ID and a desired fee limit. Once BandChain receives the request, it fetches the oracle script and calls the preparation step of the oracle script. 
 
@@ -41,13 +41,13 @@ For more detail regarding IBC channel, please consult Cosmos SDK's [IBC Channels
 
 ### Funding a Pool Account
 
-![onchain-request-pool](https://i.imgur.com/GJfwqQX.png)
+![onchain-request-pool](https://i.imgur.com/i8DHiDy.png)
 
 For the pool account to be able to pay data source fees, a fund provider which can be either a user or a counterparty chain based on the protocol is required to have a Band account. Then the provider uses that account to transfer some tokens into the pool account given the request key, port ID, and channel ID.
 
 ### IBC Request Payment Flow
 
-![onchain-ibc](https://i.imgur.com/T9O1SXd.png)
+![onchain-ibc](https://i.imgur.com/u6DfBXp.png)
 
 Once the pool account is set up, the payment flow for IBC requests is very similar to that of the direct request. The additional layer is that the flow starts from a user on the counterparty chain. The request is then relayed from the counterparty chain to BandChain via a relayer through a specific port and channel.
 
