@@ -20,7 +20,7 @@ In addition to our own [lite client protocol](TODO link), we also allow interact
 
 | Parameter      | Type      | Description                                                                                                                                                |
 | -------------- | --------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| ClientID       | string    | The unique identifier of this oracle request, as specified by the client. This same unique ID will be sent back to the requester with the oracle response. |
+| ClientID       | string    | The unique identifier of this oracle request, as specified by the client. This same unique ID will be sent back to the requester with the oracle response  |
 | OracleScriptID | int64     | The unique identifier number assigned to the oracle script when it was first registered on Bandchain                                                       |  |
 | Calldata       | string    | The data that was passed over to the oracle script to use during its execution eg. list of requested symbols and multiplier                                |
 | AskCount       | uint64    | The number of validators that are requested to respond to this request                                                                                     |
@@ -41,7 +41,7 @@ Subsequently, this is the packet that will be relayed from BandChain back to the
 | AnsCount      | uint64 | The number of validators that answers the request, retrieved the data, and submitted a report                                                                         |
 | RequestTime   | int64  | The timestamp of when the request was made                                                                                                                            |
 | ResolveTime   | int64  | The timestamp of when the last validator submitted the report and the request is resolved                                                                             |
-| ResolveStatus | int32  | The resolve status of the request. See [here](https://github.com/bandprotocol/chain/blob/master/x/oracle/types/oracle.pb.go#L34) for the full list of possible values |
+| ResolveStatus | int32  | The resolve status of the request. See [here](https://github.com/bandprotocol/chain/blob/master/x/oracle/types/oracle.pb.go#L34 for the full list of possible values |
 | Result        | []byte | The aggregated value of the results returned by the validators                                                                                                        |
 
 ## Requesting Data from BandChain Oracle using IBC
