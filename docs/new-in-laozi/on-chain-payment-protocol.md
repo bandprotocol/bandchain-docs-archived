@@ -21,7 +21,7 @@ After the preparation step is complete, BandChain will obtain all the data sourc
 
 ## IBC request
 
-To make an oracle request via IBC, a communication channel needs to be created between a counterparty chain and BandChain, as stated in [IBC](TODO: link to IBC workflow). The main obstacle when requesting from another chain is that the requester is an address on the other chain which cannot pay the data source fees on BandChain. Hence, a substitute account, called **pool account**, is necessary for paying the fees.
+To make an oracle request via IBC, a communication channel needs to be created between a counterparty chain and BandChain, as stated in [IBC](./cosmos-ibc-integration.html#requesting-data-through-ibc). The main obstacle when requesting from another chain is that the requester is an address on the other chain which cannot pay the data source fees on BandChain. Hence, a substitute account, called **pool account**, is necessary for paying the fees.
 
 A pool account is an address account owned by an entity from another chain (can be a specific to a person, or collectively represent a pool of fund from a chain based on the counterparty's design of keyrequest usage) that resides on BandChain.
 
