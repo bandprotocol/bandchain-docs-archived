@@ -7,7 +7,7 @@ order: 1
 
 ## IBC Overview
 
-In addition to our own [lite client protocol](TODO link), we also allow interaction with our data oracle through Cosmos' [Inter-Blockchain-Communication](https://ibcprotocol.org/), or IBC, protocol. This protocol allows other IBC-compatible blockchains to request data from BandChain.
+In addition to our own [lite client protocol](https://docs.bandchain.org/whitepaper/lite-client-protocol.html), we also allow interaction with our data oracle through Cosmos' [Inter-Blockchain-Communication](https://ibcprotocol.org/), or IBC, protocol. This protocol allows other IBC-compatible blockchains to request data from BandChain.
 
 *This section presented an overview of how IBC can be used to make an oracle data request on BandChain. For more information on IBC itself, its architecture, and other related topics, please see Cosmos' Interchain Standards [documentation](https://github.com/cosmos/ics).*
 
@@ -41,10 +41,10 @@ Subsequently, this is the packet that will be relayed from BandChain back to the
 | AnsCount      | uint64 | The number of validators that answers the request, retrieved the data, and submitted a report                                                                         |
 | RequestTime   | int64  | The timestamp of when the request was made                                                                                                                            |
 | ResolveTime   | int64  | The timestamp of when the last validator submitted the report and the request is resolved                                                                             |
-| ResolveStatus | int32  | The resolve status of the request. See [here](https://github.com/bandprotocol/chain/blob/master/x/oracle/types/oracle.pb.go#L34 for the full list of possible values |
+| ResolveStatus | int32  | The resolve status of the request. See [here](https://github.com/bandprotocol/chain/blob/master/x/oracle/types/oracle.pb.go#L34) for the full list of possible values |
 | Result        | []byte | The aggregated value of the results returned by the validators                                                                                                        |
 
-## Requesting Data from BandChain Oracle using IBC
+## Requesting Data Through IBC
 
 To make a request to BandChain's oracle using IBC, the module on another IBC-compatible blockchain must first initialize a communication tunnel with the oracle module on BandChain. Once the connection has been established, a pair of channel identifiers is generated -- one for the counterparty chain and one for BandChain. 
 
@@ -54,11 +54,11 @@ Similarly, BandChain's oracle module uses the channel identifier when sending ba
 
 ![IBC Workflow](https://i.imgur.com/oqZHPHm.png)
 
-Once a relayer has been set up, the module on another IBC-compatible blockchain looking to make the request must generate an [`OracleRequestPacketData`](#oraclerequestpacketdata) data packet to be relayed. Using their chain's IBC module, they must then relay the message through to BandChain's own IBC module, which will proceed to further send it to the chain's `oracle` module. Once the request packet is successfully received, the subsequent flow is the almost the same as how BandChain handles a native [`MsgRequestData`](TODO link) message type with a few additional steps. To summarize, the data request flow consists of the following steps:
+Once a relayer has been set up, the module on another IBC-compatible blockchain looking to make the request must generate an [`OracleRequestPacketData`](#oraclerequestpacketdata) data packet to be relayed. Using their chain's IBC module, they must then relay the message through to BandChain's own IBC module, which will proceed to further send it to the chain's `oracle` module. Once the request packet is successfully received, the subsequent flow is the almost the same as how BandChain handles a native [`MsgRequestData`](https://docs.bandchain.org/whitepaper/protocol-messages.html#msgrequestdata) message type with a few additional steps. To summarize, the data request flow consists of the following steps:
 
 - First, requesters create a request from their chain which are then relayed to BandChain.
 - Once the request is submitted to BandChain, the oracle module fetches the corresponding oracle script and starts the oracle script's preparation phase returning information of all related data sources.
-- Then BandChain performs various checks such as preparation phase smaller than the provided prepare gas (This is actually done in the oracle's script preparation phase) and the total fee for the request does not exceed the provided fee limit (More details can be found in the next [section](TODO add link to payment)).
+- Then BandChain performs various checks such as preparation phase smaller than the provided prepare gas and the total fee for the request does not exceed the provided fee limit (More details can be found in the next [section](./on-chain-payment-protocol.html)).
 - (IBC Process Only) Then an acknowledgement is sent back to the requester's chain which either contains the error from the checks or the request identifier created by BandChain.
 - If there is no error, the request is then broadcasted. Each validator selected for the particular request will then proceeed to retrieve data from each of the data source
 - If a validator's retrieval is successful, they will submit back a report to BandChain containing the result they received from each of the data source.
@@ -72,4 +72,4 @@ As a slight aside, a data request to BandChain generally takes roughly 5 seconds
 ## Starport Integration
 > NOTE: Work in progress
 
-[Starport](https://cosmos.network/starport/) has offerred an easy way to scaffold a project with an ability to request oracle data from BandChain. Developers can initialize a new chain app that requires oracle capability with a few commands and try to request data from BandChain immediately with our [Laozi Testnet 2](https://laozi-testnet2.cosmoscan.io/). For more information regarding Starport project with an oracle requesting module, you can find it [here](TODO link).
+[Starport](https://cosmos.network/starport/) has offerred an easy way to scaffold a project with an ability to request oracle data from BandChain. Developers can initialize a new chain app that requires oracle capability with a few commands and try to request data from BandChain immediately with our [Laozi Testnet 2](https://laozi-testnet2.cosmoscan.io/).
