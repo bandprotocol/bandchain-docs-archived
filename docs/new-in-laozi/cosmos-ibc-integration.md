@@ -52,7 +52,7 @@ The channel identifier is an important piece for the counterparty IBC module to 
 
 Similarly, BandChain's oracle module uses the channel identifier when sending back the oracle response. This means these channel identifiers have to be unique within each module, and the right channel identifier needs to be specified when making an oracle request from the counterparty chain.
 
-![IBC Workflow](https://i.imgur.com/zKfTQpA.png)
+![IBC Workflow](https://i.imgur.com/oqZHPHm.png)
 
 Once a relayer has been set up, the module on another IBC-compatible blockchain looking to make the request must generate an [`OracleRequestPacketData`](#oraclerequestpacketdata) data packet to be relayed. Using their chain's IBC module, they must then relay the message through to BandChain's own IBC module, which will proceed to further send it to the chain's `oracle` module. Once the request packet is successfully received, the subsequent flow is the almost the same as how BandChain handles a native [`MsgRequestData`](TODO link) message type with a few additional steps. To summarize, the data request flow consists of the following steps:
 
