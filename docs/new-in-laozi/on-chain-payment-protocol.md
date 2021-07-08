@@ -47,7 +47,7 @@ For the pool account to be able to pay data source fees, a fund provider which c
 
 ### IBC Request Payment Flow
 
-![onchain-ibc](https://i.imgur.com/u6DfBXp.png)
+![onchain-ibc](https://i.imgur.com/4j2gxM4.png)
 
 Once the pool account is set up, the payment flow for IBC requests is very similar to that of the direct request. The additional layer is that the flow starts from a user on the counterparty chain. The request is then relayed from the counterparty chain to BandChain via a relayer through a specific port and channel.
 
