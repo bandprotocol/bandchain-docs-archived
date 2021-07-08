@@ -7,7 +7,7 @@ order: 1
 
 ## IBC Overview
 
-In addition to our own [lite client protocol](https://docs.bandchain.org/whitepaper/lite-client-protocol.html), we also allow interaction with our data oracle through Cosmos' [Inter-Blockchain-Communication](https://ibcprotocol.org/), or IBC, protocol. This protocol allows other IBC-compatible blockchains to request data from BandChain.
+In addition to our own [lite client protocol](../whitepaper/lite-client-protocol.html), we also allow interaction with our data oracle through Cosmos' [Inter-Blockchain-Communication](https://ibcprotocol.org/), or IBC, protocol. This protocol allows other IBC-compatible blockchains to request data from BandChain.
 
 *This section presented an overview of how IBC can be used to make an oracle data request on BandChain. For more information on IBC itself, its architecture, and other related topics, please see Cosmos' Interchain Standards [documentation](https://github.com/cosmos/ics).*
 
@@ -54,7 +54,7 @@ Similarly, BandChain's oracle module uses the channel identifier when sending ba
 
 ![IBC Workflow](https://i.imgur.com/oqZHPHm.png)
 
-Once a relayer has been set up, the module on another IBC-compatible blockchain looking to make the request must generate an [`OracleRequestPacketData`](#oraclerequestpacketdata) data packet to be relayed. Using their chain's IBC module, they must then relay the message through to BandChain's own IBC module, which will proceed to further send it to the chain's `oracle` module. Once the request packet is successfully received, the subsequent flow is the almost the same as how BandChain handles a native [`MsgRequestData`](https://docs.bandchain.org/whitepaper/protocol-messages.html#msgrequestdata) message type with a few additional steps. To summarize, the data request flow consists of the following steps:
+Once a relayer has been set up, the module on another IBC-compatible blockchain looking to make the request must generate an [`OracleRequestPacketData`](#oraclerequestpacketdata) data packet to be relayed. Using their chain's IBC module, they must then relay the message through to BandChain's own IBC module, which will proceed to further send it to the chain's `oracle` module. Once the request packet is successfully received, the subsequent flow is the almost the same as how BandChain handles a native [`MsgRequestData`](../whitepaper/protocol-messages.html#msgrequestdata) message type with a few additional steps. To summarize, the data request flow consists of the following steps:
 
 - First, requesters create a request from their chain which are then relayed to BandChain.
 - Once the request is submitted to BandChain, the oracle module fetches the corresponding oracle script and starts the oracle script's preparation phase returning information of all related data sources.
