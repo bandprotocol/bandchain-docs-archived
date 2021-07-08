@@ -1,6 +1,5 @@
 ---
-tags: Example Use Cases
-order: 1
+order: 3
 ---
 
 # Example Use Cases
