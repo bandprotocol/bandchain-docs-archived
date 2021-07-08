@@ -72,6 +72,23 @@ module.exports = {
             },
           ],
         },
+        {
+          title: "What's new in Laozi",
+          children: [
+            {
+              title: 'Cosmos IBC Integration',
+              path: '/new-in-laozi/cosmos-ibc-integration',
+            },
+            {
+              title: 'On-Chain Payment Protocol',
+              path: '/new-in-laozi/on-chain-payment-protocol',
+            },
+            {
+              title: 'Example Use Cases',
+              path: '/new-in-laozi/example-use-cases',
+            },
+          ],
+        },
         /* {
           title: 'Using Any Datasets',
           children: [
