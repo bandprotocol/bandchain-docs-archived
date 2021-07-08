@@ -62,7 +62,7 @@ Once a relayer has been set up, the module on another IBC-compatible blockchain 
 - (IBC Process Only) Then an acknowledgement is sent back to the requester's chain which either contains the error from the checks or the request identifier created by BandChain.
 - If there is no error, the request is then broadcasted. Each validator selected for the particular request will then proceeed to retrieve data from each of the data source
 - If a validator's retrieval is successful, they will submit back a report to BandChain containing the result they received from each of the data source.
-- If the number of validators that managed to successfully submit the report exceeds the `minCount` specified in the `OracleRequestPacketData`, BandChain then computes and stores an aggregate final value.
+- If the number of validators that managed to successfully submit the report exceeds the `minCount` specified in the [`OracleRequestPacketData`](#oraclerequestpacketdata), BandChain then computes and stores an aggregate final value.
 - (IBC Process Only) The final result is also directly relayed back to the requesting chain and module in the form of a [`OracleResponsePacketData`](#oracleresponsepacketdata) data packet.
 
 As a slight aside, a data request to BandChain generally takes roughly 5 seconds from submitting the initial request until the requester received back the requested result. This is because BandChain's blocktime is set at approximately 3 seconds
