@@ -286,8 +286,6 @@
     border-radius 0.5rem
     border-collapse collapse
     font-size 1rem
-    a
-      color var(--color-link, blue)
 
   th
     text-align left
@@ -296,6 +294,10 @@
 
   td, th
     padding 0.75rem
+    a[href]
+      position relative
+      padding-right 12px
+      color var(--color-link, blue)
 
   tr
     box-shadow 0 1px 0 0 rgba(140, 145, 177, 0.32)
