@@ -16,7 +16,7 @@ A data source is the most fundamental unit in BandChain's oracle system. It desc
 
 When registering the data source, the message sender can choose whether to specify an owner of the source. If an owner is specified, only the owner can make any changes to the data source once it is registered. They will also be the only party able to collect the accumulated request fees. On the other hand, if an owner is omitted, the data source can no longer be edited after it is registered. Note that the sender who creates the data source and the owner of the data source does not need to be the same.
 
-In the case of unowned data sources, it is the data source's configuration on BandChain that cannot be changed. If the procedures associated with that source depends on centralized sources. the actual source of the data can still be controlled by centralized parties.
+In the case of unowned data sources, it is the data source's configuration on BandChain that cannot be changed. If the procedures associated with that source depend on centralized sources, the actual source of the data can still be controlled by centralized parties.
 
 ### Examples
 
