@@ -1,6 +1,4 @@
----
-order: 3
----
+<!-- order: 11 -->
 
 # Example Use Cases
 
@@ -23,16 +21,16 @@ One of these this is our upcoming Verifiable Random Function (VRF) functionality
 By providing a tamper-proof method of generating unpredictable yet verifiably random values, this upcoming addition to Band's oracle functionality will greatly extend the range of applications and use cases that Band can support. Examples of such areas are:
 
 - NFTs
-- Gambling
-- Randomized Selection
+- gambling
+- randomized selection
 
 This feature is currently in active development and we will have much more to share on this soon.
 
 ![](https://i.imgur.com/GzCvPyS.png)
 
-## Cross-Chain Communication
+## Cross Chain Communication
 
-BandChain's cross-chain first design and architecture, along with it operating as an independent blockchain, position it to be a key player in the ever-growing cross-chain and multi-chain narratives.
+BandChain's infrastructure design decision to be cross-chain compatible and operate on independent blockchain prepares its role as a key player in the ever-growing cross-chain and multi-chain narratives.
 
 We believe that oracles such as Band will not only be useful wihtin the context of a single destination chain, but also will a core infrastructure in relaying information and faciliating communication between two independent chain.
 
