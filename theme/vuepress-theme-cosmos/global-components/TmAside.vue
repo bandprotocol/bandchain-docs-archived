@@ -15,7 +15,7 @@
         a(v-for="item in prereq" :href="item.href").prereq__item {{item.text}}
       div(v-if="$page.headers && $page.headers.length > 0")
         .aside__title On this page
-        .aside__link(v-for="link in headersFiltered" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`]" :ref="link.slug")
+        .aside__link(v-for="link in headersFiltered" :class="[`aside__link__active__${headerCurrent && headerCurrent.slug === link.slug}`, link.level === 3 && `aside__link__small`]" :ref="link.slug")
           a(:href="`#${link.slug}`" :class="{selected: link.slug == selected}").aside__link__href.header-anchor {{link.title}}
 </template>
 
@@ -95,6 +95,9 @@
     font-size 0.875rem
     line-height 1.125rem
     word-break break-word
+
+    &__small
+      padding-left 10px
 
     &__href:hover
       color var(--color-text, black)
