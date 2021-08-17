@@ -20,7 +20,7 @@ In the case of unowned data sources, it is the data source's configuration on Ba
 
 ### Examples
 
-The following two examples illustrate what a data source executable might look like. Both examples are written in [Bash](https://en.wikipedia.org/wiki/Bash_(Unix_shell)).
+The following two examples illustrate what a data source executable might look like. Both examples are written in [Bash](<https://en.wikipedia.org/wiki/Bash_(Unix_shell)>).
 
 #### Retrieve Cryptocurrency Price from CoinGecko
 
@@ -61,7 +61,7 @@ To create an oracle script, the creator must broadcast a [`MsgCreateOracleScript
 - the sender who wishes to create the oracle script
 - the owner of the oracle script, if specified
 - the name of the oracle script
-- the [OWasm](./Oracle-WebAssembly-(OWasm)) compiled binary attached to this oracle script
+- the [OWasm](./oracle-webAssembly) compiled binary attached to this oracle script
 - the schema detailing the inputs and outputs of this oracle script, as well as the corresponding types
 - the URL for the source code of this oracle script
 
@@ -69,13 +69,13 @@ Similar to data sources, the sender who wishes to create the oracle script does 
 
 The execution flow of an oracle script can be broken down into two phases. In the first phase, the script outlines the data sources that are required for its execution. It then sends out a request to the chain's validators to retrieve the result from the required data sources. The contents of this consists of the data sources' execution steps and the associated parameters.
 
-The second phase then aggregates all of the [data reports](#raw-data-reports) returned by the validators, with each report containing the values the validator received from the required data sources. The script then proceeds to combine those values into a single final result. 
+The second phase then aggregates all of the [data reports](#raw-data-reports) returned by the validators, with each report containing the values the validator received from the required data sources. The script then proceeds to combine those values into a single final result.
 
 Note that the specifics of the aggregation process is entirely up to the design of the oracle script. BandChain does not enforce any regulations when it comes to the aggregation method used, and entirely leaves that design decision to the creator of the script or any subsequent editors.
 
 ### Example
 
-The pseudocode below shows an example of an oracle script that returns the current price of a cryptocurrency. The script begins by emitting requests to validators to query the price from three data sources (i.e. the `request`  function calls to CoinGecko, CryptoCompare, CoinMarketCap inside `prepare`). Once a sufficient number of validators have reported the prices, the script then aggregates and averages out the reported values results into a single final result (the `aggregate` function). 
+The pseudocode below shows an example of an oracle script that returns the current price of a cryptocurrency. The script begins by emitting requests to validators to query the price from three data sources (i.e. the `request` function calls to CoinGecko, CryptoCompare, CoinMarketCap inside `prepare`). Once a sufficient number of validators have reported the prices, the script then aggregates and averages out the reported values results into a single final result (the `aggregate` function).
 
 In this particular oracle script, the aggregation process starts by summing all of the price values returned by the validators across all data sources, as well as the total number of reports returned. It then simply divides the summed price value with the number of data reports returned to arrive at the final average value.
 

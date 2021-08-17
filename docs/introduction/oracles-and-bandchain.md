@@ -1,28 +1,41 @@
+<!--
+order: 3
+-->
+
 # The BandChain Oracle
 
-Oracle solutions such as Band’s **act as the middle layer**, operating between the smart contracts or decentralized applications and the various data sources. Their task is then to handle data requests coming from the dApps, query the data from the corresponding data sources, and report the results back to the application.
+BandChain Oracle solution acts as a **middle layer** operating between the smart contracts platforms or decentralized applications and the various data providers. The oracles' task is to 1) handle data requests coming from the dApps, 2) query the data from the corresponding providers, and 3) report the results back to the application.
 
 ![Oracle as the Middle Layer](https://i.imgur.com/p79FDS6.png)
 
-Band’s oracle then differentiate itself from other oracle solutions in four main ways.
+Bandchain Oracle differentiates itself from other oracle solutions in four main ways:
+
+1. Decentralization
+2. Flexibility
+3. Scalability
+4. Cost
 
 ## Decentralization
 
-First is decentralization. Our oracle infrastructure is **built for maximum redundancy on two separate layers**. One, our blockchain, BandChain, is operated by a globally distributed pool of validators, whose performance and actions can be easily monitored and verified by anyone.
+Bandchain Oracle is decentralized through the introduction of maximum redundancy **on two separate layers** in the infrastructure design: BandChain validators (consensus level) and data source level.
 
 ![Decentralization](https://i.imgur.com/hb4rKU1.png)
 
-When a data request is made, it is these validators that will be responsible for fetching the results. These results reported by the validators are also taken from multiple sources, which acts as our second layer of redundancy. On this point, BandChain’s delegated proof of stake design further help ensure that these validators have monetary incentives to properly and correctly report the data, or risk losing the capital they’ve staked as well as their reputation
+First, BandChain is operated by a globally distributed pool of validators, whose performance and actions can be easily monitored and verified by anyone.
 
-Finally, **the entire data request flow and validator performance are publically available to be viewed**, verified, and audited by anyone.
+When a data request is made, it is these validators that will be responsible for fetching the results.
+
+The results reported by the validators are also taken from multiple data sources, which acts as our second layer of redundancy. Further, BandChain’s delegated proof of stake design further help ensure that these validators have monetary incentives to properly and correctly report the data, or risk losing the capital they’ve staked as well as their reputation.
+
+Finally, **the entire data request flow itself are also publically available to be viewed**, verified, and audited by anyone.
 
 ## Flexibility
 
-Next is flexibility. Band’s oracle is built to allow **maximum freedom in terms of the data that can be requested**, as well as the computations and mutations that can be done on that data. This is made possible through our data sources and oracle scripts.
+Our data source scripts and oracle scripts allow **maximum customization and flexibility** for user to query and compute their desired data feed.
 
 ![Flexibility](https://i.imgur.com/HATQRq7.png)
 
-Data sources are the most fundamental unit in BandChain's oracle system. It specifies the primary source from which BandChain’s validators will retrieve data.
+Data sources are the most fundamental unit in BandChain's oracle system. It specifies the primary source from which BandChain’s validators will retrieve data. Here users can freely specify where the datasources come from.
 
 An Oracle script is then the pieces of code that defines the logic of the data request. In particular, the script specifies two things:
 
@@ -33,13 +46,19 @@ These oracle scripts themselves can be programmed in multiple programming langua
 
 ## Scalability
 
-Then there’s the benefit of BandChain’s scalability. Unlike general-purpose blockchains, **BandChain is specifically designed for oracle data request and computation**. This is clearly reflected in the the benefits it provides. For one, an average block time of only 3 seconds, compared to Ethereum’s 10-15 and Bitcoin’s 10 minutes means that data request transactions are both received and resolved very quickly.
+Unlike general-purpose blockchains, **BandChain is specifically designed for oracle data request and computation**. This is clearly reflected in the the benefits it provides.
+
+For one, an average block time of only 3 seconds, compared to Ethereum’s 10-15 and Bitcoin’s 10 minutes means that data request transactions are both received and resolved very quickly.
 
 ![Scalability](https://i.imgur.com/Ck58iXa.png)
 
 Not only that, we are also able to **offload all the heavy oracle computations from the requester’s chain and onto BandChain**, which have been specifically optimized for these sorts of computations.
 
 All this boils down to the fact that an average data request to BandChain’s oracle can be expected to resolve in less than 6 seconds.
+
+This allows BandChain Oracle to continuously upgrade throughput capacity with the same base-level infrastructure
+
+Having our own chain also means that the oracle core logic and operations does not need to duplicated itself onto a new chain or App for each integration, making integration with DApps scalable and streamlined.
 
 ## Cost
 

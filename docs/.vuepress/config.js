@@ -42,6 +42,52 @@ module.exports = {
               title: 'Whitepaper',
               directory: true,
               path: '/whitepaper',
+              children: [
+                {
+                  title: 'Introduction',
+                  path: '/whitepaper/introduction',
+                },
+                {
+                  title: 'Terminology',
+                  path: '/whitepaper/terminology',
+                },
+                {
+                  title: 'System Overview',
+                  path: '/whitepaper/system-overview',
+                },
+                {
+                  title: 'Token Economics',
+                  path: '/whitepaper/token-economics',
+                },
+                {
+                  title: 'Protocol Messages',
+                  path: '/whitepaper/protocol-messages',
+                },
+                {
+                  title: 'Decentralized Validator Sampling',
+                  path: '/whitepaper/decentralized-validator-sampling',
+                },
+                {
+                  title: 'Oracle WebAssembly (Owasm)',
+                  path: '/whitepaper/oracle-webassembly',
+                },
+                {
+                  title: 'Lite Client Protocol',
+                  path: '/whitepaper/lite-client-protocol',
+                },
+                {
+                  title: 'Cosmos IBC Integration',
+                  path: '/whitepaper/cosmos-ibc',
+                },
+                {
+                  title: 'On-chain Payment Protocol',
+                  path: '/whitepaper/on-chain-payment-protocol',
+                },
+                {
+                  title: 'Example Use Cases',
+                  path: '/whitepaper/example-use-cases',
+                },
+              ]
             },
             {
               title: 'Technical Specifications',
@@ -69,23 +115,6 @@ module.exports = {
               title: 'Using the Data',
               directory: true,
               path: '/band-standard-dataset/using-band-dataset',
-            },
-          ],
-        },
-        {
-          title: "What's new in Laozi",
-          children: [
-            {
-              title: 'Cosmos IBC Integration',
-              path: '/new-in-laozi/cosmos-ibc-integration',
-            },
-            {
-              title: 'On-Chain Payment Protocol',
-              path: '/new-in-laozi/on-chain-payment-protocol',
-            },
-            {
-              title: 'Example Use Cases',
-              path: '/new-in-laozi/example-use-cases',
             },
           ],
         },
