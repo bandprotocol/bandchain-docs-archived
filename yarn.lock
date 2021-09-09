@@ -8971,9 +8971,32 @@ vuepress-plugin-smooth-scroll@^0.0.3:
   dependencies:
     smoothscroll-polyfill "^0.4.3"
 
-"vuepress-theme-cosmos@link:./theme/vuepress-theme-cosmos":
-  version "0.0.0"
-  uid ""
+vuepress-theme-cosmos@./theme/vuepress-theme-cosmos:
+  version "1.0.172"
+  dependencies:
+    "@cosmos-ui/vue" "^0.35.0"
+    "@vuepress/plugin-google-analytics" "1.5.4"
+    algoliasearch "^4.2.0"
+    axios "^0.20.0"
+    cheerio "^1.0.0-rc.3"
+    clipboard-copy "^3.1.0"
+    entities "2.0.2"
+    esm "^3.2.25"
+    fuse.js "6.4.1"
+    gray-matter "^4.0.2"
+    hotkeys-js "3.8.1"
+    jsonp "^0.2.1"
+    markdown-it "^11.0.1"
+    markdown-it-attrs "^3.0.3"
+    prismjs "^1.21.0"
+    pug "^2.0.4"
+    pug-plain-loader "^1.0.0"
+    stylus "^0.54.8"
+    stylus-loader "^3.0.2"
+    tiny-cookie "^2.3.2"
+    v-runtime-template "^1.10.0"
+    vuepress "^1.5.4"
+    vuepress-plugin-sitemap "^2.3.1"
 
 vuepress@^1.5.2, vuepress@^1.5.4:
   version "1.8.2"
