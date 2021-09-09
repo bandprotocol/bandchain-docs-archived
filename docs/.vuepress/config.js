@@ -186,7 +186,7 @@ module.exports = {
       },
     },
     footer: {
-      logo: "https://i.imgur.com/kzVQJi2.png",
+      logo: "https://i.imgur.com/mAYHWdb.png",
       textLink: {
         text: "bandprotocol.com",
         url: "https://bandprotocol.com",
