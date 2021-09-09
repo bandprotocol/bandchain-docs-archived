@@ -2,308 +2,277 @@
 order: 1
 -->
 
-# Get started
+# Getting Start
 
 ## Installation
 
-The library is available on [PyPI](https://pypi.org/project/pyband/)
+The library is available on [Pypl](https://pypi.org/project/pyband/)
 
-```bash
+```
 pip install pyband
 ```
 
-## Example usage
+## Example Usage
 
-### Make a request
+### Making a request
 
-We will show you how to make a request by following steps
+Making a request can be done by the following steps.
 
-**Step 1:** Import [`Client`] from `pyband` and put `RPC_URL` as parameter, and initial the client instance, now we can use every method on client module.
+**Step 1:** Import `pyband` and put `grpc_url` as a parameter. Then initialize the client instance. Every method in client module can now be used.
 
 ```python
-
-from pyband import Client
-
+from pyband.client import Client
 def main():
     # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
+    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    c = Client(grpc_url)
 
 if __name__ == "__main__":
     main()
-
 ```
 
-**Step 2:** The sender address is required for sending the transaction, so we have to initial the address first. So we have to import the [`PrivateKey`] from wallet, and get the private key, in this example we will get it from our test mnemonic `subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid`
+**Step 2:** The sender address is required for sending the transaction, so we have to initialize the address first. Start with importing the `PrivateKey` from wallet module to get the private key. In this example, we will get it from our test mnemonic, for example,`test`
 
 ```python
-
-from pyband import Client
-from pyband.wallet import PrivateKey
-
-def main():
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-    # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-
-if __name__ == "__main__":
-    main()
-
-```
-
-After that, we will transform the private key to the public key and then transform again to the address.
-
-```python
-
-from pyband import Client
+import os
+from pyband.client import Client
 from pyband.wallet import PrivateKey
 
 def main():
     # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-    # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-    pubkey = priv.to_pubkey()
-    address = pubkey.to_address()
+    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    c = Client(grpc_url)
+
+    #Step 2
+    MNEMONIC = os.getenv("MNEMONIC")
+    private_key = PrivateKey.from_mnemonic(MNEMONIC)
+    public_key = private_key.to_public_key()
+    sender_addr = public_key.to_address()
+    sender = sender_addr.to_acc_bech32()
 
 if __name__ == "__main__":
     main()
-
 ```
 
-**Step 3:** It is time to construct the transaction with request messsage, so we have to import [`Transaction`] and [`MsgRequest`] and start to construct the tx.
+After that, we will transform the private key to the public key, public key to address, and address with a type of `Address` to an address with a type of `str`.
 
-As the transaction object requires these attributes
+**Step 3:** Before constructing a transaction, additional information is needed.
 
-- message
-- account number
+First let us see what does transaction required.
+
+- messages
 - sequence
-- chain id
+- account_num
+- chain_id
+- fee
+- gas
+- memo
 
-and there are optional fields
+so now let us get those additional information.
 
-- gas (default is 200000)
-- free (default is 0)
-- memo (default is empty string)
+#### Messages
 
-We will start with the message additional, so we can use [`with_messages`] function, then put the [`MsgRequest`] with params here
+In this example, we will use `MsgRequestData` with the following parameters as our message.
 
-- oracle_script_id: the oracle script that we will request
-- calldata: the calldata that needs to transform to bytes by using `bytes.fromhex` function
-- ask_count: the integer of ask count
-- min_count: the integer of min count
-- client_id: the string of client id(it can be any text)
-- sender: the address that we got from public key transformation
+- **oracle_script_id** `<int>`: The oracle script ID.
+- **calldata** `<bytes>`: The calldata from a request.
+- **ask_count** `<int>`: The number of validator required to process this transaction.
+- **min_count** `<int>`: The minimum number of validator required to process this transaction.
+- **client_id** `<str>`: Name of the client (can be any name or an empty string).
+- **fee_limit** `<[Coin]>`: The fee limit.
+- **prepare_gas** `<int>`: The amount of gas used in preparation stage.
+- **execute_gas** `<int>`: The amount of gas used in execution stage.
+- **sender** `<str>`: The sender address.
 
 ```python
+# from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 
-from pyband import Client
-from pyband.wallet import PrivateKey
-
-def main():
-    # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-    # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-    pubkey = priv.to_pubkey()
-    address = pubkey.to_address()
-    # Step 3
-    t = (
-        Transaction()
-        .with_messages(
-            MsgRequest(
-                oracle_script_id=5,
-                ## this hex refers to symbol: BTC and multipiler: 10
-                calldata=bytes.fromhex("0000000342544300000003555344000000000000000a"),
-                ask_count=16,
-                min_count=16,
-                client_id="from_pyband",
-                sender=address,
-            ),
-        )
-    )
-
-
-
-if __name__ == "__main__":
-    main()
+request_msg = MsgRequestData(
+    oracle_script_id=37,
+    calldata=bytes.fromhex("0000000200000003425443000000034554480000000000000064"),
+    ask_count=4,
+    min_count=3,
+    client_id="BandProtocol",
+    fee_limit=[Coin(amount="100", denom="uband")],
+    prepare_gas=50000,
+    execute_gas=200000,
+    sender=sender,
+)
 ```
 
-About account number and sequence, we recommend to use [`Account`] from [`get_account`] function
-The chain id will be gotten from [`get_chain_id`] function
-
-All the rest is to optionally add [`with_gas`] to increse the gas limit, and [`with_memo`].
-
-Now the transaction is ready to use as the code below.
+Besides from inputting bytes to calldata, oracle binay encoding (obi) can also be used.
 
 ```python
+# from pyband.obi import PyObi
 
-from pyband import Client
-from pyband.wallet import PrivateKey
-
-def main():
-    # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-    # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-    pubkey = priv.to_pubkey()
-    address = pubkey.to_address()
-
-    account = client.get_account(address)
-
-    chain_id = client.get_chain_id()
-    # Step 3
-    t = (
-        Transaction()
-        .with_messages(
-            MsgRequest(
-                oracle_script_id=5,
-                ## this hex refers to symbol: BTC and multipiler: 10
-                calldata=bytes.fromhex("0000000342544300000003555344000000000000000a"),
-                ask_count=16,
-                min_count=16,
-                client_id="from_pyband",
-                sender=address,
-            ),
-        )
-        .with_account_num(account.account_number)
-        .with_sequence(account.sequence)
-        .with_chain_id(chain_id)
-        .with_gas(1000000)
-        .with_memo("TEST")
-    )
-
-
-
-if __name__ == "__main__":
-    main()
-
+obi = PyObi("{symbols:[string],multiplier:u64}/{rates:[u64]}")
+calldata = obi.encode({"symbols": ["ETH"], "multiplier": 100})
 ```
 
-**Step 4:** Prepare the ready to send transaction
+The message can be in any message listed [here](https://github.com/bandprotocol/cosmoscan/blob/1f55f3c88b462fc02d0b2c9fca1391a5daa3bdc6/src/subscriptions/TxSub.re#L1032). Please note that our message should be imported from the generated protobuf files.
 
-Call [`get_sign_data`] to get the transaction object which is ready to sign, then we will get the signature by signing the transaction.
+#### Sequence and Account Number
 
-After that, we will get the `raw transaction` by calling [`get_tx_data`], putting the signature and public key as parameters of this function.
+Sequence and account number can be retrieved from calling `get_account(address)` in client module.
 
 ```python
-from pyband import Client
-from pyband.wallet import PrivateKey
+account = c.get_account(sender)
+account_num = account.account_number
+sequence = account.sequence
+```
+
+#### Fee
+
+Fee can be created by using `Coin` from the generated protobuf file.
+
+```python
+# from pyband.proto.cosmos.tx.v1beta1.tx_pb2 import Fee
+# from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
+
+fee = [Coin(amount="0", denom="uband")]
+```
+
+**Step 4:** Now it is time to construct a `Transaction` from transaction module.
+
+```python
+import os
+
+from pyband.client import Client
 from pyband.transaction import Transaction
-from pyband.message import MsgRequest
+from pyband.wallet import PrivateKey
+
+from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
+from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 
 
 def main():
     # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
+    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    c = Client(grpc_url)
+
     # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
+    MNEMONIC = os.getenv("MNEMONIC")
+    private_key = PrivateKey.from_mnemonic(MNEMONIC)
+    public_key = private_key.to_public_key()
+    sender_addr = public_key.to_address()
+    sender = sender_addr.to_acc_bech32()
 
-    pubkey = priv.to_pubkey()
-    address = pubkey.to_address()
-
-    account = client.get_account(address)
-
-    chain_id = client.get_chain_id()
     # Step 3
-    t = (
-        Transaction()
-        .with_messages(
-            MsgRequest(
-                oracle_script_id=5,
-                ## this hex refers to symbol: BTC and multipiler: 10
-                calldata=bytes.fromhex("0000000342544300000003555344000000000000000a"),
-                ask_count=16,
-                min_count=16,
-                client_id="from_pyband",
-                sender=address,
-            ),
-        )
-        .with_account_num(account.account_number)
-        .with_sequence(account.sequence)
-        .with_chain_id(chain_id)
-        .with_gas(1000000)
-        .with_memo("TEST")
+    request_msg = MsgRequestData(
+        oracle_script_id=37,
+        calldata=bytes.fromhex("0000000200000003425443000000034554480000000000000064"),
+        ask_count=4,
+        min_count=3,
+        client_id="BandProtocol",
+        fee_limit=[Coin(amount="100", denom="uband")],
+        prepare_gas=50000,
+        execute_gas=200000,
+        sender=sender,
     )
+
+    account = c.get_account(sender)
+    account_num = account.account_number
+    sequence = account.sequence
+
+    fee = [Coin(amount="0", denom="uband")]
+    chain_id = c.get_chain_id()
+
     # Step 4
-    raw_data = t.get_sign_data()
-    signature = priv.sign(raw_data)
-    raw_tx = t.get_tx_data(signature, pubkey)
+     txn = (
+        Transaction()
+        .with_messages(request_msg)
+        .with_sequence(sequence)
+        .with_account_num(account_num)
+        .with_chain_id(chain_id)
+        .with_gas(2000000)
+        .with_fee(fee)
+        .with_memo("")
+    )
 
 if __name__ == "__main__":
     main()
-
 ```
 
-**Step 5:** After we got `raw transaction` from the previous step, now we can send the transaction.
+**Step 5:** Preparing the transaction before sending
 
-There are 3 modes for sending the transaction. We choose to use `block` mode in this example, we can call [`send_tx_block_mode`] with `raw transaction` as param.
+Call `get_sign_doc` to get the transaction that is ready to sign, then we will get the signature by signing the transaction.
 
-The final code should now look like the code below.
+After that, we will get the raw transaction by calling `get_tx_data` and put the signature as parameters.
 
 ```python
-from pyband import Client
-from pyband.wallet import PrivateKey
-from pyband.transaction import Transaction
-from pyband.message import MsgRequest
+sign_doc = txn.get_sign_doc(public_key)
+# Need to serialize sign_doc of type cosmos_tx_type.SignDoc to string
+signature = private_key.sign(sign_doc.SerializeToString())
+tx_raw_bytes = txn.get_tx_data(signature, public_key)
+```
 
+**Step 6:** After we got raw transaction, transaction can now be sent.
+
+There are 3 modes for sending the transaction. Block mode is chosen for this example, we can call `send_tx_block_mode` with raw transaction as parameter.
+
+```python
+import os
+
+from pyband.client import Client
+from pyband.transaction import Transaction
+from pyband.wallet import PrivateKey
+
+from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
+from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
+from google.protobuf.json_format import MessageToJson
 
 def main():
     # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
+    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    c = Client(grpc_url)
+
     # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-    pubkey = priv.to_pubkey()
-    address = pubkey.to_address()
+    MNEMONIC = os.getenv("MNEMONIC")
+    private_key = PrivateKey.from_mnemonic(MNEMONIC)
+    public_key = private_key.to_public_key()
+    sender_addr = public_key.to_address()
+    sender = sender_addr.to_acc_bech32()
 
-    account = client.get_account(address)
-
-    chain_id = client.get_chain_id()
     # Step 3
-    t = (
-        Transaction()
-        .with_messages(
-            MsgRequest(
-                oracle_script_id=5,
-                ## this hex refers to symbol: BTC and multipiler: 10
-                calldata=bytes.fromhex("0000000342544300000003555344000000000000000a"),
-                ask_count=16,
-                min_count=16,
-                client_id="from_pyband",
-                sender=address,
-            ),
-        )
-        .with_account_num(account.account_number)
-        .with_sequence(account.sequence)
-        .with_chain_id(chain_id)
-        .with_gas(1000000)
-        .with_memo("TEST")
+    request_msg = MsgRequestData(
+        oracle_script_id=37,
+        calldata=bytes.fromhex("0000000200000003425443000000034554480000000000000064"),
+        ask_count=4,
+        min_count=3,
+        client_id="BandProtocol",
+        fee_limit=[Coin(amount="100", denom="uband")],
+        prepare_gas=50000,
+        execute_gas=200000,
+        sender=sender,
     )
+
+    account = c.get_account(sender)
+    account_num = account.account_number
+    sequence = account.sequence
+
+    fee = [Coin(amount="0", denom="uband")]
+    chain_id = c.get_chain_id()
+
     # Step 4
-    raw_data = t.get_sign_data()
-    signature = priv.sign(raw_data)
-    raw_tx = t.get_tx_data(signature, pubkey)
+    txn = (
+        Transaction()
+        .with_messages(request_msg)
+        .with_sequence(sequence)
+        .with_account_num(account_num)
+        .with_chain_id(chain_id)
+        .with_gas(2000000)
+        .with_fee(fee)
+        .with_memo("")
+    )
+
     # Step 5
-    print(client.send_tx_block_mode(raw_tx))
+    sign_doc = txn.get_sign_doc(public_key)
+    signature = private_key.sign(sign_doc.SerializeToString())
+    tx_raw_bytes = txn.get_tx_data(signature, public_key)
 
+    # Step 6
+    tx_block = c.send_tx_block_mode(tx_raw_bytes)
+    print(MessageToJson(tx_block))
 
 if __name__ == "__main__":
     main()
@@ -312,298 +281,89 @@ if __name__ == "__main__":
 
 The result should look like this.
 
-```python
-TransactionBlockMode(height=2473122, tx_hash=b"\xe2\x04\x1c\xd7k\xcdA\x0c\xc5E\xccT\xc6\xadY\xed4\x10p\x1e\xc8o\xa2\x8b#\xc5'\x0e\xf6k\xc4\xad", gas_wanted=1000000, gas_used=1000000, code=0, log=[{'msg_index': 0, 'log': '', 'events': [{'type': 'message', 'attributes': [{'key': 'action', 'value': 'request'}]}, {'type': 'raw_request', 'attributes': [{'key': 'data_source_id', 'value': '4'}, {'key': 'data_source_hash', 'value': '93734983de34865551a03bd5b27c650f6f9496c8eeb25f3b1445ff89d32dbc7b'}, {'key': 'external_id', 'value': '11'}, {'key': 'calldata', 'value': 'BTC'}, {'key': 'data_source_id', 'value': '5'}, {'key': 'data_source_hash', 'value': '980a7da17f800b5006775a4e907bad29b52b9d9f1370bc7e8c10449dc95f020f'}, {'key': 'external_id', 'value': '12'}, {'key': 'calldata', 'value': 'BTC'}]}, {'type': 'request', 'attributes': [{'key': 'id', 'value': '493049'}, {'key': 'client_id', 'value': 'from_pyband'}, {'key': 'oracle_script_id', 'value': '5'}, {'key': 'calldata', 'value': '0000000342544300000003555344000000000000000a'}, {'key': 'ask_count', 'value': '16'}, {'key': 'min_count', 'value': '16'}, {'key': 'gas_used', 'value': '3130'}, {'key': 'validator', 'value': 'bandvaloper1unfg2zhnssl07tql8d85zc6rx7zsfs5qh206av'}, {'key': 'validator', 'value': 'bandvaloper1a05af3g6s0qltqdam569m43630zzhpnh99d4jn'}, {'key': 'validator', 'value': 'bandvaloper1s9s0knlc8mk62addjk98qcpqlcgvdfewt4muet'}, {'key': 'validator', 'value': 'bandvaloper1sy7ctj5qjgre7s9mgf7u8m5exdrfpcsxyqrxnc'}, {'key': 'validator', 'value': 'bandvaloper19gh30we6ypgec5plmnxd7smlqp66hel4lx573n'}, {'key': 'validator', 'value': 'bandvaloper1egcncstqyhm7njd5mva03lkrdtemmzehda940c'}, {'key': 'validator', 'value': 'bandvaloper1nykclk39ge2zyk7h3uyzkfncyxstnp4qkwtgvm'}, {'key': 'validator', 'value': 'bandvaloper1r9eslzfdj976hap6z06wlq7nwnn0w6x0y40zn3'}, {'key': 'validator', 'value': 'bandvaloper135hz0cvdv5vd7e6wl7qjgfv3j90dh2r4vry2cs'}, {'key': 'validator', 'value': 'bandvaloper133jj708vr92rfd6fvnzyc6snylflzafu5k9ege'}, {'key': 'validator', 'value': 'bandvaloper12w7p4e3suvjpg84mqdh5k5n9h6x7zsc3e8jtwn'}, {'key': 'validator', 'value': 'bandvaloper12wwz25zztfjpqx3fsq8rd4c48ew3vnywyplln8'}, {'key': 'validator', 'value': 'bandvaloper14mfaa40ude49q9pdklxxk7hfzyqf55ecdza9dz'}, {'key': 'validator', 'value': 'bandvaloper158q56s6zgnk4zf3sz6cz4jmpmxpanhxsfdra05'}, {'key': 'validator', 'value': 'bandvaloper1l6syuchpqj0jku2cswmxd5m8rdlzydcpug29cv'}, {'key': 'validator', 'value': 'bandvaloper1nlepx7xg53fsy6vslrss6adtmtl8a33kusv7fa'}]}]}], error_log=None)
+```
+{"height":"603247","txhash":"587FF6D48E5CB8A23715389FE3CAC10262777B395E4D0C554916127461F63446","data":"0A090A0772657175657374","rawLog":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"request\"}]},{\"type\":\"raw_request\",\"attributes\":[{\"key\":\"data_source_id\",\"value\":\"61\"},{\"key\":\"data_source_hash\",\"value\":\"07be7bd61667327aae10b7a13a542c7dfba31b8f4c52b0b60bf9c7b11b1a72ef\"},{\"key\":\"external_id\",\"value\":\"6\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"57\"},{\"key\":\"data_source_hash\",\"value\":\"61b369daa5c0918020a52165f6c7662d5b9c1eee915025cb3d2b9947a26e48c7\"},{\"key\":\"external_id\",\"value\":\"0\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"62\"},{\"key\":\"data_source_hash\",\"value\":\"107048da9dbf7960c79fb20e0585e080bb9be07d42a1ce09c5479bbada8d0289\"},{\"key\":\"external_id\",\"value\":\"3\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"5\"},{\"key\":\"calldata\",\"value\":\"huobipro BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"59\"},{\"key\":\"data_source_hash\",\"value\":\"5c011454981c473af3bf6ef93c76b36bfb6cc0ce5310a70a1ba569de3fc0c15d\"},{\"key\":\"external_id\",\"value\":\"2\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"4\"},{\"key\":\"calldata\",\"value\":\"binance BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"9\"},{\"key\":\"calldata\",\"value\":\"bittrex BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"7\"},{\"key\":\"calldata\",\"value\":\"kraken BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"8\"},{\"key\":\"calldata\",\"value\":\"bitfinex BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"58\"},{\"key\":\"data_source_hash\",\"value\":\"7e6759fade717a06fb643392bfde837bfc3437da2ded54feed706e6cd35de461\"},{\"key\":\"external_id\",\"value\":\"1\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"}]},{\"type\":\"request\",\"attributes\":[{\"key\":\"id\",\"value\":\"306633\"},{\"key\":\"client_id\",\"value\":\"BandProtocol\"},{\"key\":\"oracle_script_id\",\"value\":\"37\"},{\"key\":\"calldata\",\"value\":\"0000000200000003425443000000034554480000000000000064\"},{\"key\":\"ask_count\",\"value\":\"4\"},{\"key\":\"min_count\",\"value\":\"3\"},{\"key\":\"gas_used\",\"value\":\"111048\"},{\"key\":\"total_fees\"},{\"key\":\"validator\",\"value\":\"bandvaloper1zl5925n5u24njn9axpygz8lhjl5a8v4cpkzx5g\"},{\"key\":\"validator\",\"value\":\"bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u\"},{\"key\":\"validator\",\"value\":\"bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz\"},{\"key\":\"validator\",\"value\":\"bandvaloper1ldtwjzsplhxzhrg3k5hhr8v0qterv05vpdxp9f\"}]}]}]","logs":[{"events":[{"type":"message","attributes":[{"key":"action","value":"request"}]},{"type":"raw_request","attributes":[{"key":"data_source_id","value":"61"},{"key":"data_source_hash","value":"07be7bd61667327aae10b7a13a542c7dfba31b8f4c52b0b60bf9c7b11b1a72ef"},{"key":"external_id","value":"6"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"57"},{"key":"data_source_hash","value":"61b369daa5c0918020a52165f6c7662d5b9c1eee915025cb3d2b9947a26e48c7"},{"key":"external_id","value":"0"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"62"},{"key":"data_source_hash","value":"107048da9dbf7960c79fb20e0585e080bb9be07d42a1ce09c5479bbada8d0289"},{"key":"external_id","value":"3"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"5"},{"key":"calldata","value":"huobipro BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"59"},{"key":"data_source_hash","value":"5c011454981c473af3bf6ef93c76b36bfb6cc0ce5310a70a1ba569de3fc0c15d"},{"key":"external_id","value":"2"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"4"},{"key":"calldata","value":"binance BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"9"},{"key":"calldata","value":"bittrex BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"7"},{"key":"calldata","value":"kraken BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"8"},{"key":"calldata","value":"bitfinex BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"58"},{"key":"data_source_hash","value":"7e6759fade717a06fb643392bfde837bfc3437da2ded54feed706e6cd35de461"},{"key":"external_id","value":"1"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"}]},{"type":"request","attributes":[{"key":"id","value":"306633"},{"key":"client_id","value":"BandProtocol"},{"key":"oracle_script_id","value":"37"},{"key":"calldata","value":"0000000200000003425443000000034554480000000000000064"},{"key":"ask_count","value":"4"},{"key":"min_count","value":"3"},{"key":"gas_used","value":"111048"},{"key":"total_fees"},{"key":"validator","value":"bandvaloper1zl5925n5u24njn9axpygz8lhjl5a8v4cpkzx5g"},{"key":"validator","value":"bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u"},{"key":"validator","value":"bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz"},{"key":"validator","value":"bandvaloper1ldtwjzsplhxzhrg3k5hhr8v0qterv05vpdxp9f"}]}]}],"gasWanted":"2000000","gasUsed":"566496"}
 ```
 
-### Send BAND token
+### Sending BAND token
 
-We will show you how to send BAND by following steps
+The process of sending BAND token is similar to making a request, except we will use `MsgSend` as our message.
 
-**Step 1:** Import [`Client`] from pyband and put `RPC_URL` as parameter, and initial the client instance, now we can use every medthod on client module.
+The `MsgSend` contains the following parameters
 
-```python
-
-from pyband import Client
-
-def main():
-    # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-
-if __name__ == "__main__":
-    main()
-
-```
-
-**Step 2:** The sender address is required for sending the transaction, so we have to initial the address first. So we have to import the [`PrivateKey`] from wallet, and get the privatekey, in this example we will get it from our test mnemonic `subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid`
+- **from_address** `<str>`: The sender address which is in string.
+- **to_address** `<str>`: The receiver address which is in string.
+- **amount** `<int>`: The amount of BAND in Coin that you want to send. In this case, we want to send 1 BAND or 1000000 UBAND
 
 ```python
+# from pyband.proto.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 
-from pyband import Client
-from pyband.wallet import PrivateKey
-
-def main():
-    # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-    # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-
-if __name__ == "__main__":
-    main()
-
+msg = MsgSend(
+   from_address = sender,
+   to_address = "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte",
+   amount = [Coin(amount="100", denom="uband")]
+)
 ```
-
-After that, we will transform the private key to the public key and then transform again to the address.
-
-```python
-
-from pyband import Client
-from pyband.wallet import PrivateKey
-
-def main():
-    # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-    # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-    pubkey = priv.to_pubkey()
-    address = pubkey.to_address()
-
-if __name__ == "__main__":
-    main()
-
-```
-
-**Step 3:** It is time to construct the transaction with request messsage, so we have to import [`Transaction`] and [`MsgSend`] and start to construct the tx.
-
-As the transaction object requires these attributes
-
-- message
-- account number
-- sequence
-- chain id
-
-and there are optional fields
-
-- gas (default is 200000)
-- free (default is 0)
-- memo (default is empty string)
-
-We will start with the message additional, so we can use [`with_messages`] function, then put the [`MsgSend`] with params here
-
-- from_address: the sender address which is in [`Address`]
-- to_address: the receiver address which is in [`Address`] , we can transform from string of address to [`Address`] by calling [`from_acc_bech32`] function.
-- amount: the amount of BAND in [`Coin`] that you want to send. In this case, we want to send 1 BAND or 1000000 UBAND
-
-```python
-from pyband import Client
-from pyband.data import Coin
-from pyband.wallet import PrivateKey, Address
-from pyband.transaction import Transaction
-from pyband.message import MsgSend
-
-
-def main():
-    # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-    # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-    pubkey = priv.to_pubkey()
-    address = pubkey.to_address()
-
-    account = client.get_account(address)
-
-    chain_id = client.get_chain_id()
-    # Step 3
-    t = (
-        Transaction()
-        .with_messages(
-            MsgSend(
-                from_address=address,
-                to_address=Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"),
-                amount=[Coin(amount=1000000, denom="uband")],
-            )
-        )
-        .with_account_num(account.account_number)
-        .with_sequence(account.sequence)
-        .with_chain_id(chain_id)
-        .with_gas(1000000)
-        .with_memo("send BAND by pyband")
-    )
-
-if __name__ == "__main__":
-    main()
-```
-
-**Step 4:** Prepare the ready to send transaction
-
-Call [`get_sign_data`] to get the transaction object which is ready to sign, then we will get the signature by signing the transaction.
-
-After that, we will get the `raw transaction` by calling [`get_tx_data`], putting the signature and public key as parameters of this function.
-
-```python
-from pyband import Client
-from pyband.data import Coin
-from pyband.wallet import PrivateKey, Address
-from pyband.transaction import Transaction
-from pyband.message import MsgSend
-
-
-def main():
-    # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-    # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-    pubkey = priv.to_pubkey()
-    address = pubkey.to_address()
-
-    account = client.get_account(address)
-
-    chain_id = client.get_chain_id()
-    # Step 3
-    t = (
-        Transaction()
-        .with_messages(
-            MsgSend(
-                from_address=address,
-                to_address=Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"),
-                amount=[Coin(amount=1000000, denom="uband")],
-            )
-        )
-        .with_account_num(account.account_number)
-        .with_sequence(account.sequence)
-        .with_chain_id(chain_id)
-        .with_gas(1000000)
-        .with_memo("send BAND by pyband")
-    )
-    # Step 4
-    raw_data = t.get_sign_data()
-    signature = priv.sign(raw_data)
-    raw_tx = t.get_tx_data(signature, pubkey)
-
-
-if __name__ == "__main__":
-    main()
-```
-
-**Step 5:** After we got `raw transaction` from the previous step, now we can send the transaction.
-
-There are 3 modes for sending the transaction. We choose to use `block` mode in this example, we can call [`send_tx_block_mode`] with `raw transaction` as param.
-
-The final code should now look like the code below.
-
-```python
-from pyband import Client
-from pyband.data import Coin
-from pyband.wallet import PrivateKey, Address
-from pyband.transaction import Transaction
-from pyband.message import MsgSend
-
-
-def main():
-    # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-    # Step 2
-    priv = PrivateKey.from_mnemonic(
-        "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-    )
-    pubkey = priv.to_pubkey()
-    address = pubkey.to_address()
-
-    account = client.get_account(address)
-
-    chain_id = client.get_chain_id()
-    # Step 3
-    t = (
-        Transaction()
-        .with_messages(
-            MsgSend(
-                from_address=address,
-                to_address=Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"),
-                amount=[Coin(amount=1000000, denom="uband")],
-            )
-        )
-        .with_account_num(account.account_number)
-        .with_sequence(account.sequence)
-        .with_chain_id(chain_id)
-        .with_gas(1000000)
-        .with_memo("send BAND by pyband")
-    )
-    # Step 4
-    raw_data = t.get_sign_data()
-    signature = priv.sign(raw_data)
-    raw_tx = t.get_tx_data(signature, pubkey)
-    # Step 5
-    print(client.send_tx_block_mode(raw_tx))
-
-
-if __name__ == "__main__":
-    main()
-```
-
-The result should look like this.
-
-```python
-TransactionBlockMode(height=2473054, tx_hash=b'\xeb\xa8\x0ez"g^O]--\xaa)\x86[\x96m\xb0\x93^\x1e\xe3\xc1!\xb1\xe7\x7f\xd6\xbc\xe9\xce\xac', gas_wanted=1000000, gas_used=1000000, code=0, log=[{'msg_index': 0, 'log': '', 'events': [{'type': 'message', 'attributes': [{'key': 'action', 'value': 'send'}, {'key': 'sender', 'value': 'band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy'}, {'key': 'module', 'value': 'bank'}]}, {'type': 'transfer', 'attributes': [{'key': 'recipient', 'value': 'band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte'}, {'key': 'sender', 'value': 'band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy'}, {'key': 'amount', 'value': '1000000uband'}]}]}], error_log=None)
-```
-
-### Get reference data
-
-We will show you how to get the reference data
-
-**Step 1:** Import [`Client`] from pyband and put `RPC_URL` as parameter, and initial the client instance, now we can use every medthod on client module.
-
-```python
-
-from pyband import Client
-
-def main():
-    # Step 1
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
-
-if __name__ == "__main__":
-    main()
-
-```
-
-**Step 2:** After we import the [`Client`] already, then we call the [`get_reference_data`] function to get the latest price
-
-There are 3 parameters
-
-- min_count: Integer of min count
-- ask_count: Integer of ask count
-- pairs: The list of cryprocurrency pairs
 
 The final code should look like the code below.
 
 ```python
-from pyband import Client
+import os
+
+from pyband.client import Client
+from pyband.transaction import Transaction
+from pyband.wallet import PrivateKey
+
+from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
+from pyband.proto.cosmos.bank.v1beta1.tx_pb2 import MsgSend
+from google.protobuf.json_format import MessageToJson
 
 def main():
+   # Step 1
+    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    c = Client(grpc_url)
 
-    RPC_URL = " https://guanyu-testnet3-query.bandchain.org"
-    client = Client(RPC_URL)
     # Step 2
-    min_count = 10
-    ask_count = 16
+    MNEMONIC = os.getenv("MNEMONIC")
+    private_key = PrivateKey.from_mnemonic(MNEMONIC)
+    public_key = private_key.to_public_key()
+    sender_addr = public_key.to_address()
+    sender = sender_addr.to_acc_bech32()
 
-    pairs = ["BTC/USDT", "ETH/USDT"]
+    # Step 3
+    send_msg = MsgSend(
+       from_address = sender,
+       to_address = "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte",
+       amount = [Coin(amount="1000000", denom="uband")]
+    )
 
-    print(client.get_reference_data(pairs, min_count, ask_count))
+    account = c.get_account(sender)
+    account_num = account.account_number
+    sequence = account.sequence
+
+    fee = [Coin(amount="0", denom="uband")]
+    chain_id = c.get_chain_id()
+
+    # Step 4
+    txn = (
+        Transaction()
+        .with_messages(send_msg)
+        .with_sequence(sequence)
+        .with_account_num(account_num)
+        .with_chain_id(chain_id)
+        .with_gas(2000000)
+        .with_fee(fee)
+        .with_memo("")
+    )
+
+    # Step 5
+    sign_doc = txn.get_sign_doc(public_key)
+    signature = private_key.sign(sign_doc.SerializeToString())
+    tx_raw_bytes = txn.get_tx_data(signature, public_key)
+
+    # Step 6
+    tx_block = c.send_tx_block_mode(tx_raw_bytes)
+    print(MessageToJson(tx_block))
 
 if __name__ == "__main__":
     main()
@@ -612,8 +372,55 @@ if __name__ == "__main__":
 
 The result should look like this.
 
+```
+{"height":"603302","txhash":"815F488B3F05F2CBDD57C433DBEAF01FBFB06F378716A8ECDF5888095D6F7F7C","data":"0A060A0473656E64","rawLog":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"send\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"amount\",\"value\":\"1000000uband\"}]}]}]","logs":[{"events":[{"type":"message","attributes":[{"key":"action","value":"send"},{"key":"sender","value":"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"},{"key":"module","value":"bank"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"},{"key":"sender","value":"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"},{"key":"amount","value":"1000000uband"}]}]}],"gasWanted":"2000000","gasUsed":"49029"}
+```
+
+### Getting Reference Data
+
+Getting reference data can be done by the following steps.
+
+**Step 1:** Import `pyband` and put `grpc_url` as a parameter. Then initialize the client instance. Every method in client module can now be used.
+
 ```python
-[ReferencePrice(pair='BTC/USDT', rate=19244.632819484967, updated_at=ReferencePriceUpdated(base=1607053828, quote=1607053828)), ReferencePrice(pair='ETH/USDT', rate=605.512705379927, updated_at=ReferencePriceUpdated(base=1607053828, quote=1607053828))]
+from pyband.client import Client
+
+def main():
+    # Step 1
+    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    c = Client(grpc_url)
+
+if __name__ == "__main__":
+    main()
+```
+
+**Step 2** After importing `Client`, `get_reference_data` function can now be used to get the latest price.
+
+The function contains the following paramters
+
+- **pairs** `<List[str]>`: list of cryptocurrency pairs
+- **min_count** `<int>`: integer of min count
+- **ask_count** `<int>`: integer of ask count
+
+```python
+from pyband.client import Client
+
+def main():
+    # Step 1
+    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    c = Client(grpc_url)
+
+    # Step 2
+    print(c.get_reference_data(["BTC/USD", "ETH/USD"], 3, 4))
+
+if __name__ == "__main__":
+    main()
+```
+
+The result should look like this.
+
+```
+[ReferencePrice(pair='BTC/USD', rate=34614.1, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134)), ReferencePrice(pair='ETH/USD', rate=2372.53, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134))]
 ```
 
 [`get_tx_data`]: /client-library/pyband/transaction.html#get-tx-data-signature-pubkey
