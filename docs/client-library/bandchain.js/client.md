@@ -2,64 +2,62 @@
 order: 3
 -->
 
-# Client Module
+# Client Module of Bandchain.js
 
-This module provides the functionallity to get the data from Bandchain RPC and send the data to Bandchain RPC.
+This module provides functionalities to query data from BandChain and broadcast transactions to BandChain. It uses gRPC-web behind the scene which interact with gRPC-web proxy server.
 
-## Exceptions
+## gRPC Errors
 
-[Request Exceptions](https://requests.readthedocs.io/en/master/_modules/requests/exceptions/)
+When there are gRPC related errors, that is, gRPC status code is not `OK`, the `Promise` result will be rejected with an `ServiceError` object with following fields.
 
-| Type            | Description                          |
-| --------------- | ------------------------------------ |
-| BadRequest      | Invalid parameter (400)              |
-| NotFound        | Entity not found (404)               |
-| InternalError   | Something went wrong on server (5xx) |
-| ConnectionError | DNS failure, refused connection      |
-| Timeout         | Request timeout                      |
+| Fields     | Type             | Description           |
+| ---------- | ---------------- | --------------------- |
+| `message`  | `string`         | error message         |
+| `code`     | `number`         | gRPC status code      |
+| `metadata` | `BrowserHeaders` | gRPC trailer metadata |
 
-## getChainID
+## `getChainId`
 
-The function helps you to get the chain id
+Get BandChain's Chain ID
 
 #### Return
 
-string
+- `Promise<string>` - Chain ID
 
 #### Example
 
-```javascript
-import { Client } from "bandchain.js";
+```javascript=
+import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
 (async () => {
-  console.log(await client.getChainID());
+  console.log(await client.getChainId());
 })();
 ```
 
 #### Result
 
-```python
-band-guanyu-testnet3
+```
+band-laozi-testnet2
 ```
 
 ---
 
-## getLatestBlock
+## `getLatestBlock`
 
-The function helps you to get the latest block
+Get BandChain's latest block detail
 
 #### Return
 
-[`<Block>`]
+- [`Block`] - BandChain's latest block
 
 #### Example
 
-```javascript
-import { Client } from "bandchain.js";
+```javascript=
+import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
 (async () => {
   console.log(await client.getLatestBlock());
@@ -68,103 +66,163 @@ const client = new Client("https://guanyu-testnet3-query.bandchain.org");
 
 #### Result
 
-```javascript
-Block(block=BlockHeader(header=BlockHeaderInfo(chain_id='band-guanyu-poa', height=3046843, time=1605798447, last_commit_hash=b'\x86\xe1\x97\xd1E\x9aB8Y\xb1U\x12V\x84\x13\x8fDBYmP\x15\x83\xe1\xd9\x85$\xb6\xccP\x7f8', data_hash=b'\x87t\x1d<N\xf2Rx9G\x11h\x17\x1e?#<\xadu\x9f\xf4 \x10V\xec\xb0\\\x92\xcf\x18\xefX', validators_hash=b'J<\xf0$np}\xa1d\x80\x9a\xad\xce\xbc\xc4\x9bo#\x8e\x98\xff\xc7\xc8)\x00O\xca\xddH\xb8\xa6>', next_validators_hash=b'J<\xf0$np}\xa1d\x80\x9a\xad\xce\xbc\xc4\x9bo#\x8e\x98\xff\xc7\xc8)\x00O\xca\xddH\xb8\xa6>', consensus_hash=b'\x0e\xaaoOK\x8b\xd1\xcc"-\x93\xbb\xd3\x91\xd0\x7f\x07M\xe6\xbeZR\xc6\x96Hu\xbb5[}\x0bE', app_hash=b'\xed^#\\\x93C\xf0\xdb\xfa\x7f\x1b\xb5\xb4y\x0f^\xa3\xf0U\x1cQ+\xfe\x95\x82\x95oW\x00\xdb\x9ea', last_results_hash=b'n4\x0b\x9c\xff\xb3z\x98\x9c\xa5D\xe6\xbbx\n,x\x90\x1d?\xb378v\x85\x11\xa3\x06\x17\xaf\xa0\x1d', evidence_hash=b'', proposer_address=b'\xc9j\xe6U2l\x9bw\xabY\xf6\x1b\xd0\x87m\xf2\x0b\xfc\x0c\xe9')), block_id=BlockID(hash=b'\x99\xf1\xd1\xdb\x9e\x8d\xa4<M\xa6$N\xc1\x9f$5\x1c\xc2\x1dH\x99{4\x93"\x0e\x0f\x15K`b\x11'))
-```
-
----
-
-## getAccount(address)
-
-The function helps you to get the account details
-
-#### Parameter
-
-- **address** [`<Address>`]
-
-#### Return
-
-[`<Account>`]
-
-#### Example
-
-```javascript
-import { Client, Wallet } from "bandchain.js";
-
-const { Address } = Wallet;
-
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
-
-const address = Address.fromAccBech32(
-  "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"
-);
-
-(async () => {
-  console.log(JSON.stringify(await client.getAccount(address)));
-})();
-```
-
-#### Result
-
-```json
+```json=
 {
-  "address": {
-    "addr": {
-      "type": "Buffer",
-      "data": [
-        144,
-        239,
-        192,
-        12,
-        155,
-        18,
-        235,
-        185,
-        177,
-        14,
-        62,
-        24,
-        72,
-        192,
-        162,
-        185,
-        163,
-        41,
-        61,
-        160
-      ]
+  "blockId": {
+    "hash": "Di1p0sWqEz/l4aVxlJX0fgVrX5eJYAb5t8cmar45fcg=",
+    "partSetHeader": {
+      "total": 1,
+      "hash": "bqKyTzMQd9fnDfS9IdBjf+0FOfynv96YqsalsSQ1f0g="
     }
   },
-  "coins": [{ "amount": "15132382", "denom": "uband" }],
-  "publicKey": {
-    "type": "tendermint/PubKeySecp256k1",
-    "value": "A/5wi9pmUk/SxrzpBoLjhVWoUeA9Ku5PYpsF3pD1Htm8"
-  },
-  "accountNumber": 19,
-  "sequence": 26
+  "block": {
+    "header": {
+      "version": {
+        "block": 11,
+        "app": 0
+      },
+      "chainId": "band-laozi-testnet2",
+      "height": 488306,
+      "time": {
+        "seconds": 1625718430,
+        "nanos": 770011739
+      },
+      "lastBlockId": {
+        "hash": "s65ZLJIfoZau9ETSMyqYWTjTCsgB8zFgOMuwOUHhKkU=",
+        "partSetHeader": {
+          "total": 1,
+          "hash": "4w05KvzYXCVH84P2uZ6jXduvwo+r/Bc+xhh/454T/Gs="
+        }
+      },
+      "lastCommitHash": "9nqVW5rgPve3VGg9R8s49DjmsK5/xmG0d6gmGhcWxBQ=",
+      "dataHash": "4ViOMq7cJxVBSCgclZfUqg0k0SbvVM6tj75rhNOfO3Q=",
+      "validatorsHash": "rYFx2BfEhW8duRLFgJ4GZqjXKLH/r95+2Wu3Nn+J1zE=",
+      "nextValidatorsHash": "rYFx2BfEhW8duRLFgJ4GZqjXKLH/r95+2Wu3Nn+J1zE=",
+      "consensusHash": "ek5k0qm1ziK3XpVuICUnTcA7aEbM13JRUqa8DQcn4z4=",
+      "appHash": "00/PMV2HlF+Ih69p+q5AHwRt6hqlvo5dtm/blBddWP4=",
+      "lastResultsHash": "VMIWdcTC6ZLJ1gW/VGyZ4yv/X2nis75e2PWnT+fmFoo=",
+      "evidenceHash": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=",
+      "proposerAddress": "2MqI5T0aGLK0h3fNWAcQEKLplio="
+    },
+    "data": {
+      "txsList": [
+        "CoYECuUDChgvb3JhY2xlLnYxLk1zZ1JlcG9ydERhdGESyAMIheAIEiQIAhABGh5TTFVHX0FORF9TWU1CT0xfTEVOX05PVF9NQVRDSAoSXAgDGlg0OTguNDUzLDEzNC41MjE0LDAuMTE1NDkyNSwzLjY5MzkzLDIuODA5NDY3LDEyLjI2MjIsMTAuMjM1NCwzNS4xNzQ2LDAuMTI5ODk4MzEsMi43MTU2NjcKEkMIARo/NDk5LjE4LDEzNC40OCwwLjExNDcsMy42OTQsMi44MTEsMTIuMjYsMTAuMjIsMzUuMTMsMC4xMjk3LDIuNzUKEgsIBhoHMTIuMjY5ChIZCAgaFTEzNC4zNCwzLjY5NDMsMi44MTI4ChINCAkaCTIuODA3NTc4ChI4CAUaNDQ5OC43OCwxMzQuMzQsMC4xMTQ3NTMsMy42OTgxLDIuODA5OCwxMi4yNTgxLDAuMTI5MQoSJwgEGiM0OTkuMjUsMTM0LjM3LDMuNjk3NSwyLjgxMDEsMTIuMjU3ChoyYmFuZHZhbG9wZXIxbGR0d2p6c3BsaHh6aHJnM2s1aGhyOHYwcXRlcnYwNXZwZHhwOWYiK2JhbmQxejI2OGdld2F4cmUyOHdlanJheWdnOWFnc3FzcnpnemRmeGprcnkSHHlvZGE6Mi4wLjMvZXhlYzpsYW1iZGE6Mi4wLjASWQpRCkYKHy9jb3Ntb3MuY3J5cHRvLnNlY3AyNTZrMS5QdWJLZXkSIwohAhg5LwZqInlh5tLf4G+vxS1lfKA9a/FHBvjOZ+yB+/mlEgQKAggBGPdxEgQQ6fQEGkBEmkJu+haz4BkAe1Bu04IZWlagVtpOPQCEdru6smYi4VK5EYtnsunbuhwbSftew6N8DPWMmJMLqbmJZxmyYnxJ",
+        "Cu8DCs4DChgvb3JhY2xlLnYxLk1zZ1JlcG9ydERhdGESsQMIhuAIEiQIAhABGh5TTFVHX0FORF9TWU1CT0xfTEVOX05PVF9NQVRDSAoSXggDGlozLjE0OTE5MSw2LjgwNzkxNCwwLjA3ODcxMTMsOC40NDQzODUsMC4wMDI1OTQ4NSwwLjYwMDE4OTQyLDEuNzEwMTE2LDAuMDEzNjI1MjMsMC4wMzE3Nzg4OAoSRAgBGkAzLjE4MSw2LjgwNCwwLjA3ODYzLDguNDQ2LDAuMDAyNTg4LDAuNTk3MywxLjcxMSwwLjAxMjk3LDAuMDMxODEKEgwICRoIMC41OTg0OAoSDAgHGggwLjU5NzA5ChIdCAUaGTguNDUyMiwwLjAwMjU4NzgxLDAuNTk2NwoSQwgEGj8zLjE4Myw2LjgwOCwwLjA3ODc2LDguNDUyLDAuMDAyNTg3OSwwLjU5NjYsNTYuMDQsMS43MDY4LDAuMDMxOAoaMmJhbmR2YWxvcGVyMXpsNTkyNW41dTI0bmpuOWF4cHlnejhsaGpsNWE4djRjcGt6eDVnIitiYW5kMXN6Zzl1NjZzcno5Z3Z5OXJ6bDZsZ2VmOGVsZXJoejN2dWpyYTNkEhx5b2RhOjIuMC4zL2V4ZWM6bGFtYmRhOjIuMC4wElkKUQpGCh8vY29zbW9zLmNyeXB0by5zZWNwMjU2azEuUHViS2V5EiMKIQJWPdwpHl1WSY/IkBKrmbhZIQU6MqEePDoIEHBSjY617BIECgIIARjLcRIEEMrrBBpASRHyi1rpxsqVlYOor8uiIq24xAMAxp1DDZXyl7reQmh0K1QpOpC2eMAfbYudgvIxolYaOxYl2w6QHi1IfyATDg==",
+        "CpIDCvECChgvb3JhY2xlLnYxLk1zZ1JlcG9ydERhdGES1AIIh+AIEiQIAhABGh5TTFVHX0FORF9TWU1CT0xfTEVOX05PVF9NQVRDSAoSbggDGmowLjc0MTc0NzkxLDEuMTMwMTE4LDAuMzcwNjE5MjIsNS42NzU4NDUsMC4wMjY2NjQ4NCwwLjEyNjk2ODk4LDAuOTUxMzgzNzMsMC4wMTg0NDcwMywwLjAzMzEyMDgxLDAuMTU4NDQ1ODYKEjwIARo4MC43NDYxLDEuMTI5LDAuMzY3NiwwLjAyNjY0LDAuMTI2NywwLjk1MjYsMC4wMzMyLDAuMTU4MgoSCwgFGgcwLjE1NzcKEgwIBBoIMC4xNTgyNAoaMmJhbmR2YWxvcGVyMWxkdHdqenNwbGh4emhyZzNrNWhocjh2MHF0ZXJ2MDV2cGR4cDlmIitiYW5kMTM4NjA3cHY3NzQ1bDd5dDd6azUybDVocHJjYWNmajdjNGdoMDVwEhx5b2RhOjIuMC4zL2V4ZWM6bGFtYmRhOjIuMC4wElkKUQpGCh8vY29zbW9zLmNyeXB0by5zZWNwMjU2azEuUHViS2V5EiMKIQKXQ0iUcJKOONMLn2MuQdiSC8bsg2AKUbMNOSOpZ+Mp/BIECgIIARj3cRIEENnEBBpAlnuoUgAk7k7uAYnhYd6ZuYNPtvvNTPKrk6uShqehoy9kGzqGvYs/6jAe2bg2INfpzkbvhcxZSt+jXF013xWVgA==",
+       ...,
+      ]
+    },
+    "evidence": {
+      "evidenceList": []
+    },
+    "lastCommit": {
+      "height": 488305,
+      "round": 0,
+      "blockId": {
+        "hash": "s65ZLJIfoZau9ETSMyqYWTjTCsgB8zFgOMuwOUHhKkU=",
+        "partSetHeader": {
+          "total": 1,
+          "hash": "4w05KvzYXCVH84P2uZ6jXduvwo+r/Bc+xhh/454T/Gs="
+        }
+      },
+      "signaturesList": [
+        {
+          "blockIdFlag": 2,
+          "validatorAddress": "Zdyy3QL8E8XZYhDrA8fAUD4m2Jc=",
+          "timestamp": {
+            "seconds": 1625718430,
+            "nanos": 770011739
+          },
+          "signature": "mOOkCLg3uHBOUauypHAnWnBmoVlTXYrPE/i/AsAMOY4ptpHWdwXD4ZtC8XwOZJ5X1zG3yU3usk2gdvwrw2vbFA=="
+        },
+        {
+          "blockIdFlag": 2,
+          "validatorAddress": "xLnySmLJL6Qq4ebq+oPMs+KEerU=",
+          "timestamp": {
+            "seconds": 1625718430,
+            "nanos": 732447931
+          },
+          "signature": "Atb6fJN5e2gLThE5gPl+9r9wVdmNhYlyTWXYsgwgs8wb4shgRIdGIMNg4hla/0udzStcvOEy7cO4npYUogGruA=="
+        },
+        {
+          "blockIdFlag": 2,
+          "validatorAddress": "D3OpjoewGqrIf2g+qADd6sKpM24=",
+          "timestamp": {
+            "seconds": 1625718430,
+            "nanos": 825672211
+          },
+          "signature": "vMp3Q8xo9xLEs+PqyyN+t+rgIHzt4jMTQ0jOpFu1ISFbLBy0VDhIgb2QGaiCR1uyFPVgVVWzJ/hW7NqoTJR7Ug=="
+        },
+        ...,
+      ]
+    }
+  }
 }
 ```
 
 ---
 
-## getDataSource(id)
+## `getAccount(address)`
 
-The function helps you to get the data source details by id
+Get BandChain's account information
 
 #### Parameter
 
-- **id** `<number>` Data source ID
+- **address** `string` - A bech32-encoded account address
 
 #### Return
 
-[`<DataSource>`]
+- [`BaseAccount`] - An object containing account information
 
 #### Example
 
-```javascript
-import { Client } from "bandchain.js";
+```javascript=
+import { Client } from "@bandprotocol/bandchain.js";
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
+(async () => {
+  console.log(
+    JSON.stringify(
+      await client.getAccount("band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f")
+    )
+  );
+})();
+```
+
+#### Result
+
+```json=
+{
+  "address": "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f",
+  "pubKey": {
+    "typeUrl": "/cosmos.crypto.secp256k1.PubKey",
+    "value": "CiEDC6eHN+gwDqDhWZFUPuEZwhTHhUgmtLnGTjj/r9cy22M="
+  },
+  "accountNumber": 11,
+  "sequence": 939
+}
+```
+
+---
+
+## `getDataSource(id)`
+
+Get data source metadata by given ID
+
+#### Parameter
+
+- **id** `number` - Data source ID
+
+#### Return
+
+- [`DataSource`] - An object containing data source metadata
+
+#### Example
+
+```javascript=
+import { Client } from "@bandprotocol/bandchain.js";
+
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
 const id = 1;
 
@@ -177,59 +235,35 @@ const id = 1;
 
 ```json
 {
-  "owner": {
-    "addr": {
-      "type": "Buffer",
-      "data": [
-        146,
-        91,
-        185,
-        88,
-        208,
-        141,
-        216,
-        214,
-        193,
-        53,
-        202,
-        84,
-        237,
-        195,
-        107,
-        204,
-        97,
-        79,
-        252,
-        23
-      ]
-    }
-  },
+  "owner": "band1jfdmjkxs3hvddsf4ef2wmsmte3s5llqhxqgcfe",
   "name": "DS1",
   "description": "TBD",
-  "fileName": "32ee6262d4a615f2c3ca0589c1c1af79212f24823453cb3f4cfff85b8d338045"
+  "filename": "32ee6262d4a615f2c3ca0589c1c1af79212f24823453cb3f4cfff85b8d338045",
+  "treasury": "band1jfdmjkxs3hvddsf4ef2wmsmte3s5llqhxqgcfe",
+  "feeList": []
 }
 ```
 
 ---
 
-## getOracleScript(id)
+## `getOracleScript(id)`
 
-The function helps you to get the oracle script details by id
+Get oracle script metadata by given ID
 
 #### Parameter
 
-- **id** `<number>` Oracle Script ID
+- **id** `number` - Oracle Script ID
 
 #### Return
 
-[`<OracleScript>`]
+- [`OracleScript`] - Oracle Script metadata
 
 #### Example
 
-```javascript
-import { Client } from "bandchain.js";
+```javascript=
+import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
 const id = 1;
 
@@ -242,5255 +276,192 @@ const id = 1;
 
 ```json
 {
-  "owner": {
-    "addr": {
-      "type": "Buffer",
-      "data": [
-        146,
-        91,
-        185,
-        88,
-        208,
-        141,
-        216,
-        214,
-        193,
-        53,
-        202,
-        84,
-        237,
-        195,
-        107,
-        204,
-        97,
-        79,
-        252,
-        23
-      ]
-    }
-  },
+  "owner": "band1jfdmjkxs3hvddsf4ef2wmsmte3s5llqhxqgcfe",
   "name": "OS1",
   "description": "TBD",
-  "fileName": "f86b37dbe62c3b8c86ae28523bf09e9963a6b2951dd1a5be79f29f66d8236abf",
-  "schema": "{gas_option:string}/{gweix10:u64}"
+  "filename": "f86b37dbe62c3b8c86ae28523bf09e9963a6b2951dd1a5be79f29f66d8236abf",
+  "schema": "{gas_option:string}/{gweix10:u64}",
+  "sourceCodeUrl": ""
 }
 ```
 
 ---
 
-## getRequestByID(id)
+## `getRequestByID(id)`
 
-The function helps you to get the request details by id
+Get an oracle request by given request ID
 
 #### Parameter
 
-- **id** `<int>` Request ID
+- **id** `number` - Request ID
 
 #### Return
 
-[`<RequestInfo>`]
+- [`Request`] - Information of the oracle request
 
 #### Example
 
-```javascript
-import { Client } from "bandchain.js";
+```javascript=
+import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
-const id = 1;
+const id = 143959;
 
 (async () => {
-  console.log(JSON.stringify(await client.getRequestByID(id)));
+  console.log(JSON.stringify(await client.getRequestById(id)));
 })();
 ```
 
 #### Result
 
-```json
+```json=
 {
   "request": {
-    "oracleScriptID": 1,
-    "requestedValidators": [
-      "bandvaloper10cmqs8esjefupq2tgajnxtwayc8lsjhqmmsc0m",
-      "bandvaloper133jj708vr92rfd6fvnzyc6snylflzafu5k9ege",
-      "bandvaloper1nlepx7xg53fsy6vslrss6adtmtl8a33kusv7fa",
-      "bandvaloper1fy0nke9vnvtdp6jccn0l3rxw7c5yaekm7xu7z8"
+    "oracleScriptId": 37,
+    "calldata": "AAAADwAAAANVTkkAAAAFU1VTSEkAAAAEVVNEQwAAAARVU0RUAAAAA0RBSQAAAANZRkkAAAADU05YAAAABFNVU0QAAAADTUtSAAAAA0NSVgAAAAZSRU5CVEMAAAAEV0JUQwAAAARMSU5LAAAABENPTVAAAAAEQkFORAAAAAA7msoA",
+    "requestedValidatorsList": [
+      "bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u",
+      "bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz",
+      "bandvaloper1274qgg28xkz6f3upx05ftr9zepgmtfgts392dy",
+      "bandvaloper1lm2puy995yt8dh53cnazk3ge3m27t7cay4ndaq",
+      "bandvaloper1v0u0tsptnkcdrju4qlj0hswqhnqcn47d20prfy",
+      "bandvaloper1a570h9e3rtvfhm030ta5hvel7e7e4lh4pgv8wj"
     ],
     "minCount": 3,
-    "requestHeight": 623,
-    "clientID": "test",
-    "calldata": { "type": "Buffer", "data": [0, 0, 0, 4, 102, 97, 115, 116] },
-    "rawRequests": [
+    "requestHeight": 488761,
+    "requestTime": 1625719798,
+    "clientId": "alpha",
+    "rawRequestsList": [
       {
-        "externalID": 1,
-        "dataSourceID": 1,
-        "calldata": { "type": "Buffer", "data": [102, 97, 115, 116] }
-      }
-    ]
-  },
-  "reports": [
-    {
-      "validator": "bandvaloper1fy0nke9vnvtdp6jccn0l3rxw7c5yaekm7xu7z8",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 1,
-          "data": { "type": "Buffer", "data": [52, 57, 49, 48, 46, 48, 10] }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper10cmqs8esjefupq2tgajnxtwayc8lsjhqmmsc0m",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 1,
-          "data": { "type": "Buffer", "data": [52, 48, 53, 48, 46, 48, 10] }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper133jj708vr92rfd6fvnzyc6snylflzafu5k9ege",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 1,
-          "data": { "type": "Buffer", "data": [52, 48, 53, 48, 46, 48, 10] }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1nlepx7xg53fsy6vslrss6adtmtl8a33kusv7fa",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 1,
-          "data": { "type": "Buffer", "data": [52, 57, 49, 48, 46, 48, 10] }
-        }
-      ]
-    }
-  ],
-  "result": {
-    "requestPacketData": {
-      "clientID": "test",
-      "askCount": 4,
-      "minCount": 3,
-      "oracleScriptID": 1,
-      "calldata": { "type": "Buffer", "data": [0, 0, 0, 4, 102, 97, 115, 116] }
-    },
-    "responsePacketData": {
-      "requestID": 1,
-      "requestTime": 1600357375,
-      "resolveTime": 1600357377,
-      "resolveStatus": 1,
-      "ansCount": 4,
-      "clientID": "test",
-      "result": { "type": "Buffer", "data": [0, 0, 0, 0, 0, 0, 17, 128] }
-    }
-  }
-}
-```
-
----
-
-## getReporters(validator)
-
-The function helps you to get the reporters of validator
-
-#### Parameter
-
-- **validator** [`<Address>`]
-
-#### Return
-
-`List<Address>`
-
-#### Example
-
-```javascript
-import { Client, Wallet } from "bandchain.js";
-
-const { Address } = Wallet;
-
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
-
-const validator = Address.fromValBech32(
-  "bandvaloper135hz0cvdv5vd7e6wl7qjgfv3j90dh2r4vry2cs"
-);
-
-(async () => {
-  console.log(JSON.stringify(await client.getReporters(validator)));
-})();
-```
-
-#### Result
-
-```json
-[
-  {
-    "addr": {
-      "type": "Buffer",
-      "data": [
-        141,
-        46,
-        39,
-        225,
-        141,
-        101,
-        24,
-        223,
-        103,
-        78,
-        255,
-        129,
-        36,
-        37,
-        145,
-        145,
-        94,
-        219,
-        168,
-        117
-      ]
-    }
-  },
-  {
-    "addr": {
-      "type": "Buffer",
-      "data": [
-        71,
-        70,
-        155,
-        61,
-        80,
-        189,
-        150,
-        90,
-        96,
-        154,
-        74,
-        55,
-        56,
-        0,
-        240,
-        16,
-        211,
-        130,
-        235,
-        250
-      ]
-    }
-  },
-  {
-    "addr": {
-      "type": "Buffer",
-      "data": [
-        152,
-        233,
-        53,
-        84,
-        254,
-        254,
-        135,
-        155,
-        46,
-        197,
-        40,
-        171,
-        130,
-        229,
-        77,
-        120,
-        46,
-        222,
-        94,
-        31
-      ]
-    }
-  },
-  {
-    "addr": {
-      "type": "Buffer",
-      "data": [
-        193,
-        241,
-        146,
-        180,
-        196,
-        54,
-        9,
-        233,
-        57,
-        198,
-        83,
-        30,
-        227,
-        210,
-        157,
-        220,
-        177,
-        221,
-        208,
-        4
-      ]
-    }
-  },
-  {
-    "addr": {
-      "type": "Buffer",
-      "data": [
-        195,
-        180,
-        202,
-        3,
-        210,
-        55,
-        132,
-        157,
-        38,
-        63,
-        59,
-        206,
-        239,
-        106,
-        12,
-        230,
-        25,
-        57,
-        193,
-        106
-      ]
-    }
-  },
-  {
-    "addr": {
-      "type": "Buffer",
-      "data": [
-        230,
-        42,
-        136,
-        24,
-        64,
-        248,
-        147,
-        113,
-        9,
-        151,
-        22,
-        227,
-        183,
-        159,
-        202,
-        218,
-        143,
-        156,
-        206,
-        212
-      ]
-    }
-  }
-]
-```
-
----
-
-## getLatestRequest(oid, calldata, minCount, askCount)
-
-The function helps you to get the latest request
-
-#### Parameter
-
-- **oid** `<number>` oracle script ID
-- **calldata** `<Buffer>` The input parameters associated with the request
-- **minCount** `<number>` The minimum number of validators necessary for the request to proceed to the execution phase
-- **askCount** `<number>` The number of validators that are requested to respond to this request
-
-#### Return
-
-[`<RequestInfo>`]
-
-#### Example
-
-```javascript
-import { Client } from "bandchain.js";
-
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
-
-const oid = 4;
-const calldata = Buffer.from(
-  "0000000300000003425443000000034554480000000442414e44000000003b9aca00",
-  "base64"
-);
-const minCount = 10;
-const askCount = 16;
-
-(async () => {
-  console.log(
-    JSON.stringify(
-      await client.getRequestByID(oid, calldata, minCount, askCount)
-    )
-  );
-})();
-```
-
-#### Result
-
-```json
-{
-  "request": {
-    "oracleScriptID": 4,
-    "requestedValidators": [
-      "bandvaloper1n50c9uhawz6s0u5wqfa57qvy2x6kyg933vgkuw",
-      "bandvaloper135hz0cvdv5vd7e6wl7qjgfv3j90dh2r4vry2cs",
-      "bandvaloper1nlepx7xg53fsy6vslrss6adtmtl8a33kusv7fa",
-      "bandvaloper12wwz25zztfjpqx3fsq8rd4c48ew3vnywyplln8",
-      "bandvaloper1muydxugudsd64w4ng3vylm4gct5qvakjnfgm7x",
-      "bandvaloper1a05af3g6s0qltqdam569m43630zzhpnh99d4jn",
-      "bandvaloper1czhg8j6ne4hpfjtdzhtqy8kss9673zacqcjlkn",
-      "bandvaloper1nykclk39ge2zyk7h3uyzkfncyxstnp4qkwtgvm",
-      "bandvaloper1egcncstqyhm7njd5mva03lkrdtemmzehda940c",
-      "bandvaloper1sy7ctj5qjgre7s9mgf7u8m5exdrfpcsxyqrxnc",
-      "bandvaloper1u3c40nglllu4upuddlz6l59afq7uuz7lq6z977",
-      "bandvaloper1unfg2zhnssl07tql8d85zc6rx7zsfs5qh206av",
-      "bandvaloper19sd4dgvyujc5mhkz8ypg058cx6klxx9pae92ew",
-      "bandvaloper133jj708vr92rfd6fvnzyc6snylflzafu5k9ege",
-      "bandvaloper1edkewac2dg6u7fdxjceeyyndnhudrxsvx6k75m",
-      "bandvaloper12w7p4e3suvjpg84mqdh5k5n9h6x7zsc3e8jtwn"
+        "externalId": 6,
+        "dataSourceId": 61,
+        "calldata": "REFJIExJTksgQ09NUA=="
+      },
+      {
+        "externalId": 3,
+        "dataSourceId": 62,
+        "calldata": "VU5JIFNVU0hJIFVTREMgVVNEVCBEQUkgWUZJIFNOWCBTVVNEIE1LUiBDUlYgUkVOQlRDIFdCVEMgTElOSyBDT01QIEJBTkQ="
+      },
+      {
+        "externalId": 0,
+        "dataSourceId": 57,
+        "calldata": "VVNEVCBCQU5E"
+      },
+      ...,
     ],
-    "minCount": 10,
-    "requestHeight": 1978310,
-    "clientID": "from_pyband",
-    "calldata": {
-      "type": "Buffer",
-      "data": [
-        0,
-        0,
-        0,
-        3,
-        0,
-        0,
-        0,
-        3,
-        66,
-        84,
-        67,
-        0,
-        0,
-        0,
-        3,
-        69,
-        84,
-        72,
-        0,
-        0,
-        0,
-        4,
-        66,
-        65,
-        78,
-        68,
-        0,
-        0,
-        0,
-        0,
-        59,
-        154,
-        202,
-        0
-      ]
-    },
-    "rawRequests": [
-      {
-        "externalID": 6,
-        "dataSourceID": 6,
-        "calldata": {
-          "type": "Buffer",
-          "data": [107, 114, 97, 107, 101, 110, 32, 66, 84, 67, 32, 69, 84, 72]
-        }
-      },
-      {
-        "externalID": 0,
-        "dataSourceID": 4,
-        "calldata": {
-          "type": "Buffer",
-          "data": [66, 84, 67, 32, 69, 84, 72, 32, 66, 65, 78, 68]
-        }
-      },
-      {
-        "externalID": 3,
-        "dataSourceID": 6,
-        "calldata": {
-          "type": "Buffer",
-          "data": [
-            98,
-            105,
-            110,
-            97,
-            110,
-            99,
-            101,
-            32,
-            66,
-            84,
-            67,
-            32,
-            69,
-            84,
-            72,
-            32,
-            66,
-            65,
-            78,
-            68
-          ]
-        }
-      },
-      {
-        "externalID": 5,
-        "dataSourceID": 7,
-        "calldata": { "type": "Buffer", "data": [66, 84, 67, 32, 69, 84, 72] }
-      },
-      {
-        "externalID": 2,
-        "dataSourceID": 8,
-        "calldata": {
-          "type": "Buffer",
-          "data": [66, 84, 67, 32, 69, 84, 72, 32, 66, 65, 78, 68]
-        }
-      },
-      {
-        "externalID": 4,
-        "dataSourceID": 6,
-        "calldata": {
-          "type": "Buffer",
-          "data": [
-            104,
-            117,
-            111,
-            98,
-            105,
-            112,
-            114,
-            111,
-            32,
-            66,
-            84,
-            67,
-            32,
-            69,
-            84,
-            72,
-            32,
-            66,
-            65,
-            78,
-            68
-          ]
-        }
-      },
-      {
-        "externalID": 7,
-        "dataSourceID": 6,
-        "calldata": {
-          "type": "Buffer",
-          "data": [
-            98,
-            105,
-            116,
-            102,
-            105,
-            110,
-            101,
-            120,
-            32,
-            66,
-            84,
-            67,
-            32,
-            69,
-            84,
-            72
-          ]
-        }
-      },
-      {
-        "externalID": 8,
-        "dataSourceID": 6,
-        "calldata": {
-          "type": "Buffer",
-          "data": [
-            98,
-            105,
-            116,
-            116,
-            114,
-            101,
-            120,
-            32,
-            66,
-            84,
-            67,
-            32,
-            69,
-            84,
-            72
-          ]
-        }
-      },
-      {
-        "externalID": 1,
-        "dataSourceID": 5,
-        "calldata": {
-          "type": "Buffer",
-          "data": [66, 84, 67, 32, 69, 84, 72, 32, 66, 65, 78, 68]
-        }
-      }
-    ]
+    "executeGas": 1000000
   },
-  "reports": [
+  "reportsList": [
     {
-      "validator": "bandvaloper19sd4dgvyujc5mhkz8ypg058cx6klxx9pae92ew",
-      "inBeforeResolve": false,
-      "rawReports": [
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              56,
-              55,
-              44,
-              52,
-              57,
-              49,
-              46,
-              48,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              51,
-              46,
-              48,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              54,
-              51,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              57,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              52,
-              52,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              52,
-              46,
-              53,
-              49,
-              49,
-              50,
-              44,
-              52,
-              57,
-              49,
-              46,
-              49,
-              52,
-              51,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              55,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              52,
-              48,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper12wwz25zztfjpqx3fsq8rd4c48ew3vnywyplln8",
+      "validator": "bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz",
       "inBeforeResolve": true,
-      "rawReports": [
+      "rawReportsList": [
         {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              51,
-              46,
-              51,
-              55,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              50,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
+          "externalId": 2,
+          "exitCode": 1,
+          "data": "NDI5IENsaWVudCBFcnJvcjogVG9vIE1hbnkgUmVxdWVzdHMgZm9yIHVybDogaHR0cHM6Ly9hcGkuY29pbmdlY2tvLmNvbS9hcGkvdjMvY29pbnMvbGlzdAo="
         },
         {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
+          "externalId": 0,
+          "exitCode": 0,
+          "data": "MS4wMDExODUsNi40NjU4MzcK"
         },
         {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              48,
-              46,
-              49,
-              56,
-              44,
-              52,
-              57,
-              49,
-              46,
-              49,
-              56,
-              10
-            ]
-          }
+          "externalId": 1,
+          "exitCode": 0,
+          "data": "MjEuMDksOC4zNjksMC45OTk4LDEsMS4wMDEsMzQzMTYuNzMsMTAuMjEsMS4wMDUsMjcxOS41NCwxLjg2OCwzMzIxOS42NSwxOS4wNSw0MjMuOSw2LjQwMgo="
         },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 49, 54, 46, 48, 44, 52, 57, 49, 46, 50, 54, 10]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              53,
-              46,
-              53,
-              48,
-              49,
-              57,
-              44,
-              52,
-              57,
-              49,
-              46,
-              52,
-              48,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              49,
-              53,
-              49,
-              53,
-              44,
-              52,
-              57,
-              48,
-              46,
-              54,
-              57,
-              54,
-              50,
-              44,
-              54,
-              46,
-              48,
-              50,
-              53,
-              57,
-              48,
-              57,
-              10
-            ]
-          }
-        }
+        ...,
       ]
     },
     {
-      "validator": "bandvaloper12w7p4e3suvjpg84mqdh5k5n9h6x7zsc3e8jtwn",
+      "validator": "bandvaloper1274qgg28xkz6f3upx05ftr9zepgmtfgts392dy",
       "inBeforeResolve": true,
-      "rawReports": [
+      "rawReportsList": [
         {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              56,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              48,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
+          "externalId": 0,
+          "exitCode": 0,
+          "data": "MS4wMDExODUsNi40NjU4MzcK"
         },
         {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
+          "externalId": 6,
+          "exitCode": 0,
+          "data": "MS4wMDA4NTMsMTkuMTY0NjIsNDI2LjYK"
         },
         {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              52,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              55,
-              10
-            ]
-          }
+          "externalId": 1,
+          "exitCode": 0,
+          "data": "MjEuMDksOC4zNjksMC45OTk4LDEsMS4wMDEsMzQzMTYuNzMsMTAuMjEsMS4wMDUsMjcxOS41NCwxLjg2OCwzMzIxOS42NSwxOS4wNSw0MjMuOSw2LjQwMgo="
         },
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 49, 54, 46, 48, 44, 52, 57, 49, 46, 50, 54, 10]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              48,
-              50,
-              55,
-              44,
-              52,
-              57,
-              49,
-              46,
-              49,
-              48,
-              51,
-              53,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              55,
-              54,
-              44,
-              52,
-              57,
-              49,
-              46,
-              52,
-              49,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
+        ...,
       ]
     },
     {
-      "validator": "bandvaloper1sy7ctj5qjgre7s9mgf7u8m5exdrfpcsxyqrxnc",
+      "validator": "bandvaloper1v0u0tsptnkcdrju4qlj0hswqhnqcn47d20prfy",
       "inBeforeResolve": true,
-      "rawReports": [
+      "rawReportsList": [
         {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
+          "externalId": 0,
+          "exitCode": 0,
+          "data": "MS4wMDExODUsNi40NjU4MzcK"
         },
         {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
+          "externalId": 1,
+          "exitCode": 0,
+          "data": "MjEuMDksOC4zNjksMC45OTk4LDEsMS4wMDEsMzQzMTYuNzMsMTAuMjEsMS4wMDUsMjcxOS41NCwxLjg2OCwzMzIxOS42NSwxOS4wNSw0MjMuOSw2LjQwMgo="
         },
         {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              51,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
+          "externalId": 3,
+          "exitCode": 0,
+          "data": "MjEuMjUyMSw4LjQ0MjY4OSwxLjAwMDkxMSwxLjAwMTA0MSwxLjAwMDgzLDM0NTQ4LjUxOTEsMTAuMTMwNSwxLjAwNjU2NywyNzMxLjA3MTgsMS44ODk5MTMsMzMyMDMuMzkwMSwzMzI3Mi40ODM5LDE5LjIwMjEsNDI2LjU4Nyw2LjQ1MDA0OAo="
         },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              57,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              55,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 49, 46, 48, 44, 52, 57, 49, 46, 48, 10]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              49,
-              50,
-              55,
-              44,
-              52,
-              57,
-              48,
-              46,
-              56,
-              48,
-              51,
-              51,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              52,
-              46,
-              51,
-              48,
-              49,
-              49,
-              44,
-              52,
-              57,
-              49,
-              46,
-              52,
-              49,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
+        ...,
       ]
     },
-    {
-      "validator": "bandvaloper133jj708vr92rfd6fvnzyc6snylflzafu5k9ege",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              48,
-              46,
-              49,
-              56,
-              44,
-              52,
-              57,
-              49,
-              46,
-              49,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              51,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 49, 54, 46, 48, 44, 52, 57, 49, 46, 50, 54, 10]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              48,
-              50,
-              55,
-              44,
-              52,
-              57,
-              48,
-              46,
-              56,
-              48,
-              51,
-              51,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              55,
-              54,
-              44,
-              52,
-              57,
-              49,
-              46,
-              52,
-              49,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper135hz0cvdv5vd7e6wl7qjgfv3j90dh2r4vry2cs",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              51,
-              46,
-              51,
-              55,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              50,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              52,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              55,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              51,
-              46,
-              48,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              54,
-              51,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              49,
-              50,
-              55,
-              44,
-              52,
-              57,
-              48,
-              46,
-              56,
-              52,
-              51,
-              51,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              56,
-              56,
-              50,
-              57,
-              44,
-              52,
-              57,
-              49,
-              46,
-              51,
-              57,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1nykclk39ge2zyk7h3uyzkfncyxstnp4qkwtgvm",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              48,
-              46,
-              49,
-              56,
-              44,
-              52,
-              57,
-              49,
-              46,
-              49,
-              50,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              56,
-              55,
-              44,
-              52,
-              57,
-              49,
-              46,
-              48,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              51,
-              46,
-              48,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              54,
-              51,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              49,
-              50,
-              55,
-              44,
-              52,
-              57,
-              48,
-              46,
-              56,
-              48,
-              51,
-              51,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              56,
-              56,
-              50,
-              57,
-              44,
-              52,
-              57,
-              49,
-              46,
-              51,
-              52,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1n50c9uhawz6s0u5wqfa57qvy2x6kyg933vgkuw",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              57,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              55,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              51,
-              46,
-              48,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              54,
-              51,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              51,
-              46,
-              51,
-              55,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              50,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 56, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              52,
-              46,
-              53,
-              49,
-              49,
-              50,
-              44,
-              52,
-              57,
-              49,
-              46,
-              49,
-              52,
-              51,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              56,
-              56,
-              50,
-              57,
-              44,
-              52,
-              57,
-              49,
-              46,
-              51,
-              57,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1nlepx7xg53fsy6vslrss6adtmtl8a33kusv7fa",
-      "inBeforeResolve": false,
-      "rawReports": [
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              57,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              55,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              56,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              48,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 56, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              49,
-              46,
-              49,
-              52,
-              55,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              51,
-              46,
-              48,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              54,
-              51,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              57,
-              54,
-              48,
-              50,
-              44,
-              52,
-              57,
-              49,
-              46,
-              52,
-              50,
-              51,
-              56,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              52,
-              46,
-              53,
-              49,
-              49,
-              50,
-              44,
-              52,
-              57,
-              49,
-              46,
-              49,
-              52,
-              51,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1czhg8j6ne4hpfjtdzhtqy8kss9673zacqcjlkn",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              56,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              48,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              48,
-              46,
-              49,
-              56,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              51,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 49, 54, 46, 48, 44, 52, 57, 49, 46, 50, 54, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              55,
-              55,
-              50,
-              56,
-              44,
-              52,
-              57,
-              49,
-              46,
-              51,
-              57,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              49,
-              50,
-              55,
-              44,
-              52,
-              57,
-              48,
-              46,
-              56,
-              52,
-              51,
-              51,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1egcncstqyhm7njd5mva03lkrdtemmzehda940c",
-      "inBeforeResolve": false,
-      "rawReports": [
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              57,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              53,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              56,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              48,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 49, 54, 46, 48, 44, 52, 57, 49, 46, 50, 54, 10]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 56, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              55,
-              54,
-              44,
-              52,
-              57,
-              49,
-              46,
-              52,
-              50,
-              51,
-              56,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              52,
-              46,
-              53,
-              49,
-              49,
-              50,
-              44,
-              52,
-              57,
-              49,
-              46,
-              49,
-              52,
-              51,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1edkewac2dg6u7fdxjceeyyndnhudrxsvx6k75m",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 48, 46, 49, 56, 44, 52, 57, 49, 10]
-          }
-        },
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              51,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 49, 54, 46, 48, 44, 52, 57, 49, 46, 50, 54, 10]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              49,
-              50,
-              55,
-              44,
-              52,
-              57,
-              48,
-              46,
-              56,
-              52,
-              51,
-              51,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              56,
-              56,
-              50,
-              57,
-              44,
-              52,
-              57,
-              49,
-              46,
-              51,
-              57,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1muydxugudsd64w4ng3vylm4gct5qvakjnfgm7x",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              56,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              48,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              51,
-              46,
-              48,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              54,
-              51,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              57,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              53,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              55,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              52,
-              49,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              49,
-              50,
-              55,
-              44,
-              52,
-              57,
-              48,
-              46,
-              56,
-              52,
-              51,
-              51,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1u3c40nglllu4upuddlz6l59afq7uuz7lq6z977",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              48,
-              46,
-              49,
-              56,
-              44,
-              52,
-              57,
-              49,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              51,
-              46,
-              48,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              54,
-              51,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              50,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              54,
-              49,
-              50,
-              55,
-              44,
-              52,
-              57,
-              48,
-              46,
-              56,
-              52,
-              51,
-              51,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              56,
-              56,
-              50,
-              57,
-              44,
-              52,
-              57,
-              49,
-              46,
-              51,
-              52,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1unfg2zhnssl07tql8d85zc6rx7zsfs5qh206av",
-      "inBeforeResolve": true,
-      "rawReports": [
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              52,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              51,
-              51,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 6,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 50, 53, 46, 50, 44, 52, 57, 49, 46, 50, 49, 10]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              50,
-              46,
-              56,
-              53,
-              44,
-              52,
-              57,
-              49,
-              46,
-              48,
-              54,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              50,
-              51,
-              46,
-              48,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              54,
-              51,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 8,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              49,
-              46,
-              48,
-              52,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              57,
-              54,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 4,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              52,
-              46,
-              53,
-              53,
-              49,
-              51,
-              44,
-              52,
-              57,
-              48,
-              46,
-              56,
-              53,
-              51,
-              52,
-              44,
-              54,
-              46,
-              48,
-              50,
-              55,
-              55,
-              49,
-              54,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 3,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              54,
-              46,
-              56,
-              56,
-              50,
-              57,
-              44,
-              52,
-              57,
-              49,
-              46,
-              51,
-              54,
-              51,
-              55,
-              44,
-              54,
-              46,
-              48,
-              51,
-              54,
-              56,
-              50,
-              51,
-              10
-            ]
-          }
-        }
-      ]
-    },
-    {
-      "validator": "bandvaloper1a05af3g6s0qltqdam569m43630zzhpnh99d4jn",
-      "inBeforeResolve": false,
-      "rawReports": [
-        {
-          "externalID": 2,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              49,
-              53,
-              46,
-              54,
-              56,
-              53,
-              57,
-              44,
-              52,
-              56,
-              55,
-              46,
-              49,
-              56,
-              50,
-              55,
-              44,
-              53,
-              46,
-              57,
-              56,
-              53,
-              49,
-              50,
-              56,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 1,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              49,
-              51,
-              48,
-              46,
-              49,
-              44,
-              52,
-              56,
-              55,
-              46,
-              57,
-              50,
-              44,
-              54,
-              46,
-              48,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 0,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              51,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              50,
-              44,
-              54,
-              46,
-              48,
-              50,
-              57,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 5,
-          "data": {
-            "type": "Buffer",
-            "data": [
-              49,
-              56,
-              50,
-              49,
-              57,
-              46,
-              48,
-              52,
-              44,
-              52,
-              57,
-              49,
-              46,
-              53,
-              49,
-              10
-            ]
-          }
-        },
-        {
-          "externalID": 7,
-          "data": {
-            "type": "Buffer",
-            "data": [49, 56, 50, 49, 54, 46, 48, 44, 52, 57, 49, 46, 50, 54, 10]
-          }
-        },
-        { "externalID": 6, "data": { "type": "Buffer", "data": [] } },
-        { "externalID": 4, "data": { "type": "Buffer", "data": [] } },
-        { "externalID": 3, "data": { "type": "Buffer", "data": [] } },
-        { "externalID": 8, "data": { "type": "Buffer", "data": [] } }
-      ]
-    }
   ],
   "result": {
-    "requestPacketData": {
-      "clientID": "from_pyband",
-      "askCount": 16,
-      "minCount": 10,
-      "oracleScriptID": 4,
-      "calldata": {
-        "type": "Buffer",
-        "data": [
-          0,
-          0,
-          0,
-          3,
-          0,
-          0,
-          0,
-          3,
-          66,
-          84,
-          67,
-          0,
-          0,
-          0,
-          3,
-          69,
-          84,
-          72,
-          0,
-          0,
-          0,
-          4,
-          66,
-          65,
-          78,
-          68,
-          0,
-          0,
-          0,
-          0,
-          59,
-          154,
-          202,
-          0
-        ]
-      }
-    },
-    "responsePacketData": {
-      "requestID": 374466,
-      "requestTime": 1605857590,
-      "resolveTime": 1605857596,
-      "resolveStatus": 1,
-      "ansCount": 12,
-      "clientID": "from_pyband",
-      "result": {
-        "type": "Buffer",
-        "data": [
-          0,
-          0,
-          0,
-          3,
-          0,
-          0,
-          16,
-          144,
-          248,
-          65,
-          21,
-          176,
-          0,
-          0,
-          0,
-          114,
-          93,
-          205,
-          48,
-          0,
-          0,
-          0,
-          0,
-          1,
-          103,
-          71,
-          165,
-          160
-        ]
-      }
-    }
+    "clientId": "alpha",
+    "oracleScriptId": 37,
+    "calldata": "AAAADwAAAANVTkkAAAAFU1VTSEkAAAAEVVNEQwAAAARVU0RUAAAAA0RBSQAAAANZRkkAAAADU05YAAAABFNVU0QAAAADTUtSAAAAA0NSVgAAAAZSRU5CVEMAAAAEV0JUQwAAAARMSU5LAAAABENPTVAAAAAEQkFORAAAAAA7msoA",
+    "askCount": 6,
+    "minCount": 3,
+    "requestId": 143959,
+    "ansCount": 6,
+    "requestTime": 1625719798,
+    "resolveTime": 1625719807,
+    "resolveStatus": 1,
+    "result": "AAAADwAAAATt3DGgAAAAAfZv9mAAAAAAO5oGsAAAAAA7msoAAAAAADumO7AAAB9s/0p6AAAAAAJckF8gAAAAADvnFT8AAAJ8Y5ZhgAAAAABwpcioAAAeNwdVEQ8AAB45MfNWAAAAAAR1h8AgAAAAYw1OVkAAAAABgFSsAA=="
   }
 }
 ```
 
 ---
 
-## sendTxBlockMode(data)
+## `getReporters(validator)`
 
-The function helps you to send transaction block mode.
-
-#### Parameter
-
-- **data** `<object>` The signed transaction
-
-#### Return
-
-[`<TransactionBlockMode>`]
-
-#### Example
-
-```javascript
-import { Client, Wallet, Transaction, Message } from "bandchain.js";
-
-const { PrivateKey } = Wallet;
-const { MsgRequest } = Message;
-
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
-
-const calldata = Buffer.from(
-  "0000000400000007636f696e6f6e650000000762697468756d620000000868756f626970726f0000000762696e616e6365000000044c554e41000000034b525700000000000f4240",
-  "hex"
-);
-const clientID = "from bandchain.js";
-
-const privkey = PrivateKey.fromMnemonic("s");
-const pubkey = privkey.toPubkey();
-const addr = pubkey.toAddress();
-const msgRequest = new MsgRequest(15, calldata, 16, 10, clientID, addr);
-
-const tscBlockExample = async () => {
-  const account = await client.getAccount(addr);
-  const tsc = new Transaction()
-    .withMessages(msgRequest)
-    .withAccountNum(account.accountNumber)
-    .withSequence(account.sequence)
-    .withChainID("band-guanyu-testnet3")
-    .withGas(5000000)
-    .withMemo("bandchain2.js example");
-
-  const signatureTx = privkey.sign(tsc.getSignData());
-  const rawTx = tsc.getTxData(signatureTx, pubkey);
-  client.sendTxBlockMode(rawTx).then((e) => console.log(JSON.stringify(e)));
-};
-
-(async () => {
-  await tscBlockExample();
-})();
-```
-
-#### Result
-
-```json
-{
-  "height": 2132522,
-  "txHash": {
-    "type": "Buffer",
-    "data": [
-      229,
-      34,
-      42,
-      254,
-      245,
-      25,
-      7,
-      16,
-      25,
-      37,
-      60,
-      41,
-      181,
-      66,
-      151,
-      178,
-      102,
-      60,
-      95,
-      154,
-      173,
-      216,
-      75,
-      121,
-      211,
-      227,
-      223,
-      247,
-      38,
-      80,
-      213,
-      109
-    ]
-  },
-  "gasWanted": 5000000,
-  "gasUsed": 5000000,
-  "code": 0,
-  "log": [
-    {
-      "msg_index": 0,
-      "log": "",
-      "events": [
-        {
-          "type": "message",
-          "attributes": [{ "key": "action", "value": "request" }]
-        },
-        {
-          "type": "raw_request",
-          "attributes": [
-            { "key": "data_source_id", "value": "17" },
-            {
-              "key": "data_source_hash",
-              "value": "0a9f048384cb2be0060c2258446339fde13cb97fc69f5c5ebe14dcf3c939a923"
-            },
-            { "key": "external_id", "value": "0" },
-            { "key": "calldata", "value": "coinone LUNA KRW" },
-            { "key": "data_source_id", "value": "17" },
-            {
-              "key": "data_source_hash",
-              "value": "0a9f048384cb2be0060c2258446339fde13cb97fc69f5c5ebe14dcf3c939a923"
-            },
-            { "key": "external_id", "value": "1" },
-            { "key": "calldata", "value": "bithumb LUNA KRW" },
-            { "key": "data_source_id", "value": "17" },
-            {
-              "key": "data_source_hash",
-              "value": "0a9f048384cb2be0060c2258446339fde13cb97fc69f5c5ebe14dcf3c939a923"
-            },
-            { "key": "external_id", "value": "2" },
-            { "key": "calldata", "value": "huobipro LUNA USDT" },
-            { "key": "data_source_id", "value": "17" },
-            {
-              "key": "data_source_hash",
-              "value": "0a9f048384cb2be0060c2258446339fde13cb97fc69f5c5ebe14dcf3c939a923"
-            },
-            { "key": "external_id", "value": "3" },
-            { "key": "calldata", "value": "binance LUNA USDT" },
-            { "key": "data_source_id", "value": "9" },
-            {
-              "key": "data_source_hash",
-              "value": "433c2baf18dfeadbb5f243555b9bb01ce58c39389259b206ec2fbe5bd6713aa7"
-            },
-            { "key": "external_id", "value": "1000000008" },
-            { "key": "calldata", "value": "KRW" },
-            { "key": "data_source_id", "value": "10" },
-            {
-              "key": "data_source_hash",
-              "value": "eb49b048019b4cffd6e0b2357e5b9755af355909347126a049e40e0fd041d3ec"
-            },
-            { "key": "external_id", "value": "1000000009" },
-            { "key": "calldata", "value": "KRW" },
-            { "key": "data_source_id", "value": "12" },
-            {
-              "key": "data_source_hash",
-              "value": "e1913f3fca59e359f14cae3d23d8bc29e758ac0741bdb0cf5a4c8bb30be07e7d"
-            },
-            { "key": "external_id", "value": "1000000011" },
-            { "key": "calldata", "value": "KRW" }
-          ]
-        },
-        {
-          "type": "request",
-          "attributes": [
-            { "key": "id", "value": "413111" },
-            { "key": "client_id", "value": "from bandchain.js" },
-            { "key": "oracle_script_id", "value": "15" },
-            {
-              "key": "calldata",
-              "value": "0000000400000007636f696e6f6e650000000762697468756d620000000868756f626970726f0000000762696e616e6365000000044c554e41000000034b525700000000000f4240"
-            },
-            { "key": "ask_count", "value": "16" },
-            { "key": "min_count", "value": "10" },
-            { "key": "gas_used", "value": "21368" },
-            {
-              "key": "validator",
-              "value": "bandvaloper1a05af3g6s0qltqdam569m43630zzhpnh99d4jn"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper19gh30we6ypgec5plmnxd7smlqp66hel4lx573n"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1nykclk39ge2zyk7h3uyzkfncyxstnp4qkwtgvm"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper135hz0cvdv5vd7e6wl7qjgfv3j90dh2r4vry2cs"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1r9eslzfdj976hap6z06wlq7nwnn0w6x0y40zn3"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1edkewac2dg6u7fdxjceeyyndnhudrxsvx6k75m"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper12w7p4e3suvjpg84mqdh5k5n9h6x7zsc3e8jtwn"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper158q56s6zgnk4zf3sz6cz4jmpmxpanhxsfdra05"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1h54f3tpfrl2gszkpqxmqaurkfkffd2qdrxw8hl"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper12wwz25zztfjpqx3fsq8rd4c48ew3vnywyplln8"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1unfg2zhnssl07tql8d85zc6rx7zsfs5qh206av"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1u3c40nglllu4upuddlz6l59afq7uuz7lq6z977"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1nlepx7xg53fsy6vslrss6adtmtl8a33kusv7fa"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper19sd4dgvyujc5mhkz8ypg058cx6klxx9pae92ew"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1sy7ctj5qjgre7s9mgf7u8m5exdrfpcsxyqrxnc"
-            },
-            {
-              "key": "validator",
-              "value": "bandvaloper1s5rfuyu9a28dc8zjrz05tc4vzw4au4t6m2wmsm"
-            }
-          ]
-        }
-      ]
-    }
-  ]
-}
-```
-
----
-
-## sendTxSyncMode(data)
-
-The function helps you to send transaction sync mode.
+Get a list of reporter account addresses associated with given validator
 
 #### Parameter
 
-- **data** `<object>` The signed transaction
+- **validator** `string` - a bech32-encoded validator address
 
 #### Return
 
-[`<TransactionSyncMode>`]
+- `string[]` - a list of reporter's bech32-encoded account address
 
 #### Example
 
-```javascript
-import { Client, Wallet, Transaction, Message } from "bandchain.js";
+```javascript=
+import { Client } from "@bandprotocol/bandchain.js";
 
-const { PrivateKey } = Wallet;
-const { MsgRequest } = Message;
-
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
-
-const calldata = Buffer.from(
-  "0000000400000007636f696e6f6e650000000762697468756d620000000868756f626970726f0000000762696e616e6365000000044c554e41000000034b525700000000000f4240",
-  "hex"
-);
-const clientID = "from bandchain.js";
-
-const privkey = PrivateKey.fromMnemonic("s");
-const pubkey = privkey.toPubkey();
-const addr = pubkey.toAddress();
-const msgRequest = new MsgRequest(15, calldata, 16, 10, clientID, addr);
-
-const tscSyncExample = async () => {
-  const account = await client.getAccount(addr);
-  const tsc = new Transaction()
-    .withMessages(msgRequest)
-    .withAccountNum(account.accountNumber)
-    .withSequence(account.sequence)
-    .withChainID("band-guanyu-testnet3")
-    .withGas(5000000)
-    .withMemo("bandchain2.js example");
-
-  const signatureTx = privkey.sign(tsc.getSignData());
-  const rawTx = tsc.getTxData(signatureTx, pubkey);
-  client.sendTxSyncMode(rawTx).then((e) => console.log(JSON.stringify(e)));
-};
-
-(async () => {
-  await tscSyncExample();
-})();
-```
-
-#### Result
-
-```json
-{
-  "txHash": {
-    "type": "Buffer",
-    "data": [
-      185,
-      41,
-      187,
-      201,
-      133,
-      33,
-      132,
-      222,
-      107,
-      11,
-      17,
-      167,
-      90,
-      53,
-      114,
-      25,
-      62,
-      176,
-      163,
-      55,
-      226,
-      42,
-      99,
-      3,
-      131,
-      207,
-      252,
-      97,
-      253,
-      197,
-      11,
-      199
-    ]
-  },
-  "code": 0
-}
-```
-
----
-
-## sendTxAsyncMode(data)
-
-The function helps you to send transaction async mode.
-
-#### Parameter
-
-- **data** `<object>` The signed transaction
-
-#### Return
-
-[`<TransactionAsyncMode>`]
-
-#### Example
-
-```javascript
-import { Client, Wallet, Transaction, Message } from "bandchain.js";
-
-const { PrivateKey } = Wallet;
-const { MsgRequest } = Message;
-
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
-
-const calldata = Buffer.from(
-  "0000000400000007636f696e6f6e650000000762697468756d620000000868756f626970726f0000000762696e616e6365000000044c554e41000000034b525700000000000f4240",
-  "hex"
-);
-const clientID = "from bandchain.js";
-
-const privkey = PrivateKey.fromMnemonic("s");
-const pubkey = privkey.toPubkey();
-const addr = pubkey.toAddress();
-const msgRequest = new MsgRequest(15, calldata, 16, 10, clientID, addr);
-
-const tscAsyncExample = async () => {
-  const account = await client.getAccount(addr);
-  const tsc = new Transaction()
-    .withMessages(msgRequest)
-    .withAccountNum(account.accountNumber)
-    .withSequence(account.sequence)
-    .withChainID("band-guanyu-testnet3")
-    .withGas(5000000)
-    .withMemo("bandchain2.js example");
-
-  const signatureTx = privkey.sign(tsc.getSignData());
-  const rawTx = tsc.getTxData(signatureTx, pubkey);
-  client.sendTxAsyncMode(rawTx).then((e) => console.log(JSON.stringify(e)));
-};
-
-(async () => {
-  await tscAsyncExample();
-})();
-```
-
-#### Result
-
-```json
-{
-  "txHash": {
-    "type": "Buffer",
-    "data": [
-      136,
-      75,
-      84,
-      26,
-      113,
-      85,
-      165,
-      252,
-      241,
-      192,
-      49,
-      228,
-      17,
-      72,
-      42,
-      110,
-      234,
-      110,
-      206,
-      97,
-      76,
-      34,
-      67,
-      211,
-      210,
-      255,
-      60,
-      42,
-      173,
-      185,
-      116,
-      40
-    ]
-  }
-}
-```
-
----
-
-## getPriceSymbols(minCount, askCount)
-
-The function helps you to get price symbols based on min count and ask count
-
-#### Parameter
-
-- **minCount** `<int>` The minimum number of validators necessary for the request to proceed to the execution phase
-- **askCount** `<int>` The number of validators that are requested to respond to this request
-
-#### Return
-
-`List<string>`
-
-#### Example
-
-```javascript
-from pyband import Client
-
-RPC_URL = "http://poa-api.bandchain.org"
-
-min_count = 3
-ask_count = 4
-
-c = Client(RPC_URL)
-print(c.get_price_symbols(min_count, ask_count))
-```
-
-#### Result
-
-```javascript
-[
-  "2KEY",
-  "ABYSS",
-  "ADA",
-  "AKRO",
-  "ALGO",
-  "AMPL",
-  "ANT",
-  "AST",
-  "ATOM",
-  "AUD",
-  "BAL",
-  "BAND",
-  "BAT",
-  "BCH",
-  "BLZ",
-  "BNB",
-  "BNT",
-  "BRL",
-  "BSV",
-  "BTC",
-  "BTG",
-  "BTM",
-  "BTS",
-  "BTT",
-  "BTU",
-  "BUSD",
-  "BZRX",
-  "CAD",
-  "CHF",
-  "CKB",
-  "CND",
-  "CNY",
-  "COMP",
-  "CREAM",
-  "CRO",
-  "CRV",
-  "CVC",
-  "DAI",
-  "DASH",
-  "DCR",
-  "DGB",
-  "DGX",
-  "DIA",
-  "DOGE",
-  "DOT",
-  "EGLD",
-  "ELF",
-  "ENJ",
-  "EOS",
-  "EQUAD",
-  "ETC",
-  "ETH",
-  "EUR",
-  "EURS",
-  "EWT",
-  "FET",
-  "FNX",
-  "FOR",
-  "FTM",
-  "FTT",
-  "FXC",
-  "GBP",
-  "GDC",
-  "GEN",
-  "GHT",
-  "GNO",
-  "GVT",
-  "HBAR",
-  "HKD",
-  "HNT",
-  "HOT",
-  "HT",
-  "ICX",
-  "INR",
-  "IOST",
-  "IOTX",
-  "JPY",
-  "JST",
-  "KAI",
-  "KAVA",
-  "KDA",
-  "KEY",
-  "KMD",
-  "KNC",
-  "KRW",
-  "KSM",
-  "LEND",
-  "LEO",
-  "LINA",
-  "LINK",
-  "LOOM",
-  "LRC",
-  "LSK",
-  "LTC",
-  "LUNA",
-  "MANA",
-  "MATIC",
-  "MCO",
-  "MET",
-  "MFG",
-  "MIOTA",
-  "MKR",
-  "MLN",
-  "MNT",
-  "MTL",
-  "MYB",
-  "NEO",
-  "NEXXO",
-  "NMR",
-  "NOK",
-  "NPXS",
-  "NXM",
-  "NZD",
-  "OCEAN",
-  "OGN",
-  "OKB",
-  "OMG",
-  "ONE",
-  "ONT",
-  "ORN",
-  "OST",
-  "OXT",
-  "PAX",
-  "PAXG",
-  "PAY",
-  "PBTC",
-  "PLR",
-  "PLTC",
-  "PNK",
-  "PNT",
-  "POLY",
-  "POWR",
-  "QKC",
-  "QNT",
-  "RAE",
-  "REN",
-  "RENBTC",
-  "REP",
-  "REQ",
-  "RLC",
-  "RMB",
-  "RSR",
-  "RSV",
-  "RUB",
-  "RUNE",
-  "RVN",
-  "SAN",
-  "SC",
-  "SGD",
-  "SNT",
-  "SNX",
-  "SOL",
-  "SPIKE",
-  "SPN",
-  "SRM",
-  "STMX",
-  "STORJ",
-  "STX",
-  "SUSD",
-  "SUSHI",
-  "SXP",
-  "THETA",
-  "TKN",
-  "TKX",
-  "TOMO",
-  "TRB",
-  "TRX",
-  "TRYB",
-  "TUSD",
-  "UBT",
-  "UNI",
-  "UOS",
-  "UPP",
-  "USDC",
-  "USDS",
-  "USDT",
-  "VET",
-  "VIDT",
-  "WAN",
-  "WAVES",
-  "WBTC",
-  "WNXM",
-  "WRX",
-  "XAG",
-  "XAU",
-  "XDR",
-  "XEM",
-  "XHV",
-  "XLM",
-  "XMR",
-  "XRP",
-  "XTZ",
-  "XZC",
-  "YAMV2",
-  "YFI",
-  "YFII",
-  "YFV",
-  "ZEC",
-  "ZRX",
-];
-```
-
----
-
-## getRequestIDByTxHash(txHash)
-
-The function helps you to get price symbols based on min count and ask count
-
-#### Parameter
-
-- **txHash** `Buffer` Transaction hash
-
-#### Return
-
-`List<number>`
-
-#### Exception
-
-| Type                 | Description                            |
-| -------------------- | -------------------------------------- |
-| EmptyRequestMsgError | There is no request message in this tx |
-
-#### Example
-
-```javascript
-import { Client } from "bandchain.js";
-
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
 (async () => {
   console.log(
     JSON.stringify(
-      await client.getRequestIDByTxHash(
-        Buffer.from(
-          "C3E101062433491462E1A25BFF22006A937DE80F13287A313FA4485450038CD2",
-          "hex"
-        )
+      await client.getReporters(
+        "bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u"
       )
     )
   );
@@ -5500,76 +471,542 @@ const client = new Client("https://guanyu-testnet3-query.bandchain.org");
 #### Result
 
 ```json
-[403200]
+[
+  "band17n5rmujk78nkgss7tjecg4nfzn6geg4cvaqt5h",
+  "band1wc6r20m8qg7p3lze55kzen5uwssdvwr7wl5w4q",
+  "band1wm0lw8wzt094xdyxx4ukx432q9vcwdl9zmwa4x",
+  "band10ptt5622ezszsvrcum07ehng3merea9x5jetv2",
+  "band10lyra24wxsme03pe47du6xfurtsqzs99mn5r94",
+  "band1ek7hfydf3xgz3k6nnsy2zrg0xxuzkvhzrykrn5"
+]
 ```
 
-## getReferenceData(pairs, minCount, askCount)
+---
 
-The function helps you to get price symbols based on min count and ask count
+## `getLatestRequest(oid, calldata, minCount, askCount)`
+
+Search for latest request that match given oracle script ID, calldata, min count, and ask count.
 
 #### Parameter
 
-- **pairs** `<string[]>` The list of cryptocurrency pairs
-- **minCount** `<number>` The minimum number of validators necessary for the request to proceed to the execution phase
-- **askCount** `<number>` The number of validators that are requested to respond to this request
+- **oid** `number` - Oracle script ID
+- **calldata** `string` - OBI-encoded calldata of the oracle request in hex format
+- **minCount** `number` - The minimum number of validators necessary for the request to proceed to the execution phase
+- **askCount** `number` - The number of validators that are requested to respond to this request
 
 #### Return
 
-[`<ReferencePrice>`]
-
-#### Exception
-
-| Type            | Description                |
-| --------------- | -------------------------- |
-| QueryError      | Error quering prices       |
-| NotIntegerError | minCount is not an integer |
-| NotIntegerError | askCount is not an integer |
+- [`QueryRequestResponse`] - An object containing oracle request information, reports of the request, and final result
 
 #### Example
 
-```js
-import { Client } from "bandchain.js";
+```javascript=
+import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://guanyu-testnet3-query.bandchain.org");
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
-const minCount = 10;
-const askCount = 16;
-
-const pairs = ["BTC/USDT", "ETH/USDT"];
+const oid = 37;
+const calldata =
+  "000000060000000342544300000003455448000000034d495200000003414e4300000004444f4745000000044c554e41000000003b9aca00";
+const minCount = 3;
+const askCount = 6;
 
 (async () => {
   console.log(
-    JSON.stringify(await client.getReferenceData(pairs, minCount, askCount))
+    JSON.stringify(
+      await client.getLatestRequest(oid, calldata, minCount, askCount)
+    )
   );
 })();
 ```
 
 #### Result
 
-```json
-[
-  {
-    "pair": "BTC/USDT",
-    "rate": 19311.553805658896,
-    "updatedAt": { "base": 1607067650, "quote": 1607067650 }
+```json=
+{
+  "request": {
+    "oracleScriptId": 37,
+    "calldata": "AAAABgAAAANCVEMAAAADRVRIAAAAA01JUgAAAANBTkMAAAAERE9HRQAAAARMVU5BAAAAADuaygA=",
+    "requestedValidatorsList": [
+      "bandvaloper1lm2puy995yt8dh53cnazk3ge3m27t7cay4ndaq",
+      "bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u",
+      "bandvaloper1a570h9e3rtvfhm030ta5hvel7e7e4lh4pgv8wj",
+      ...,
+    ],
+    "minCount": 3,
+    "requestHeight": 493003,
+    "requestTime": 1625732656,
+    "clientId": "mirror-protocol",
+    "rawRequestsList": [
+      {
+        "externalId": 6,
+        "dataSourceId": 61,
+        "calldata": "QlRDIEVUSA=="
+      },
+      {
+        "externalId": 0,
+        "dataSourceId": 57,
+        "calldata": "QlRDIEVUSA=="
+      },
+      {
+        "externalId": 3,
+        "dataSourceId": 62,
+        "calldata": "QlRDIEVUSCBNSVIgQU5DIERPR0UgTFVOQQ=="
+      },
+      ...,
+    ],
+    "executeGas": 1000000
   },
-  {
-    "pair": "ETH/USDT",
-    "rate": 606.4386050528308,
-    "updatedAt": { "base": 1607067650, "quote": 1607067650 }
+  "reportsList": [
+    {
+      "validator": "bandvaloper1t9vedyzsxewe6lhpf9vm47em2hly23xm6uqtec",
+      "inBeforeResolve": true,
+      "rawReportsList": [
+        {
+          "externalId": 6,
+          "exitCode": 0,
+          "data": "MzI0NDQuMzMsMjE3Mi4yNAo="
+        },
+        {
+          "externalId": 2,
+          "exitCode": 0,
+          "data": "MzI1MzQsMjE4MS42MSwzLjc2LDIuMTcsMC4yMTMzMDUsNi41OAo="
+        },
+        {
+          "externalId": 1,
+          "exitCode": 0,
+          "data": "MzI0NDAuMDIsMjE3Ni44MywyLjE2MSwwLjIxMjMsNi41NzEK"
+        },
+        ...,
+      ]
+    },
+    {
+      "validator": "bandvaloper1a570h9e3rtvfhm030ta5hvel7e7e4lh4pgv8wj",
+      "inBeforeResolve": true,
+      "rawReportsList": [
+        {
+          "externalId": 6,
+          "exitCode": 0,
+          "data": "MzI0NDQuMzQsMjE3Mi4yNAo="
+        },
+        {
+          "externalId": 2,
+          "exitCode": 0,
+          "data": "MzI1MzIsMjE4MS42MywzLjc2LDIuMTcsMC4yMTMzNjcsNi41OAo="
+        },
+        {
+          "externalId": 3,
+          "exitCode": 0,
+          "data": "MzI0NDQuMTA3NywyMTc1Ljk3MTcsMy43NDUxMTUsMi4xNjA5MTQsMC4yMTI1OTk4Miw2LjU5OTAxOAo="
+        },
+        ...,
+      ]
+    },
+    {
+      "validator": "bandvaloper1l2hchtyawk9tk43zzjrzr2lcd0zyxngcjdsshe",
+      "inBeforeResolve": true,
+      "rawReportsList": [
+        {
+          "externalId": 2,
+          "exitCode": 0,
+          "data": "MzI1MzIsMjE4MS42MywzLjc2LDIuMTcsMC4yMTMzNjcsNi41OAo="
+        },
+        {
+          "externalId": 0,
+          "exitCode": 0,
+          "data": "MzI0NjYuNTg0OCwyMTYzLjA2NjYK"
+        },
+        {
+          "externalId": 1,
+          "exitCode": 0,
+          "data": "MzI0NDAuMDIsMjE3Ni44MywyLjE2MSwwLjIxMjMsNi41NzEK"
+        },
+        ...,
+      ]
+    },
+    ...,
+  ],
+  "result": {
+    "clientId": "mirror-protocol",
+    "oracleScriptId": 37,
+    "calldata": "AAAABgAAAANCVEMAAAADRVRIAAAAA01JUgAAAANBTkMAAAAERE9HRQAAAARMVU5BAAAAADuaygA=",
+    "askCount": 6,
+    "minCount": 3,
+    "requestId": 149702,
+    "ansCount": 3,
+    "requestTime": 1625732656,
+    "resolveTime": 1625732662,
+    "resolveStatus": 1,
+    "result": "AAAABgAAHYGBsQoQAAAB+mFMa5AAAAAA3znreAAAAACAzj5AAAAAAAyncOAAAAABh6mAwA=="
   }
-]
+}
 ```
 
 ---
 
-[`<address>`]: /client-library/bandchain.js/wallet.html#address "Address"
-[`<transactionasyncmode>`]: /client-library/bandchain.js/data.html#transactionasyncmode "TransactionAsyncMode"
-[`<transactionsyncmode>`]: /client-library/bandchain.js/data.html#transactionsyncmode "TransactionSyncMode"
-[`<transactionblockmode>`]: /client-library/bandchain.js/data.html#transactionblockmode "TransactionBlockMode"
-[`<block>`]: /client-library/bandchain.js/data.html#block "Block"
-[`<datasource>`]: /client-library/bandchain.js/data.html#datasource "DataSource"
-[`<oraclescript>`]: /client-library/bandchain.js/data.html#oraclescript "OracleScript"
-[`<requestinfo>`]: /client-library/bandchain.js/data.html#requestinfo "RequestInfo"
-[`<account>`]: /client-library/bandchain.js/data.html#account "Account"
-[`<referenceprice>`]: /client-library/bandchain.js/data.html#account
+## `sendTxBlockMode(txBytes)`
+
+Send a transaction using block mode, that is, send and wait until the transaction has been committed to a block.
+
+#### Parameter
+
+- **txBytes** `Uint8Array | string` - an byte array of serialized signed transaction
+
+#### Return
+
+- [`TxResponse`] - An object of transaction response
+
+#### Example
+
+```javascript=
+import {
+  Client,
+  Wallet,
+  Transaction,
+  Message,
+  Coin,
+} from "@bandprotocol/bandchain.js";
+
+const { PrivateKey } = Wallet;
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+
+// Step 2.1 import private key based on given mnemonic string
+const privkey = PrivateKey.fromMnemonic(
+  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
+);
+// Step 2.2 prepare public key and its address
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
+
+const sendCoin = async () => {
+  // Step 3.1 constructs MsgSend message
+  const { MsgSend } = Message;
+
+  // Here we use different message type, which is MsgSend
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
+  const sendAmount = new Coin();
+  sendAmount.setDenom("uband");
+  sendAmount.setAmount("10");
+  const msg = new MsgSend(sender, receiver, [sendAmount]);
+  // Step 3.2 constructs a transaction
+  const account = await client.getAccount(sender);
+  const chainId = "band-laozi-testnet2";
+  const tx = new Transaction()
+    .withMessages(msg.toAny())
+    .withAccountNum(account.accountNumber)
+    .withSequence(account.sequence)
+    .withChainId(chainId)
+    .withGas(1500000);
+
+  // Step 4 sign the transaction
+  const txSignData = tx.getSignDoc(pubkey);
+  const signature = privkey.sign(txSignData);
+  const signedTx = tx.getTxData(signature, pubkey);
+
+  // Step 5 send the transaction
+  const response = await client.sendTxBlockMode(signedTx);
+  console.log(JSON.stringify(response));
+};
+
+(async () => {
+  await sendCoin();
+})();
+```
+
+#### Result
+
+```json=
+{
+  "height": 493527,
+  "txhash": "F76593C2165A42E39464FEAD998AE80970655D82B18085FD65917ACC0979279D",
+  "codespace": "",
+  "code": 0,
+  "data": "0A060A0473656E64",
+  "rawLog": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"send\"},{\"key\":\"sender\",\"value\":\"band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f\"},{\"key\":\"sender\",\"value\":\"band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy\"},{\"key\":\"amount\",\"value\":\"10uband\"}]}]}]",
+  "logsList": [
+    {
+      "msgIndex": 0,
+      "log": "",
+      "eventsList": [
+        {
+          "type": "message",
+          "attributesList": [
+            { "key": "action", "value": "send" },
+            {
+              "key": "sender",
+              "value": "band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy"
+            },
+            { "key": "module", "value": "bank" }
+          ]
+        },
+        {
+          "type": "transfer",
+          "attributesList": [
+            {
+              "key": "recipient",
+              "value": "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+            },
+            {
+              "key": "sender",
+              "value": "band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy"
+            },
+            { "key": "amount", "value": "10uband" }
+          ]
+        }
+      ]
+    }
+  ],
+  "info": "",
+  "gasWanted": 1500000,
+  "gasUsed": 49013,
+  "timestamp": ""
+}
+```
+
+---
+
+## `sendTxSyncMode(txBytes)`
+
+Send a transaction in sync mode, that is, send and wait until transaction has passed CheckTx phase.
+
+#### Parameter
+
+- **txBytes** `Uint8Array` - a byte array of serialized signed transaction
+
+#### Return
+
+- [`TxResponse`] - An object of transaction response
+
+#### Example
+
+```javascript=
+import {
+  Client,
+  Wallet,
+  Transaction,
+  Message,
+  Coin,
+} from "@bandprotocol/bandchain.js";
+
+const { PrivateKey } = Wallet;
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+
+// Step 2.1 import private key based on given mnemonic string
+const privkey = PrivateKey.fromMnemonic(
+  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
+);
+// Step 2.2 prepare public key and its address
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
+
+const sendCoin = async () => {
+  // Step 3.1 constructs MsgSend message
+  const { MsgSend } = Message;
+
+  // Here we use different message type, which is MsgSend
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
+  const sendAmount = new Coin();
+  sendAmount.setDenom("uband");
+  sendAmount.setAmount("10");
+  const msg = new MsgSend(sender, receiver, [sendAmount]);
+  // Step 3.2 constructs a transaction
+  const account = await client.getAccount(sender);
+  const chainId = "band-laozi-testnet2";
+  const tx = new Transaction()
+    .withMessages(msg.toAny())
+    .withAccountNum(account.accountNumber)
+    .withSequence(account.sequence)
+    .withChainId(chainId)
+    .withGas(1500000);
+
+  // Step 4 sign the transaction
+  const txSignData = tx.getSignDoc(pubkey);
+  const signature = privkey.sign(txSignData);
+  const signedTx = tx.getTxData(signature, pubkey);
+
+  // Step 5 send the transaction
+  const response = await client.sendTxSyncMode(signedTx);
+  console.log(JSON.stringify(response));
+};
+
+(async () => {
+  await sendCoin();
+})();
+```
+
+#### Result
+
+```json
+{
+  "height": 0,
+  "txhash": "48620C4242AFB1F18F0FA1C72ADE42C26FDCC804CB20E2BDBAE8B0097C5900B6",
+  "codespace": "",
+  "code": 0,
+  "data": "",
+  "rawLog": "[]",
+  "logsList": [],
+  "info": "",
+  "gasWanted": 0,
+  "gasUsed": 0,
+  "timestamp": ""
+}
+```
+
+---
+
+## `sendTxAsyncMode(data)`
+
+Send a transaction in async mode, that is, send and returned immediantly without waiting for the transaction processes.
+
+#### Parameter
+
+- **txBytes** `Uint8Array` - a byte array of serialized signed transaction
+
+#### Return
+
+- [`TxResponse`] - An object of transaction response
+
+#### Example
+
+```javascript=
+import {
+  Client,
+  Wallet,
+  Transaction,
+  Message,
+  Coin,
+} from "@bandprotocol/bandchain.js";
+
+const { PrivateKey } = Wallet;
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+
+// Step 2.1 import private key based on given mnemonic string
+const privkey = PrivateKey.fromMnemonic(
+  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
+);
+// Step 2.2 prepare public key and its address
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
+
+const sendCoin = async () => {
+  // Step 3.1 constructs MsgSend message
+  const { MsgSend } = Message;
+
+  // Here we use different message type, which is MsgSend
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
+  const sendAmount = new Coin();
+  sendAmount.setDenom("uband");
+  sendAmount.setAmount("10");
+  const msg = new MsgSend(sender, receiver, [sendAmount]);
+  // Step 3.2 constructs a transaction
+  const account = await client.getAccount(sender);
+  const chainId = "band-laozi-testnet2";
+  const tx = new Transaction()
+    .withMessages(msg.toAny())
+    .withAccountNum(account.accountNumber)
+    .withSequence(account.sequence)
+    .withChainId(chainId)
+    .withGas(1500000);
+
+  // Step 4 sign the transaction
+  const txSignData = tx.getSignDoc(pubkey);
+  const signature = privkey.sign(txSignData);
+  const signedTx = tx.getTxData(signature, pubkey);
+
+  // Step 5 send the transaction
+  const response = await client.sendTxAsyncMode(signedTx);
+  console.log(JSON.stringify(response));
+};
+
+(async () => {
+  await sendCoin();
+})();
+```
+
+#### Result
+
+```json=
+{
+  "height": 0,
+  "txhash": "8A3573AC59BC6CC1A7ECF18A2E1FC50E8AE73E69A68351496872F08186D6158F",
+  "codespace": "",
+  "code": 0,
+  "data": "",
+  "rawLog": "",
+  "logsList": [],
+  "info": "",
+  "gasWanted": 0,
+  "gasUsed": 0,
+  "timestamp": ""
+}
+```
+
+---
+
+## `getReferenceData(pairs, minCount, askCount)`
+
+Get current prices from standard price references oracle script based on given symbol pairs, min count, and ask count.
+
+#### Parameter
+
+- **pairs** `string[]` - a list of symbol pairs e.g. BTC/USD, ETH/BTC, etc.
+- **minCount** `number` - The minimum number of validators necessary for the request to proceed to the execution phase
+- **askCount** `number` - The number of validators that are requested to respond to this request
+
+#### Return
+
+- [`ReferenceData[]`] - A list of prices for given pairs
+
+#### Example
+
+```javascript=
+import { Client } from "@bandprotocol/bandchain.js";
+
+const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+
+(async () => {
+  console.log(
+    JSON.stringify(await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 6))
+  );
+})();
+```
+
+#### Result
+
+```json=
+[
+  {
+    "pair": "BTC/USD",
+    "rate": 32557.06795,
+    "updatedAt": {
+      "base": 1625736254,
+      "quote": 1625736266
+    },
+    "requestId": {
+      "base": 151316,
+      "quote": 0
+    }
+  },
+  {
+    "pair": "ETH/BTC",
+    "rate": 0.06693865225661391,
+    "updatedAt": {
+      "base": 1625736254,
+      "quote": 1625736254
+    },
+    "requestId": {
+      "base": 151316,
+      "quote": 151316
+    }
+  }
+]
+```
+
+[`referencedata`]: TODO:-add-link
+[`txresponse`]: TODO:-add-link
+[`queryrequestresponse`]: TODO:-add-link
+[`request`]: TODO:-add-link
+[`oraclescript`]: TODO:-add-link
+[`datasource`]: TODO:-add-link
+[`baseaccount`]: TODO:-add-link
+[`block`]: TODO:-add-link

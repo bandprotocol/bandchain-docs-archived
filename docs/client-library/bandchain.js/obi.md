@@ -2,80 +2,87 @@
 order: 7
 -->
 
-# OBI Module
+# OBI Module of Bandchain.js
 
-Oracle Binary Encoding (OBI) is the standard way to serialized and deserialize binary data in the BandChain ecosystem. This module provides the functionality to serialize data. [More details](/technical-specifications/obi.html)
+Oracle Binary Encoding (OBI) is the standard way to serialized and deserialize binary data in the BandChain ecosystem. This module provides the functionality to serialize data. [More details](TODO: add links).
+
+Bandchain.js provide a class named `Obi` to help encode/decode binary data using OBI encoding. Here is the usage of the class.
 
 ## Constructor
 
-- **schema** `<str>` The input and output schema.
+- **schema** `string` - A string of OBI schema, including input and output schemas.
 
 ### Example
 
-```js
-import { Obi } from "bandchain.js";
+```javascript=
+import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string"
+  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
 );
 ```
 
 ---
 
-## encodeInput(value)
+## `encodeInput(value)`
 
-Encode the input value by using input schema
+Encode the value based on given OBI input schema
 
 ### Parameter
 
-- value `<any>` The value to encode
+- value `any` - A value to be encoded. can be any type of data.
 
 ### Return
 
-- `<Buffer>` - A encoded value
+- `Buffer` - An encoded value
 
 ### Example
 
-```js
-import { Obi } from "bandchain.js";
+```javascript=
+import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string"
+  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
 );
-const testInput = { symbol: "BTC", px: 9000, in: { a: 1, b: 2 }, tb: false };
-console.log(obi.encodeInput(testInput));
+const testInput = {
+  symbol: "BTC",
+  px: 9000,
+  in: { a: 1, b: 2 },
+  tb: ["a", "b"],
+};
+console.log(obi.encodeInput(testInput).toString("hex"));
 ```
 
 ### Result
 
 ```
-000000034254430000000000002328010200
+00000003425443000000000000232801020000000200000001610000000162
 ```
 
 ---
 
-## encodeOutput(value)
+## `encodeOutput(value)`
 
-Encode the output value by using output schema
+Encode the value based on OBI output schema
 
 ### Parameter
 
-- value `<any>` The value to encode
+- value `any` - The value to be encoded
 
 ### Return
 
-- `<Buffer>` - A encoded value
+- `Buffer` - An encoded value
 
 ### Example
 
-```js
-import { Obi } from "bandchain.js";
+```javascript=
+import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string"
+  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
 );
 const testOutput = "test";
-console.log(obi.encodeOutput(testOutput));
+console.log(obi.encodeOutput(testOutput).toString("hex"));
 ```
 
 ### Result
@@ -86,17 +93,17 @@ console.log(obi.encodeOutput(testOutput));
 
 ---
 
-## decodeInput(value)
+## `decodeInput(buff)`
 
-Decode the input value by using input schema
+Decode the value based on given OBI input schema
 
 ### Parameter
 
-- value `<Buffer>` The value to decode
+- value `Buffer` - The value to be decoded
 
 ### Return
 
-- `<any>` - A decoded value
+- `any` - A decoded value
 
 ### Exceptions
 
@@ -106,36 +113,41 @@ Decode the input value by using input schema
 
 ### Example
 
-```js
-import { Obi } from "bandchain.js";
+```javascript=
+import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string"
+  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
 );
 console.log(
-  obi.decodeInput(Buffer.from("000000034254430000000000002328010200", "hex"))
+  obi.decodeInput(
+    Buffer.from(
+      "00000003425443000000000000232801020000000200000001610000000162",
+      "hex"
+    )
+  )
 );
 ```
 
 ### Result
 
 ```
-{"symbol": "BTC", "px": 9000, "in": {"a": 1, "b": 2}, "tb": False}
+{ symbol: 'BTC', px: 9000n, in: { a: 1n, b: 2n }, tb: [ 'a', 'b' ] }
 ```
 
 ---
 
-## decodeOutput(value)
+## `decodeOutput(buff)`
 
 Decode the output value by using output schema
 
 ### Parameter
 
-- value `<Buffer>` The value to decode
+- value `Buffer` - The value to be decoded
 
 ### Return
 
-- `<any>` - A decoded value
+- `any` - A decoded value
 
 ### Exceptions
 
@@ -145,13 +157,13 @@ Decode the output value by using output schema
 
 ### Example
 
-```js
-import { Obi } from "bandchain.js";
+```javascript=
+import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string"
+  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
 );
-console.log(obi.decode_output(Buffer.from("0000000474657374", "hex")));
+console.log(obi.decodeOutput(Buffer.from("0000000474657374", "hex")));
 ```
 
 ### Result
