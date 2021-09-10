@@ -101,6 +101,11 @@ module.exports = {
           title: "Client Library",
           children: [
             {
+              title: "Protocol Buffers (protobuf)",
+              directory: true,
+              path: "/client-library/protocol-buffers",
+            },
+            {
               title: "PyBand",
               directory: true,
               path: "/client-library/pyband",

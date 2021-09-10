@@ -100,7 +100,7 @@ request_msg = MsgRequestData(
 )
 ```
 
-Besides from inputting bytes to calldata, oracle binay encoding (obi) can also be used.
+Besides from inputting bytes to calldata, oracle binary encoding (obi) can also be used.
 
 ```python
 # from pyband.obi import PyObi
