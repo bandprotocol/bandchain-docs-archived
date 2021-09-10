@@ -2,7 +2,7 @@
 order: 5
 -->
 
-# Transaction Module of Bandchain.js
+# Transaction Module
 
 This module provides functionalities to send transactions on BandChain which requires [`<Msg>`] to be included.
 

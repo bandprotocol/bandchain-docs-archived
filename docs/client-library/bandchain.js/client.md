@@ -2,7 +2,7 @@
 order: 3
 -->
 
-# Client Module of Bandchain.js
+# Client Module
 
 This module provides functionalities to query data from BandChain and broadcast transactions to BandChain. It uses gRPC-web behind the scene which interact with gRPC-web proxy server.
 

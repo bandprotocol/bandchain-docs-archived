@@ -2,7 +2,7 @@
 order: 7
 -->
 
-# OBI Module of Bandchain.js
+# OBI Module
 
 Oracle Binary Encoding (OBI) is the standard way to serialized and deserialize binary data in the BandChain ecosystem. This module provides the functionality to serialize data. [More details](TODO: add links).
 

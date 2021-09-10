@@ -2,7 +2,7 @@
 order: 2
 -->
 
-# Data Module of Bandchain.js
+# Data Module
 
 This module is to construct the data in term of dataclass to make sure that all the input and output follow this data schema.
 

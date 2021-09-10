@@ -2,7 +2,7 @@
 order: 1
 -->
 
-# Getting Start with bandchain.js
+# Getting Start
 
 Bandchain.js is a library written in TypeScript used for interacting with BandChain. The library provides classes and methods for convenient to send transactions, query data, OBI encoding, and wallet management.
 

@@ -2,7 +2,7 @@
 order: 6
 -->
 
-# Wallet Module of Bandchain.js
+# Wallet Module
 
 This module provides functionalities to manage BandChain account. It can be used to create a private key from mnemonic, sign and verify signature, and account address manipulation.
 

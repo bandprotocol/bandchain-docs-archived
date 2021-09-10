@@ -2,7 +2,7 @@
 order: 4
 -->
 
-# Message Module of Bandchain.js
+# Message Module
 
 Messages specified by BandChain. All messages presented in this module are extended from Protobuf's messages, which are generated from these [proto files](https://github.com/bandprotocol/chain/tree/v2.0.3/proto/oracle/v1). For specification can be found [here](TODO: add link to protobuf docs).
 
