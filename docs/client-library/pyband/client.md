@@ -6,6 +6,8 @@ order: 3
 
 This module provides a function to get the data from Bandchain gRPC and send the data to Bandchain gRPC.
 
+**Note:** Get the `<GRPC_URL>` [here](/technical-specifications/band-endpoints.html)
+
 ## get_data_source(id)
 
 This function returns data source details of the given ID.
@@ -24,7 +26,7 @@ This function returns data source details of the given ID.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 id = 1
 
 c = Client(grpc_url)
@@ -58,7 +60,7 @@ This function returns oracle script details of the given ID.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 id = 1
 
 c = Client(grpc_url)
@@ -92,7 +94,7 @@ This function returns request details of the given ID.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 id = 1
 
 c = Client(grpc_url)
@@ -125,7 +127,7 @@ This function returns a list of reporters associated with the given validator.
 ```python
 from pyband import Client
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 validator = "bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz"
 
 c = Client(grpc_url)
@@ -154,7 +156,7 @@ This function returns the latest block in the chain.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 
 c = Client(grpc_url)
 latest_block = c.get_latest_block()
@@ -187,7 +189,7 @@ This function returns the account details of the specify address.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 address = "band1ee656yzw6y9swqayu9v0kgu5pua2kgjq3hd6g3"
 
 c = Client(grpc_url)
@@ -227,7 +229,7 @@ This function returns request ID of the given transaction hash.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 tx_hash = "DCC09AD0087DFB30AD552DAFA6C52FE9676F157B24812FF4B9994B97CAC914AC"
 
 c = Client(grpc_url)
@@ -256,7 +258,7 @@ This function returns a chain ID.
 ```python
 from pyband import Client
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 
 c = Client(grpc_url)
 print(c.get_chain_id())
@@ -295,7 +297,7 @@ List[[ReferencePrice](/client-library/pyband/data.html#referenceprice)]
 ```python
 from pyband import Client
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 client = Client(grpc_url)
 
 min_count = 3
@@ -335,7 +337,7 @@ This function returns the latest request.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 c = Client(grpc_url)
 
 oid = 43
@@ -381,7 +383,7 @@ from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
 from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 c = Client(grpc_url)
 
 MNEMONIC = os.getenv("MNEMONIC")
@@ -461,7 +463,7 @@ from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
 from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 c = Client(grpc_url)
 
 MNEMONIC = os.getenv("MNEMONIC")
@@ -540,7 +542,7 @@ from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
 from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+grpc_url = "<GRPC_URL>"
 c = Client(grpc_url)
 
 MNEMONIC = os.getenv("MNEMONIC")

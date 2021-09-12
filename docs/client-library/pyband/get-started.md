@@ -14,6 +14,8 @@ pip install pyband
 
 ## Example Usage
 
+**Note:** Get the `<GRPC_URL>` [here](/technical-specifications/band-endpoints.html)
+
 ### Making a request
 
 Making a request can be done by the following steps.
@@ -24,7 +26,7 @@ Making a request can be done by the following steps.
 from pyband.client import Client
 def main():
     # Step 1
-    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    grpc_url = "<GRPC_URL>"
     c = Client(grpc_url)
 
 if __name__ == "__main__":
@@ -40,7 +42,7 @@ from pyband.wallet import PrivateKey
 
 def main():
     # Step 1
-    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    grpc_url = "<GRPC_URL>"
     c = Client(grpc_url)
 
     #Step 2
@@ -147,7 +149,7 @@ from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 
 def main():
     # Step 1
-    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    grpc_url = "<GRPC_URL>"
     c = Client(grpc_url)
 
     # Step 2
@@ -223,7 +225,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Step 1
-    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    grpc_url = "<GRPC_URL>"
     c = Client(grpc_url)
 
     # Step 2
@@ -320,7 +322,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
    # Step 1
-    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    grpc_url = "<GRPC_URL>"
     c = Client(grpc_url)
 
     # Step 2
@@ -387,7 +389,7 @@ from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    grpc_url = "<GRPC_URL>"
     c = Client(grpc_url)
 
 if __name__ == "__main__":
@@ -407,7 +409,7 @@ from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "rpc-laozi-testnet2.bandchain.org:9090"
+    grpc_url = "<GRPC_URL>"
     c = Client(grpc_url)
 
     # Step 2

@@ -8,15 +8,15 @@ This module is used to construct the data in term of dataclass that is not gener
 
 ## ReferencePriceUpdated
 
-| Attribute |  Type   |    Description     |
-| :-------: | :-----: | :----------------: |
-|   base    | integer | Base resolve time  |
-|   quote   | integer | Quote resolve time |
+| Attribute | Type    | Description        |
+| --------- | ------- | ------------------ |
+| base      | integer | Base resolve time  |
+| quote     | integer | Quote resolve time |
 
 ## ReferencePrice
 
-| Attribute  |         Type          |          Description           |
-| :--------: | :-------------------: | :----------------------------: |
-|    pair    |        string         | The token pair e.g. "BTC/USDT" |
-|    rate    |         float         |           Price rate           |
-| updated_at | ReferencePriceUpdated |       Price updated time       |
+| Attribute  | Type                  | Description                    |
+| ---------- | --------------------- | ------------------------------ |
+| pair       | string                | The token pair e.g. "BTC/USDT" |
+| rate       | float                 | Price rate                     |
+| updated_at | ReferencePriceUpdated | Price updated time             |
