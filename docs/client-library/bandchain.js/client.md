@@ -29,7 +29,7 @@ Get BandChain's Chain ID
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 (async () => {
   console.log(await client.getChainId());
@@ -39,7 +39,7 @@ const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 #### Result
 
 ```
-band-laozi-testnet2
+band-laozi-testnet4
 ```
 
 ---
@@ -57,7 +57,7 @@ Get BandChain's latest block detail
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 (async () => {
   console.log(await client.getLatestBlock());
@@ -66,7 +66,7 @@ const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
 #### Result
 
-```json=
+```json
 {
   "blockId": {
     "hash": "Di1p0sWqEz/l4aVxlJX0fgVrX5eJYAb5t8cmar45fcg=",
@@ -178,7 +178,7 @@ Get BandChain's account information
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 (async () => {
   console.log(
@@ -191,15 +191,11 @@ const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
 #### Result
 
-```json=
+```json
 {
   "address": "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f",
-  "pubKey": {
-    "typeUrl": "/cosmos.crypto.secp256k1.PubKey",
-    "value": "CiEDC6eHN+gwDqDhWZFUPuEZwhTHhUgmtLnGTjj/r9cy22M="
-  },
-  "accountNumber": 11,
-  "sequence": 939
+  "accountNumber": 242,
+  "sequence": 0
 }
 ```
 
@@ -222,7 +218,7 @@ Get data source metadata by given ID
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 const id = 1;
 
@@ -263,7 +259,7 @@ Get oracle script metadata by given ID
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 const id = 1;
 
@@ -304,7 +300,7 @@ Get an oracle request by given request ID
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 const id = 143959;
 
@@ -315,7 +311,7 @@ const id = 143959;
 
 #### Result
 
-```json=
+```json
 {
   "request": {
     "oracleScriptId": 37,
@@ -455,7 +451,7 @@ Get a list of reporter account addresses associated with given validator
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 (async () => {
   console.log(
@@ -503,13 +499,13 @@ Search for latest request that match given oracle script ID, calldata, min count
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 const oid = 37;
 const calldata =
   "000000060000000342544300000003455448000000034d495200000003414e4300000004444f4745000000044c554e41000000003b9aca00";
 const minCount = 3;
-const askCount = 6;
+const askCount = 4;
 
 (async () => {
   console.log(
@@ -522,7 +518,7 @@ const askCount = 6;
 
 #### Result
 
-```json=
+```json
 {
   "request": {
     "oracleScriptId": 37,
@@ -665,10 +661,11 @@ import {
   Transaction,
   Message,
   Coin,
+  Fee,
 } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -690,13 +687,21 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount]);
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet2";
+  const chainId = "band-laozi-testnet4";
+
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("1000");
+
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
   const tx = new Transaction()
     .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withGas(1500000);
+    .withFee(fee);
 
   // Step 4 sign the transaction
   const txSignData = tx.getSignDoc(pubkey);
@@ -715,7 +720,7 @@ const sendCoin = async () => {
 
 #### Result
 
-```json=
+```json
 {
   "height": 493527,
   "txhash": "F76593C2165A42E39464FEAD998AE80970655D82B18085FD65917ACC0979279D",
@@ -786,10 +791,11 @@ import {
   Transaction,
   Message,
   Coin,
+  Fee,
 } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -811,13 +817,21 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount]);
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet2";
+  const chainId = "band-laozi-testnet4";
+
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("1000");
+
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
   const tx = new Transaction()
     .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withGas(1500000);
+    .withFee(fee);
 
   // Step 4 sign the transaction
   const txSignData = tx.getSignDoc(pubkey);
@@ -875,10 +889,11 @@ import {
   Transaction,
   Message,
   Coin,
+  Fee,
 } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -900,13 +915,21 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount]);
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet2";
+  const chainId = "band-laozi-testnet4";
+
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("1000");
+
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
   const tx = new Transaction()
     .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withGas(1500000);
+    .withFee(fee);
 
   // Step 4 sign the transaction
   const txSignData = tx.getSignDoc(pubkey);
@@ -925,7 +948,7 @@ const sendCoin = async () => {
 
 #### Result
 
-```json=
+```json
 {
   "height": 0,
   "txhash": "8A3573AC59BC6CC1A7ECF18A2E1FC50E8AE73E69A68351496872F08186D6158F",
@@ -962,18 +985,18 @@ Get current prices from standard price references oracle script based on given s
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 (async () => {
   console.log(
-    JSON.stringify(await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 6))
+    JSON.stringify(await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 4))
   );
 })();
 ```
 
 #### Result
 
-```json=
+```json
 [
   {
     "pair": "BTC/USD",

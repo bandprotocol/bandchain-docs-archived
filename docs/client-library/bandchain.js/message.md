@@ -57,11 +57,7 @@ CCUSGgAAAAIAAAADQlRDAAAAA0VUSAAAAAAAAABkGAQgAyoRZnJvbV9iYW5kY2hhaW4uanM40IYDQOCn
 
 ## `validate`
 
-Validates the message in a basic manner to ensure that there are no invarient values stored in the message instance
-
-### Return
-
-- `boolean` - a flag indicating whether the validation result is valid
+Validates the message in a basic manner to ensure that there are no invarient values stored in the message instance. If message's validation fails, it will throw the exception.
 
 ### Example
 
@@ -76,13 +72,7 @@ sendAmount.setDenom("uband");
 sendAmount.setAmount("10");
 const msg = new MsgSend(sender, receiver, [sendAmount]);
 
-console.log(msg.validate());
-```
-
-### Result
-
-```
-true
+msg.validate();
 ```
 
 [`any`]: TODO:-add-link

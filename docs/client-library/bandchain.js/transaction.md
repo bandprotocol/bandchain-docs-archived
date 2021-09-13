@@ -22,6 +22,7 @@ Add one or multiple messages as a list of Google Protobuf's [`Any`] to [`Transac
 ```js
 import { MsgCreateDataSource } from "@bandprotocol/bandchain.js/proto/oracle/v1/tx_pb";
 import { Any } from "google-protobuf/google/protobuf/any_pb";
+import { Transaction } from "@bandprotocol/bandchain.js";
 
 const msg = new MsgCreateDataSource();
 msg.setName("dsName");
@@ -110,24 +111,6 @@ Set fee to [`Transaction`].
 | --------------- | --------------------- |
 | NotIntegerError | fee is not an integer |
 
-## `withGas(gas)`
-
-Set gas limit to [`Transaction`].
-
-### Parameter
-
-- **gas** `number` -An integer of Gas limit.
-
-### Return
-
-- [`Transaction`] - This transaction instance for function chaining
-
-### Exceptions
-
-| Type            | Description           |
-| --------------- | --------------------- |
-| NotIntegerError | gas is not an integer |
-
 ## `withMemo(memo)`
 
 Set memo to [`Transaction`].
@@ -192,10 +175,11 @@ import {
   Transaction,
   Message,
   Coin,
+  Fee,
 } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
-const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -217,13 +201,21 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount]);
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet2";
+  const chainId = "band-laozi-testnet4";
+
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("1000");
+
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
   const tx = new Transaction()
     .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withGas(1500000);
+    .withFee(fee);
 
   // Step 4 sign the transaction
   const txSignData = tx.getSignDoc(pubkey);
@@ -242,26 +234,46 @@ const sendCoin = async () => {
 
 ### Result
 
-```json=
+```json
 {
-  "height": 493527,
-  "txhash": "F76593C2165A42E39464FEAD998AE80970655D82B18085FD65917ACC0979279D",
+  "height": 144075,
+  "txhash": "FB0C1B122116EC1C94EE3BC05FC86B41EC580AC5A6CC7F5A3954F61E0505C648",
   "codespace": "",
   "code": 0,
-  "data": "0A060A0473656E64",
-  "rawLog": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"send\"},{\"key\":\"sender\",\"value\":\"band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f\"},{\"key\":\"sender\",\"value\":\"band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy\"},{\"key\":\"amount\",\"value\":\"10uband\"}]}]}]",
+  "data": "0A1E0A1C2F636F736D6F732E62616E6B2E763162657461312E4D736753656E64",
+  "rawLog": "[{\"events\":[{\"type\":\"coin_received\",\"attributes\":[{\"key\":\"receiver\",\"value\":\"band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f\"},{\"key\":\"amount\",\"value\":\"10uband\"}]},{\"type\":\"coin_spent\",\"attributes\":[{\"key\":\"spender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"amount\",\"value\":\"10uband\"}]},{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"/cosmos.bank.v1beta1.MsgSend\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"amount\",\"value\":\"10uband\"}]}]}]",
   "logsList": [
     {
       "msgIndex": 0,
       "log": "",
       "eventsList": [
         {
+          "type": "coin_received",
+          "attributesList": [
+            {
+              "key": "receiver",
+              "value": "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+            },
+            { "key": "amount", "value": "10uband" }
+          ]
+        },
+        {
+          "type": "coin_spent",
+          "attributesList": [
+            {
+              "key": "spender",
+              "value": "band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"
+            },
+            { "key": "amount", "value": "10uband" }
+          ]
+        },
+        {
           "type": "message",
           "attributesList": [
-            { "key": "action", "value": "send" },
+            { "key": "action", "value": "/cosmos.bank.v1beta1.MsgSend" },
             {
               "key": "sender",
-              "value": "band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy"
+              "value": "band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"
             },
             { "key": "module", "value": "bank" }
           ]
@@ -275,7 +287,7 @@ const sendCoin = async () => {
             },
             {
               "key": "sender",
-              "value": "band168ukdplr7nrljaleef8ehpyvfhe4n78hz0shsy"
+              "value": "band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"
             },
             { "key": "amount", "value": "10uband" }
           ]
@@ -284,8 +296,8 @@ const sendCoin = async () => {
     }
   ],
   "info": "",
-  "gasWanted": 1500000,
-  "gasUsed": 49013,
+  "gasWanted": 200000,
+  "gasUsed": 66907,
   "timestamp": ""
 }
 ```
