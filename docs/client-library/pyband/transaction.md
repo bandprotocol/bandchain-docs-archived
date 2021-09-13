@@ -4,144 +4,149 @@ order: 5
 
 # Transaction Module
 
-This module provides the functionality to send transaction on BandChain which requires [`<Msg>`] to be included.
+This module provides a preparation component that is required for sending a transaction.
 
-<!-- prettier-ignore-start -->
-## with\_messages(msgs)
-<!-- prettier-ignore-end -->
+## with_message(msgs)
 
-Add one or multiple [`<Msg>`] to [`<Transaction>`].
+This function add one or multiple messages to `<Transaction>`
 
-#### Parameter
+The message can be in any message listed [here](/client-library/protocol-buffers/oracle-module.html#oracle-v1-tx-proto). Please note that our message should be imported from the generated protobuf files.
 
-- **\*msgs** [`<Msg>`] Messages to be included with transaction
+### Parameter
 
-#### Return
+- **msgs** `<google-protobuf.message.Message>`: Messages to be included into the transaction.
 
-[`<Transaction>`]
+### Return
 
-<!-- prettier-ignore-start -->
-## with\_auto(client)
-<!-- prettier-ignore-end -->
+`<Transaction>`
 
-[`<Transaction>`] must have at least 1 message already before using `withAuto()`. This function set `accountNumber` and `sequence` from [`<Client>`] with address from sender in `self.msgs[0]`.
+---
 
-#### Parameter
+## with_sender(client, sender)
 
-- **client** [`<Client>`] A client to set `accountNumber` and `sequence`
+This function set `account_num` and `sequence` from `<Client>` with the address from `sender`. `<Transaction>` must have at least 1 message added before calling `with_sender()`
 
-#### Return
+### Parameter
 
-[`<Transaction>`]
+- **client** `<Client>`: Client used to set `account_num` and `sequence` by calling `get_address()`.
+- **sender** `<str>`: Address of the sender.
 
-#### Exceptions
+### Return
+
+`<Transaction>`
+
+### Exception
 
 | Type          | Description                                                    |
 | ------------- | -------------------------------------------------------------- |
-| EmptyMsgError | Message is empty, please use with_messages at least 1 message. |
-| NotFoundError | Account doesn't exist.                                         |
+| EmptyMsgError | Messsage is empty, please use with_messages at least 1 message |
+| NotFoundError | Account doesn't exist                                          |
 
-<!-- prettier-ignore-start -->
-## with\_account\_num(account\_num)
-<!-- prettier-ignore-end -->
+---
 
-Set account number to [`<Transaction>`].
+## with_account_num(account_num)
 
-#### Parameter
+This function set the account number in `<Transaction>`.
+
+### Parameter
 
 - **account_num** `<int>`
 
-#### Return
+### Return
 
-[`<Transaction>`]
+`<Transaction>`
 
-<!-- prettier-ignore-start -->
-## with\_sequence(sequence)
-<!-- prettier-ignore-end -->
+---
 
-Set sequence number to [`<Transaction>`].
+## with_sequence(sequence)
 
-#### Parameter
+This function set the sequence number in `<Transaction>`.
+
+### Parameter
 
 - **sequence** `<int>`
 
-#### Return
+### Return
 
-[`<Transaction>`]
+`<Transaction>`
 
-<!-- prettier-ignore-start -->
-## with\_chain\_id(chain\_id)
-<!-- prettier-ignore-end -->
+---
 
-Set chain id to [`<Transaction>`].
+## with_chain_id(chain_id)
 
-#### Parameter
+This function set the chain ID in `<Transaction>`.
+
+### Parameter
 
 - **chain_id** `<str>`
 
-#### Return
+### Return
 
-[`<Transaction>`]
+`<Transaction>`
 
-<!-- prettier-ignore-start -->
-## with\_fee(fee)
-<!-- prettier-ignore-end -->
+---
 
-Set fee to [`<Transaction>`].
+## with_fee(fee)
 
-#### Parameter
+This function set the fee by using the given fee and gas limit `<Transaction>`.
 
-- **fee** `<int>`
+### Parameter
 
-#### Return
+- **fee** `<List[Coin]>`
 
-[`<Transaction>`]
+### Return
 
-<!-- prettier-ignore-start -->
-## with\_gas(gas)
-<!-- prettier-ignore-end -->
+`<Transaction>`
 
-Set gas to [`<Transaction>`].
+---
 
-#### Parameter
+## with_gas(gas)
+
+This function set the gas limit in `<Transaction>`.
+
+### Parameter
 
 - **gas** `<int>`
 
-#### Return
+### Return
 
-[`<Transaction>`]
+`<Transaction>`
 
-<!-- prettier-ignore-start -->
+---
+
 ## with_memo(memo)
-<!-- prettier-ignore-end -->
 
-Set memo to [`<Transaction>`].
+This function set the memo in `<Transaction>`.
 
-#### Parameter
+### Parameter
 
-- **memo** `<str>` memo length is limited to 256.
+- **memo** `<str>`: Maximum length of memo is 256.
 
-#### Return
+### Return
 
-[`<Transaction>`]
+`<Transaction>`
 
-#### Exceptions
+### Exception
 
-| Type               | Description        |
-| ------------------ | ------------------ |
-| ValueTooLargeError | memo is too large. |
+| Type               | Description       |
+| ------------------ | ----------------- |
+| ValueTooLargeError | Memo is too large |
 
-<!-- prettier-ignore-start -->
-## get\_sign\_data()
-<!-- prettier-ignore-end -->
+---
 
-Get sign data from [`<Transaction>`].
+## get_sign_doc(public_key)
 
-#### Return
+This function returns a sign data from `<Transaction>`.
 
-`<bytes>`
+### Parameter
 
-#### Exceptions
+- **public_key** `<PublicKey>`, default = None: Public key.
+
+### Return
+
+`<cosmos_tx_type.SignDoc>`
+
+### Exception
 
 | Type           | Description                   |
 | -------------- | ----------------------------- |
@@ -150,126 +155,83 @@ Get sign data from [`<Transaction>`].
 | UndefinedError | sequence should be defined    |
 | UndefinedError | chain_id should be defined    |
 
-<!-- prettier-ignore-start -->
-## get\_tx\_data(signature, pubkey)
-<!-- prettier-ignore-end -->
-
-Get transaction data from [`<Transaction>`].
-
-#### Parameter
-
-- **signature** `<bytes>`
-- **pubkey** [`<PublicKey>`]
-
-#### Return
-
-`<dict>`
-
-#### Example
-
-```python
-from pyband import Transaction
-from pyband.message import MsgSend
-from pyband.wallet import Address
-from pyband.data import Coin
-
-def main():
-  to_adr = Address.from_acc_bech32("band1ksnd0f3xjclvg0d4z9w0v9ydyzhzfhuy47yx79")
-  from_adr = Address.from_acc_bech32("band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte")
-  coin = Coin(amount=100000, denom="uband")
-  msg = MsgSend(to_address=to_adr, from_address=from_adr, amount=[coin])
-
-  tsc = Transaction()
-          .with_messages(msg)
-          .with_account_num(100)
-          .with_sequence(30)
-          .with_chain_id("bandchain")
-          .with_gas(500000)
-          .with_fee(10)
-
-  print(tsc.get_sign_data())
-
-```
-
-#### Result
-
-```python
-b'{"account_number":"100","chain_id":"bandchain","fee":{"amount":[{"amount":"10","denom":"uband"}],"gas":"500000"},"memo":"","msgs":[{"type":"oracle/Request","value":{"ask_count":"4","calldata":"AAAAA0JUQwAAAAAAAAAB","client_id":"from_pyband","min_count":"3","oracle_script_id":"1","sender":"band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"}}],"sequence":"30"}'
-```
-
 ---
 
-#### Example
+## get_tx_data(signature, public_key)
+
+This function returns a transaction that need to be sent.
+
+### Parameter
+
+- **signature** `<bytes>`: Signature from sign from get_sign_doc
+- **public_key** `<PublicKey`, default = None: Public key
+
+### Return
+
+`<bytes>`
+
+### Usecase Example
+
+**Note:** Get the `<GRPC_URL>` [here](/technical-specifications/band-endpoints.html)
 
 ```python
-from pyband import Transaction
-from pyband.message import MsgRequest
-from pyband.wallet import Address, PrivateKey
-from pyband.data import Coin
+import os
 
-def main():
-  priv = PrivateKey.from_mnemonic("s")
-  pubkey = priv.to_pubkey()
-  addr = pubkey.to_address()
+from pyband.client import Client
+from pyband.transaction import Transaction
+from pyband.wallet import PrivateKey
 
-  tsc = (
-      Transaction()
-      .with_messages(
-        MsgRequest(
-          oracle_script_id=1,
-          calldata=bytes.fromhex("000000034254430000000000000001"),
-          ask_count=4,
-          min_count=3,
-          client_id="from_pyband",
-          sender=addr,
-        )
-      )
-      .with_account_num(100)
-      .with_sequence(30)
-      .with_chain_id("bandchain")
-    )
+from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
+from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 
-  raw_data = tsc.get_sign_data()
-  signature = priv.sign(raw_data)
+grpc_url = "<GRPC_URL>"
+c = Client(grpc_url)
 
-  print(tsc.get_tx_data(signature, pubkey))
+MNEMONIC = os.getenv("MNEMONIC")
+private_key = PrivateKey.from_mnemonic(MNEMONIC)
+public_key = private_key.to_public_key()
+sender_addr = public_key.to_address()
+sender = sender_addr.to_acc_bech32()
 
+request_msg = MsgRequestData(
+    oracle_script_id=37,
+    calldata=bytes.fromhex("0000000200000003425443000000034554480000000000000064"),
+    ask_count=4,
+    min_count=3,
+    client_id="BandProtocol",
+    fee_limit=[Coin(amount="100", denom="uband")],
+    prepare_gas=50000,
+    execute_gas=200000,
+    sender=sender,
+)
+
+account = c.get_account(sender)
+account_num = account.account_number
+sequence = account.sequence
+
+fee = [Coin(amount="0", denom="uband")]
+chain_id = c.get_chain_id()
+
+txn = (
+    Transaction()
+    .with_messages(request_msg)
+    .with_sequence(sequence)
+    .with_account_num(account_num)
+    .with_chain_id(chain_id)
+    .with_gas(2000000)
+    .with_fee(fee)
+    .with_memo("")
+)
+
+sign_doc = txn.get_sign_doc(public_key)
+signature = private_key.sign(sign_doc.SerializeToString())
+tx_raw_bytes = txn.get_tx_data(signature, public_key)
+
+print(tx_raw_bytes.hex())
 ```
 
-#### Result
+### Result
 
-```json
-{
-  "msg": [
-    {
-      "type": "oracle/Request",
-      "value": {
-        "oracle_script_id": "1",
-        "calldata": "AAAAA0JUQwAAAAAAAAAB",
-        "ask_count": "4",
-        "min_count": "3",
-        "client_id": "from_pyband",
-        "sender": "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"
-      }
-    }
-  ],
-  "fee": { "gas": "200000", "amount": [{ "denom": "uband", "amount": "0" }] },
-  "memo": "",
-  "signatures": [
-    {
-      "signature": "aFvTgkY9F14dHfp2mtq8V2eCTKUtY1T9WKs99jmR8To3JB16cawbmpa1TRUdzfnqLXBh+o6XUuF4bHWR6xbCCw==",
-      "pub_key": {
-        "type": "tendermint/PubKeySecp256k1",
-        "value": "A/5wi9pmUk/SxrzpBoLjhVWoUeA9Ku5PYpsF3pD1Htm8"
-      },
-      "account_number": "100",
-      "sequence": "30"
-    }
-  ]
-}
 ```
-
-[`<transaction>`]: /client-library/pyband/transaction.html "Transaction"
-[`<client>`]: /client-library/pyband/client.html "Client"
-[`<msg>`]: /client-library/pyband/message.html "Message"
-[`<publickey>`]: /client-library/pyband/wallet.html "PublicKey"
+0a93010a90010a192f6f7261636c652e76312e4d7367526571756573744461746112730825121a0000000200000003425443000000034554480000000000000064180420032a0c42616e6450726f746f636f6c320c0a057562616e64120331303038d0860340c09a0c4a2b62616e643138703237796c3936326c38323833637437737272356c3367377964617a6a303764717277706812640a500a460a1f2f636f736d6f732e63727970746f2e736563703235366b312e5075624b657912230a2102fc535feadd4a048479a49255b620d54871970676d5a4ec5de214c80d387410f612040a020801181812100a0a0a057562616e641201301080897a1a407de416066bedfa16c518563dbc71184aebb24968232901c2b06f0714850f5557188750839331923bf0568069f5770b020bc83dc710480ca3726fc0dd3d3427c4
+```
