@@ -4,7 +4,7 @@ order: 4
 
 # Message Module
 
-Messages specified by BandChain. All messages presented in this module are extended from Protobuf's messages, which are generated from these [proto files](https://github.com/bandprotocol/chain/tree/v2.0.3/proto/oracle/v1). For specification can be found [here](TODO: add link to protobuf docs).
+Messages specified by BandChain. All messages presented in this module are extended from Protobuf's messages, which are generated from these [proto files](https://github.com/bandprotocol/chain/tree/v2.0.3/proto/oracle/v1). For specification can be found [here](https://docs.cosmos.network/v0.44/core/proto-docs.html).
 
 Here are methods that are extended from original protobuf classes.
 
@@ -75,4 +75,4 @@ const msg = new MsgSend(sender, receiver, [sendAmount]);
 msg.validate();
 ```
 
-[`any`]: TODO:-add-link
+[`any`]: /client-library/protocol-buffers/any.html

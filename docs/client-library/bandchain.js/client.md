@@ -1025,11 +1025,11 @@ const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 ]
 ```
 
-[`referencedata`]: TODO:-add-link
-[`txresponse`]: TODO:-add-link
-[`queryrequestresponse`]: TODO:-add-link
-[`request`]: TODO:-add-link
-[`oraclescript`]: TODO:-add-link
-[`datasource`]: TODO:-add-link
-[`baseaccount`]: TODO:-add-link
-[`block`]: TODO:-add-link
+[`referencedata`]: /client-library/bandchain.js/data.html#referencedata
+[`txresponse`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#txresponse
+[`queryrequestresponse`]: /client-library/protocol-buffers/oracle-module.html#queryrequestresponse
+[`request`]: /client-library/protocol-buffers/oracle-module.html#request
+[`oraclescript`]: /client-library/protocol-buffers/oracle-module.html#oraclescript
+[`datasource`]: /client-library/protocol-buffers/oracle-module.html#datasource
+[`baseaccount`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#baseaccount
+[`block`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#getlatestblockresponse

@@ -655,12 +655,12 @@ And these are examples of bandchain.js usages, for more information, feel free t
 [`msgrequestdata`]: /client-library/protocol-buffers/oracle-module.html#msgrequestdata
 [`msgsend`]: https://docs.cosmos.network/v0.44/modules/bank/03_messages.html#msgsend
 [`transaction`]: /client-library/bandchain.js/transaction.html#transaction-module
-[`account`]: TODO-add-links
+[`account`]: https://docs.cosmos.network/v0.44/basics/accounts.html
 [`sendtxblockmode`]: /client-library/bandchain.js/client.html#sendtxblockmode-txbytes
 [`sendtxsyncmode`]: /client-library/bandchain.js/client.html#sendtxsyncmode-txbytes
 [`sendtxasyncmode`]: /client-library/bandchain.js/client.html#sendtxasyncmode-data
 [`privatekey`]: /client-library/bandchain.js/wallet.html#privatekey
 [`client`]: /client-library/bandchain.js/client.html#client-module
-[`coin`]: TODO-add-links
-[`address`]: TODO-add-links
+[`coin`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#coin
+[`address`]: /client-library/bandchain.js/wallet.html#address
 [`getreferencedata`]: /client-library/bandchain.js/client.html#getreferencedata-pairs-mincount-askcount

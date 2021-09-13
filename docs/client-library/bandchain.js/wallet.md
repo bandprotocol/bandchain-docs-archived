@@ -729,7 +729,7 @@ console.log(address.toConsBech32());
 bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj
 ```
 
-[privatekey]: TODO:-add-link
-[publickey]: TODO:-add-link
-[address]: TODO:-add-link
-[pubkey]: TODO:-add-link
+[privatekey]: /client-library/bandchain.js/wallet.html#privatekey
+[publickey]: /client-library/bandchain.js/wallet.html#publickey
+[address]: /client-library/bandchain.js/wallet.html#publickey
+[pubkey]: https://docs.cosmos.network/v0.42/basics/accounts.html#pubkeys

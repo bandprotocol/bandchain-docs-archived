@@ -302,8 +302,8 @@ const sendCoin = async () => {
 }
 ```
 
-[`any`]: TODO:-add-link
-[`getaccount`]: TODO:-add-link
-[`getchainid`]: TODO:-add-link
-[`fee`]: TODO:-add-link
-[`publickey`]: TODO:-add-link
+[`any`]: /client-library/protocol-buffers/any.html
+[`getaccount`]: /client-library/bandchain.js/client.html#getaccount-address
+[`getchainid`]: /client-library/bandchain.js/client.html#getchainid
+[`fee`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#fee
+[`publickey`]: /client-library/bandchain.js/wallet.html#publickey
