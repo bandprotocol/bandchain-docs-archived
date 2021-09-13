@@ -118,6 +118,21 @@ module.exports = {
           ],
         },
         {
+          title: "Data provider",
+          children: [
+            {
+              title: "Data Source",
+              directory: true,
+              path: "/data-provider/data-source",
+            },
+            {
+              title: "Oracle Script",
+              directory: true,
+              path: "/data-provider/oracle-script",
+            },
+          ],
+        },
+        {
           title: "Band Standard Dataset",
           children: [
             {
@@ -254,4 +269,4 @@ module.exports = {
       ],
     },
   },
-};
+}
