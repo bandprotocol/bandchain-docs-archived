@@ -4,7 +4,7 @@ order: 7
 
 # OBI Module
 
-Oracle Binary Encoding (OBI) is the standard way to serialized and deserialize binary data in the BandChain ecosystem. This module provides the functionality to serialize data. [More details](TODO: add links).
+Oracle Binary Encoding (OBI) is the standard way to serialized and deserialize binary data in the BandChain ecosystem. This module provides the functionality to serialize data. [More details](../../technical-specifications/obi.md).
 
 Bandchain.js provide a class named `Obi` to help encode/decode binary data using OBI encoding. Here is the usage of the class.
 
@@ -14,11 +14,11 @@ Bandchain.js provide a class named `Obi` to help encode/decode binary data using
 
 ### Example
 
-```javascript=
+```javascript
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
+  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
 );
 ```
 
@@ -38,16 +38,16 @@ Encode the value based on given OBI input schema
 
 ### Example
 
-```javascript=
+```javascript
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
+  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
 );
 const testInput = {
   symbol: "BTC",
   px: 9000,
-  in: { a: 1, b: 2 },
+  w: { a: 1, b: 2 },
   tb: ["a", "b"],
 };
 console.log(obi.encodeInput(testInput).toString("hex"));
@@ -75,11 +75,11 @@ Encode the value based on OBI output schema
 
 ### Example
 
-```javascript=
+```javascript
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
+  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
 );
 const testOutput = "test";
 console.log(obi.encodeOutput(testOutput).toString("hex"));
@@ -113,11 +113,11 @@ Decode the value based on given OBI input schema
 
 ### Example
 
-```javascript=
+```javascript
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
+  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
 );
 console.log(
   obi.decodeInput(
@@ -131,8 +131,8 @@ console.log(
 
 ### Result
 
-```
-{ symbol: 'BTC', px: 9000n, in: { a: 1n, b: 2n }, tb: [ 'a', 'b' ] }
+```javascript
+{ "symbol": "BTC", "px": 9000n, "w": { "a": 1n, "b": 2n }, "tb": ["a", "b"] }
 ```
 
 ---
@@ -157,11 +157,11 @@ Decode the output value by using output schema
 
 ### Example
 
-```javascript=
+```javascript
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
-  "{symbol:string,px: u64, in: {a: u8, b: u8}, tb: [string]} / string"
+  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
 );
 console.log(obi.decodeOutput(Buffer.from("0000000474657374", "hex")));
 ```
