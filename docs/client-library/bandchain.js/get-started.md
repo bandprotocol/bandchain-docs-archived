@@ -85,51 +85,63 @@ As the transaction object requires following attributes,
 - account number
 - sequence number
 - chain ID
+- fee
 
 with following optional fields
 
-- gas limit (default is 200000)
-- fee limit (default is 0)
 - memo (default is empty string)
 
-We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 6 fields as shown in the exmaple below.
+We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 9 fields as shown in the exmaple below.
 
 ```js
-import { Client, Wallet, Message } from "@bandprotocol/bandchain.js";
-const { PrivateKey } = Wallet;
-// Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
-const client = new Client(grpcUrl);
-// Step 2.1
-const privkey = PrivateKey.fromMnemonic(
-  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
-// Step 2.2
-const pubkey = privkey.toPubkey();
-const sender = pubkey.toAddress().toAccBech32();
+import {
+  Client,
+  Wallet,
+  Obi,
+  Message,
+  Coin,
+  Transaction,
+} from "@bandprotocol/bandchain.js";
 
-const makeRequest = async () => {
-  // Step 3.1
-  const { MsgRequestData } = Message;
+const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web";
+const client = new Client(grpcEndpoint);
+
+async function makeRequest() {
+  // Step 1: Import a private key for signing transaction
+  const { PrivateKey } = Wallet;
+  const mnemonic = "test";
+  const privateKey = PrivateKey.fromMnemonic(mnemonic);
+  const pubkey = privateKey.toPubkey();
+  const sender = pubkey.toAddress().toAccBech32();
+
+  // Step 2.1: Prepare oracle request's properties
+  const obi = new Obi("{symbols:[string],multiplier:u64}/{rates:[u64]}");
+  const calldata = obi.encodeInput({ symbols: ["ETH"], multiplier: 100 });
+
   const oracleScriptId = 37;
-  // calldata is { symbols: ['BTC', 'ETH'], multiplier: 100 }
-  const calldata = Buffer.from(
-    "0000000200000003425443000000034554480000000000000064",
-    "hex"
-  );
   const askCount = 4;
   const minCount = 3;
   const clientId = "from_bandchain.js";
-  // fee, prepareGas, and executeGas can also be manually set in constructor's arguments
-  const msg = new MsgRequestData(
+
+  let feeLimit = new Coin();
+  feeLimit.setDenom("uband");
+  feeLimit.setAmount("100000");
+
+  const prepareGas = 100000;
+  const executeGas = 200000;
+
+  // Step 2.2: Create an oracle request message
+  const requestMessage = new Message.MsgRequestData(
     oracleScriptId,
     calldata,
     askCount,
     minCount,
     clientId,
-    sender
+    sender,
+    [feeLimit],
+    prepareGas,
+    executeGas
   );
-};
 ```
 
 After constructed [`MsgRequestData`], we can get other required fields by following methods to constructs a transaction
@@ -142,52 +154,69 @@ After constructed [`MsgRequestData`], we can get other required fields by follow
 import {
   Client,
   Wallet,
+  Obi,
   Message,
+  Coin,
   Transaction,
+  Fee,
 } from "@bandprotocol/bandchain.js";
-const { PrivateKey } = Wallet;
-// Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
-const client = new Client(grpcUrl);
-// Step 2.1
-const privkey = PrivateKey.fromMnemonic(
-  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
-// Step 2.2
-const pubkey = privkey.toPubkey();
-const sender = pubkey.toAddress().toAccBech32();
 
-const makeRequest = async () => {
-  // Step 3.1 constructs MsgRequestData message
-  const { MsgRequestData } = Message;
+const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web";
+const client = new Client(grpcEndpoint);
+
+async function makeRequest() {
+  // Step 1: Import a private key for signing transaction
+  const { PrivateKey } = Wallet;
+  const mnemonic = "test";
+  const privateKey = PrivateKey.fromMnemonic(mnemonic);
+  const pubkey = privateKey.toPubkey();
+  const sender = pubkey.toAddress().toAccBech32();
+
+  // Step 2.1: Prepare oracle request's properties
+  const obi = new Obi("{symbols:[string],multiplier:u64}/{rates:[u64]}");
+  const calldata = obi.encodeInput({ symbols: ["ETH"], multiplier: 100 });
+
   const oracleScriptId = 37;
-  // calldata is { symbols: ['BTC', 'ETH'], multiplier: 100 }
-  const calldata = Buffer.from(
-    "0000000200000003425443000000034554480000000000000064",
-    "hex"
-  );
   const askCount = 4;
   const minCount = 3;
   const clientId = "from_bandchain.js";
-  // fee, prepareGas, and executeGas can also be manually set in constructor's arguments
-  const msg = new MsgRequestData(
+
+  let feeLimit = new Coin();
+  feeLimit.setDenom("uband");
+  feeLimit.setAmount("100000");
+
+  const prepareGas = 100000;
+  const executeGas = 200000;
+
+  // Step 2.2: Create an oracle request message
+  const requestMessage = new Message.MsgRequestData(
     oracleScriptId,
     calldata,
     askCount,
     minCount,
     clientId,
-    sender
+    sender,
+    [feeLimit],
+    prepareGas,
+    executeGas
   );
-  // Step 3.2 constructs a transaction
-  const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet2";
-  const tx = new Transaction()
-    .withMessages(msg.toAny())
-    .withAccountNum(account.accountNumber)
-    .withSequence(account.sequence)
-    .withChainId(chainId)
-    .withGas(1500000);
-};
+
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("50000");
+
+  // Step 3.1: Construct a transaction
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
+
+  const chainId = await client.getChainId();
+  const txn = new Transaction();
+  txn.withMessages(requestMessage);
+  await txn.withSender(client, sender);
+  txn.withChainId(chainId);
+  txn.withFee(fee);
+  txn.withMemo("");
 ```
 
 **Step 4:** Sign and send the transaction
@@ -198,57 +227,73 @@ Now, we had an instance of constructed transaction. In order to sign the transac
 import {
   Client,
   Wallet,
+  Obi,
   Message,
+  Coin,
   Transaction,
+  Fee,
 } from "@bandprotocol/bandchain.js";
-const { PrivateKey } = Wallet;
-// Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
-const client = new Client(grpcUrl);
-// Step 2.1
-const privkey = PrivateKey.fromMnemonic(
-  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
-// Step 2.2
-const pubkey = privkey.toPubkey();
-const sender = pubkey.toAddress().toAccBech32();
 
-const makeRequest = async () => {
-  // Step 3.1 constructs MsgRequestData message
-  const { MsgRequestData } = Message;
+const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web";
+const client = new Client(grpcEndpoint);
+
+async function makeRequest() {
+  // Step 1: Import a private key for signing transaction
+  const { PrivateKey } = Wallet;
+  const mnemonic = "test";
+  const privateKey = PrivateKey.fromMnemonic(mnemonic);
+  const pubkey = privateKey.toPubkey();
+  const sender = pubkey.toAddress().toAccBech32();
+
+  // Step 2.1: Prepare oracle request's properties
+  const obi = new Obi("{symbols:[string],multiplier:u64}/{rates:[u64]}");
+  const calldata = obi.encodeInput({ symbols: ["ETH"], multiplier: 100 });
+
   const oracleScriptId = 37;
-  // calldata is { symbols: ['BTC', 'ETH'], multiplier: 100 }
-  const calldata = Buffer.from(
-    "0000000200000003425443000000034554480000000000000064",
-    "hex"
-  );
   const askCount = 4;
   const minCount = 3;
   const clientId = "from_bandchain.js";
-  // fee, prepareGas, and executeGas can also be manually set in constructor's arguments
-  const msg = new MsgRequestData(
+
+  let feeLimit = new Coin();
+  feeLimit.setDenom("uband");
+  feeLimit.setAmount("100000");
+
+  const prepareGas = 100000;
+  const executeGas = 200000;
+
+  // Step 2.2: Create an oracle request message
+  const requestMessage = new Message.MsgRequestData(
     oracleScriptId,
     calldata,
     askCount,
     minCount,
     clientId,
-    sender
+    sender,
+    [feeLimit],
+    prepareGas,
+    executeGas
   );
-  // Step 3.2 constructs a transaction
-  const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet2";
-  const tx = new Transaction()
-    .withMessages(msg.toAny())
-    .withAccountNum(account.accountNumber)
-    .withSequence(account.sequence)
-    .withChainId(chainId)
-    .withGas(1500000);
 
-  // Step 4 sign the transaction
-  const txSignData = tx.getSignDoc(pubkey);
-  const signature = privkey.sign(txSignData);
-  const signedTx = tx.getTxData(signature, pubkey);
-};
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("50000");
+
+  // Step 3.1: Construct a transaction
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
+
+  const chainId = await client.getChainId();
+  const txn = new Transaction();
+  txn.withMessages(requestMessage);
+  await txn.withSender(client, sender);
+  txn.withChainId(chainId);
+  txn.withFee(fee);
+  txn.withMemo("");
+
+  // Step 3.2: Sign the transaction using the private key
+  const signDoc = txn.getSignDoc(pubkey);
+  const signature = privateKey.sign(signDoc);
 ```
 
 **Step 5:** Send the signed transaction to Bandchain be using following method of choices
@@ -265,61 +310,80 @@ The final code should now look like the code below.
 import {
   Client,
   Wallet,
+  Obi,
   Message,
+  Coin,
   Transaction,
+  Fee,
 } from "@bandprotocol/bandchain.js";
-const { PrivateKey } = Wallet;
-// Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
-const client = new Client(grpcUrl);
-// Step 2.1
-const privkey = PrivateKey.fromMnemonic(
-  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
-// Step 2.2
-const pubkey = privkey.toPubkey();
-const sender = pubkey.toAddress().toAccBech32();
 
-const makeRequest = async () => {
-  // Step 3.1 constructs MsgRequestData message
-  const { MsgRequestData } = Message;
+const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web";
+const client = new Client(grpcEndpoint);
+
+async function makeRequest() {
+  // Step 1: Import a private key for signing transaction
+  const { PrivateKey } = Wallet;
+  const mnemonic = "test";
+  const privateKey = PrivateKey.fromMnemonic(mnemonic);
+  const pubkey = privateKey.toPubkey();
+  const sender = pubkey.toAddress().toAccBech32();
+
+  // Step 2.1: Prepare oracle request's properties
+  const obi = new Obi("{symbols:[string],multiplier:u64}/{rates:[u64]}");
+  const calldata = obi.encodeInput({ symbols: ["ETH"], multiplier: 100 });
+
   const oracleScriptId = 37;
-  // calldata is { symbols: ['BTC', 'ETH'], multiplier: 100 }
-  const calldata = Buffer.from(
-    "0000000200000003425443000000034554480000000000000064",
-    "hex"
-  );
   const askCount = 4;
   const minCount = 3;
   const clientId = "from_bandchain.js";
-  // fee, prepareGas, and executeGas can also be manually set in constructor's arguments
-  const msg = new MsgRequestData(
+
+  let feeLimit = new Coin();
+  feeLimit.setDenom("uband");
+  feeLimit.setAmount("100000");
+
+  const prepareGas = 100000;
+  const executeGas = 200000;
+
+  // Step 2.2: Create an oracle request message
+  const requestMessage = new Message.MsgRequestData(
     oracleScriptId,
     calldata,
     askCount,
     minCount,
     clientId,
-    sender
+    sender,
+    [feeLimit],
+    prepareGas,
+    executeGas
   );
-  // Step 3.2 constructs a transaction
-  const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet2";
-  const tx = new Transaction()
-    .withMessages(msg.toAny())
-    .withAccountNum(account.accountNumber)
-    .withSequence(account.sequence)
-    .withChainId(chainId)
-    .withGas(1500000);
 
-  // Step 4 sign the transaction
-  const txSignData = tx.getSignDoc(pubkey);
-  const signature = privkey.sign(txSignData);
-  const signedTx = tx.getTxData(signature, pubkey);
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("50000");
 
-  // Step 5 send the transaction
-  const response = await client.sendTxBlockMode(signedTx);
-  console.log(response);
-};
+  // Step 3.1: Construct a transaction
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
+
+  const chainId = await client.getChainId();
+  const txn = new Transaction();
+  txn.withMessages(requestMessage);
+  await txn.withSender(client, sender);
+  txn.withChainId(chainId);
+  txn.withFee(fee);
+  txn.withMemo("");
+
+  // Step 3.2: Sign the transaction using the private key
+  const signDoc = txn.getSignDoc(pubkey);
+  const signature = privateKey.sign(signDoc);
+
+  const txRawBytes = txn.getTxData(signature, pubkey);
+
+  // Step 4: Broadcast the transaction
+  const sendTx = await client.sendTxBlockMode(txRawBytes);
+  console.log(sendTx);
+}
 
 (async () => {
   await makeRequest();
@@ -400,19 +464,20 @@ Therefore, final result is as shown follow
 import {
   Client,
   Wallet,
-  Message,
   Transaction,
+  Message,
   Coin,
+  Fee,
 } from "@bandprotocol/bandchain.js";
+
 const { PrivateKey } = Wallet;
-// Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
-const client = new Client(grpcUrl);
-// Step 2.1
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+
+// Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
 );
-// Step 2.2
+// Step 2.2 prepare public key and its address
 const pubkey = privkey.toPubkey();
 const sender = pubkey.toAddress().toAccBech32();
 
@@ -428,13 +493,21 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount]);
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet2";
+  const chainId = "band-laozi-testnet4";
+
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("1000");
+
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
   const tx = new Transaction()
-    .withMessages(msg.toAny())
+    .withMessages(msg)
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withGas(1500000);
+    .withFee(fee);
 
   // Step 4 sign the transaction
   const txSignData = tx.getSignDoc(pubkey);
@@ -443,7 +516,7 @@ const sendCoin = async () => {
 
   // Step 5 send the transaction
   const response = await client.sendTxBlockMode(signedTx);
-  console.log(response);
+  console.log(JSON.stringify(response));
 };
 
 (async () => {
@@ -510,7 +583,7 @@ This section shows an example on how to query data from BandChain. This example 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 // Step 1
-const grpcUrl = "http://localhost:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 ```
 
@@ -527,12 +600,12 @@ The final code should look like the code below.
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 // Step 1
-const grpcUrl = "http://localhost:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 
 // Step 2
 const minCount = 3;
-const askCount = 6;
+const askCount = 4;
 const pairs = ["BTC/USD", "ETH/USD"];
 
 (async () => {
@@ -575,19 +648,19 @@ And the result should look like this.
 
 And these are examples of bandchain.js usages, for more information, feel free to dive into specifications in each module.
 
-[`gettxdata`]: TODO-add-links
-[`getsigndoc`]: TODO-add-links
-[`getchainid`]: TODO-add-links
-[`getaccount`]: TODO-add-links
-[`msgrequestdata`]: TODO-add-links
-[`msgsend`]: TODO-add-links
-[`transaction`]: TODO-add-links
+[`gettxdata`]: /client-library/bandchain.js/transaction.html#gettxdata-signature-publickey
+[`getsigndoc`]: /client-library/bandchain.js/transaction.html#getsigndoc
+[`getchainid`]: /client-library/bandchain.js/client.html#getchainid
+[`getaccount`]: /client-library/bandchain.js/client.html#getaccount-address
+[`msgrequestdata`]: /client-library/protocol-buffers/oracle-module.html#msgrequestdata
+[`msgsend`]: https://docs.cosmos.network/v0.44/modules/bank/03_messages.html#msgsend
+[`transaction`]: /client-library/bandchain.js/transaction.html#transaction-module
 [`account`]: TODO-add-links
-[`sendtxblockmode`]: TODO-add-links
-[`sendtxsyncmode`]: TODO-add-links
-[`sendtxasyncmode`]: TODO-add-links
-[`privatekey`]: TODO-add-links
-[`client`]: TODO-add-links
+[`sendtxblockmode`]: /client-library/bandchain.js/client.html#sendtxblockmode-txbytes
+[`sendtxsyncmode`]: /client-library/bandchain.js/client.html#sendtxsyncmode-txbytes
+[`sendtxasyncmode`]: /client-library/bandchain.js/client.html#sendtxasyncmode-data
+[`privatekey`]: /client-library/bandchain.js/wallet.html#privatekey
+[`client`]: /client-library/bandchain.js/client.html#client-module
 [`coin`]: TODO-add-links
 [`address`]: TODO-add-links
-[`getreferencedata`]: TODO-add-links
+[`getreferencedata`]: /client-library/bandchain.js/client.html#getreferencedata-pairs-mincount-askcount

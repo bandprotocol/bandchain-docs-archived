@@ -211,7 +211,7 @@ const sendCoin = async () => {
   fee.setAmountList([feeCoin]);
   fee.setGasLimit(1000000);
   const tx = new Transaction()
-    .withMessages(msg.toAny())
+    .withMessages(msg)
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
