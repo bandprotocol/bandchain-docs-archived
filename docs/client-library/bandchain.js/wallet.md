@@ -419,7 +419,7 @@ Returns bech32-encoded public key with validator-consensus-pubkey prefix
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PublicKey } = Wallet;
-const publickey = PublicKey.from_acc_bech32(
+const publickey = PublicKey.fromAccBech32(
   "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
 );
 console.log(publickey.toConsBech32());
@@ -456,7 +456,7 @@ console.log(publickey.toAddress().toHex());
 #### Result
 
 ```
-8bb66ae5bb7e5ce1035557cf1c77430b987683d2
+8e453e66fb009b119ea9b1b8775be6fa9435013b
 ```
 
 ---
@@ -530,7 +530,9 @@ Create an [`Address`] instance from a bech32-encoded with account prefix.
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
+const address = Address.fromAccBech32(
+  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
+);
 ```
 
 ---
@@ -560,7 +562,7 @@ Create an [`Address`] instance from a bech32-encoded with validator prefix
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-address = Address.fromValBech32(
+const address = Address.fromValBech32(
   "bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn"
 );
 ```
@@ -650,7 +652,7 @@ const { Address } = Wallet;
 const address = Address.fromAccBech32(
   "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
 );
-console.log(Address.toAccBech32());
+console.log(address.toAccBech32());
 ```
 
 #### Result
