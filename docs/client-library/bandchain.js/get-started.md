@@ -2,7 +2,7 @@
 order: 1
 -->
 
-# Getting Start
+# Get started
 
 Bandchain.js is a library written in TypeScript used for interacting with BandChain. The library provides classes and methods for convenient to send transactions, query data, OBI encoding, and wallet management.
 
@@ -32,11 +32,11 @@ This section describes methods to send a transaction of oracle request to BandCh
 
 **Step 1:** Import [`Client`] from `@bandprotocol/bandchain.js` and create an instance with gRPC URL endpoint as an argument. The instance contains all methods to interact with BandChain.
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 
 // Step 1
-const grpcUrl = "http://rpc-laozi-testnet2.bandchain.org:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 ```
 
@@ -48,11 +48,11 @@ subject economy equal whisper turn boil guard giraffe stick retreat wealth card 
 
 Here is the example on how to get a private key as an account.
 
-```javascript=
+```js
 import { Client, Wallet } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const grpcUrl = "http://rpc-laozi-testnet2.bandchain.org:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
@@ -62,11 +62,11 @@ const privkey = PrivateKey.fromMnemonic(
 
 Then, we will use the private key to generate public key and a BAND address, as shown below
 
-```javascript=
+```js
 import { Client, Wallet } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const grpcUrl = "http://rpc-laozi-testnet2.bandchain.org:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
@@ -94,11 +94,11 @@ with following optional fields
 
 We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 6 fields as shown in the exmaple below.
 
-```javascript=
+```js
 import { Client, Wallet, Message } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const grpcUrl = "http://rpc-laozi-testnet2.bandchain.org:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
@@ -138,7 +138,7 @@ After constructed [`MsgRequestData`], we can get other required fields by follow
 - Sequence number can be gathered from Client's [`getAccount`] method, under `sequence` field.
 - Chain ID can be gathered from Client's [`getChainId`] method.
 
-```javascript=
+```js
 import {
   Client,
   Wallet,
@@ -147,7 +147,7 @@ import {
 } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const grpcUrl = "http://rpc-laozi-testnet2.bandchain.org:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
@@ -194,7 +194,7 @@ const makeRequest = async () => {
 
 Now, we had an instance of constructed transaction. In order to sign the transaction, [`getSignDoc`] method in `Transaction` instance can be used to get serialzed data of the transaction to be used for signing. Then, use `PrivateKey`'s [`sign`] to sign transaction. Finally, use [`getTxData`] to include signature and public key to the transaction to get a complete signed transaction.
 
-```javascript=
+```js
 import {
   Client,
   Wallet,
@@ -203,7 +203,7 @@ import {
 } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const grpcUrl = "http://rpc-laozi-testnet2.bandchain.org:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
@@ -261,7 +261,7 @@ For our example, we will use `sendTxBlockMode` to send the transaction.
 
 The final code should now look like the code below.
 
-```javascript=
+```js
 import {
   Client,
   Wallet,
@@ -270,7 +270,7 @@ import {
 } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const grpcUrl = "http://rpc-laozi-testnet2.bandchain.org:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
@@ -386,7 +386,7 @@ Sending BAND token has code pattern similar to the previous section, except that
 
 The message used for this section is [`MsgSend`] which can be used as shown below
 
-```javascript=
+```js
 const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
 const sendAmount = new Coin();
 sendAmount.setDenom("uband");
@@ -396,7 +396,7 @@ const msg = new MsgSend(sender, receiver, [sendAmount]);
 
 Therefore, final result is as shown follow
 
-```javascript=
+```js
 import {
   Client,
   Wallet,
@@ -406,7 +406,7 @@ import {
 } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const grpcUrl = "http://rpc-laozi-testnet2.bandchain.org:8080";
+const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
 const client = new Client(grpcUrl);
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
@@ -507,7 +507,7 @@ This section shows an example on how to query data from BandChain. This example 
 
 **Step 1:** Import [`Client`] from `@bandprotocol/bandchain.js` and put string of gRPC URL endpoint as a parameter, then initialize the client instance as shown below.
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 // Step 1
 const grpcUrl = "http://localhost:8080";
@@ -524,7 +524,7 @@ There are 3 parameters
 
 The final code should look like the code below.
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 // Step 1
 const grpcUrl = "http://localhost:8080";

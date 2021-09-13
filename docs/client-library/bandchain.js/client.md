@@ -26,7 +26,7 @@ Get BandChain's Chain ID
 
 #### Example
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 
 const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
@@ -54,7 +54,7 @@ Get BandChain's latest block detail
 
 #### Example
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 
 const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
@@ -176,7 +176,7 @@ Get BandChain's account information
 
 #### Example
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
 
@@ -219,7 +219,7 @@ Get data source metadata by given ID
 
 #### Example
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 
 const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
@@ -260,7 +260,7 @@ Get oracle script metadata by given ID
 
 #### Example
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 
 const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
@@ -301,7 +301,7 @@ Get an oracle request by given request ID
 
 #### Example
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 
 const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
@@ -452,7 +452,7 @@ Get a list of reporter account addresses associated with given validator
 
 #### Example
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 
 const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
@@ -500,7 +500,7 @@ Search for latest request that match given oracle script ID, calldata, min count
 
 #### Example
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 
 const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");
@@ -658,7 +658,7 @@ Send a transaction using block mode, that is, send and wait until the transactio
 
 #### Example
 
-```javascript=
+```js
 import {
   Client,
   Wallet,
@@ -779,7 +779,7 @@ Send a transaction in sync mode, that is, send and wait until transaction has pa
 
 #### Example
 
-```javascript=
+```js
 import {
   Client,
   Wallet,
@@ -868,7 +868,7 @@ Send a transaction in async mode, that is, send and returned immediantly without
 
 #### Example
 
-```javascript=
+```js
 import {
   Client,
   Wallet,
@@ -959,7 +959,7 @@ Get current prices from standard price references oracle script based on given s
 
 #### Example
 
-```javascript=
+```js
 import { Client } from "@bandprotocol/bandchain.js";
 
 const client = new Client("http://rpc-laozi-testnet2.bandchain.org:8080");

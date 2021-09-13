@@ -20,7 +20,7 @@ Returns an Google Protobuf's [`Any`] instance that are used to construct transac
 
 ### Example
 
-```javascript=
+```js
 import { Message, Coin } from "@bandprotocol/bandchain.js";
 const { MsgRequestData } = Message;
 
@@ -65,7 +65,7 @@ Validates the message in a basic manner to ensure that there are no invarient va
 
 ### Example
 
-```javascript=
+```js
 import { Message, Coin } from "@bandprotocol/bandchain.js";
 const { MsgSend } = Message;
 

@@ -14,7 +14,7 @@ Bandchain.js provide a class named `Obi` to help encode/decode binary data using
 
 ### Example
 
-```javascript
+```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
@@ -38,7 +38,7 @@ Encode the value based on given OBI input schema
 
 ### Example
 
-```javascript
+```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
@@ -75,7 +75,7 @@ Encode the value based on OBI output schema
 
 ### Example
 
-```javascript
+```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
@@ -113,7 +113,7 @@ Decode the value based on given OBI input schema
 
 ### Example
 
-```javascript
+```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(
@@ -131,7 +131,7 @@ console.log(
 
 ### Result
 
-```javascript
+```js
 { "symbol": "BTC", "px": 9000n, "w": { "a": 1n, "b": 2n }, "tb": ["a", "b"] }
 ```
 
@@ -157,7 +157,7 @@ Decode the output value by using output schema
 
 ### Example
 
-```javascript
+```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
 const obi = new Obi(

@@ -19,7 +19,7 @@ This module provides functionalities to send transactions on BandChain which req
 
 Add one or multiple messages as a list of Google Protobuf's [`Any`] to [`Transaction`]. There are predefined message classes that can be used to convert to `Any` instance using `toAny()` method, but for the other type of message can be converted to `Any` instance using `Any.pack()` as shown in the code below.
 
-```javascript=
+```js
 import { MsgCreateDataSource } from "@bandprotocol/bandchain.js/proto/oracle/v1/tx_pb";
 import { Any } from "google-protobuf/google/protobuf/any_pb";
 
@@ -185,7 +185,7 @@ Get transaction data from [`Transaction`].
 
 ### Example
 
-```javascript=
+```js
 import {
   Client,
   Wallet,
