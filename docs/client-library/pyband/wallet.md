@@ -145,7 +145,7 @@ This function returns a signature of the associated private key. The message is 
 
 ### Example
 
-```
+```python
 from pyband.wallet import PrivateKey
 
 priv = PrivateKey.from_mnemonic("test mnemonic")
@@ -549,7 +549,7 @@ This function returns a bech32-encoded with account prefix band `band`.
 from pyband.wallet import Address
 
 address = Address.from_acc_bech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c")
-print(Address.to_acc_bech32())
+print(address.to_acc_bech32())
 ```
 
 ### Result
