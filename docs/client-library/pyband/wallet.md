@@ -6,7 +6,7 @@ order: 6
 
 This module provides the functionality to control the account.
 
-# Private Key
+## Private Key
 
 Class for wrapping `SigningKey` that is used for signature creation and public key derivation.
 
@@ -160,7 +160,7 @@ print(priv.sign(b"test message").hex())
 
 ---
 
-# Public Key
+## Public Key
 
 Class for wrapping `VerifyKey` that is used for signature verification.
 
@@ -422,7 +422,7 @@ True
 
 ---
 
-# Address
+## Address
 
 Class for wrapping `Address`.
 

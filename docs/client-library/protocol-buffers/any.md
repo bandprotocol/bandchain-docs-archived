@@ -12,8 +12,6 @@
 
 <a name="any.proto"></a>
 
-<p align="right"><a href="#top">Top</a></p>
-
 ## any.proto
 
 <a name="google.protobuf.Any"></a>

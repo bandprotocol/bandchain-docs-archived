@@ -181,7 +181,7 @@ This function returns the account details of the specify address.
 
 ### Return
 
-`Optional[auth_type.BaseAccount]`
+Optional[[auth_type.BaseAccount](https://docs.cosmos.network/v0.44/modules/auth/02_state.html#base-account)]
 
 ### Example
 

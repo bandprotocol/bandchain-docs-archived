@@ -33,7 +33,7 @@ if __name__ == "__main__":
     main()
 ```
 
-**Step 2:** The sender address is required for sending the transaction, so we have to initialize the address first. Start with importing the `PrivateKey` from wallet module to get the private key. In this example, we will get it from our test mnemonic, for example,`test`
+**Step 2:** The sender address is required for sending the transaction, so we have to initialize the address first. Start with importing the [`PrivateKey`] from wallet module to get the private key. In this example, we will get it from our test mnemonic, for example,`test`
 
 ```python
 import os
@@ -56,7 +56,7 @@ if __name__ == "__main__":
     main()
 ```
 
-After that, we will transform the private key to the public key, public key to address, and address with a type of `Address` to an address with a type of `str`.
+After that, we will transform the private key to the public key, public key to address, and address with a type of [`Address`] to an address with a type of `str`.
 
 **Step 3:** Before constructing a transaction, additional information is needed.
 
@@ -74,7 +74,7 @@ so now let us get those additional information.
 
 #### Messages
 
-In this example, we will use `MsgRequestData` with the following parameters as our message.
+In this example, we will use [`MsgRequestData`] with the following parameters as our message.
 
 - **oracle_script_id** `<int>`: The oracle script ID.
 - **calldata** `<bytes>`: The calldata from a request.
@@ -115,7 +115,7 @@ The message can be in any message listed [here](https://github.com/bandprotocol/
 
 #### Sequence and Account Number
 
-Sequence and account number can be retrieved from calling `get_account(address)` in client module.
+Sequence and account number can be retrieved from calling [`get_account`] in client module.
 
 ```python
 account = c.get_account(sender)
@@ -197,9 +197,9 @@ if __name__ == "__main__":
 
 **Step 5:** Preparing the transaction before sending
 
-Call `get_sign_doc` to get the transaction that is ready to sign, then we will get the signature by signing the transaction.
+Call [`get_sign_doc`] to get the transaction that is ready to sign, then we will get the signature by signing the transaction.
 
-After that, we will get the raw transaction by calling `get_tx_data` and put the signature as parameters.
+After that, we will get the raw transaction by calling [`get_tx_data`] and put the signature as parameters.
 
 ```python
 sign_doc = txn.get_sign_doc(public_key)
@@ -210,7 +210,7 @@ tx_raw_bytes = txn.get_tx_data(signature, public_key)
 
 **Step 6:** After we got raw transaction, transaction can now be sent.
 
-There are 3 modes for sending the transaction. Block mode is chosen for this example, we can call `send_tx_block_mode` with raw transaction as parameter.
+There are 3 modes for sending the transaction. Block mode is chosen for this example, we can call [`send_tx_block_mode`] with raw transaction as parameter.
 
 ```python
 import os
@@ -289,9 +289,9 @@ The result should look like this.
 
 ### Sending BAND token
 
-The process of sending BAND token is similar to making a request, except we will use `MsgSend` as our message.
+The process of sending BAND token is similar to making a request, except we will use [`MsgSend`] as our message.
 
-The `MsgSend` contains the following parameters
+The [`MsgSend`] contains the following parameters
 
 - **from_address** `<str>`: The sender address which is in string.
 - **to_address** `<str>`: The receiver address which is in string.
@@ -396,7 +396,7 @@ if __name__ == "__main__":
     main()
 ```
 
-**Step 2** After importing `Client`, `get_reference_data` function can now be used to get the latest price.
+**Step 2** After importing [`Client`], [`get_reference_data`] function can now be used to get the latest price.
 
 The function contains the following paramters
 
@@ -425,21 +425,18 @@ The result should look like this.
 [ReferencePrice(pair='BTC/USD', rate=34614.1, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134)), ReferencePrice(pair='ETH/USD', rate=2372.53, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134))]
 ```
 
-[`get_tx_data`]: /client-library/pyband/transaction.html#get-tx-data-signature-pubkey
-[`get_sign_data`]: /client-library/pyband/transaction.html#get-sign-data
+[`get_tx_data`]: /client-library/pyband/transaction.html#get-tx-data-signature-public-key
+[`get_sign_doc`]: /client-library/pyband/transaction.html#get-sign-doc-public-key
 [`get_chain_id`]: /client-library/pyband/client.html#get-chain-id
 [`get_account`]: /client-library/pyband/client.html#get-account-address
-[`with_gas`]: /client-library/pyband/transaction.html#with-gas-gas
-[`with_memo`]: /client-library/pyband/transaction.html#with-memo-memo
-[`with_messages`]: /client-library/pyband/transaction.html#with-messages-msgs
-[`msgrequest`]: /client-library/pyband/message.html#msgrequest
-[`msgsend`]: /client-library/pyband/message.html#msgsend
 [`transaction`]: /client-library/pyband/transaction.html
 [`account`]: /client-library/pyband/data.html#account
-[`send_tx_block_mode`]: /client-library/pyband/client.html#send-tx-block-mode-data
+[`send_tx_block_mode`]: /client-library/pyband/client.html#send-tx-block-mode-tx-bytes
 [`privatekey`]: /client-library/pyband/wallet.html#private-key
 [`client`]: /client-library/pyband/client.html
 [`coin`]: /client-library/pyband/data.html#coin
 [`address`]: /client-library/pyband/wallet.html#address
 [`from_acc_bech32`]: /client-library/pyband/wallet.html#from-acc-bech32-bech-2
 [`get_reference_data`]: /client-library/pyband/client.html#get-reference-data-pairs-min-count-ask-count
+[`msgrequestdata`]: /client-library/protocol-buffers/oracle-module.html#msgrequestdata
+[`msgsend`]: https://docs.cosmos.network/v0.44/modules/bank/03_messages.html#msgsend
