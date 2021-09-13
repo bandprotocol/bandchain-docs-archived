@@ -148,7 +148,7 @@ This function returns the latest block in the chain.
 
 ### Return
 
-`tendermint_query.GetLatestBlockResponse`
+[`tendermint_query.GetLatestBlockResponse`](https://docs.cosmos.network/v0.44/core/proto-docs.html#getlatestblockresponse)
 
 ### Example
 
@@ -181,7 +181,7 @@ This function returns the account details of the specify address.
 
 ### Return
 
-Optional[[auth_type.BaseAccount](https://docs.cosmos.network/v0.44/modules/auth/02_state.html#base-account)]
+Optional[[auth_type.BaseAccount](https://docs.cosmos.network/v0.44/core/proto-docs.html#baseaccount)]
 
 ### Example
 

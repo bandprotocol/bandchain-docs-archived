@@ -81,7 +81,7 @@ In this example, we will use [`MsgRequestData`] with the following parameters as
 - **ask_count** `<int>`: The number of validator required to process this transaction.
 - **min_count** `<int>`: The minimum number of validator required to process this transaction.
 - **client_id** `<str>`: Name of the client (can be any name or an empty string).
-- **fee_limit** `<[Coin]>`: The fee limit.
+- **fee_limit** <[`Coin`]>: The fee limit.
 - **prepare_gas** `<int>`: The amount of gas used in preparation stage.
 - **execute_gas** `<int>`: The amount of gas used in execution stage.
 - **sender** `<str>`: The sender address.
@@ -111,7 +111,7 @@ obi = PyObi("{symbols:[string],multiplier:u64}/{rates:[u64]}")
 calldata = obi.encode({"symbols": ["ETH"], "multiplier": 100})
 ```
 
-The message can be in any message listed [here](https://github.com/bandprotocol/cosmoscan/blob/1f55f3c88b462fc02d0b2c9fca1391a5daa3bdc6/src/subscriptions/TxSub.re#L1032). Please note that our message should be imported from the generated protobuf files.
+The message can be in any message listed [here](/client-library/protocol-buffers/oracle-module.html#oracle-v1-tx-proto). Please note that our message should be imported from the generated protobuf files.
 
 #### Sequence and Account Number
 
@@ -125,7 +125,7 @@ sequence = account.sequence
 
 #### Fee
 
-Fee can be created by using `Coin` from the generated protobuf file.
+Fee can be created by using [`Coin`] from the generated protobuf file.
 
 ```python
 # from pyband.proto.cosmos.tx.v1beta1.tx_pb2 import Fee
@@ -427,16 +427,14 @@ The result should look like this.
 
 [`get_tx_data`]: /client-library/pyband/transaction.html#get-tx-data-signature-public-key
 [`get_sign_doc`]: /client-library/pyband/transaction.html#get-sign-doc-public-key
-[`get_chain_id`]: /client-library/pyband/client.html#get-chain-id
 [`get_account`]: /client-library/pyband/client.html#get-account-address
 [`transaction`]: /client-library/pyband/transaction.html
-[`account`]: /client-library/pyband/data.html#account
 [`send_tx_block_mode`]: /client-library/pyband/client.html#send-tx-block-mode-tx-bytes
 [`privatekey`]: /client-library/pyband/wallet.html#private-key
 [`client`]: /client-library/pyband/client.html
-[`coin`]: /client-library/pyband/data.html#coin
+[`coin`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#coin
 [`address`]: /client-library/pyband/wallet.html#address
 [`from_acc_bech32`]: /client-library/pyband/wallet.html#from-acc-bech32-bech-2
 [`get_reference_data`]: /client-library/pyband/client.html#get-reference-data-pairs-min-count-ask-count
 [`msgrequestdata`]: /client-library/protocol-buffers/oracle-module.html#msgrequestdata
-[`msgsend`]: https://docs.cosmos.network/v0.44/modules/bank/03_messages.html#msgsend
+[`msgsend`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#msgsend
