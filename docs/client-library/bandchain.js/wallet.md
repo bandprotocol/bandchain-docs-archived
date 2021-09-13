@@ -4,25 +4,25 @@ order: 6
 
 # Wallet Module
 
-This module provides the functionality to control the account.
+This module provides functionalities to manage BandChain account. It can be used to create a private key from mnemonic, sign and verify signature, and account address manipulation.
 
-## Private Key
+## `PrivateKey`
 
-Class for wrapping SigningKey using for signature creation and public key derivation.
+A class for wrapping signing key, which is a byte array of private key, used for signature creation and public key derivation.
 
-### generate(path)
+### `generate(path)`
 
-Generate new private key with random mnemonic phrase.
+A static method for generating new private key with random mnemonic phrase.
 
 > If path is not given, default to Band's HD prefix 494 and all other indexes being zeroes.
 
 #### Parameter
 
-- path `<string>` The HD path that follows the BIP32 standard (optional)
+- path `string` - The HD path that follows the BIP32 standard (optional)
 
 #### Return
 
-- `[string, <PrivateKey>]` - A tuple of mnemonic phrase and PrivateKey instance
+- `[string, PrivateKey]` - A tuple of mnemonic phrase and [`PrivateKey`] instance
 
 #### Exception
 
@@ -33,7 +33,7 @@ Generate new private key with random mnemonic phrase.
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const [mnemonic, priv] = PrivateKey.generate("m/44'/494'/0'/0/3");
@@ -41,20 +41,20 @@ const [mnemonic, priv] = PrivateKey.generate("m/44'/494'/0'/0/3");
 
 ---
 
-### fromMnemonic(word, path)
+### `fromMnemonic(word, path)`
 
-Create a PrivateKey instance from a given mnemonic phrase and a HD derivation path.
+A static method for creating a [`PrivateKey`] instance from a given mnemonic phrase and a HD derivation path.
 
 > If path is not given, default to Band's HD prefix 494 and all other indexes being zeroes.
 
 #### Parameter
 
-- words `<string>` The mnemonic phrase for recover private key
-- path `<string>` The HD path that follows the BIP32 standard (optional)
+- **words** `string` - The mnemonic phrase for recover private key
+- **path** `string` - The HD path that follows the BIP32 standard (optional)
 
 #### Return
 
-- `<PrivateKey>` Initialized PrivateKey object
+- [`PrivateKey`] - Initialized PrivateKey object
 
 #### Exception
 
@@ -65,7 +65,7 @@ Create a PrivateKey instance from a given mnemonic phrase and a HD derivation pa
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const priv = PrivateKey.fromMnemonic("test mnemonic");
@@ -73,22 +73,22 @@ const priv = PrivateKey.fromMnemonic("test mnemonic");
 
 ---
 
-### fromHex(priv)
+### `fromHex(priv)`
 
-Create a PrivateKey instance from a given a hex representation of signing key.
+Create a [`PrivateKey`] instance from a given a hex representation of signing key.
 
 #### Parameter
 
-- priv `<string>` A hex representation of signing key.
+- **priv** `string` - A hex representation of signing key.
 
 #### Return
 
-- `<PrivateKey>` Initialized PrivateKey object
+- [`PrivateKey`] - Initialized PrivateKey object
 
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const priv = PrivateKey.fromHex(
@@ -98,18 +98,18 @@ const priv = PrivateKey.fromHex(
 
 ---
 
-### toHex
+### `toHex`
 
 Return a hex representation of signing key.
 
 #### Return
 
-- `<string>` A hex representation of signing key.
+- `string` - A hex representation of signing key.
 
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const priv = PrivateKey.fromMnemonic("test mnemonic");
@@ -124,18 +124,18 @@ console.log(priv.toHex());
 
 ---
 
-### toPubkey
+### `toPubkey`
 
-Return the PublicKey associated with this private key.
+Create a [`PublicKey`] instance which is associated with given private key.
 
 #### Return
 
-- `<PublicKey>` A PublicKey that can be used to verify the signatures made with this PrivateKey.
+- [`PublicKey`] - A PublicKey that can be used to verify the signatures made with this PrivateKey.
 
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const priv = PrivateKey.fromMnemonic("test mnemonic");
@@ -150,22 +150,22 @@ console.log(priv.toPubkey().toHex());
 
 ---
 
-### sign(msg)
+### `sign(msg)`
 
-Sign and the given message.
+Sign and the given bytes array.
 
 #### Parameter
 
-- msg `<Buffer>` The message that will be hashed and signed.
+- **msg** `Buffer` - The message that will be hashed and signed.
 
 #### Return
 
-- `<Buffer>` A signature of this private key over the given message
+- `Buffer` - A signature of this private key over the given message
 
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const priv = PrivateKey.fromMnemonic("test mnemonic");
@@ -180,21 +180,21 @@ console.log(priv.sign(Buffer.from("test message")).toString("hex"));
 
 ---
 
-## Public Key
+## `PublicKey`
 
-Class for wraping VerifyKey using for signature verification. Adding method to encode/decode to Bech32 format.
+Class for wraping verify Key, which is a byte array of public key, used for signature verification, and generate bech32-encoded address.
 
-### fromAccBech32(bech)
+### `fromAccBech32(bech)`
 
-Create a PublicKey instance from a bech32-encoded with account public key prefix.
+Creates a [`PublicKey`] instance from a bech32-encoded public key with account-pubkey prefix.
 
 #### Parameter
 
-- bech `<string>` A bech32-encoded with account public key prefix.
+- **bech** `string` - A bech32-encoded with account public key prefix.
 
 #### Return
 
-- `<PublicKey>` - A PublicKey instance
+- [`PublicKey`] - A PublicKey instance
 
 #### Exception
 
@@ -206,7 +206,7 @@ Create a PublicKey instance from a bech32-encoded with account public key prefix
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PublicKey } = Wallet;
 const publickey = PublicKey.fromAccBech32(
@@ -216,17 +216,17 @@ const publickey = PublicKey.fromAccBech32(
 
 ---
 
-### fromValBech32(bech)
+### `fromValBech32(bech)`
 
-Create a PublicKey instance from a bech32-encoded with validator public key prefix
+Creates a [`PublicKey`] instance from a bech32-encoded public key with validator-pubkey prefix
 
 #### Parameter
 
-- bech `<string>` A bech32-encoded with validator public key prefix
+- **bech** `string` - A bech32-encoded with validator public key prefix
 
 #### Return
 
-- `<PublicKey>` - A PublicKey instance
+- [`PublicKey`] - A PublicKey instance
 
 #### Exception
 
@@ -238,7 +238,7 @@ Create a PublicKey instance from a bech32-encoded with validator public key pref
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PublicKey } = Wallet;
 const publickey = PublicKey.fromValBech32(
@@ -248,17 +248,17 @@ const publickey = PublicKey.fromValBech32(
 
 ---
 
-### fromConsBech32(bech)
+### `fromConsBech32(bech)`
 
-Create a PublicKey instance from a bech32-encoded with validator consensus public key prefix
+Creates a [`PublicKey`] instance from a bech32-encoded public key with validator-consensus-pubkey prefix
 
 #### Parameter
 
-- bech `<string>` A bech32-encoded with validator consensus public key prefix
+- **bech** `string` A bech32-encoded with validator consensus public key prefix
 
 #### Return
 
-- `<PublicKey>` - A PublicKey instance
+- [`PublicKey`] - A PublicKey instance
 
 #### Exception
 
@@ -270,7 +270,7 @@ Create a PublicKey instance from a bech32-encoded with validator consensus publi
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PublicKey } = Wallet;
 const publickey = PublicKey.fromConsBech32(
@@ -280,18 +280,18 @@ const publickey = PublicKey.fromConsBech32(
 
 ---
 
-### toHex
+### `toHex`
 
-Return a hex representation of verifying key.
+Returns a hex representation of verifying key.
 
 #### Return
 
-- `<string>` A hex representation of verifying key.
+- `string` - A hex representation of verifying key.
 
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PublicKey } = Wallet;
 const publickey = PublicKey.fromAccBech32(
@@ -308,18 +308,47 @@ console.log(publickey.toHex());
 
 ---
 
-### toAccBech32
+### `toPubkeyProto`
 
-Return bech32-encoded with account public key prefix
+Returns an instance of Cosmos SDK Protobuf's [`PubKey`], which can be used for constructing transactions.
 
 #### Return
 
-- `<string>` A bech32-encoded with account public key prefix.
+- [`PubKey`] - An instance of Cosmos SDK Protobuf's `PubKey`
 
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
+
+const { PublicKey } = Wallet;
+const publickey = PublicKey.fromAccBech32(
+  "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
+);
+// Converting to base64 is for displaying only
+console.log(publickey.toPubkeyProto().getKey_asB64());
+```
+
+#### Result
+
+```
+A1HpjhvglyUPL/QYjAqs4KcW5pqZLNd/nf5Daz6LNCgN
+```
+
+---
+
+### `toAccBech32`
+
+Returns bech32-encoded public key with account-pubkey prefix
+
+#### Return
+
+- `string` - A bech32-encoded with account public key prefix.
+
+#### Example
+
+```js
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PublicKey } = Wallet;
 const publickey = PublicKey.fromAccBech32(
@@ -336,13 +365,13 @@ bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v
 
 ---
 
-### toValBech32
+### `toValBech32`
 
-Return bech32-encoded with validator public key prefix
+Returns bech32-encoded public key with validator-pubkey prefix
 
 #### Return
 
-- `<string>` A bech32-encoded with validator public key prefix.
+- `string` - A bech32-encoded with validator public key prefix.
 
 ### Exceptions
 
@@ -353,7 +382,7 @@ Return bech32-encoded with validator public key prefix
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PublicKey } = Wallet;
 const publickey = PublicKey.fromAccBech32(
@@ -370,13 +399,13 @@ bandvaloperpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q69gsm
 
 ---
 
-### toConsBech32
+### `toConsBech32`
 
-Return bech32-encoded with validator consensus public key prefix
+Returns bech32-encoded public key with validator-consensus-pubkey prefix
 
 #### Return
 
-- `<string>` A bech32-encoded with validator consensus public key prefix.
+- `string` - A bech32-encoded with validator consensus public key prefix.
 
 ### Exceptions
 
@@ -387,10 +416,10 @@ Return bech32-encoded with validator consensus public key prefix
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PublicKey } = Wallet;
-const publickey = PublicKey.from_acc_bech32(
+const publickey = PublicKey.fromAccBech32(
   "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
 );
 console.log(publickey.toConsBech32());
@@ -404,18 +433,18 @@ bandvalconspub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6r8yt
 
 ---
 
-### toAddress
+### `toAddress`
 
-Return address instance from this public key
+Returns an [`Address`] instance from given public key
 
 #### Return
 
-- `<Address>` A Address instance.
+- [`Address`] - An Address instance.
 
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PublicKey } = Wallet;
 const publickey = PublicKey.fromAccBech32(
@@ -427,23 +456,23 @@ console.log(publickey.toAddress().toHex());
 #### Result
 
 ```
-8bb66ae5bb7e5ce1035557cf1c77430b987683d2
+8e453e66fb009b119ea9b1b8775be6fa9435013b
 ```
 
 ---
 
-### verify(msg, sig)
+### `verify(msg, sig)`
 
 Verify a signature made over provided data.
 
 #### Parameter
 
-- msg `<Buffer>` A data signed by the `signature`, will be hashed using sha256 function
-- sig `<Buffer>` A encoding of the signature
+- **msg** `Buffer` A data signed by the `signature`, will be hashed using sha256 function
+- **sig** `Buffer` A encoding of the signature
 
 #### Return
 
-- `<boolean>` True if the verification was successful
+- `boolean` True if the verification was successful
 
 #### Exception
 
@@ -454,7 +483,7 @@ Verify a signature made over provided data.
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const priv = PrivateKey.fromMnemonic("test mnemonic");
@@ -472,21 +501,21 @@ true
 
 ---
 
-## Address
+## `Address`
 
 Class for wraping Address. Adding method to encode/decode to Bech32 format.
 
-### fromAccBech32(bech)
+### `fromAccBech32(bech)`
 
-Create a Address instance from a bech32-encoded with account prefix.
+Create an [`Address`] instance from a bech32-encoded with account prefix.
 
 #### Parameter
 
-- bech `<string>` A bech32-encoded with account prefix.
+- **bech** `string` - A bech32-encoded with account prefix.
 
 #### Return
 
-- `<Address>` - A Address instance
+- [`Address`] - A Address instance
 
 #### Exception
 
@@ -498,25 +527,27 @@ Create a Address instance from a bech32-encoded with account prefix.
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
+const address = Address.fromAccBech32(
+  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
+);
 ```
 
 ---
 
-### fromValBech32(bech)
+### `fromValBech32(bech)`
 
-Create a Address instance from a bech32-encoded with validator prefix
+Create an [`Address`] instance from a bech32-encoded with validator prefix
 
 #### Parameter
 
-- bech `<string>` A bech32-encoded with validator prefix
+- **bech** `string` - A bech32-encoded with validator prefix
 
 #### Return
 
-- `<Address>` - A Address instance
+- [`Address`] - A Address instance
 
 #### Exception
 
@@ -528,27 +559,27 @@ Create a Address instance from a bech32-encoded with validator prefix
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-address = Address.fromValBech32(
+const address = Address.fromValBech32(
   "bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn"
 );
 ```
 
 ---
 
-### fromConsBech32(bech)
+### `fromConsBech32(bech)`
 
-Create a Address instance from a bech32-encoded with validator consensus prefix
+Create an [`Address`] instance from a bech32-encoded with validator consensus prefix
 
 #### Parameter
 
-- bech `<string>` A bech32-encoded with validator consensus prefix
+- **bech** `string` - A bech32-encoded with validator consensus prefix
 
 #### Return
 
-- `<Address>` - A Address instance
+- [`Address`] - A Address instance
 
 #### Exception
 
@@ -560,7 +591,7 @@ Create a Address instance from a bech32-encoded with validator consensus prefix
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
 const address = Address.fromConsBech32(
@@ -570,18 +601,18 @@ const address = Address.fromConsBech32(
 
 ---
 
-### toHex
+### `toHex`
 
-Return a hex representation of Address.
+Return a hex representation of `Address`.
 
 #### Return
 
-- `<string>` A hex representation of Address.
+- `string` - A hex representation of Address.
 
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
 const address = Address.fromAccBech32(
@@ -598,13 +629,13 @@ console.log(address.toHex());
 
 ---
 
-### toAccBech32
+### `toAccBech32`
 
 Return bech32-encoded with account prefix
 
 #### Return
 
-- `<string>` A bech32-encoded with account prefix.
+- `string` - A bech32-encoded with account prefix.
 
 ### Exceptions
 
@@ -615,13 +646,13 @@ Return bech32-encoded with account prefix
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
 const address = Address.fromAccBech32(
   "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
 );
-console.log(Address.toAccBech32());
+console.log(address.toAccBech32());
 ```
 
 #### Result
@@ -632,13 +663,13 @@ band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c
 
 ---
 
-### toValBech32
+### `toValBech32`
 
 Return bech32-encoded with validator prefix
 
 #### Return
 
-- `<string>` A bech32-encoded with validator prefix.
+- `string` A bech32-encoded with validator prefix.
 
 ### Exceptions
 
@@ -649,7 +680,7 @@ Return bech32-encoded with validator prefix
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
 const address = Address.fromAccBech32(
@@ -666,13 +697,13 @@ bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn
 
 ---
 
-### toConsBech32
+### `toConsBech32`
 
 Return bech32-encoded with validator consensus prefix
 
 #### Return
 
-- `<string>` A bech32-encoded with validator consensus prefix.
+- `string` - A bech32-encoded with validator consensus prefix.
 
 ### Exceptions
 
@@ -683,7 +714,7 @@ Return bech32-encoded with validator consensus prefix
 #### Example
 
 ```js
-import { Wallet } from "bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
 const address = Address.fromAccBech32(
@@ -697,3 +728,8 @@ console.log(address.toConsBech32());
 ```
 bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj
 ```
+
+[privatekey]: /client-library/bandchain.js/wallet.html#privatekey
+[publickey]: /client-library/bandchain.js/wallet.html#publickey
+[address]: /client-library/bandchain.js/wallet.html#publickey
+[pubkey]: https://docs.cosmos.network/v0.42/basics/accounts.html#pubkeys

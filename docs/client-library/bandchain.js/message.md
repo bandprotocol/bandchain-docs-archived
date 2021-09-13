@@ -4,126 +4,75 @@ order: 4
 
 # Message Module
 
-Message to be included in [`<Transaction>`]
+Messages specified by BandChain. All messages presented in this module are extended from Protobuf's messages, which are generated from these [proto files](https://github.com/bandprotocol/chain/tree/v2.0.3/proto/oracle/v1). For specification can be found [here](https://docs.cosmos.network/v0.44/core/proto-docs.html).
+
+Here are methods that are extended from original protobuf classes.
 
 ---
 
-## MsgRequest
+## `toAny`
 
-Requests a new data based on an existing oracle script. A data request will be assigned a unique identifier once the transaction is confirmed. After sufficient validators report the raw data points. The results of the data requests will be written and stored permanently on BandChain for future uses.
+Returns an Google Protobuf's [`Any`] instance that are used to construct transactions.
 
-#### Constructor
+### Return
 
-- **oracleScriptID** `<number>` The unique identifier number assigned to the oracle script when it was first registered on Bandchain. Can't be less than 0.
-- **calldata** `<Buffer>` The data passed over to the oracle script for the script to use during its execution. Size is limited to 256.
-- **minCount** `<number>` The minimum number of validators necessary for the request to proceed to the execution phase. Minimum is 1.
-- **askCount** `<number>` The number of validators that are requested to respond to this request. Can't be less than `min_count`.
-- **clientID** `<string>` The unique identifier of this oracle request, as specified by the client. This same unique ID will be sent back to the requester with the oracle response.. Length is limited to 128.
-- **sender** [`<Address>`] The address of the message's sender.
+- [`Any`] - a Google Protobuf's `Any` instance containing serialized messaged and type URL
 
-#### Exceptions
+### Example
 
-| Type                 | Description                                                  |
-| -------------------- | ------------------------------------------------------------ |
-| NegativeIntegerError | oracleScriptID cannot less than zero                         |
-| NotIntegerError      | oracleScriptID is not an integer                             |
-| ValueTooLargeError   | too large calldata                                           |
-| NotIntegerError      | askCount is not an integer                                   |
-| NotIntegerError      | minCount is not an integer                                   |
-| ValueError           | invalid minCount, got: minCount: minCount                    |
-| ValueError           | invalid askCount got: minCount: minCount, askCount: askCount |
+```js
+import { Message, Coin } from "@bandprotocol/bandchain.js";
+const { MsgRequestData } = Message;
 
-#### Example
-
-```javascript
-import { Message, Data, Wallet } from "bandchain2.js";
-
-const { MsgRequest } = Message;
-const { Address } = Wallet;
-const { Coin } = Data;
-
-const senderAddr = Address.fromAccBech32(
-  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
+const sender = "band17n5rmujk78nkgss7tjecg4nfzn6geg4cvaqt5h";
+const oracleScriptId = 37;
+const calldata = Buffer.from(
+  "0000000200000003425443000000034554480000000000000064",
+  "hex"
 );
-const calldata = Buffer.from("000000034254430000000000000001", "hex");
-const memo = "from bandchain.js";
+const askCount = 4;
+const minCount = 3;
+const clientId = "from_bandchain.js";
+const msg = new MsgRequestData(
+  oracleScriptId,
+  calldata,
+  askCount,
+  minCount,
+  clientId,
+  sender
+);
 
-const msgRequest = new MsgRequest(1, calldata, 2, 2, memo, senderAddr);
+const any = msg.toAny();
+console.log(any.getTypeUrl());
+console.log(any.getValue_asB64());
 ```
 
----
+### Result
 
-## MsgSend
+```
+/oracle.v1.MsgRequestData
+CCUSGgAAAAIAAAADQlRDAAAAA0VUSAAAAAAAAABkGAQgAyoRZnJvbV9iYW5kY2hhaW4uanM40IYDQOCnEkorYmFuZDE3bjVybXVqazc4bmtnc3M3dGplY2c0bmZ6bjZnZWc0Y3ZhcXQ1aA==
 
-Send \$BAND to desired address.
+```
 
-#### Constructor
+## `validate`
 
-- **toAddress** [`<Address>`] The address of the receiver.
-- **fromAddress** [`<Address>`] The address of the sender.
-- **amount** [`<[Coin]>`](/client-library/bandchain.js/data.html) The amount of \$BAND to be sent.
+Validates the message in a basic manner to ensure that there are no invarient values stored in the message instance. If message's validation fails, it will throw the exception.
 
-#### Exceptions
+### Example
 
-| Type                  | Description            |
-| --------------------- | ---------------------- |
-| InsufficientCoinError | Expect at least 1 coin |
-
-#### Example
-
-```javascript
-import { Message, Data, Wallet } from "bandchain2.js";
-
+```js
+import { Message, Coin } from "@bandprotocol/bandchain.js";
 const { MsgSend } = Message;
-const { Address } = Wallet;
-const { Coin } = Data;
 
-const fromAddr = Address.fromAccBech32(
-  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
-);
-const toAddr = Address.fromAccBech32(
-  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
-);
-const coin = new Coin(100000, "uband");
+const sender = "band17n5rmujk78nkgss7tjecg4nfzn6geg4cvaqt5h";
+const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
+const sendAmount = new Coin();
+sendAmount.setDenom("uband");
+sendAmount.setAmount("10");
+const msg = new MsgSend(sender, receiver, [sendAmount]);
 
-const msgSend = new MsgSend(fromAddr, toAddr, [coin]);
+msg.validate();
 ```
 
----
-
-## MsgDelegate
-
-Delegate \$BAND to the validator to help secure the network and get rewards.
-
-#### Constructor
-
-- **delegatorAddress** [`<Address>`] The address of the delegator.
-- **validatorAddress** [`<Address>`] The address of the validator to delegate \$BAND.
-- **amount** [`<Coin>`] The amount of \$BAND to be delegated.
-
-#### Example
-
-```javascript
-import { Message, Data, Wallet } from "bandchain2.js";
-
-const { MsgDelegate } = Message;
-const { Address } = Wallet;
-const { Coin } = Data;
-
-const delAddr = Address.fromAccBech32(
-  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
-);
-const valAddr = Address.fromValBech32(
-  "bandvaloper1j9vk75jjty02elhwqqjehaspfslaem8pr20qst"
-);
-const coin = new Coin(100000, "uband");
-
-const msgDelegate = new MsgDelegate(delAddr, valAddr, coin);
-```
-
-[`<transaction>`]: /client-library/bandchain.js/transaction.html "Transaction"
-[`<client>`]: /client-library/bandchain.js/client.html "Client"
-[`<msg>`]: /client-library/bandchain.js/message.html "Message"
-[`<address>`]: /client-library/bandchain.js/wallet.html "Address"
-[`<publickey>`]: /client-library/bandchain.js/wallet.html "PublicKey"
-[`<coin>`]: /client-library/bandchain.js/data.html "Coin"
+[`any`]: /client-library/protocol-buffers/any.html

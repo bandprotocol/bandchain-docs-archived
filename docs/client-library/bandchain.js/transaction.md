@@ -4,155 +4,140 @@ order: 5
 
 # Transaction Module
 
-This module provides the functionality to send transaction on BandChain which requires [`<Msg>`] to be included.
+This module provides functionalities to send transactions on BandChain which requires [`<Msg>`] to be included.
 
 ## Exceptions
 
-| Type       | Description   |
-| ---------- | ------------- |
-| ValueError | Invalid value |
+| Type            | Description                          |
+| --------------- | ------------------------------------ |
+| ValueError      | Invalid value                        |
+| NotIntegerError | The value is not an integer          |
+| EmptyMsgError   | No messages given to the transaction |
+| UndefinedError  | The value should not be undefined    |
 
-## withMessages(msgs)
+## `withMessages(msgs)`
 
-Add one or multiple [`<Msg>`] to [`<Transaction>`].
+Add one or multiple messages as a list of Google Protobuf's [`Any`] to [`Transaction`]. There are predefined message classes that can be used to convert to `Any` instance using `toAny()` method, but for the other type of message can be converted to `Any` instance using `Any.pack()` as shown in the code below.
 
-#### Parameter
+```js
+import { MsgCreateDataSource } from "@bandprotocol/bandchain.js/proto/oracle/v1/tx_pb";
+import { Any } from "google-protobuf/google/protobuf/any_pb";
+import { Transaction } from "@bandprotocol/bandchain.js";
 
-- **\*msgs** [`<Msg>`] Messages to be included with transaction
+const msg = new MsgCreateDataSource();
+msg.setName("dsName");
+msg.setDescription("dsDescription");
+// msg.set...() for every fields
 
-#### Return
+const anyMsg = new Any();
+const typeUrl = "oracle.v1.MsgCreateDataSource";
+anyMsg.pack(msg.serializeBinary(), typeUrl, "/");
 
-[`<Transaction>`]
+const tx = new Transaction();
+tx.withMessages(anyMsg);
+```
 
-## withAuto(client)
+### Parameter
 
-[`<Transaction>`] must have at least 1 message already before using `withAuto()`. This function set `accountNumber` and `sequence` from [`<Client>`] with address from sender in `self.msgs[0]`.
+- **\*msgs** [`Any`] Messages converted to `Any` to be included in the transaction
 
-#### Parameter
+### Return
 
-- **client** [`<Client>`] A client to set `accountNumber` and `sequence`
+- [`Transaction`] - This transaction instance for function chaining
 
-#### Return
+## `withAccountNum(accountNum)`
 
-[`<Promise<Transaction>>`]
+Set account number to [`Transaction`].
 
-#### Exceptions
+### Parameter
 
-| Type          | Description                                                   |
-| ------------- | ------------------------------------------------------------- |
-| EmptyMsgError | Message is empty, please use withMessages at least 1 message. |
+- **accountNum** `number` - An integer of account number, which can be gathered from querying the account via Client's [`getAccount`].
 
-## withAccountNum(accountNum)
+### Return
 
-Set account number to [`<Transaction>`].
+- [`Transaction`] - This transaction instance for function chaining
 
-#### Parameter
-
-- **accountNum** `<number>` Must be an integer.
-
-#### Return
-
-[`<Transaction>`]
-
-#### Exceptions
+### Exceptions
 
 | Type            | Description                  |
 | --------------- | ---------------------------- |
 | NotIntegerError | accountNum is not an integer |
 
-## with_sequence(sequence)
+## `withSequence(sequence)`
 
-Set sequence number to [`<Transaction>`].
+Set sequence number to [`Transaction`].
 
-#### Parameter
+### Parameter
 
-- **sequence** `<Number>` Must be an integer.
+- **sequence** `Number` - An integer of account's sequence number, which can be gathered from querying the account via Client's [`getAccount`].
 
-#### Return
+### Return
 
-[`<Transaction>`]
+- [`Transaction`] - This transaction instance for function chaining
 
-#### Exceptions
+### Exceptions
 
 | Type            | Description                |
 | --------------- | -------------------------- |
 | NotIntegerError | sequence is not an integer |
 
-## withChainID(chainID)
+## `withChainId(chainId)`
 
-Set chain id to [`<Transaction>`].
+Set chain id to [`Transaction`].
 
-#### Parameter
+### Parameter
 
-- **chainID** `<string>`
+- **chainId** `string` - a string of chain ID, which can be gathered from Client's [`getChainId`].
 
-#### Return
+### Return
 
-[`<Transaction>`]
+- [`Transaction`] - This transaction instance for function chaining
 
-## withFee(fee)
+## `withFee(fee)`
 
-Set fee to [`<Transaction>`].
+Set fee to [`Transaction`].
 
-#### Parameter
+### Parameter
 
-- **fee** `<number>` Must be an integer.
+- **fee** [`Fee`] - Set fee limit spent for gas price of the transaction.
 
-#### Return
+### Return
 
-[`<Transaction>`]
+- [`Transaction`] - This transaction instance for function chaining
 
-#### Exceptions
+### Exceptions
 
 | Type            | Description           |
 | --------------- | --------------------- |
 | NotIntegerError | fee is not an integer |
 
-## withGas(gas)
+## `withMemo(memo)`
 
-Set gas to [`<Transaction>`].
+Set memo to [`Transaction`].
 
-#### Parameter
+### Parameter
 
-- **gas** `<number>` Must be an integer.
+- **memo** `string` - an arbitrary string to remember the transaction. Memo length is limited to 256.
 
-#### Return
-
-[`<Transaction>`]
-
-#### Exceptions
-
-| Type            | Description           |
-| --------------- | --------------------- |
-| NotIntegerError | gas is not an integer |
-
-## withMemo(memo)
-
-Set memo to [`<Transaction>`].
-
-#### Parameter
-
-- **memo** `<str>` memo length is limited to 256.
-
-#### Exceptions
+### Exceptions
 
 | Type               | Description        |
 | ------------------ | ------------------ |
 | ValueTooLargeError | memo is too large. |
 
-#### Return
+### Return
 
-[`<Transaction>`]
+- [`Transaction`] - This transaction instance for function chaining
 
-## getSignData()
+## `getSignDoc()`
 
-Get sign data from [`<Transaction>`].
+Get serialized data of transaction's content to be signed from [`Transaction`].
 
-#### Return
+### Return
 
-`<Buffer>`
+- `Uint8Array` - A byte array of serialized transaction content data, ready for signing.
 
-#### Exceptions
+### Exceptions
 
 | Type           | Description                  |
 | -------------- | ---------------------------- |
@@ -161,112 +146,164 @@ Get sign data from [`<Transaction>`].
 | UndefinedError | sequence should be defined   |
 | UndefinedError | chainID should be defined    |
 
-## getTxData(signature, pubkey)
+## `getTxData(signature, publicKey)`
 
-Get transaction data from [`<Transaction>`].
+Get transaction data from [`Transaction`].
 
-#### Parameter
+### Parameter
 
-- **signature** `<Buffer>`
-- **pubkey** [`<PublicKey>`]
+- **signature** `Uint8Array` - signature for the transaction
+- **pubkey** [`PublicKey`] - an instance of public key to be included in the transaction
 
-#### Return
+### Return
 
-`<object>`
+- `Uint8Array` - Serialized data of signed transaction, ready to be broadcasted to BandChain.
 
-#### Exceptions
+### Exceptions
 
 | Type           | Description                  |
 | -------------- | ---------------------------- |
 | UndefinedError | accountNum should be defined |
 | UndefinedError | sequence should be defined   |
 
-#### Example
+### Example
 
-```javascript
-import { Message, Data, Wallet, Transaction } from "bandchain2.js";
+```js
+import {
+  Client,
+  Wallet,
+  Transaction,
+  Message,
+  Coin,
+  Fee,
+} from "@bandprotocol/bandchain.js";
 
-const { MsgSend } = Message;
-const { Address } = Wallet;
-const { Coin } = Data;
+const { PrivateKey } = Wallet;
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
-const to_adr = Address.fromAccBech32(
-  "band1ksnd0f3xjclvg0d4z9w0v9ydyzhzfhuy47yx79"
+// Step 2.1 import private key based on given mnemonic string
+const privkey = PrivateKey.fromMnemonic(
+  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
 );
-const from_adr = Address.fromAccBech32(
-  "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"
-);
-const coin = Coin((amount = 100000), (denom = "uband"));
-const msg = new MsgSend(to_adr, from_adr, [coin]);
+// Step 2.2 prepare public key and its address
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 
-tsc = Transaction()
-  .with_messages(msg)
-  .with_account_num(100)
-  .with_sequence(30)
-  .with_chain_id("bandchain")
-  .with_gas(500000)
-  .with_fee(10);
+const sendCoin = async () => {
+  // Step 3.1 constructs MsgSend message
+  const { MsgSend } = Message;
 
-print(tsc.get_sign_data());
+  // Here we use different message type, which is MsgSend
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
+  const sendAmount = new Coin();
+  sendAmount.setDenom("uband");
+  sendAmount.setAmount("10");
+  const msg = new MsgSend(sender, receiver, [sendAmount]);
+  // Step 3.2 constructs a transaction
+  const account = await client.getAccount(sender);
+  const chainId = "band-laozi-testnet4";
+
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("1000");
+
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
+  const tx = new Transaction()
+    .withMessages(msg)
+    .withAccountNum(account.accountNumber)
+    .withSequence(account.sequence)
+    .withChainId(chainId)
+    .withFee(fee);
+
+  // Step 4 sign the transaction
+  const txSignData = tx.getSignDoc(pubkey);
+  const signature = privkey.sign(txSignData);
+  const signedTx = tx.getTxData(signature, pubkey);
+
+  // Step 5 send the transaction
+  const response = await client.sendTxBlockMode(signedTx);
+  console.log(JSON.stringify(response));
+};
+
+(async () => {
+  await sendCoin();
+})();
 ```
 
-#### Result
+### Result
 
-```javascript
+```json
 {
-  account_number: "100",
-  chain_id: "bandchain",
-  fee: { amount: [{ amount: "10", denom: "uband" }], gas: "500000" },
-  memo: "",
-  msgs: [
+  "height": 144075,
+  "txhash": "FB0C1B122116EC1C94EE3BC05FC86B41EC580AC5A6CC7F5A3954F61E0505C648",
+  "codespace": "",
+  "code": 0,
+  "data": "0A1E0A1C2F636F736D6F732E62616E6B2E763162657461312E4D736753656E64",
+  "rawLog": "[{\"events\":[{\"type\":\"coin_received\",\"attributes\":[{\"key\":\"receiver\",\"value\":\"band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f\"},{\"key\":\"amount\",\"value\":\"10uband\"}]},{\"type\":\"coin_spent\",\"attributes\":[{\"key\":\"spender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"amount\",\"value\":\"10uband\"}]},{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"/cosmos.bank.v1beta1.MsgSend\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"amount\",\"value\":\"10uband\"}]}]}]",
+  "logsList": [
     {
-      type: "oracle/Request",
-      value: {
-        ask_count: "4",
-        calldata: "AAAAA0JUQwAAAAAAAAAB",
-        client_id: "from_pyband",
-        min_count: "3",
-        oracle_script_id: "1",
-        sender: "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c",
-      },
-    },
+      "msgIndex": 0,
+      "log": "",
+      "eventsList": [
+        {
+          "type": "coin_received",
+          "attributesList": [
+            {
+              "key": "receiver",
+              "value": "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+            },
+            { "key": "amount", "value": "10uband" }
+          ]
+        },
+        {
+          "type": "coin_spent",
+          "attributesList": [
+            {
+              "key": "spender",
+              "value": "band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"
+            },
+            { "key": "amount", "value": "10uband" }
+          ]
+        },
+        {
+          "type": "message",
+          "attributesList": [
+            { "key": "action", "value": "/cosmos.bank.v1beta1.MsgSend" },
+            {
+              "key": "sender",
+              "value": "band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"
+            },
+            { "key": "module", "value": "bank" }
+          ]
+        },
+        {
+          "type": "transfer",
+          "attributesList": [
+            {
+              "key": "recipient",
+              "value": "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+            },
+            {
+              "key": "sender",
+              "value": "band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"
+            },
+            { "key": "amount", "value": "10uband" }
+          ]
+        }
+      ]
+    }
   ],
-  sequence: "30",
-};
+  "info": "",
+  "gasWanted": 200000,
+  "gasUsed": 66907,
+  "timestamp": ""
+}
 ```
 
-#### Example
-
-```javascript
-import { Message, Data, Wallet, Transaction, Client } from "bandchain2.js";
-
-const { MsgRequest } = Message;
-const { Address, PrivateKey } = Wallet;
-const { Coin } = Data;
-
-const privKey = PrivateKey.fromMnemonic("s");
-const pubKey = privKey.toPubkey();
-const fromAddr = pubKey.toAddress();
-const toAddr = Address.fromAccBech32(
-  "band1ksnd0f3xjclvg0d4z9w0v9ydyzhzfhuy47yx79"
-);
-const coin = new Coin(100000, "uband");
-const msgSend = new MsgSend(from_addr, to_addr, [coin]);
-const client = new Client("https://d3n.bandprotocol.com/rest");
-
-const tscExample = async () => {
-  const tscSend = await new Transaction()
-    .withMessages(msgSend)
-    .withChainID("bandchain")
-    .withGas(500000)
-    .withFee(10)
-    .withMemo("bandchain.js example")
-    .withAuto(client);
-};
-```
-
-[`<transaction>`]: /client-library/bandchain.js/transaction.html "Transaction"
-[`<promise<transaction>>`]: /client-library/bandchain.js/transaction.html "Transaction"
-[`<client>`]: /client-library/bandchain.js/client.html "Client"
-[`<msg>`]: /client-library/bandchain.js/message.html "Message"
-[`<publickey>`]: /client-library/bandchain.js/wallet.html "PublicKey"
+[`any`]: /client-library/protocol-buffers/any.html
+[`getaccount`]: /client-library/bandchain.js/client.html#getaccount-address
+[`getchainid`]: /client-library/bandchain.js/client.html#getchainid
+[`fee`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#fee
+[`publickey`]: /client-library/bandchain.js/wallet.html#publickey
