@@ -101,7 +101,7 @@ module.exports = {
           title: "Client Library",
           children: [
             {
-              title: "Protocol Buffers (protobuf)",
+              title: "Protobuf Documentation",
               directory: true,
               path: "/client-library/protocol-buffers",
             },
@@ -254,4 +254,4 @@ module.exports = {
       ],
     },
   },
-}
+};

@@ -2,7 +2,7 @@
 order: 1
 -->
 
-# Getting Start
+# Get Started
 
 ## Installation
 
