@@ -26,7 +26,7 @@ This function returns data source details of the given ID.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 id = 1
 
 c = Client(grpc_url)
@@ -60,7 +60,7 @@ This function returns oracle script details of the given ID.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 id = 1
 
 c = Client(grpc_url)
@@ -94,7 +94,7 @@ This function returns request details of the given ID.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 id = 1
 
 c = Client(grpc_url)
@@ -127,7 +127,7 @@ This function returns a list of reporters associated with the given validator.
 ```python
 from pyband import Client
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 validator = "bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz"
 
 c = Client(grpc_url)
@@ -156,7 +156,7 @@ This function returns the latest block in the chain.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 
 c = Client(grpc_url)
 latest_block = c.get_latest_block()
@@ -189,7 +189,7 @@ Optional[[auth_type.BaseAccount](https://docs.cosmos.network/v0.44/core/proto-do
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 address = "band1ee656yzw6y9swqayu9v0kgu5pua2kgjq3hd6g3"
 
 c = Client(grpc_url)
@@ -229,7 +229,7 @@ This function returns request ID of the given transaction hash.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 tx_hash = "DCC09AD0087DFB30AD552DAFA6C52FE9676F157B24812FF4B9994B97CAC914AC"
 
 c = Client(grpc_url)
@@ -258,7 +258,7 @@ This function returns a chain ID.
 ```python
 from pyband import Client
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 
 c = Client(grpc_url)
 print(c.get_chain_id())
@@ -297,7 +297,7 @@ List[[ReferencePrice](/client-library/pyband/data.html#referenceprice)]
 ```python
 from pyband import Client
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 client = Client(grpc_url)
 
 min_count = 3
@@ -337,13 +337,13 @@ This function returns the latest request.
 from pyband import Client
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 c = Client(grpc_url)
 
 oid = 43
 calldata = "0000000200000004425443420000000442455448000000003b9aca00"
 min_count = 3
-ask_count = 6
+ask_count = 4
 
 latest_req = c.get_latest_request(oid, calldata, min_count, ask_count)
 print(MessageToJson(latest_req))
@@ -383,7 +383,7 @@ from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
 from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 c = Client(grpc_url)
 
 MNEMONIC = os.getenv("MNEMONIC")
@@ -463,7 +463,7 @@ from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
 from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 c = Client(grpc_url)
 
 MNEMONIC = os.getenv("MNEMONIC")
@@ -542,7 +542,7 @@ from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
 from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 from google.protobuf.json_format import MessageToJson
 
-grpc_url = "<GRPC>"
+grpc_url = "<GRPC>" # without https://
 c = Client(grpc_url)
 
 MNEMONIC = os.getenv("MNEMONIC")

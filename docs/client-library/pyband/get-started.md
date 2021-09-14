@@ -26,14 +26,14 @@ This section describes methods to send a transaction of oracle request to BandCh
 from pyband.client import Client
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https//
+    grpc_url = "<GRPC>" # without https://
     c = Client(grpc_url)
 
 if __name__ == "__main__":
     main()
 ```
 
-**Step 2:** The sender address is required for sending the transaction, so we have to initialize the address first. Start with importing the [`PrivateKey`] from wallet module to get the private key. In this example, we will get it from our test mnemonic, for example,`test`
+**Step 2:** The sender address is required for sending the transaction, so we have to initialize the address first. Start with importing the [`PrivateKey`] from wallet module to get the private key. In this example, we will get Mnemonic from environment variables
 
 ```python
 import os
@@ -42,7 +42,7 @@ from pyband.wallet import PrivateKey
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https//
+    grpc_url = "<GRPC>" # without https://
 
     #Step 2
     MNEMONIC = os.getenv("MNEMONIC")
@@ -133,7 +133,7 @@ Fee can be created by using [`Coin`] from the generated protobuf file.
 fee = [Coin(amount="0", denom="uband")]
 ```
 
-**Step 4:** Now it is time to construct a `Transaction` from transaction module.
+**Step 4:** Now it is time to construct a [`Transaction`] from transaction module.
 
 ```python
 import os
@@ -148,7 +148,7 @@ from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https//
+    grpc_url = "<GRPC>" # without https://
 
     # Step 2
     MNEMONIC = os.getenv("MNEMONIC")
@@ -178,7 +178,7 @@ def main():
     chain_id = c.get_chain_id()
 
     # Step 4
-     txn = (
+    txn = (
         Transaction()
         .with_messages(request_msg)
         .with_sequence(sequence)
@@ -223,7 +223,8 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https//
+    grpc_url = "<GRPC>" # without https://
+    c = Client(grpc_url)
 
     # Step 2
     MNEMONIC = os.getenv("MNEMONIC")
@@ -318,8 +319,9 @@ from pyband.proto.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 from google.protobuf.json_format import MessageToJson
 
 def main():
-   # Step 1
-    grpc_url = "<GRPC>" # without https//
+    # Step 1
+    grpc_url = "<GRPC>" # without https://
+    c = Client(grpc_url)
 
     # Step 2
     MNEMONIC = os.getenv("MNEMONIC")
@@ -385,7 +387,7 @@ from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https//
+    grpc_url = "<GRPC>" # without https://
 
 if __name__ == "__main__":
     main()
@@ -404,7 +406,8 @@ from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https//
+    grpc_url = "<GRPC>" # without https://
+    add c = Client(grpc_url)
 
     # Step 2
     print(c.get_reference_data(["BTC/USD", "ETH/USD"], 3, 4))
