@@ -6,31 +6,31 @@ order: 6
 
 This module provides functionalities to manage BandChain account. It can be used to create a private key from mnemonic, sign and verify signature, and account address manipulation.
 
-## `PrivateKey`
+## PrivateKey
 
 A class for wrapping signing key, which is a byte array of private key, used for signature creation and public key derivation.
 
-### `generate(path)`
+### generate(path)
 
 A static method for generating new private key with random mnemonic phrase.
 
 > If path is not given, default to Band's HD prefix 494 and all other indexes being zeroes.
 
-#### Parameter
+**Parameter**
 
 - path `string` - The HD path that follows the BIP32 standard (optional)
 
-#### Return
+**Return**
 
 - `[string, PrivateKey]` - A tuple of mnemonic phrase and [`PrivateKey`] instance
 
-#### Exception
+**Exception**
 
 | Type        | Description               |
 | ----------- | ------------------------- |
 | CreateError | Cannot create private key |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -41,28 +41,28 @@ const [mnemonic, priv] = PrivateKey.generate("m/44'/494'/0'/0/3");
 
 ---
 
-### `fromMnemonic(word, path)`
+### fromMnemonic(word, path)
 
 A static method for creating a [`PrivateKey`] instance from a given mnemonic phrase and a HD derivation path.
 
 > If path is not given, default to Band's HD prefix 494 and all other indexes being zeroes.
 
-#### Parameter
+**Parameter**
 
 - **words** `string` - The mnemonic phrase for recover private key
 - **path** `string` - The HD path that follows the BIP32 standard (optional)
 
-#### Return
+**Return**
 
 - [`PrivateKey`] - Initialized PrivateKey object
 
-#### Exception
+**Exception**
 
 | Type        | Description               |
 | ----------- | ------------------------- |
 | CreateError | Cannot create private key |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -73,40 +73,38 @@ const priv = PrivateKey.fromMnemonic("test mnemonic");
 
 ---
 
-### `fromHex(priv)`
+### fromHex(priv)
 
 Create a [`PrivateKey`] instance from a given a hex representation of signing key.
 
-#### Parameter
+**Parameter**
 
 - **priv** `string` - A hex representation of signing key.
 
-#### Return
+**Return**
 
 - [`PrivateKey`] - Initialized PrivateKey object
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
-const priv = PrivateKey.fromHex(
-  "2442b724db7189468f16accc0fc505f0609817eb129e13702e696d8b84609ea9"
-);
+const priv = PrivateKey.fromHex("2442b724db7189468f16accc0fc505f0609817eb129e13702e696d8b84609ea9");
 ```
 
 ---
 
-### `toHex`
+### toHex
 
 Return a hex representation of signing key.
 
-#### Return
+**Return**
 
 - `string` - A hex representation of signing key.
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -116,7 +114,7 @@ const priv = PrivateKey.fromMnemonic("test mnemonic");
 console.log(priv.toHex());
 ```
 
-#### Result
+**Result**
 
 ```
 2cb2e2d3582cebf0664d9cda0b89c5d478ae12fac19a6f4ed9c10a7406a19615
@@ -124,15 +122,15 @@ console.log(priv.toHex());
 
 ---
 
-### `toPubkey`
+### toPubkey
 
 Create a [`PublicKey`] instance which is associated with given private key.
 
-#### Return
+**Return**
 
 - [`PublicKey`] - A PublicKey that can be used to verify the signatures made with this PrivateKey.
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -142,7 +140,7 @@ const priv = PrivateKey.fromMnemonic("test mnemonic");
 console.log(priv.toPubkey().toHex());
 ```
 
-#### Result
+**Result**
 
 ```
 02b2b0d35cb1c6d3923813c64e46a82d29e12d03288f438b9d3cf232d9a22bcb83
@@ -150,19 +148,19 @@ console.log(priv.toPubkey().toHex());
 
 ---
 
-### `sign(msg)`
+### sign(msg)
 
 Sign and the given bytes array.
 
-#### Parameter
+**Parameter**
 
 - **msg** `Buffer` - The message that will be hashed and signed.
 
-#### Return
+**Return**
 
 - `Buffer` - A signature of this private key over the given message
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -172,7 +170,7 @@ const priv = PrivateKey.fromMnemonic("test mnemonic");
 console.log(priv.sign(Buffer.from("test message")).toString("hex"));
 ```
 
-#### Result
+**Result**
 
 ```
 4bbc9a7ea54b47b11c67a4074e8d9bca068cb64c788f67342c4033b1b6f0553e1bc63cdf9bc2fb6e89c1e965c1e0f0712a51c250627282309cd2fccf1470f4f6
@@ -180,30 +178,30 @@ console.log(priv.sign(Buffer.from("test message")).toString("hex"));
 
 ---
 
-## `PublicKey`
+## PublicKey
 
 Class for wraping verify Key, which is a byte array of public key, used for signature verification, and generate bech32-encoded address.
 
-### `fromAccBech32(bech)`
+### fromAccBech32(bech)
 
 Creates a [`PublicKey`] instance from a bech32-encoded public key with account-pubkey prefix.
 
-#### Parameter
+**Parameter**
 
 - **bech** `string` - A bech32-encoded with account public key prefix.
 
-#### Return
+**Return**
 
 - [`PublicKey`] - A PublicKey instance
 
-#### Exception
+**Exception**
 
 | Type        | Description           |
 | ----------- | --------------------- |
 | ValueError  | Invalid bech32 prefix |
 | DecodeError | Cannot decode bech32  |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -216,26 +214,26 @@ const publickey = PublicKey.fromAccBech32(
 
 ---
 
-### `fromValBech32(bech)`
+### fromValBech32(bech)
 
 Creates a [`PublicKey`] instance from a bech32-encoded public key with validator-pubkey prefix
 
-#### Parameter
+**Parameter**
 
 - **bech** `string` - A bech32-encoded with validator public key prefix
 
-#### Return
+**Return**
 
 - [`PublicKey`] - A PublicKey instance
 
-#### Exception
+**Exception**
 
 | Type        | Description           |
 | ----------- | --------------------- |
 | ValueError  | Invalid bech32 prefix |
 | DecodeError | Cannot decode bech32  |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -248,26 +246,26 @@ const publickey = PublicKey.fromValBech32(
 
 ---
 
-### `fromConsBech32(bech)`
+### fromConsBech32(bech)
 
 Creates a [`PublicKey`] instance from a bech32-encoded public key with validator-consensus-pubkey prefix
 
-#### Parameter
+**Parameter**
 
 - **bech** `string` A bech32-encoded with validator consensus public key prefix
 
-#### Return
+**Return**
 
 - [`PublicKey`] - A PublicKey instance
 
-#### Exception
+**Exception**
 
 | Type        | Description           |
 | ----------- | --------------------- |
 | ValueError  | Invalid bech32 prefix |
 | DecodeError | Cannot decode bech32  |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -280,15 +278,15 @@ const publickey = PublicKey.fromConsBech32(
 
 ---
 
-### `toHex`
+### toHex
 
 Returns a hex representation of verifying key.
 
-#### Return
+**Return**
 
 - `string` - A hex representation of verifying key.
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -300,7 +298,7 @@ const publickey = PublicKey.fromAccBech32(
 console.log(publickey.toHex());
 ```
 
-#### Result
+**Result**
 
 ```
 0351e98e1be097250f2ff4188c0aace0a716e69a992cd77f9dfe436b3e8b34280d
@@ -308,15 +306,15 @@ console.log(publickey.toHex());
 
 ---
 
-### `toPubkeyProto`
+### toPubkeyProto
 
 Returns an instance of Cosmos SDK Protobuf's [`PubKey`], which can be used for constructing transactions.
 
-#### Return
+**Return**
 
 - [`PubKey`] - An instance of Cosmos SDK Protobuf's `PubKey`
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -329,7 +327,7 @@ const publickey = PublicKey.fromAccBech32(
 console.log(publickey.toPubkeyProto().getKey_asB64());
 ```
 
-#### Result
+**Result**
 
 ```
 A1HpjhvglyUPL/QYjAqs4KcW5pqZLNd/nf5Daz6LNCgN
@@ -337,15 +335,15 @@ A1HpjhvglyUPL/QYjAqs4KcW5pqZLNd/nf5Daz6LNCgN
 
 ---
 
-### `toAccBech32`
+### toAccBech32
 
 Returns bech32-encoded public key with account-pubkey prefix
 
-#### Return
+**Return**
 
 - `string` - A bech32-encoded with account public key prefix.
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -357,7 +355,7 @@ const publickey = PublicKey.fromAccBech32(
 console.log(publickey.toAccBech32());
 ```
 
-#### Result
+**Result**
 
 ```
 bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v
@@ -365,11 +363,11 @@ bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v
 
 ---
 
-### `toValBech32`
+### toValBech32
 
 Returns bech32-encoded public key with validator-pubkey prefix
 
-#### Return
+**Return**
 
 - `string` - A bech32-encoded with validator public key prefix.
 
@@ -379,7 +377,7 @@ Returns bech32-encoded public key with validator-pubkey prefix
 | --------------------- | -------------------------------- |
 | UnsuccessfulCallError | Unsuccessful bech32.toWords call |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -391,7 +389,7 @@ const publickey = PublicKey.fromAccBech32(
 console.log(publickey.toValBech32());
 ```
 
-#### Result
+**Result**
 
 ```
 bandvaloperpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q69gsm29
@@ -399,11 +397,11 @@ bandvaloperpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q69gsm
 
 ---
 
-### `toConsBech32`
+### toConsBech32
 
 Returns bech32-encoded public key with validator-consensus-pubkey prefix
 
-#### Return
+**Return**
 
 - `string` - A bech32-encoded with validator consensus public key prefix.
 
@@ -413,7 +411,7 @@ Returns bech32-encoded public key with validator-consensus-pubkey prefix
 | --------------------- | -------------------------------- |
 | UnsuccessfulCallError | Unsuccessful bech32.toWords call |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -425,7 +423,7 @@ const publickey = PublicKey.fromAccBech32(
 console.log(publickey.toConsBech32());
 ```
 
-#### Result
+**Result**
 
 ```
 bandvalconspub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6r8ytws
@@ -433,15 +431,15 @@ bandvalconspub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6r8yt
 
 ---
 
-### `toAddress`
+### toAddress
 
 Returns an [`Address`] instance from given public key
 
-#### Return
+**Return**
 
 - [`Address`] - An Address instance.
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -453,7 +451,7 @@ const publickey = PublicKey.fromAccBech32(
 console.log(publickey.toAddress().toHex());
 ```
 
-#### Result
+**Result**
 
 ```
 8e453e66fb009b119ea9b1b8775be6fa9435013b
@@ -461,26 +459,26 @@ console.log(publickey.toAddress().toHex());
 
 ---
 
-### `verify(msg, sig)`
+### verify(msg, sig)
 
 Verify a signature made over provided data.
 
-#### Parameter
+**Parameter**
 
 - **msg** `Buffer` A data signed by the `signature`, will be hashed using sha256 function
 - **sig** `Buffer` A encoding of the signature
 
-#### Return
+**Return**
 
 - `boolean` True if the verification was successful
 
-#### Exception
+**Exception**
 
 | Type              | Description                              |
 | ----------------- | ---------------------------------------- |
 | BadSignatureError | if the signature is invalid or malformed |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
@@ -493,7 +491,7 @@ const sig = priv.sign(msg);
 console.log(pubkey.verify(msg, sig));
 ```
 
-#### Result
+**Result**
 
 ```
 true
@@ -501,127 +499,119 @@ true
 
 ---
 
-## `Address`
+## Address
 
 Class for wraping Address. Adding method to encode/decode to Bech32 format.
 
-### `fromAccBech32(bech)`
+### fromAccBech32(bech)
 
 Create an [`Address`] instance from a bech32-encoded with account prefix.
 
-#### Parameter
+**Parameter**
 
 - **bech** `string` - A bech32-encoded with account prefix.
 
-#### Return
+**Return**
 
 - [`Address`] - A Address instance
 
-#### Exception
+**Exception**
 
 | Type        | Description           |
 | ----------- | --------------------- |
 | ValueError  | Invalid bech32 prefix |
 | DecodeError | Cannot decode bech32  |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-const address = Address.fromAccBech32(
-  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
-);
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
 ```
 
 ---
 
-### `fromValBech32(bech)`
+### fromValBech32(bech)
 
 Create an [`Address`] instance from a bech32-encoded with validator prefix
 
-#### Parameter
+**Parameter**
 
 - **bech** `string` - A bech32-encoded with validator prefix
 
-#### Return
+**Return**
 
 - [`Address`] - A Address instance
 
-#### Exception
+**Exception**
 
 | Type        | Description           |
 | ----------- | --------------------- |
 | ValueError  | Invalid bech32 prefix |
 | DecodeError | Cannot decode bech32  |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-const address = Address.fromValBech32(
-  "bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn"
-);
+const address = Address.fromValBech32("bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn");
 ```
 
 ---
 
-### `fromConsBech32(bech)`
+### fromConsBech32(bech)
 
 Create an [`Address`] instance from a bech32-encoded with validator consensus prefix
 
-#### Parameter
+**Parameter**
 
 - **bech** `string` - A bech32-encoded with validator consensus prefix
 
-#### Return
+**Return**
 
 - [`Address`] - A Address instance
 
-#### Exception
+**Exception**
 
 | Type        | Description           |
 | ----------- | --------------------- |
 | ValueError  | Invalid bech32 prefix |
 | DecodeError | Cannot decode bech32  |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-const address = Address.fromConsBech32(
-  "bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj"
-);
+const address = Address.fromConsBech32("bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj");
 ```
 
 ---
 
-### `toHex`
+### toHex
 
 Return a hex representation of `Address`.
 
-#### Return
+**Return**
 
 - `string` - A hex representation of Address.
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-const address = Address.fromAccBech32(
-  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
-);
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
 console.log(address.toHex());
 ```
 
-#### Result
+**Result**
 
 ```
 8e453e66fb009b119ea9b1b8775be6fa9435013b
@@ -629,11 +619,11 @@ console.log(address.toHex());
 
 ---
 
-### `toAccBech32`
+### toAccBech32
 
 Return bech32-encoded with account prefix
 
-#### Return
+**Return**
 
 - `string` - A bech32-encoded with account prefix.
 
@@ -643,19 +633,17 @@ Return bech32-encoded with account prefix
 | --------------------- | -------------------------------- |
 | UnsuccessfulCallError | Unsuccessful bech32.toWords call |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-const address = Address.fromAccBech32(
-  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
-);
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
 console.log(address.toAccBech32());
 ```
 
-#### Result
+**Result**
 
 ```
 band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c
@@ -663,11 +651,11 @@ band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c
 
 ---
 
-### `toValBech32`
+### toValBech32
 
 Return bech32-encoded with validator prefix
 
-#### Return
+**Return**
 
 - `string` A bech32-encoded with validator prefix.
 
@@ -677,19 +665,17 @@ Return bech32-encoded with validator prefix
 | --------------------- | -------------------------------- |
 | UnsuccessfulCallError | Unsuccessful bech32.toWords call |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-const address = Address.fromAccBech32(
-  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
-);
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
 console.log(address.toValBech32());
 ```
 
-#### Result
+**Result**
 
 ```
 bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn
@@ -697,11 +683,11 @@ bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn
 
 ---
 
-### `toConsBech32`
+### toConsBech32
 
 Return bech32-encoded with validator consensus prefix
 
-#### Return
+**Return**
 
 - `string` - A bech32-encoded with validator consensus prefix.
 
@@ -711,19 +697,17 @@ Return bech32-encoded with validator consensus prefix
 | --------------------- | -------------------------------- |
 | UnsuccessfulCallError | Unsuccessful bech32.toWords call |
 
-#### Example
+**Example**
 
 ```js
 import { Wallet } from "@bandprotocol/bandchain.js";
 
 const { Address } = Wallet;
-const address = Address.fromAccBech32(
-  "band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c"
-);
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
 console.log(address.toConsBech32());
 ```
 
-#### Result
+**Result**
 
 ```
 bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj

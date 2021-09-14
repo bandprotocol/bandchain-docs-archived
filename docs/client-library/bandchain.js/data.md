@@ -10,28 +10,28 @@ Although there are Protobuf classes, some types are not exists. Therefore, addit
 
 > Note that `base` and `quote` is the first and the second price symbols respectively e.g. BTC/USD price rate has a base of BTC and a quote of USD.
 
-## `ReferenceDataUpdated`
+## ReferenceDataUpdated
 
 | Attribute | Type    | Description          |
 | --------- | ------- | -------------------- |
-| `base`    | integer | Base's resolve time  |
-| `quote`   | integer | Quote's resolve time |
+| base      | integer | Base's resolve time  |
+| quote     | integer | Quote's resolve time |
 
-## `ReferenceDataRequestID`
+## ReferenceDataRequestID
 
 | Attribute | Type    | Description        |
 | --------- | ------- | ------------------ |
-| `base`    | integer | Base's request ID  |
-| `quote`   | integer | Quote's request ID |
+| base      | integer | Base's request ID  |
+| quote     | integer | Quote's request ID |
 
-## `ReferenceData`
+## ReferenceData
 
-| Attribute   | Type                     | Description                   |
-| ----------- | ------------------------ | ----------------------------- |
-| `pair`      | string                   | The token pair e.g. "BTC/USD" |
-| `rate`      | float                    | Price rate                    |
-| `updatedAt` | [ReferenceDataUpdated]   | Price update time             |
-| `requestId` | [ReferenceDataRequestID] | OracleRequest ID              |
+| Attribute | Type                     | Description                   |
+| --------- | ------------------------ | ----------------------------- |
+| pair      | string                   | The token pair e.g. "BTC/USD" |
+| rate      | float                    | Price rate                    |
+| updatedAt | [ReferenceDataUpdated]   | Price update time             |
+| requestId | [ReferenceDataRequestID] | OracleRequest ID              |
 
 [referencedataupdated]: #referencedataupdated "ReferenceDataUpdated"
 [referencedatarequestid]: #referencedatarequestid "ReferenceDataRequestID"

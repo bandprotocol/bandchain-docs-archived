@@ -15,7 +15,7 @@ This module provides functionalities to send transactions on BandChain which req
 | EmptyMsgError   | No messages given to the transaction |
 | UndefinedError  | The value should not be undefined    |
 
-## `withMessages(msgs)`
+## withMessages(msgs)
 
 Add one or multiple messages as a list of Google Protobuf's [`Any`] to [`Transaction`]. There are predefined message classes that can be used to convert to `Any` instance using `toAny()` method, but for the other type of message can be converted to `Any` instance using `Any.pack()` as shown in the code below.
 
@@ -37,107 +37,107 @@ const tx = new Transaction();
 tx.withMessages(anyMsg);
 ```
 
-### Parameter
+**Parameter**
 
 - **\*msgs** [`Any`] Messages converted to `Any` to be included in the transaction
 
-### Return
+**Return**
 
 - [`Transaction`] - This transaction instance for function chaining
 
-## `withAccountNum(accountNum)`
+## withAccountNum(accountNum)
 
 Set account number to [`Transaction`].
 
-### Parameter
+**Parameter**
 
 - **accountNum** `number` - An integer of account number, which can be gathered from querying the account via Client's [`getAccount`].
 
-### Return
+**Return**
 
 - [`Transaction`] - This transaction instance for function chaining
 
-### Exceptions
+**Exceptions**
 
 | Type            | Description                  |
 | --------------- | ---------------------------- |
 | NotIntegerError | accountNum is not an integer |
 
-## `withSequence(sequence)`
+## withSequence(sequence)
 
 Set sequence number to [`Transaction`].
 
-### Parameter
+**Parameter**
 
 - **sequence** `Number` - An integer of account's sequence number, which can be gathered from querying the account via Client's [`getAccount`].
 
-### Return
+**Return**
 
 - [`Transaction`] - This transaction instance for function chaining
 
-### Exceptions
+**Exceptions**
 
 | Type            | Description                |
 | --------------- | -------------------------- |
 | NotIntegerError | sequence is not an integer |
 
-## `withChainId(chainId)`
+## withChainId(chainId)
 
 Set chain id to [`Transaction`].
 
-### Parameter
+**Parameter**
 
 - **chainId** `string` - a string of chain ID, which can be gathered from Client's [`getChainId`].
 
-### Return
+**Return**
 
 - [`Transaction`] - This transaction instance for function chaining
 
-## `withFee(fee)`
+## withFee(fee)
 
 Set fee to [`Transaction`].
 
-### Parameter
+**Parameter**
 
 - **fee** [`Fee`] - Set fee limit spent for gas price of the transaction.
 
-### Return
+**Return**
 
 - [`Transaction`] - This transaction instance for function chaining
 
-### Exceptions
+**Exceptions**
 
 | Type            | Description           |
 | --------------- | --------------------- |
 | NotIntegerError | fee is not an integer |
 
-## `withMemo(memo)`
+## withMemo(memo)
 
 Set memo to [`Transaction`].
 
-### Parameter
+**Parameter**
 
 - **memo** `string` - an arbitrary string to remember the transaction. Memo length is limited to 256.
 
-### Exceptions
+**Exceptions**
 
 | Type               | Description        |
 | ------------------ | ------------------ |
 | ValueTooLargeError | memo is too large. |
 
-### Return
+**Return**
 
 - [`Transaction`] - This transaction instance for function chaining
 
-## `getSignDoc()`
+## getSignDoc()
 
 Get serialized data of transaction's content to be signed from [`Transaction`].
 
-### Return
+**Return**
 
 - `Uint8Array` - A byte array of serialized transaction content data, ready for signing.
 
-### Exceptions
+**Exceptions**
 
 | Type           | Description                  |
 | -------------- | ---------------------------- |
@@ -146,37 +146,30 @@ Get serialized data of transaction's content to be signed from [`Transaction`].
 | UndefinedError | sequence should be defined   |
 | UndefinedError | chainID should be defined    |
 
-## `getTxData(signature, publicKey)`
+## getTxData(signature, publicKey)
 
 Get transaction data from [`Transaction`].
 
-### Parameter
+**Parameter**
 
 - **signature** `Uint8Array` - signature for the transaction
 - **pubkey** [`PublicKey`] - an instance of public key to be included in the transaction
 
-### Return
+**Return**
 
 - `Uint8Array` - Serialized data of signed transaction, ready to be broadcasted to BandChain.
 
-### Exceptions
+**Exceptions**
 
 | Type           | Description                  |
 | -------------- | ---------------------------- |
 | UndefinedError | accountNum should be defined |
 | UndefinedError | sequence should be defined   |
 
-### Example
+**Example**
 
 ```js
-import {
-  Client,
-  Wallet,
-  Transaction,
-  Message,
-  Coin,
-  Fee,
-} from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
@@ -232,7 +225,7 @@ const sendCoin = async () => {
 })();
 ```
 
-### Result
+**Result**
 
 ```json
 {

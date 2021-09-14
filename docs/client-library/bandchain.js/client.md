@@ -10,21 +10,21 @@ This module provides functionalities to query data from BandChain and broadcast 
 
 When there are gRPC related errors, that is, gRPC status code is not `OK`, the `Promise` result will be rejected with an `ServiceError` object with following fields.
 
-| Fields     | Type             | Description           |
-| ---------- | ---------------- | --------------------- |
-| `message`  | `string`         | error message         |
-| `code`     | `number`         | gRPC status code      |
-| `metadata` | `BrowserHeaders` | gRPC trailer metadata |
+| Fields   | Type             | Description           |
+| -------- | ---------------- | --------------------- |
+| message  | `string`         | error message         |
+| code     | `number`         | gRPC status code      |
+| metadata | `BrowserHeaders` | gRPC trailer metadata |
 
-## `getChainId`
+## getChainId
 
 Get BandChain's Chain ID
 
-#### Return
+**Return**
 
 - `Promise<string>` - Chain ID
 
-#### Example
+**Example**
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -36,7 +36,7 @@ const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 })();
 ```
 
-#### Result
+**Result**
 
 ```
 band-laozi-testnet4
@@ -44,15 +44,15 @@ band-laozi-testnet4
 
 ---
 
-## `getLatestBlock`
+## getLatestBlock
 
 Get BandChain's latest block detail
 
-#### Return
+**Return**
 
 - [`Block`] - BandChain's latest block
 
-#### Example
+**Example**
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -64,7 +64,7 @@ const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 {
@@ -162,34 +162,30 @@ const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 ---
 
-## `getAccount(address)`
+## getAccount(address)
 
 Get BandChain's account information
 
-#### Parameter
+**Parameter**
 
 - **address** `string` - A bech32-encoded account address
 
-#### Return
+**Return**
 
 - [`BaseAccount`] - An object containing account information
 
-#### Example
+**Example**
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 (async () => {
-  console.log(
-    JSON.stringify(
-      await client.getAccount("band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f")
-    )
-  );
+  console.log(JSON.stringify(await client.getAccount("band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f")));
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 {
@@ -201,19 +197,19 @@ const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 ---
 
-## `getDataSource(id)`
+## getDataSource(id)
 
 Get data source metadata by given ID
 
-#### Parameter
+**Parameter**
 
 - **id** `number` - Data source ID
 
-#### Return
+**Return**
 
 - [`DataSource`] - An object containing data source metadata
 
-#### Example
+**Example**
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -227,7 +223,7 @@ const id = 1;
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 {
@@ -242,19 +238,19 @@ const id = 1;
 
 ---
 
-## `getOracleScript(id)`
+## getOracleScript(id)
 
 Get oracle script metadata by given ID
 
-#### Parameter
+**Parameter**
 
 - **id** `number` - Oracle Script ID
 
-#### Return
+**Return**
 
 - [`OracleScript`] - Oracle Script metadata
 
-#### Example
+**Example**
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -268,7 +264,7 @@ const id = 1;
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 {
@@ -283,19 +279,19 @@ const id = 1;
 
 ---
 
-## `getRequestByID(id)`
+## getRequestByID(id)
 
 Get an oracle request by given request ID
 
-#### Parameter
+**Parameter**
 
 - **id** `number` - Request ID
 
-#### Return
+**Return**
 
 - [`Request`] - Information of the oracle request
 
-#### Example
+**Example**
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -309,7 +305,7 @@ const id = 143959;
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 {
@@ -434,19 +430,19 @@ const id = 143959;
 
 ---
 
-## `getReporters(validator)`
+## getReporters(validator)
 
 Get a list of reporter account addresses associated with given validator
 
-#### Parameter
+**Parameter**
 
 - **validator** `string` - a bech32-encoded validator address
 
-#### Return
+**Return**
 
 - `string[]` - a list of reporter's bech32-encoded account address
 
-#### Example
+**Example**
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -454,17 +450,11 @@ import { Client } from "@bandprotocol/bandchain.js";
 const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 (async () => {
-  console.log(
-    JSON.stringify(
-      await client.getReporters(
-        "bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u"
-      )
-    )
-  );
+  console.log(JSON.stringify(await client.getReporters("bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u")));
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 [
@@ -479,22 +469,22 @@ const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 ---
 
-## `getLatestRequest(oid, calldata, minCount, askCount)`
+## getLatestRequest(oid, calldata, minCount, askCount)
 
 Search for latest request that match given oracle script ID, calldata, min count, and ask count.
 
-#### Parameter
+**Parameter**
 
 - **oid** `number` - Oracle script ID
 - **calldata** `string` - OBI-encoded calldata of the oracle request in hex format
 - **minCount** `number` - The minimum number of validators necessary for the request to proceed to the execution phase
 - **askCount** `number` - The number of validators that are requested to respond to this request
 
-#### Return
+**Return**
 
 - [`QueryRequestResponse`] - An object containing oracle request information, reports of the request, and final result
 
-#### Example
+**Example**
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -508,15 +498,11 @@ const minCount = 3;
 const askCount = 4;
 
 (async () => {
-  console.log(
-    JSON.stringify(
-      await client.getLatestRequest(oid, calldata, minCount, askCount)
-    )
-  );
+  console.log(JSON.stringify(await client.getLatestRequest(oid, calldata, minCount, askCount)));
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 {
@@ -640,29 +626,22 @@ const askCount = 4;
 
 ---
 
-## `sendTxBlockMode(txBytes)`
+## sendTxBlockMode(txBytes)
 
 Send a transaction using block mode, that is, send and wait until the transaction has been committed to a block.
 
-#### Parameter
+**Parameter**
 
 - **txBytes** `Uint8Array | string` - an byte array of serialized signed transaction
 
-#### Return
+**Return**
 
 - [`TxResponse`] - An object of transaction response
 
-#### Example
+**Example**
 
 ```js
-import {
-  Client,
-  Wallet,
-  Transaction,
-  Message,
-  Coin,
-  Fee,
-} from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
@@ -718,7 +697,7 @@ const sendCoin = async () => {
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 {
@@ -770,29 +749,22 @@ const sendCoin = async () => {
 
 ---
 
-## `sendTxSyncMode(txBytes)`
+## sendTxSyncMode(txBytes)
 
 Send a transaction in sync mode, that is, send and wait until transaction has passed CheckTx phase.
 
-#### Parameter
+**Parameter**
 
 - **txBytes** `Uint8Array` - a byte array of serialized signed transaction
 
-#### Return
+**Return**
 
 - [`TxResponse`] - An object of transaction response
 
-#### Example
+**Example**
 
 ```js
-import {
-  Client,
-  Wallet,
-  Transaction,
-  Message,
-  Coin,
-  Fee,
-} from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
@@ -848,7 +820,7 @@ const sendCoin = async () => {
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 {
@@ -868,29 +840,22 @@ const sendCoin = async () => {
 
 ---
 
-## `sendTxAsyncMode(data)`
+## sendTxAsyncMode(data)
 
 Send a transaction in async mode, that is, send and returned immediantly without waiting for the transaction processes.
 
-#### Parameter
+**Parameter**
 
 - **txBytes** `Uint8Array` - a byte array of serialized signed transaction
 
-#### Return
+**Return**
 
 - [`TxResponse`] - An object of transaction response
 
-#### Example
+**Example**
 
 ```js
-import {
-  Client,
-  Wallet,
-  Transaction,
-  Message,
-  Coin,
-  Fee,
-} from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
@@ -946,7 +911,7 @@ const sendCoin = async () => {
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 {
@@ -966,21 +931,21 @@ const sendCoin = async () => {
 
 ---
 
-## `getReferenceData(pairs, minCount, askCount)`
+## getReferenceData(pairs, minCount, askCount)
 
 Get current prices from standard price references oracle script based on given symbol pairs, min count, and ask count.
 
-#### Parameter
+**Parameter**
 
 - **pairs** `string[]` - a list of symbol pairs e.g. BTC/USD, ETH/BTC, etc.
 - **minCount** `number` - The minimum number of validators necessary for the request to proceed to the execution phase
 - **askCount** `number` - The number of validators that are requested to respond to this request
 
-#### Return
+**Return**
 
 - [`ReferenceData[]`] - A list of prices for given pairs
 
-#### Example
+**Example**
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -988,13 +953,11 @@ import { Client } from "@bandprotocol/bandchain.js";
 const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
 
 (async () => {
-  console.log(
-    JSON.stringify(await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 4))
-  );
+  console.log(JSON.stringify(await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 4)));
 })();
 ```
 
-#### Result
+**Result**
 
 ```json
 [

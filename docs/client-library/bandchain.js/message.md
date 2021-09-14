@@ -10,15 +10,15 @@ Here are methods that are extended from original protobuf classes.
 
 ---
 
-## `toAny`
+## toAny
 
 Returns an Google Protobuf's [`Any`] instance that are used to construct transactions.
 
-### Return
+**Return**
 
 - [`Any`] - a Google Protobuf's `Any` instance containing serialized messaged and type URL
 
-### Example
+**Example**
 
 ```js
 import { Message, Coin } from "@bandprotocol/bandchain.js";
@@ -26,28 +26,18 @@ const { MsgRequestData } = Message;
 
 const sender = "band17n5rmujk78nkgss7tjecg4nfzn6geg4cvaqt5h";
 const oracleScriptId = 37;
-const calldata = Buffer.from(
-  "0000000200000003425443000000034554480000000000000064",
-  "hex"
-);
+const calldata = Buffer.from("0000000200000003425443000000034554480000000000000064", "hex");
 const askCount = 4;
 const minCount = 3;
 const clientId = "from_bandchain.js";
-const msg = new MsgRequestData(
-  oracleScriptId,
-  calldata,
-  askCount,
-  minCount,
-  clientId,
-  sender
-);
+const msg = new MsgRequestData(oracleScriptId, calldata, askCount, minCount, clientId, sender);
 
 const any = msg.toAny();
 console.log(any.getTypeUrl());
 console.log(any.getValue_asB64());
 ```
 
-### Result
+**Result**
 
 ```
 /oracle.v1.MsgRequestData
@@ -55,11 +45,11 @@ CCUSGgAAAAIAAAADQlRDAAAAA0VUSAAAAAAAAABkGAQgAyoRZnJvbV9iYW5kY2hhaW4uanM40IYDQOCn
 
 ```
 
-## `validate`
+## validate
 
 Validates the message in a basic manner to ensure that there are no invarient values stored in the message instance. If message's validation fails, it will throw the exception.
 
-### Example
+**Example**
 
 ```js
 import { Message, Coin } from "@bandprotocol/bandchain.js";

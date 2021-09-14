@@ -26,6 +26,8 @@ yarn add @bandprotocol/bandchain.js
 
 ## Example usage
 
+**Note:** Get the `<GRPC_WEB_URL>` [here](/technical-specifications/band-endpoints.html)
+
 ### Make an oracle request
 
 This section describes methods to send a transaction of oracle request to BandChain
@@ -36,7 +38,7 @@ This section describes methods to send a transaction of oracle request to BandCh
 import { Client } from "@bandprotocol/bandchain.js";
 
 // Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
+const grpcUrl = "<GRPC_WEB_URL>";
 const client = new Client(grpcUrl);
 ```
 
@@ -52,7 +54,7 @@ Here is the example on how to get a private key as an account.
 import { Client, Wallet } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
+const grpcUrl = "<GRPC_WEB_URL>";
 const client = new Client(grpcUrl);
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
@@ -66,7 +68,7 @@ Then, we will use the private key to generate public key and a BAND address, as 
 import { Client, Wallet } from "@bandprotocol/bandchain.js";
 const { PrivateKey } = Wallet;
 // Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
+const grpcUrl = "<GRPC_WEB_URL>";
 const client = new Client(grpcUrl);
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
@@ -103,7 +105,7 @@ import {
   Transaction,
 } from "@bandprotocol/bandchain.js";
 
-const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web";
+const grpcEndpoint = "<GRPC_WEB_URL>";
 const client = new Client(grpcEndpoint);
 
 async function makeRequest() {
@@ -161,7 +163,7 @@ import {
   Fee,
 } from "@bandprotocol/bandchain.js";
 
-const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web";
+const grpcEndpoint = "<GRPC_WEB_URL>";
 const client = new Client(grpcEndpoint);
 
 async function makeRequest() {
@@ -234,7 +236,7 @@ import {
   Fee,
 } from "@bandprotocol/bandchain.js";
 
-const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web";
+const grpcEndpoint = "<GRPC_WEB_URL>";
 const client = new Client(grpcEndpoint);
 
 async function makeRequest() {
@@ -307,17 +309,9 @@ For our example, we will use `sendTxBlockMode` to send the transaction.
 The final code should now look like the code below.
 
 ```js
-import {
-  Client,
-  Wallet,
-  Obi,
-  Message,
-  Coin,
-  Transaction,
-  Fee,
-} from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Obi, Message, Coin, Transaction, Fee } from "@bandprotocol/bandchain.js";
 
-const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web";
+const grpcEndpoint = "<GRPC_WEB_URL>";
 const client = new Client(grpcEndpoint);
 
 async function makeRequest() {
@@ -461,17 +455,10 @@ const msg = new MsgSend(sender, receiver, [sendAmount]);
 Therefore, final result is as shown follow
 
 ```js
-import {
-  Client,
-  Wallet,
-  Transaction,
-  Message,
-  Coin,
-  Fee,
-} from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB_URL>");
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -583,7 +570,7 @@ This section shows an example on how to query data from BandChain. This example 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 // Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
+const grpcUrl = "<GRPC_WEB_URL>";
 const client = new Client(grpcUrl);
 ```
 
@@ -600,7 +587,7 @@ The final code should look like the code below.
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 // Step 1
-const grpcUrl = "https://laozi-testnet4.bandchain.org/grpc-web";
+const grpcUrl = "<GRPC_WEB_URL>";
 const client = new Client(grpcUrl);
 
 // Step 2
@@ -609,9 +596,7 @@ const askCount = 4;
 const pairs = ["BTC/USD", "ETH/USD"];
 
 (async () => {
-  console.log(
-    JSON.stringify(await client.getReferenceData(pairs, minCount, askCount))
-  );
+  console.log(JSON.stringify(await client.getReferenceData(pairs, minCount, askCount)));
 })();
 ```
 

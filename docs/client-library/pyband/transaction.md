@@ -10,13 +10,13 @@ This module provides a preparation component that is required for sending a tran
 
 This function add one or multiple messages to `<Transaction>`
 
-The message can be in any message listed [here](/client-library/protocol-buffers/oracle-module.html#oracle-v1-tx-proto). Please note that our message should be imported from the generated protobuf files.
+The message can be in any message listed [Oracle Module](/client-library/protocol-buffers/oracle-module.html#oracle-v1-tx-proto) or [Cosmos Based Messages](https://docs.cosmos.network/v0.44/core/proto-docs.html). Please note that our message should be imported from the generated [protobuf files](https://github.com/bandprotocol/chain/tree/v2.0.3/proto/oracle/v1).
 
-### Parameter
+**Parameter**
 
 - **msgs** `<google-protobuf.message.Message>`: Messages to be included into the transaction.
 
-### Return
+**Return**
 
 `<Transaction>`
 
@@ -26,16 +26,16 @@ The message can be in any message listed [here](/client-library/protocol-buffers
 
 This function set `account_num` and `sequence` from `<Client>` with the address from `sender`. `<Transaction>` must have at least 1 message added before calling `with_sender()`
 
-### Parameter
+**Parameter**
 
 - **client** `<Client>`: Client used to set `account_num` and `sequence` by calling `get_address()`.
 - **sender** `<str>`: Address of the sender.
 
-### Return
+**Return**
 
 `<Transaction>`
 
-### Exception
+**Exception**
 
 | Type          | Description                                                    |
 | ------------- | -------------------------------------------------------------- |
@@ -48,11 +48,11 @@ This function set `account_num` and `sequence` from `<Client>` with the address 
 
 This function set the account number in `<Transaction>`.
 
-### Parameter
+**Parameter**
 
 - **account_num** `<int>`
 
-### Return
+**Return**
 
 `<Transaction>`
 
@@ -62,11 +62,11 @@ This function set the account number in `<Transaction>`.
 
 This function set the sequence number in `<Transaction>`.
 
-### Parameter
+**Parameter**
 
 - **sequence** `<int>`
 
-### Return
+**Return**
 
 `<Transaction>`
 
@@ -76,11 +76,11 @@ This function set the sequence number in `<Transaction>`.
 
 This function set the chain ID in `<Transaction>`.
 
-### Parameter
+**Parameter**
 
 - **chain_id** `<str>`
 
-### Return
+**Return**
 
 `<Transaction>`
 
@@ -90,11 +90,11 @@ This function set the chain ID in `<Transaction>`.
 
 This function set the fee by using the given fee and gas limit `<Transaction>`.
 
-### Parameter
+**Parameter**
 
 - **fee** `<List[Coin]>`
 
-### Return
+**Return**
 
 `<Transaction>`
 
@@ -104,11 +104,11 @@ This function set the fee by using the given fee and gas limit `<Transaction>`.
 
 This function set the gas limit in `<Transaction>`.
 
-### Parameter
+**Parameter**
 
 - **gas** `<int>`
 
-### Return
+**Return**
 
 `<Transaction>`
 
@@ -118,15 +118,15 @@ This function set the gas limit in `<Transaction>`.
 
 This function set the memo in `<Transaction>`.
 
-### Parameter
+**Parameter**
 
 - **memo** `<str>`: Maximum length of memo is 256.
 
-### Return
+**Return**
 
 `<Transaction>`
 
-### Exception
+**Exception**
 
 | Type               | Description       |
 | ------------------ | ----------------- |
@@ -138,15 +138,15 @@ This function set the memo in `<Transaction>`.
 
 This function returns a sign data from `<Transaction>`.
 
-### Parameter
+**Parameter**
 
 - **public_key** `<PublicKey>`, default = None: Public key.
 
-### Return
+**Return**
 
 `<cosmos_tx_type.SignDoc>`
 
-### Exception
+**Exception**
 
 | Type           | Description                   |
 | -------------- | ----------------------------- |
@@ -161,12 +161,12 @@ This function returns a sign data from `<Transaction>`.
 
 This function returns a transaction that need to be sent.
 
-### Parameter
+**Parameter**
 
 - **signature** `<bytes>`: Signature from sign from get_sign_doc
 - **public_key** `<PublicKey`, default = None: Public key
 
-### Return
+**Return**
 
 `<bytes>`
 

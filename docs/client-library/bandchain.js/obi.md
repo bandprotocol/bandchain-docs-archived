@@ -12,38 +12,34 @@ Bandchain.js provide a class named `Obi` to help encode/decode binary data using
 
 - **schema** `string` - A string of OBI schema, including input and output schemas.
 
-### Example
+**Example**
 
 ```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
-const obi = new Obi(
-  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
-);
+const obi = new Obi("{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string");
 ```
 
 ---
 
-## `encodeInput(value)`
+## encodeInput(value)
 
 Encode the value based on given OBI input schema
 
-### Parameter
+**Parameter**
 
 - value `any` - A value to be encoded. can be any type of data.
 
-### Return
+**Return**
 
 - `Buffer` - An encoded value
 
-### Example
+**Example**
 
 ```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
-const obi = new Obi(
-  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
-);
+const obi = new Obi("{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string");
 const testInput = {
   symbol: "BTC",
   px: 9000,
@@ -53,7 +49,7 @@ const testInput = {
 console.log(obi.encodeInput(testInput).toString("hex"));
 ```
 
-### Result
+**Result**
 
 ```
 00000003425443000000000000232801020000000200000001610000000162
@@ -61,31 +57,29 @@ console.log(obi.encodeInput(testInput).toString("hex"));
 
 ---
 
-## `encodeOutput(value)`
+## encodeOutput(value)
 
 Encode the value based on OBI output schema
 
-### Parameter
+**Parameter**
 
 - value `any` - The value to be encoded
 
-### Return
+**Return**
 
 - `Buffer` - An encoded value
 
-### Example
+**Example**
 
 ```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
-const obi = new Obi(
-  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
-);
+const obi = new Obi("{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string");
 const testOutput = "test";
 console.log(obi.encodeOutput(testOutput).toString("hex"));
 ```
 
-### Result
+**Result**
 
 ```
 0000000474657374
@@ -93,43 +87,34 @@ console.log(obi.encodeOutput(testOutput).toString("hex"));
 
 ---
 
-## `decodeInput(buff)`
+## decodeInput(buff)
 
 Decode the value based on given OBI input schema
 
-### Parameter
+**Parameter**
 
 - value `Buffer` - The value to be decoded
 
-### Return
+**Return**
 
 - `any` - A decoded value
 
-### Exceptions
+**Exceptions**
 
 | Type        | Description                                    |
 | ----------- | ---------------------------------------------- |
 | DecodeError | Not all data is consumed after decoding output |
 
-### Example
+**Example**
 
 ```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
-const obi = new Obi(
-  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
-);
-console.log(
-  obi.decodeInput(
-    Buffer.from(
-      "00000003425443000000000000232801020000000200000001610000000162",
-      "hex"
-    )
-  )
-);
+const obi = new Obi("{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string");
+console.log(obi.decodeInput(Buffer.from("00000003425443000000000000232801020000000200000001610000000162", "hex")));
 ```
 
-### Result
+**Result**
 
 ```js
 { "symbol": "BTC", "px": 9000n, "w": { "a": 1n, "b": 2n }, "tb": ["a", "b"] }
@@ -137,36 +122,34 @@ console.log(
 
 ---
 
-## `decodeOutput(buff)`
+## decodeOutput(buff)
 
 Decode the output value by using output schema
 
-### Parameter
+**Parameter**
 
 - value `Buffer` - The value to be decoded
 
-### Return
+**Return**
 
 - `any` - A decoded value
 
-### Exceptions
+**Exceptions**
 
 | Type        | Description                                    |
 | ----------- | ---------------------------------------------- |
 | DecodeError | Not all data is consumed after decoding output |
 
-### Example
+**Example**
 
 ```js
 import { Obi } from "@bandprotocol/bandchain.js";
 
-const obi = new Obi(
-  "{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string"
-);
+const obi = new Obi("{symbol:string, px: u64, w: {a: u8, b: u8}, tb: [string]} / string");
 console.log(obi.decodeOutput(Buffer.from("0000000474657374", "hex")));
 ```
 
-### Result
+**Result**
 
 ```
 test

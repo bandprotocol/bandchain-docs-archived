@@ -10,7 +10,7 @@ Oracle Binary Encoding (OBI) is the standard way to serialized and deserialize b
 
 - **schema** `<str>`: Input and output schema.
 
-## Example
+**Example**
 
 ```python
 from pyband import PyObi
@@ -24,15 +24,15 @@ obi = PyObi("{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string")
 
 This function encodes the input value by using input schema.
 
-### Parameter
+**Parameter**
 
 - **value** `<Any>`: Value to be encoded.
 
-### Return
+**Return**
 
 - `<bytes>`: An encoded value
 
-### Example
+**Example**
 
 ```python
 from pyband.obi import PyObi
@@ -43,7 +43,7 @@ test_input = {"symbol": "BTC", "px": 9000, "in": {"a": 1, "b": 2}, "tb": False}
 print(obi.encode_input(test_input).hex())
 ```
 
-### Result
+**Result**
 
 ```
 000000034254430000000000002328010200
@@ -55,15 +55,15 @@ print(obi.encode_input(test_input).hex())
 
 This function encodes the output value by using output schema.
 
-### Parameter
+**Parameter**
 
 - **value** `<Any>`: Value to be encoded.
 
-### Return
+**Return**
 
 - `<bytes>`: An encoded value
 
-### Example
+**Example**
 
 ```python
 from pyband.obi import PyObi
@@ -73,7 +73,7 @@ test_output = "test"
 print(obi.encode_output(test_output).hex())
 ```
 
-### Result
+**Result**
 
 ```
 0000000474657374
@@ -85,15 +85,15 @@ print(obi.encode_output(test_output).hex())
 
 This function decode the input value by using input schema
 
-### Parameter
+**Parameter**
 
 - **value** `<bytes>`: Value to be decoded.
 
-### Return
+**Return**
 
 - `<Any>`: A decoded value
 
-### Example
+**Example**
 
 ```python
 from pyband.obi import PyObi
@@ -102,7 +102,7 @@ obi =PyObi("{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string")
 print(obi.decode_input(bytearray.fromhex("000000034254430000000000002328010200")))
 ```
 
-### Result
+**Result**
 
 ```
 {"symbol": "BTC", "px": 9000, "in": {"a": 1, "b": 2}, "tb": False}
@@ -114,15 +114,15 @@ print(obi.decode_input(bytearray.fromhex("000000034254430000000000002328010200")
 
 This function decode the output value by using output schema
 
-### Parameter
+**Parameter**
 
 - **value** `<bytes>`: Value to be decoded.
 
-### Return
+**Return**
 
 - `<Any>`: A decoded value
 
-### Example
+**Example**
 
 ```python
 from pyband.obi import PyObi
@@ -131,7 +131,7 @@ obi = PyObi("{symbol: string,px: u64,in: {a: u8,b: u8}, tb:bool} / string")
 print(obi.decode_output(bytearray.fromhex("0000000474657374")))
 ```
 
-### Result
+**Result**
 
 ```
 test
