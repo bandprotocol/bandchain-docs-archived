@@ -172,7 +172,7 @@ This function returns a transaction that need to be sent.
 
 ### Usecase Example
 
-**Note:** Get the `<GRPC_URL>` [here](/technical-specifications/band-endpoints.html)
+**Note:** Get the `<GRPC>` [here](/technical-specifications/band-endpoints.html)
 
 ```python
 import os
@@ -184,7 +184,7 @@ from pyband.wallet import PrivateKey
 from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
 from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 
-grpc_url = "<GRPC_URL>"
+grpc_url = "<GRPC>"
 c = Client(grpc_url)
 
 MNEMONIC = os.getenv("MNEMONIC")

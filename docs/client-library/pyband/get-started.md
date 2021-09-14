@@ -14,9 +14,7 @@ pip install pyband
 
 ## Example Usage
 
-**Note:**
-
-Get the `<GRPC_URL>` [here](/technical-specifications/band-endpoints.html)
+**Note:** Get the `<GRPC>` [here](/technical-specifications/band-endpoints.html)
 
 ### Make an oracle request
 
@@ -28,7 +26,7 @@ This section describes methods to send a transaction of oracle request to BandCh
 from pyband.client import Client
 def main():
     # Step 1
-    grpc_url = "<GRPC_URL>" # without https//
+    grpc_url = "<GRPC>" # without https//
     c = Client(grpc_url)
 
 if __name__ == "__main__":
@@ -44,7 +42,7 @@ from pyband.wallet import PrivateKey
 
 def main():
     # Step 1
-    grpc_url = "<GRPC_URL>" # without https//
+    grpc_url = "<GRPC>" # without https//
 
     #Step 2
     MNEMONIC = os.getenv("MNEMONIC")
@@ -150,7 +148,7 @@ from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 
 def main():
     # Step 1
-    grpc_url = "<GRPC_URL>" # without https//
+    grpc_url = "<GRPC>" # without https//
 
     # Step 2
     MNEMONIC = os.getenv("MNEMONIC")
@@ -225,7 +223,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Step 1
-    grpc_url = "<GRPC_URL>" # without https//
+    grpc_url = "<GRPC>" # without https//
 
     # Step 2
     MNEMONIC = os.getenv("MNEMONIC")
@@ -321,7 +319,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
    # Step 1
-    grpc_url = "<GRPC_URL>" # without https//
+    grpc_url = "<GRPC>" # without https//
 
     # Step 2
     MNEMONIC = os.getenv("MNEMONIC")
@@ -387,7 +385,7 @@ from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "<GRPC_URL>" # without https//
+    grpc_url = "<GRPC>" # without https//
 
 if __name__ == "__main__":
     main()
@@ -406,7 +404,7 @@ from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "<GRPC_URL>" # without https//
+    grpc_url = "<GRPC>" # without https//
 
     # Step 2
     print(c.get_reference_data(["BTC/USD", "ETH/USD"], 3, 4))

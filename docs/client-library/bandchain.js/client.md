@@ -6,6 +6,8 @@ order: 3
 
 This module provides functionalities to query data from BandChain and broadcast transactions to BandChain. It uses gRPC-web behind the scene which interact with gRPC-web proxy server.
 
+**Note:** Get the `<GRPC_WEB>` [here](/technical-specifications/band-endpoints.html)
+
 ## gRPC Errors
 
 When there are gRPC related errors, that is, gRPC status code is not `OK`, the `Promise` result will be rejected with an `ServiceError` object with following fields.
@@ -29,7 +31,7 @@ Get BandChain's Chain ID
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 (async () => {
   console.log(await client.getChainId());
@@ -57,7 +59,7 @@ Get BandChain's latest block detail
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 (async () => {
   console.log(await client.getLatestBlock());
@@ -178,7 +180,7 @@ Get BandChain's account information
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 (async () => {
   console.log(JSON.stringify(await client.getAccount("band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f")));
@@ -214,7 +216,7 @@ Get data source metadata by given ID
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 const id = 1;
 
@@ -255,7 +257,7 @@ Get oracle script metadata by given ID
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 const id = 1;
 
@@ -296,7 +298,7 @@ Get an oracle request by given request ID
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 const id = 143959;
 
@@ -447,7 +449,7 @@ Get a list of reporter account addresses associated with given validator
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 (async () => {
   console.log(JSON.stringify(await client.getReporters("bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u")));
@@ -489,7 +491,7 @@ Search for latest request that match given oracle script ID, calldata, min count
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 const oid = 37;
 const calldata =
@@ -644,7 +646,7 @@ Send a transaction using block mode, that is, send and wait until the transactio
 import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -767,7 +769,7 @@ Send a transaction in sync mode, that is, send and wait until transaction has pa
 import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -858,7 +860,7 @@ Send a transaction in async mode, that is, send and returned immediantly without
 import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -950,7 +952,7 @@ Get current prices from standard price references oracle script based on given s
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
 
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const client = new Client("<GRPC_WEB>");
 
 (async () => {
   console.log(JSON.stringify(await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 4)));

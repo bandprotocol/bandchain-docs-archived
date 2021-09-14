@@ -12,4 +12,4 @@ order: 5
 | REST(LCD) | https://laozi-testnet4.bandchain.org/api      |
 | GRPC      | https://laozi-testnet4.bandchain.org          |
 | faucet    | https://laozi-testnet4.bandchain.org/faucet   |
-| grpc-web  | https://laozi-testnet4.bandchain.org/grpc-web |
+| GRPC_WEB  | https://laozi-testnet4.bandchain.org/grpc-web |
