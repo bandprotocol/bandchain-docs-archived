@@ -20,9 +20,9 @@ After the preparation step is complete, BandChain will obtain all the data sourc
 
 ## IBC request
 
-To make an oracle request via IBC, a communication channel needs to be created between a counterparty chain and BandChain, as stated in [IBC](./cosmos-ibc). The main obstacle when requesting from another chain is that the requester is an address on the other chain which cannot pay the data source fees on BandChain. Hence, an account of a relayer the counterparty chain used to send packet to BandChain has to pay for the fees instead.
+To make an oracle request via IBC, a communication channel needs to be created between a counterparty chain and BandChain, as stated in [IBC](./cosmos-ibc). The main obstacle when requesting from another chain is that the requester is an address on the other chain which cannot pay the data source fees on BandChain. Therefore, the fees is instead paid by the account of a relayer that the counterparty chain used to send packets.
 
-The relayer account is an address account owned by an entity from another chain as the chain has to be the one managing the relayer. Note that how users fund the relayer account totally depends on the protocol of counterparty chains. 
+The relayer account is an address account owned by an entity from another chain since the chain has to be the one managing the relayer. Note that the method by which the users fund the relayer account will totally depend on the protocol of counterparty chains.
 
 ### IBC Request Payment Flow
 
