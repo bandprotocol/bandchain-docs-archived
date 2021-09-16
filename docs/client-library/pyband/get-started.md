@@ -6,7 +6,7 @@ order: 1
 
 ## Installation
 
-The library is available on [Pypl](https://pypi.org/project/pyband/)
+The library is available on [PyPI](https://pypi.org/project/pyband/)
 
 ```
 pip install pyband
@@ -14,19 +14,17 @@ pip install pyband
 
 ## Example Usage
 
-**Note:** Get the `<GRPC>` [here](/technical-specifications/band-endpoints.html)
-
 ### Make an oracle request
 
 This section describes methods to send a transaction of oracle request to BandChain
 
-**Step 1:** Import `pyband` and put `grpc_url` as a parameter. Then initialize the client instance. Every method in client module can now be used.
+**Step 1:** Import `pyband` and put `grpc_url` as a parameter and you can get `<GRPC>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
 
 ```python
 from pyband.client import Client
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https://
+    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
     c = Client(grpc_url)
 
 if __name__ == "__main__":
@@ -36,23 +34,14 @@ if __name__ == "__main__":
 **Step 2:** The sender address is required for sending the transaction, so we have to initialize the address first. Start with importing the [`PrivateKey`] from wallet module to get the private key. In this example, we will get Mnemonic from environment variables
 
 ```python
-import os
-from pyband.client import Client
 from pyband.wallet import PrivateKey
 
-def main():
-    # Step 1
-    grpc_url = "<GRPC>" # without https://
+MNEMONIC = os.getenv("MNEMONIC")
+private_key = PrivateKey.from_mnemonic(MNEMONIC)
+public_key = private_key.to_public_key()
+sender_addr = public_key.to_address()
+sender = sender_addr.to_acc_bech32()
 
-    #Step 2
-    MNEMONIC = os.getenv("MNEMONIC")
-    private_key = PrivateKey.from_mnemonic(MNEMONIC)
-    public_key = private_key.to_public_key()
-    sender_addr = public_key.to_address()
-    sender = sender_addr.to_acc_bech32()
-
-if __name__ == "__main__":
-    main()
 ```
 
 After that, we will transform the private key to the public key, public key to address, and address with a type of [`Address`] to an address with a type of `str`.
@@ -86,7 +75,7 @@ In this example, we will use [`MsgRequestData`] with the following parameters as
 - **sender** `<str>`: The sender address.
 
 ```python
-# from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
+from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
 
 request_msg = MsgRequestData(
     oracle_script_id=37,
@@ -104,7 +93,7 @@ request_msg = MsgRequestData(
 Besides from inputting bytes to calldata, oracle binary encoding (obi) can also be used.
 
 ```python
-# from pyband.obi import PyObi
+from pyband.obi import PyObi
 
 obi = PyObi("{symbols:[string],multiplier:u64}/{rates:[u64]}")
 calldata = obi.encode({"symbols": ["ETH"], "multiplier": 100})
@@ -114,7 +103,7 @@ The message can be in any message listed [Oracle Module](/client-library/protoco
 
 #### Sequence and Account Number
 
-Sequence and account number can be retrieved from calling [`get_account`] in client module.
+Sequence and account number can be retrieved from calling [`get_account`] in client module as you created the on **step 1**.
 
 ```python
 account = c.get_account(sender)
@@ -127,8 +116,7 @@ sequence = account.sequence
 Fee can be created by using [`Coin`] from the generated protobuf file.
 
 ```python
-# from pyband.proto.cosmos.tx.v1beta1.tx_pb2 import Fee
-# from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
+from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
 
 fee = [Coin(amount="0", denom="uband")]
 ```
@@ -136,61 +124,18 @@ fee = [Coin(amount="0", denom="uband")]
 **Step 4:** Now it is time to construct a [`Transaction`] from transaction module.
 
 ```python
-import os
-
-from pyband.client import Client
 from pyband.transaction import Transaction
-from pyband.wallet import PrivateKey
 
-from pyband.proto.cosmos.base.v1beta1.coin_pb2 import Coin
-from pyband.proto.oracle.v1.tx_pb2 import MsgRequestData
-
-
-def main():
-    # Step 1
-    grpc_url = "<GRPC>" # without https://
-
-    # Step 2
-    MNEMONIC = os.getenv("MNEMONIC")
-    private_key = PrivateKey.from_mnemonic(MNEMONIC)
-    public_key = private_key.to_public_key()
-    sender_addr = public_key.to_address()
-    sender = sender_addr.to_acc_bech32()
-
-    # Step 3
-    request_msg = MsgRequestData(
-        oracle_script_id=37,
-        calldata=bytes.fromhex("0000000200000003425443000000034554480000000000000064"),
-        ask_count=4,
-        min_count=3,
-        client_id="BandProtocol",
-        fee_limit=[Coin(amount="100", denom="uband")],
-        prepare_gas=50000,
-        execute_gas=200000,
-        sender=sender,
-    )
-
-    account = c.get_account(sender)
-    account_num = account.account_number
-    sequence = account.sequence
-
-    fee = [Coin(amount="0", denom="uband")]
-    chain_id = c.get_chain_id()
-
-    # Step 4
-    txn = (
-        Transaction()
-        .with_messages(request_msg)
-        .with_sequence(sequence)
-        .with_account_num(account_num)
-        .with_chain_id(chain_id)
-        .with_gas(2000000)
-        .with_fee(fee)
-        .with_memo("")
-    )
-
-if __name__ == "__main__":
-    main()
+txn = (
+    Transaction()
+    .with_messages(request_msg)
+    .with_sequence(sequence)
+    .with_account_num(account_num)
+    .with_chain_id(chain_id)
+    .with_gas(2000000)
+    .with_fee(fee)
+    .with_memo("")
+)
 ```
 
 **Step 5:** Preparing the transaction before sending
@@ -223,7 +168,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https://
+    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
     c = Client(grpc_url)
 
     # Step 2
@@ -287,7 +232,7 @@ The result should look like this.
 
 ### Send BAND token
 
-The process of sending BAND token is similar to making a request, except we will use [`MsgSend`] as our message.
+The process of sending BAND token is similar to **making an oracle request** , except we will use [`MsgSend`] as our message.
 
 The [`MsgSend`] contains the following parameters
 
@@ -296,7 +241,7 @@ The [`MsgSend`] contains the following parameters
 - **amount** `<int>`: The amount of BAND in Coin that you want to send. In this case, we want to send 1 BAND or 1000000 UBAND
 
 ```python
-# from pyband.proto.cosmos.bank.v1beta1.tx_pb2 import MsgSend
+from pyband.proto.cosmos.bank.v1beta1.tx_pb2 import MsgSend
 
 msg = MsgSend(
    from_address = sender,
@@ -320,7 +265,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https://
+    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
     c = Client(grpc_url)
 
     # Step 2
@@ -380,14 +325,14 @@ The result should look like this.
 
 This section shows an example on how to query data from BandChain. This example query standard price references based on given symbol pairs, min count, and ask count.
 
-**Step 1:** Import `pyband` and put `grpc_url` as a parameter. Then initialize the client instance. Every method in client module can now be used.
+**Step 1:** Import `pyband` and put `grpc_url` as a parameter and you can get `<GRPC>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
 
 ```python
 from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https://
+    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
 
 if __name__ == "__main__":
     main()
@@ -406,8 +351,8 @@ from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # without https://
-    add c = Client(grpc_url)
+    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
+    c = Client(grpc_url)
 
     # Step 2
     print(c.get_reference_data(["BTC/USD", "ETH/USD"], 3, 4))
