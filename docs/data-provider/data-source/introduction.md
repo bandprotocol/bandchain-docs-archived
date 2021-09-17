@@ -5,7 +5,13 @@ order: 1
 # Introduction
 A data source is the most fundamental unit in BandChain's oracle system. At the simplest level, it is an executable 
 that describes the procedure to retrieve raw data points from a set of primary sources and the fee associated with one 
-data query. These primary sources can either be a traditional API or any other source that returns the desired result.
+data query. 
+
+The execution takes place off-chain in order to reduce on-chain workloads as some tasks cannot be performed 
+on the chain because they require heavy computation or may have network latency and those can decrease performance of 
+the chain. 
+
+These primary sources can either be a traditional API or any other source that returns the desired result.
 
 ![](https://i.imgur.com/IaMeqI7.png)
 
