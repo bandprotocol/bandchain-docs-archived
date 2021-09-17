@@ -24,7 +24,6 @@ _This section presented an overview of how IBC can be used to make an oracle dat
 | AskCount       | uint64    | The number of validators that are requested to respond to this request                                                                                    |
 | MinCount       | uint64    | The minimum number of validators necessary for the request to proceed to the execution phase                                                              |
 | FeeLimit       | sdk.Coins | The maximum tokens that will be paid to all data source providers                                                                                         |
-| RequestKey     | string    | The key from the request chain which identifies the pool account on Bandchain to process data source fee                                                  |
 | PrepareGas     | uint64    | The amount of gas to pay to prepare raw requests                                                                                                          |
 | ExecuteGas     | uint64    | The amount of gas reserved for executing the oracle script during execution phase                                                                         |
 
