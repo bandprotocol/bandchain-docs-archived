@@ -108,6 +108,10 @@ module.exports = {
               path: "/core-concepts/network-participants",
             },
             {
+              title: "Oracle Data Request Flow",
+              path: "/core-concepts/oracle-data-request-flow",
+            },
+            {
               title: "Oracle WebAssembly",
               path: "/core-concepts/oracle-web-assembly",
             },
