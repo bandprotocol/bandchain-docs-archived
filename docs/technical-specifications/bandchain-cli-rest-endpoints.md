@@ -165,7 +165,7 @@ request:
 
 ```bash
 $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/data/9DA49162844AE007FDE036FB13174D971839074AD00B53F2265A4B1E8517CF33
-{"error":"rpc error: code = Unknown desc = internal"}
+TODO: check with band team
 ```
 
 ## Get Active Status of a Validator
@@ -250,8 +250,8 @@ request_ids: []
 ```
 
 ## Get Verify Requests
-
-**bandd**: `bandd query oracle verify-request [chain-id] [validator-addr] [request-id] [data-source-external-id] [reporter-pubkey] [reporter-signature-hex]` ???
+TODO: check with band team
+**bandd**: `bandd query oracle verify-request [chain-id] [validator-addr] [request-id] [data-source-external-id] [reporter-pubkey] [reporter-signature-hex]`
 
 ```bash
 $ bandd query oracle verify-request [chain-id] [validator-addr] [request-id] [data-source-external-id] [reporter-pubkey] [reporter-signature-hex]
@@ -283,7 +283,7 @@ $ bandd query oracle request-price ETH,BAND,BTC 16 10
   symbol: BTC
 ```
 
-? not found on band chain
+TODO: check with band team
 <!--
 ## Get Report Info by Validator Address
 
