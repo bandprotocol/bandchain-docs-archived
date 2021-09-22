@@ -1,13 +1,17 @@
+<!--
+order: 2
+-->
+
 # Implementation
 
 To better explain the structure and implementation of a oracle script, let’s look at the example below.
 
 ### Query for token total supply
 
-However, as mentioned above, the oracle script can take any number of arguments. The example below, also written in
+As mentioned above, the oracle script can take any number of arguments. The example below, also written in
 Python, gives an example of such a script that requires two arguments.
 
-This oracle script queries the given network rpc endpoint for the total supply of a given token address.
+This oracle script queries the given network's RPC endpoint for the total supply of a given token address.
 
 Let's start by creating a rust directory structure like this example below.
 
@@ -89,4 +93,4 @@ RUSTFLAGS='-C link-arg=-s' cargo build --release --target wasm32-unknown-unknown
 
 After the building is complete, you will find that the `token_total_supply.wasm` is in this sub-directory 👉 `./target/wasm32-unknown-unknown/release/token_total_supply.wasm`.
 
-So the next step is to deploy our token_total_supply.wasm to the Bandchain.
+So the next step is to deploy our token_total_supply.wasm to the BandChain.

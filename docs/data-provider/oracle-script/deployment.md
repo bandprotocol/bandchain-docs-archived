@@ -1,3 +1,7 @@
+<!--
+order: 3
+-->
+
 # Deployment
 
 On BandChain, a oracle script can be registered into the system by anyone. This is done through the registrant sending
@@ -19,7 +23,7 @@ bandd tx oracle create-oracle-script
     --keyring-backend test # specify keyring (test,os,...)
 ```
 
-In this message, they specify various parameters of the oracle script they wish to register, including
+This message specifies various parameters of the oracle script that will be registered including
 
 - the schema of the oracle script
 - the name of the oracle script
@@ -33,14 +37,11 @@ If an owner is specified, only the owner can make any changes to the oracle scri
 On the other hand, if an owner is
 omitted, the oracle script can no longer be edited after it is registered.
 
-Note that the sender who creates the oracle script and the owner of the oracle script does not need to be the same.
-
-In the case of unowned oracle scripts, it is the oracle script's configuration on BandChain that cannot be changed.
 If the procedures associated with that source depend on centralized sources, the actual source of the data can still be
 controlled by centralized parties.
 
 After the transaction is successfully broadcasted. The newly created oracle script id can be found in the response json.
-The registrant can also view the created oracle script details on [Cosmoscan](https://cosmoscan.io/oracle-scripts/).
+The registrant can also view the created oracle script details on [CosmoScan](https://cosmoscan.io/oracle-scripts/).
 
 ```json
 {

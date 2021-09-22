@@ -1,3 +1,7 @@
+<!--
+order: 1
+-->
+
 # Introduction
 
 When someone wants to request data from BandChain’s oracle, they do not interact or call the data sources directly. Instead, they call the corresponding oracle script, which then proceeds to execute the necessary data sources. The reason for this decoupling of data source and oracle script is threefold. Moreover, the oracle script behaves like a smart contract on platforms such as Ethereum, Near, Solana, etc, meaning that the oracle scripts will only be executed on-chain. Therefore, the oracle script has a different role to the data source, where the data source operates off-chain to reduce chain's workload while the oracle script is responsible for compiling results from data sources to enable on-chain security.
