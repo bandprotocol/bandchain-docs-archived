@@ -24,15 +24,11 @@ npm install --save @bandprotocol/bandchain.js
 yarn add @bandprotocol/bandchain.js
 ```
 
-## Example usage
-
-**Note:** Get the `<GRPC_WEB>` [here](/technical-specifications/band-endpoints.html)
-
 ### Make an oracle request
 
 This section describes methods to send a transaction of oracle request to BandChain
 
-**Step 1:** Import [`Client`] from `@bandprotocol/bandchain.js` and create an instance with gRPC URL endpoint as an argument. The instance contains all methods to interact with BandChain.
+**Step 1:** Import `bandchain.js` and put `grpc_url_web` as a parameter and you can get `<GRPC_WEB>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -429,7 +425,7 @@ The response should be similar to as shown below
 
 This section shows an example on how to query data from BandChain. This example query standard price references based on given symbol pairs, min count, and ask count.
 
-**Step 1:** Import [`Client`] from `@bandprotocol/bandchain.js` and put string of gRPC URL endpoint as a parameter, then initialize the client instance as shown below.
+**Step 1:** Import `bandchain.js` and put `grpc_url_web` as a parameter and you can get `<GRPC_WEB>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
