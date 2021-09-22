@@ -33,10 +33,10 @@ A static method for generating new private key with random mnemonic phrase.
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const [mnemonic, priv] = PrivateKey.generate("m/44'/494'/0'/0/3");
+const { PrivateKey } = Wallet
+const [mnemonic, priv] = PrivateKey.generate("m/44'/494'/0'/0/3")
 ```
 
 ---
@@ -65,10 +65,10 @@ A static method for creating a [`PrivateKey`] instance from a given mnemonic phr
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const priv = PrivateKey.fromMnemonic("test mnemonic");
+const { PrivateKey } = Wallet
+const priv = PrivateKey.fromMnemonic("test mnemonic")
 ```
 
 ---
@@ -88,10 +88,10 @@ Create a [`PrivateKey`] instance from a given a hex representation of signing ke
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const priv = PrivateKey.fromHex("2442b724db7189468f16accc0fc505f0609817eb129e13702e696d8b84609ea9");
+const { PrivateKey } = Wallet
+const priv = PrivateKey.fromHex("2442b724db7189468f16accc0fc505f0609817eb129e13702e696d8b84609ea9")
 ```
 
 ---
@@ -107,11 +107,11 @@ Return a hex representation of signing key.
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const priv = PrivateKey.fromMnemonic("test mnemonic");
-console.log(priv.toHex());
+const { PrivateKey } = Wallet
+const priv = PrivateKey.fromMnemonic("test mnemonic")
+console.log(priv.toHex())
 ```
 
 **Result**
@@ -133,11 +133,11 @@ Create a [`PublicKey`] instance which is associated with given private key.
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const priv = PrivateKey.fromMnemonic("test mnemonic");
-console.log(priv.toPubkey().toHex());
+const { PrivateKey } = Wallet
+const priv = PrivateKey.fromMnemonic("test mnemonic")
+console.log(priv.toPubkey().toHex())
 ```
 
 **Result**
@@ -163,11 +163,11 @@ Sign and the given bytes array.
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const priv = PrivateKey.fromMnemonic("test mnemonic");
-console.log(priv.sign(Buffer.from("test message")).toString("hex"));
+const { PrivateKey } = Wallet
+const priv = PrivateKey.fromMnemonic("test mnemonic")
+console.log(priv.sign(Buffer.from("test message")).toString("hex"))
 ```
 
 **Result**
@@ -204,12 +204,10 @@ Creates a [`PublicKey`] instance from a bech32-encoded public key with account-p
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PublicKey } = Wallet;
-const publickey = PublicKey.fromAccBech32(
-  "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
-);
+const { PublicKey } = Wallet
+const publickey = PublicKey.fromAccBech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v")
 ```
 
 ---
@@ -236,12 +234,12 @@ Creates a [`PublicKey`] instance from a bech32-encoded public key with validator
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PublicKey } = Wallet;
+const { PublicKey } = Wallet
 const publickey = PublicKey.fromValBech32(
   "bandvaloperpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q69gsm29"
-);
+)
 ```
 
 ---
@@ -268,12 +266,12 @@ Creates a [`PublicKey`] instance from a bech32-encoded public key with validator
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PublicKey } = Wallet;
+const { PublicKey } = Wallet
 const publickey = PublicKey.fromConsBech32(
   "bandvalconspub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6r8ytws"
-);
+)
 ```
 
 ---
@@ -289,13 +287,11 @@ Returns a hex representation of verifying key.
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PublicKey } = Wallet;
-const publickey = PublicKey.fromAccBech32(
-  "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
-);
-console.log(publickey.toHex());
+const { PublicKey } = Wallet
+const publickey = PublicKey.fromAccBech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v")
+console.log(publickey.toHex())
 ```
 
 **Result**
@@ -317,14 +313,12 @@ Returns an instance of Cosmos SDK Protobuf's [`PubKey`], which can be used for c
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PublicKey } = Wallet;
-const publickey = PublicKey.fromAccBech32(
-  "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
-);
+const { PublicKey } = Wallet
+const publickey = PublicKey.fromAccBech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v")
 // Converting to base64 is for displaying only
-console.log(publickey.toPubkeyProto().getKey_asB64());
+console.log(publickey.toPubkeyProto().getKey_asB64())
 ```
 
 **Result**
@@ -346,13 +340,11 @@ Returns bech32-encoded public key with account-pubkey prefix
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PublicKey } = Wallet;
-const publickey = PublicKey.fromAccBech32(
-  "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
-);
-console.log(publickey.toAccBech32());
+const { PublicKey } = Wallet
+const publickey = PublicKey.fromAccBech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v")
+console.log(publickey.toAccBech32())
 ```
 
 **Result**
@@ -380,13 +372,11 @@ Returns bech32-encoded public key with validator-pubkey prefix
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PublicKey } = Wallet;
-const publickey = PublicKey.fromAccBech32(
-  "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
-);
-console.log(publickey.toValBech32());
+const { PublicKey } = Wallet
+const publickey = PublicKey.fromAccBech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v")
+console.log(publickey.toValBech32())
 ```
 
 **Result**
@@ -414,13 +404,11 @@ Returns bech32-encoded public key with validator-consensus-pubkey prefix
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PublicKey } = Wallet;
-const publickey = PublicKey.fromAccBech32(
-  "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
-);
-console.log(publickey.toConsBech32());
+const { PublicKey } = Wallet
+const publickey = PublicKey.fromAccBech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v")
+console.log(publickey.toConsBech32())
 ```
 
 **Result**
@@ -442,13 +430,11 @@ Returns an [`Address`] instance from given public key
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PublicKey } = Wallet;
-const publickey = PublicKey.fromAccBech32(
-  "bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v"
-);
-console.log(publickey.toAddress().toHex());
+const { PublicKey } = Wallet
+const publickey = PublicKey.fromAccBech32("bandpub1addwnpepqdg7nrsmuztj2re07svgcz4vuzn3de56nykdwlualepkk05txs5q6mw8s9v")
+console.log(publickey.toAddress().toHex())
 ```
 
 **Result**
@@ -481,14 +467,14 @@ Verify a signature made over provided data.
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const priv = PrivateKey.fromMnemonic("test mnemonic");
-const pubkey = priv.toPubkey();
-const msg = Buffer.from("test message");
-const sig = priv.sign(msg);
-console.log(pubkey.verify(msg, sig));
+const { PrivateKey } = Wallet
+const priv = PrivateKey.fromMnemonic("test mnemonic")
+const pubkey = priv.toPubkey()
+const msg = Buffer.from("test message")
+const sig = priv.sign(msg)
+console.log(pubkey.verify(msg, sig))
 ```
 
 **Result**
@@ -525,10 +511,10 @@ Create an [`Address`] instance from a bech32-encoded with account prefix.
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { Address } = Wallet;
-const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
+const { Address } = Wallet
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c")
 ```
 
 ---
@@ -555,10 +541,10 @@ Create an [`Address`] instance from a bech32-encoded with validator prefix
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { Address } = Wallet;
-const address = Address.fromValBech32("bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn");
+const { Address } = Wallet
+const address = Address.fromValBech32("bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn")
 ```
 
 ---
@@ -585,10 +571,10 @@ Create an [`Address`] instance from a bech32-encoded with validator consensus pr
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { Address } = Wallet;
-const address = Address.fromConsBech32("bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj");
+const { Address } = Wallet
+const address = Address.fromConsBech32("bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj")
 ```
 
 ---
@@ -604,11 +590,11 @@ Return a hex representation of `Address`.
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { Address } = Wallet;
-const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
-console.log(address.toHex());
+const { Address } = Wallet
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c")
+console.log(address.toHex())
 ```
 
 **Result**
@@ -636,11 +622,11 @@ Return bech32-encoded with account prefix
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { Address } = Wallet;
-const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
-console.log(address.toAccBech32());
+const { Address } = Wallet
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c")
+console.log(address.toAccBech32())
 ```
 
 **Result**
@@ -668,11 +654,11 @@ Return bech32-encoded with validator prefix
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { Address } = Wallet;
-const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
-console.log(address.toValBech32());
+const { Address } = Wallet
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c")
+console.log(address.toValBech32())
 ```
 
 **Result**
@@ -700,11 +686,11 @@ Return bech32-encoded with validator consensus prefix
 **Example**
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js";
+import { Wallet } from "@bandprotocol/bandchain.js"
 
-const { Address } = Wallet;
-const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c");
-console.log(address.toConsBech32());
+const { Address } = Wallet
+const address = Address.fromAccBech32("band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c")
+console.log(address.toConsBech32())
 ```
 
 **Result**

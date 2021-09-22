@@ -20,21 +20,21 @@ This module provides functionalities to send transactions on BandChain which req
 Add one or multiple messages as a list of Google Protobuf's [`Any`] to `Transaction`. There are predefined message classes that can be used to convert to `Any` instance using `toAny()` method, but for the other type of message can be converted to `Any` instance using `Any.pack()` as shown in the code below.
 
 ```js
-import { MsgCreateDataSource } from "@bandprotocol/bandchain.js/proto/oracle/v1/tx_pb";
-import { Any } from "google-protobuf/google/protobuf/any_pb";
-import { Transaction } from "@bandprotocol/bandchain.js";
+import { MsgCreateDataSource } from "@bandprotocol/bandchain.js/proto/oracle/v1/tx_pb"
+import { Any } from "google-protobuf/google/protobuf/any_pb"
+import { Transaction } from "@bandprotocol/bandchain.js"
 
-const msg = new MsgCreateDataSource();
-msg.setName("dsName");
-msg.setDescription("dsDescription");
+const msg = new MsgCreateDataSource()
+msg.setName("dsName")
+msg.setDescription("dsDescription")
 // msg.set...() for every fields
 
-const anyMsg = new Any();
-const typeUrl = "oracle.v1.MsgCreateDataSource";
-anyMsg.pack(msg.serializeBinary(), typeUrl, "/");
+const anyMsg = new Any()
+const typeUrl = "oracle.v1.MsgCreateDataSource"
+anyMsg.pack(msg.serializeBinary(), typeUrl, "/")
 
-const tx = new Transaction();
-tx.withMessages(anyMsg);
+const tx = new Transaction()
+tx.withMessages(anyMsg)
 ```
 
 **Parameter**
@@ -198,67 +198,60 @@ Get transaction data from `Transaction`.
 **Example**
 
 ```js
-import {
-  Client,
-  Wallet,
-  Transaction,
-  Message,
-  Coin,
-  Fee,
-} from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
+const { PrivateKey } = Wallet
+const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web")
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
+)
 // Step 2.2 prepare public key and its address
-const pubkey = privkey.toPubkey();
-const sender = pubkey.toAddress().toAccBech32();
+const pubkey = privkey.toPubkey()
+const sender = pubkey.toAddress().toAccBech32()
 
 const sendCoin = async () => {
   // Step 3.1 constructs MsgSend message
-  const { MsgSend } = Message;
+  const { MsgSend } = Message
 
   // Here we use different message type, which is MsgSend
-  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
-  const sendAmount = new Coin();
-  sendAmount.setDenom("uband");
-  sendAmount.setAmount("10");
-  const msg = new MsgSend(sender, receiver, [sendAmount]);
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+  const sendAmount = new Coin()
+  sendAmount.setDenom("uband")
+  sendAmount.setAmount("10")
+  const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
-  const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet4";
+  const account = await client.getAccount(sender)
+  const chainId = "band-laozi-testnet4"
 
-  let feeCoin = new Coin();
-  feeCoin.setDenom("uband");
-  feeCoin.setAmount("1000");
+  let feeCoin = new Coin()
+  feeCoin.setDenom("uband")
+  feeCoin.setAmount("1000")
 
-  const fee = new Fee();
-  fee.setAmountList([feeCoin]);
-  fee.setGasLimit(1000000);
+  const fee = new Fee()
+  fee.setAmountList([feeCoin])
+  fee.setGasLimit(1000000)
   const tx = new Transaction()
     .withMessages(msg)
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withFee(fee);
+    .withFee(fee)
 
   // Step 4 sign the transaction
-  const txSignData = tx.getSignDoc(pubkey);
-  const signature = privkey.sign(txSignData);
-  const signedTx = tx.getTxData(signature, pubkey);
+  const txSignData = tx.getSignDoc(pubkey)
+  const signature = privkey.sign(txSignData)
+  const signedTx = tx.getTxData(signature, pubkey)
 
   // Step 5 send the transaction
-  const response = await client.sendTxBlockMode(signedTx);
-  console.log(JSON.stringify(response));
-};
+  const response = await client.sendTxBlockMode(signedTx)
+  console.log(JSON.stringify(response))
+}
 
-(async () => {
-  await sendCoin();
-})();
+;(async () => {
+  await sendCoin()
+})()
 ```
 
 **Result**
@@ -331,7 +324,7 @@ const sendCoin = async () => {
 }
 ```
 
-[`any`]: /client-library/protocol-buffers/any.html
+[`any`]: https://github.com/protocolbuffers/protobuf/blob/master/src/google/protobuf/any.proto
 [`getaccount`]: /client-library/bandchain.js/client.html#getaccount-address
 [`getchainid`]: /client-library/bandchain.js/client.html#getchainid
 [`fee`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#fee

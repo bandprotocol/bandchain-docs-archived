@@ -21,20 +21,20 @@ Returns an Google Protobuf's [`Any`] instance that are used to construct transac
 **Example**
 
 ```js
-import { Message, Coin } from "@bandprotocol/bandchain.js";
-const { MsgRequestData } = Message;
+import { Message, Coin } from "@bandprotocol/bandchain.js"
+const { MsgRequestData } = Message
 
-const sender = "band17n5rmujk78nkgss7tjecg4nfzn6geg4cvaqt5h";
-const oracleScriptId = 37;
-const calldata = Buffer.from("0000000200000003425443000000034554480000000000000064", "hex");
-const askCount = 4;
-const minCount = 3;
-const clientId = "from_bandchain.js";
-const msg = new MsgRequestData(oracleScriptId, calldata, askCount, minCount, clientId, sender);
+const sender = "band17n5rmujk78nkgss7tjecg4nfzn6geg4cvaqt5h"
+const oracleScriptId = 37
+const calldata = Buffer.from("0000000200000003425443000000034554480000000000000064", "hex")
+const askCount = 4
+const minCount = 3
+const clientId = "from_bandchain.js"
+const msg = new MsgRequestData(oracleScriptId, calldata, askCount, minCount, clientId, sender)
 
-const any = msg.toAny();
-console.log(any.getTypeUrl());
-console.log(any.getValue_asB64());
+const any = msg.toAny()
+console.log(any.getTypeUrl())
+console.log(any.getValue_asB64())
 ```
 
 **Result**
@@ -52,17 +52,17 @@ Validates the message in a basic manner to ensure that there are no invarient va
 **Example**
 
 ```js
-import { Message, Coin } from "@bandprotocol/bandchain.js";
-const { MsgSend } = Message;
+import { Message, Coin } from "@bandprotocol/bandchain.js"
+const { MsgSend } = Message
 
-const sender = "band17n5rmujk78nkgss7tjecg4nfzn6geg4cvaqt5h";
-const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
-const sendAmount = new Coin();
-sendAmount.setDenom("uband");
-sendAmount.setAmount("10");
-const msg = new MsgSend(sender, receiver, [sendAmount]);
+const sender = "band17n5rmujk78nkgss7tjecg4nfzn6geg4cvaqt5h"
+const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+const sendAmount = new Coin()
+sendAmount.setDenom("uband")
+sendAmount.setAmount("10")
+const msg = new MsgSend(sender, receiver, [sendAmount])
 
-msg.validate();
+msg.validate()
 ```
 
-[`any`]: /client-library/protocol-buffers/any.html
+[`any`]: https://github.com/protocolbuffers/protobuf/blob/master/src/google/protobuf/any.proto

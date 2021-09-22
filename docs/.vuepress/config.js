@@ -144,8 +144,8 @@ module.exports = {
               path: "/band-standard-dataset/supported-blockchains",
             },
             {
-              title: "Supported Price Feeds",
-              path: "/band-standard-dataset/supported-feeds",
+              title: "Supported Price Data",
+              path: "/band-standard-dataset/supported-price-data",
             },
             {
               title: "Using the Data",

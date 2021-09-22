@@ -29,13 +29,13 @@ Get BandChain's Chain ID
 **Example**
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js"
 
-const client = new Client("<GRPC_WEB>");
+const client = new Client("<GRPC_WEB>")
 
-(async () => {
-  console.log(await client.getChainId());
-})();
+;(async () => {
+  console.log(await client.getChainId())
+})()
 ```
 
 **Result**
@@ -57,13 +57,13 @@ Get BandChain's latest block detail
 **Example**
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js"
 
-const client = new Client("<GRPC_WEB>");
+const client = new Client("<GRPC_WEB>")
 
-(async () => {
-  console.log(await client.getLatestBlock());
-})();
+;(async () => {
+  console.log(await client.getLatestBlock())
+})()
 ```
 
 **Result**
@@ -179,12 +179,12 @@ Get BandChain's account information
 **Example**
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js";
-const client = new Client("<GRPC_WEB>");
+import { Client } from "@bandprotocol/bandchain.js"
+const client = new Client("<GRPC_WEB>")
 
-(async () => {
-  console.log(JSON.stringify(await client.getAccount("band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f")));
-})();
+;(async () => {
+  console.log(JSON.stringify(await client.getAccount("band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f")))
+})()
 ```
 
 **Result**
@@ -214,15 +214,15 @@ Get data source metadata by given ID
 **Example**
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js"
 
-const client = new Client("<GRPC_WEB>");
+const client = new Client("<GRPC_WEB>")
 
-const id = 1;
+const id = 1
 
-(async () => {
-  console.log(JSON.stringify(await client.getDataSource(id)));
-})();
+;(async () => {
+  console.log(JSON.stringify(await client.getDataSource(id)))
+})()
 ```
 
 **Result**
@@ -255,15 +255,15 @@ Get oracle script metadata by given ID
 **Example**
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js"
 
-const client = new Client("<GRPC_WEB>");
+const client = new Client("<GRPC_WEB>")
 
-const id = 1;
+const id = 1
 
-(async () => {
-  console.log(JSON.stringify(await client.getOracleScript(id)));
-})();
+;(async () => {
+  console.log(JSON.stringify(await client.getOracleScript(id)))
+})()
 ```
 
 **Result**
@@ -296,15 +296,15 @@ Get an oracle request by given request ID
 **Example**
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js"
 
-const client = new Client("<GRPC_WEB>");
+const client = new Client("<GRPC_WEB>")
 
-const id = 143959;
+const id = 143959
 
-(async () => {
-  console.log(JSON.stringify(await client.getRequestById(id)));
-})();
+;(async () => {
+  console.log(JSON.stringify(await client.getRequestById(id)))
+})()
 ```
 
 **Result**
@@ -447,13 +447,13 @@ Get a list of reporter account addresses associated with given validator
 **Example**
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js"
 
-const client = new Client("<GRPC_WEB>");
+const client = new Client("<GRPC_WEB>")
 
-(async () => {
-  console.log(JSON.stringify(await client.getReporters("bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u")));
-})();
+;(async () => {
+  console.log(JSON.stringify(await client.getReporters("bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u")))
+})()
 ```
 
 **Result**
@@ -489,19 +489,19 @@ Search for latest request that match given oracle script ID, calldata, min count
 **Example**
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js"
 
-const client = new Client("<GRPC_WEB>");
+const client = new Client("<GRPC_WEB>")
 
-const oid = 37;
+const oid = 37
 const calldata =
-  "000000060000000342544300000003455448000000034d495200000003414e4300000004444f4745000000044c554e41000000003b9aca00";
-const minCount = 3;
-const askCount = 4;
+  "000000060000000342544300000003455448000000034d495200000003414e4300000004444f4745000000044c554e41000000003b9aca00"
+const minCount = 3
+const askCount = 4
 
-(async () => {
-  console.log(JSON.stringify(await client.getLatestRequest(oid, calldata, minCount, askCount)));
-})();
+;(async () => {
+  console.log(JSON.stringify(await client.getLatestRequest(oid, calldata, minCount, askCount)))
+})()
 ```
 
 **Result**
@@ -643,60 +643,60 @@ Send a transaction using block mode, that is, send and wait until the transactio
 **Example**
 
 ```js
-import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const client = new Client("<GRPC_WEB>");
+const { PrivateKey } = Wallet
+const client = new Client("<GRPC_WEB>")
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
+)
 // Step 2.2 prepare public key and its address
-const pubkey = privkey.toPubkey();
-const sender = pubkey.toAddress().toAccBech32();
+const pubkey = privkey.toPubkey()
+const sender = pubkey.toAddress().toAccBech32()
 
 const sendCoin = async () => {
   // Step 3.1 constructs MsgSend message
-  const { MsgSend } = Message;
+  const { MsgSend } = Message
 
   // Here we use different message type, which is MsgSend
-  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
-  const sendAmount = new Coin();
-  sendAmount.setDenom("uband");
-  sendAmount.setAmount("10");
-  const msg = new MsgSend(sender, receiver, [sendAmount]);
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+  const sendAmount = new Coin()
+  sendAmount.setDenom("uband")
+  sendAmount.setAmount("10")
+  const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
-  const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet4";
+  const account = await client.getAccount(sender)
+  const chainId = "band-laozi-testnet4"
 
-  let feeCoin = new Coin();
-  feeCoin.setDenom("uband");
-  feeCoin.setAmount("1000");
+  let feeCoin = new Coin()
+  feeCoin.setDenom("uband")
+  feeCoin.setAmount("1000")
 
-  const fee = new Fee();
-  fee.setAmountList([feeCoin]);
-  fee.setGasLimit(1000000);
+  const fee = new Fee()
+  fee.setAmountList([feeCoin])
+  fee.setGasLimit(1000000)
   const tx = new Transaction()
     .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withFee(fee);
+    .withFee(fee)
 
   // Step 4 sign the transaction
-  const txSignData = tx.getSignDoc(pubkey);
-  const signature = privkey.sign(txSignData);
-  const signedTx = tx.getTxData(signature, pubkey);
+  const txSignData = tx.getSignDoc(pubkey)
+  const signature = privkey.sign(txSignData)
+  const signedTx = tx.getTxData(signature, pubkey)
 
   // Step 5 send the transaction
-  const response = await client.sendTxBlockMode(signedTx);
-  console.log(JSON.stringify(response));
-};
+  const response = await client.sendTxBlockMode(signedTx)
+  console.log(JSON.stringify(response))
+}
 
-(async () => {
-  await sendCoin();
-})();
+;(async () => {
+  await sendCoin()
+})()
 ```
 
 **Result**
@@ -766,60 +766,60 @@ Send a transaction in sync mode, that is, send and wait until transaction has pa
 **Example**
 
 ```js
-import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const client = new Client("<GRPC_WEB>");
+const { PrivateKey } = Wallet
+const client = new Client("<GRPC_WEB>")
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
+)
 // Step 2.2 prepare public key and its address
-const pubkey = privkey.toPubkey();
-const sender = pubkey.toAddress().toAccBech32();
+const pubkey = privkey.toPubkey()
+const sender = pubkey.toAddress().toAccBech32()
 
 const sendCoin = async () => {
   // Step 3.1 constructs MsgSend message
-  const { MsgSend } = Message;
+  const { MsgSend } = Message
 
   // Here we use different message type, which is MsgSend
-  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
-  const sendAmount = new Coin();
-  sendAmount.setDenom("uband");
-  sendAmount.setAmount("10");
-  const msg = new MsgSend(sender, receiver, [sendAmount]);
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+  const sendAmount = new Coin()
+  sendAmount.setDenom("uband")
+  sendAmount.setAmount("10")
+  const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
-  const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet4";
+  const account = await client.getAccount(sender)
+  const chainId = "band-laozi-testnet4"
 
-  let feeCoin = new Coin();
-  feeCoin.setDenom("uband");
-  feeCoin.setAmount("1000");
+  let feeCoin = new Coin()
+  feeCoin.setDenom("uband")
+  feeCoin.setAmount("1000")
 
-  const fee = new Fee();
-  fee.setAmountList([feeCoin]);
-  fee.setGasLimit(1000000);
+  const fee = new Fee()
+  fee.setAmountList([feeCoin])
+  fee.setGasLimit(1000000)
   const tx = new Transaction()
     .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withFee(fee);
+    .withFee(fee)
 
   // Step 4 sign the transaction
-  const txSignData = tx.getSignDoc(pubkey);
-  const signature = privkey.sign(txSignData);
-  const signedTx = tx.getTxData(signature, pubkey);
+  const txSignData = tx.getSignDoc(pubkey)
+  const signature = privkey.sign(txSignData)
+  const signedTx = tx.getTxData(signature, pubkey)
 
   // Step 5 send the transaction
-  const response = await client.sendTxSyncMode(signedTx);
-  console.log(JSON.stringify(response));
-};
+  const response = await client.sendTxSyncMode(signedTx)
+  console.log(JSON.stringify(response))
+}
 
-(async () => {
-  await sendCoin();
-})();
+;(async () => {
+  await sendCoin()
+})()
 ```
 
 **Result**
@@ -857,60 +857,60 @@ Send a transaction in async mode, that is, send and returned immediantly without
 **Example**
 
 ```js
-import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js"
 
-const { PrivateKey } = Wallet;
-const client = new Client("<GRPC_WEB>");
+const { PrivateKey } = Wallet
+const client = new Client("<GRPC_WEB>")
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-);
+)
 // Step 2.2 prepare public key and its address
-const pubkey = privkey.toPubkey();
-const sender = pubkey.toAddress().toAccBech32();
+const pubkey = privkey.toPubkey()
+const sender = pubkey.toAddress().toAccBech32()
 
 const sendCoin = async () => {
   // Step 3.1 constructs MsgSend message
-  const { MsgSend } = Message;
+  const { MsgSend } = Message
 
   // Here we use different message type, which is MsgSend
-  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
-  const sendAmount = new Coin();
-  sendAmount.setDenom("uband");
-  sendAmount.setAmount("10");
-  const msg = new MsgSend(sender, receiver, [sendAmount]);
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+  const sendAmount = new Coin()
+  sendAmount.setDenom("uband")
+  sendAmount.setAmount("10")
+  const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
-  const account = await client.getAccount(sender);
-  const chainId = "band-laozi-testnet4";
+  const account = await client.getAccount(sender)
+  const chainId = "band-laozi-testnet4"
 
-  let feeCoin = new Coin();
-  feeCoin.setDenom("uband");
-  feeCoin.setAmount("1000");
+  let feeCoin = new Coin()
+  feeCoin.setDenom("uband")
+  feeCoin.setAmount("1000")
 
-  const fee = new Fee();
-  fee.setAmountList([feeCoin]);
-  fee.setGasLimit(1000000);
+  const fee = new Fee()
+  fee.setAmountList([feeCoin])
+  fee.setGasLimit(1000000)
   const tx = new Transaction()
     .withMessages(msg.toAny())
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withFee(fee);
+    .withFee(fee)
 
   // Step 4 sign the transaction
-  const txSignData = tx.getSignDoc(pubkey);
-  const signature = privkey.sign(txSignData);
-  const signedTx = tx.getTxData(signature, pubkey);
+  const txSignData = tx.getSignDoc(pubkey)
+  const signature = privkey.sign(txSignData)
+  const signedTx = tx.getTxData(signature, pubkey)
 
   // Step 5 send the transaction
-  const response = await client.sendTxAsyncMode(signedTx);
-  console.log(JSON.stringify(response));
-};
+  const response = await client.sendTxAsyncMode(signedTx)
+  console.log(JSON.stringify(response))
+}
 
-(async () => {
-  await sendCoin();
-})();
+;(async () => {
+  await sendCoin()
+})()
 ```
 
 **Result**
@@ -950,13 +950,13 @@ Get current prices from standard price references oracle script based on given s
 **Example**
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js";
+import { Client } from "@bandprotocol/bandchain.js"
 
-const client = new Client("<GRPC_WEB>");
+const client = new Client("<GRPC_WEB>")
 
-(async () => {
-  console.log(JSON.stringify(await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 4)));
-})();
+;(async () => {
+  console.log(JSON.stringify(await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 4)))
+})()
 ```
 
 **Result**
