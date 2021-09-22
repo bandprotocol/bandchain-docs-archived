@@ -3,10 +3,12 @@ order: 2
 -->
 
 # Implementation
+
 To better explain the structure and implementation of a data source, let’s look at two possible examples.
 
 ### Getting Gold Price Data
-First, let’s look at a data source that queries [GoldPrice.org](https://goldprice.org) for the current price of gold. 
+
+First, let’s look at a data source that queries [GoldPrice.org](https://goldprice.org) for the current price of gold.
 The script itself is written in Python. Although this data source does not expect any arguments, it can have any number
 of arguments as needed.
 
@@ -35,7 +37,8 @@ if __name__ == "__main__":
 ```
 
 ### Query for token total supply
-However, as mentioned above, the data source can take any number of arguments. The example below, also written in 
+
+However, as mentioned above, the data source can take any number of arguments. The example below, also written in
 Python, gives an example of such a script that requires two arguments.
 
 This data source queries the given network rpc endpoint for the total supply of a given token address.
@@ -71,8 +74,10 @@ if __name__ == "__main__":
 ```
 
 ### More examples
-For more data source examples, please refer to the ones available on our [Mainnet](https://cosmoscan.io/data-sources) 
+
+For more data source examples, please refer to the ones available on our [Mainnet](https://cosmoscan.io/data-sources)
 to get an idea of the type of data source we are working with our partners. Some of these includes:
+
 - [Crypto prices from CoinGecko](https://cosmoscan.io/data-source/2#code)
 - [Latest stock price from Finage](https://cosmoscan.io/data-source/25#code)
 - [Forex & Commodities price from Alpha Vantage](https://cosmoscan.io/data-source/9#code)
