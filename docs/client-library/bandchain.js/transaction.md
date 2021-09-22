@@ -4,7 +4,7 @@ order: 5
 
 # Transaction Module
 
-This module provides functionalities to send transactions on BandChain which requires [`<Msg>`] to be included.
+This module provides functionalities to send transactions on BandChain which requires `<Msg>` to be included.
 
 ## Exceptions
 
@@ -17,7 +17,7 @@ This module provides functionalities to send transactions on BandChain which req
 
 ## withMessages(msgs)
 
-Add one or multiple messages as a list of Google Protobuf's [`Any`] to [`Transaction`]. There are predefined message classes that can be used to convert to `Any` instance using `toAny()` method, but for the other type of message can be converted to `Any` instance using `Any.pack()` as shown in the code below.
+Add one or multiple messages as a list of Google Protobuf's [`Any`] to `Transaction`. There are predefined message classes that can be used to convert to `Any` instance using `toAny()` method, but for the other type of message can be converted to `Any` instance using `Any.pack()` as shown in the code below.
 
 ```js
 import { MsgCreateDataSource } from "@bandprotocol/bandchain.js/proto/oracle/v1/tx_pb";
@@ -43,11 +43,31 @@ tx.withMessages(anyMsg);
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
+
+## withSender(client, sender)
+
+Set account number and sequence number to `Transaction` from querying the account via Client's [`getAccount`].
+
+**Parameter**
+
+- **client** [`Client`] - An instance of Client module
+- **sender** `string` - A bech32-encoded with account prefix
+
+**Return**
+
+- `Promise<Transaction>` - This transaction instance for function chaining
+
+**Exceptions**
+
+| Type          | Description                                                  |
+| ------------- | ------------------------------------------------------------ |
+| EmptyMsgError | Message is empty, please use withMessages at least 1 message |
+| NotFoundError | Account doesn't exist.                                       |
 
 ## withAccountNum(accountNum)
 
-Set account number to [`Transaction`].
+Set account number to `Transaction`.
 
 **Parameter**
 
@@ -55,7 +75,7 @@ Set account number to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 **Exceptions**
 
@@ -65,7 +85,7 @@ Set account number to [`Transaction`].
 
 ## withSequence(sequence)
 
-Set sequence number to [`Transaction`].
+Set sequence number to `Transaction`.
 
 **Parameter**
 
@@ -73,7 +93,7 @@ Set sequence number to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 **Exceptions**
 
@@ -83,7 +103,7 @@ Set sequence number to [`Transaction`].
 
 ## withChainId(chainId)
 
-Set chain id to [`Transaction`].
+Set chain id to `Transaction`.
 
 **Parameter**
 
@@ -91,11 +111,11 @@ Set chain id to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 ## withFee(fee)
 
-Set fee to [`Transaction`].
+Set fee to `Transaction`.
 
 **Parameter**
 
@@ -103,7 +123,7 @@ Set fee to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 **Exceptions**
 
@@ -113,7 +133,7 @@ Set fee to [`Transaction`].
 
 ## withMemo(memo)
 
-Set memo to [`Transaction`].
+Set memo to `Transaction`.
 
 **Parameter**
 
@@ -127,11 +147,11 @@ Set memo to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 ## getSignDoc()
 
-Get serialized data of transaction's content to be signed from [`Transaction`].
+Get serialized data of transaction's content to be signed from `Transaction` by using `SIGNMODE_DIRECT`. See more about [signing mode](https://docs.cosmos.network/master/core/proto-docs.html#signmode).
 
 **Return**
 
@@ -146,14 +166,23 @@ Get serialized data of transaction's content to be signed from [`Transaction`].
 | UndefinedError | sequence should be defined   |
 | UndefinedError | chainID should be defined    |
 
-## getTxData(signature, publicKey)
+## getSignMessage()
 
-Get transaction data from [`Transaction`].
+Get serialized data of transaction's content to be signed from `Transaction` by using `SIGN_MODE_LEGACY_AMINO_JSON`. See more about [signing mode](https://docs.cosmos.network/master/core/proto-docs.html#signmode). **When using the Ledger to sign message, you need to use this method.**
+
+**Return**
+
+- `Uint8Array` - A byte array of serialized transaction content data, ready for signing.
+
+## getTxData(signature, publicKey, signMode)
+
+Get transaction data from `Transaction`.
 
 **Parameter**
 
 - **signature** `Uint8Array` - signature for the transaction
 - **pubkey** [`PublicKey`] - an instance of public key to be included in the transaction
+- **signMode** [`SignMode`] - a signing mode with its own security guarantees representation. (Default: `SIGN_MODE_DIRECT`)
 
 **Return**
 
@@ -169,7 +198,14 @@ Get transaction data from [`Transaction`].
 **Example**
 
 ```js
-import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
+import {
+  Client,
+  Wallet,
+  Transaction,
+  Message,
+  Coin,
+  Fee,
+} from "@bandprotocol/bandchain.js";
 
 const { PrivateKey } = Wallet;
 const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web");
@@ -300,3 +336,5 @@ const sendCoin = async () => {
 [`getchainid`]: /client-library/bandchain.js/client.html#getchainid
 [`fee`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#fee
 [`publickey`]: /client-library/bandchain.js/wallet.html#publickey
+[`signmode`]: https://docs.cosmos.network/master/core/proto-docs.html#signmode
+[`client`]: /client-library/bandchain.js/client.html
