@@ -136,7 +136,7 @@ txn.withMemo("");
 
 **Step 4:** Sign and send the transaction
 
-Now, we had an instance of constructed transaction. In order to sign the transaction, [`getSignDoc`] method in `Transaction` instance can be used to get serialzed data of the transaction to be used for signing. Then, use `PrivateKey`'s [`sign`] to sign transaction. Finally, use [`getTxData`] to include signature and public key to the transaction to get a complete signed transaction.
+Now, we had an instance of constructed transaction. In order to sign the transaction, [`getSignDoc`] method in [`Transaction`] instance can be used to get serialzed data of the transaction to be used for signing. Then, use [`PrivateKey`]'s [`sign`] to sign transaction. Finally, use [`getTxData`] to include signature and public key to the transaction to get a complete signed transaction.
 
 ```js
 const signDoc = txn.getSignDoc(pubkey);
@@ -149,7 +149,7 @@ const signature = privateKey.sign(signDoc);
 - [`sendTxSyncMode`] Send the transaction and wait until `CheckTx` phase is done
 - [`sendTxAsyncMode`] Send the transaction and immediately returned
 
-For our example, we will use `sendTxBlockMode` to send the transaction.
+For our example, we will use [`sendTxBlockMode`] to send the transaction.
 
 The final code should now look like the code below.
 
@@ -434,7 +434,7 @@ const grpcUrl = "<GRPC_WEB>"; // ex.https://laozi-testnet4.bandchain.org/grpc-we
 const client = new Client(grpcUrl);
 ```
 
-**Step 2:** After we import the [`Client`] already, then we call the `Client`'s [`getReferenceData`] function to get the latest price
+**Step 2:** After we import the [`Client`] already, then we call the [`Client`]'s [`getReferenceData`] function to get the latest price
 
 There are 3 parameters
 
@@ -512,3 +512,4 @@ And these are examples of bandchain.js usages, for more information, feel free t
 [`coin`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#coin
 [`address`]: /client-library/bandchain.js/wallet.html#address
 [`getreferencedata`]: /client-library/bandchain.js/client.html#getreferencedata-pairs-mincount-askcount
+[`sign`]: /client-library/bandchain.js/wallet.html#sign-msg

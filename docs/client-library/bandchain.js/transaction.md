@@ -17,7 +17,7 @@ This module provides functionalities to send transactions on BandChain which req
 
 ## withMessages(msgs)
 
-Add one or multiple messages as a list of Google Protobuf's [`Any`] to [`Transaction`]. There are predefined message classes that can be used to convert to `Any` instance using `toAny()` method, but for the other type of message can be converted to `Any` instance using `Any.pack()` as shown in the code below.
+Add one or multiple messages as a list of Google Protobuf's [`Any`] to `Transaction`. There are predefined message classes that can be used to convert to `Any` instance using `toAny()` method, but for the other type of message can be converted to `Any` instance using `Any.pack()` as shown in the code below.
 
 ```js
 import { MsgCreateDataSource } from "@bandprotocol/bandchain.js/proto/oracle/v1/tx_pb";
@@ -43,11 +43,11 @@ tx.withMessages(anyMsg);
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 ## withSender(client, sender)
 
-Set account number and sequence number to [`Transaction`] by using `Client` to fetch these data.
+Set account number and sequence number to `Transaction` from querying the account via Client's [`getAccount`].
 
 **Parameter**
 
@@ -67,7 +67,7 @@ Set account number and sequence number to [`Transaction`] by using `Client` to f
 
 ## withAccountNum(accountNum)
 
-Set account number to [`Transaction`].
+Set account number to `Transaction`.
 
 **Parameter**
 
@@ -75,7 +75,7 @@ Set account number to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 **Exceptions**
 
@@ -85,7 +85,7 @@ Set account number to [`Transaction`].
 
 ## withSequence(sequence)
 
-Set sequence number to [`Transaction`].
+Set sequence number to `Transaction`.
 
 **Parameter**
 
@@ -93,7 +93,7 @@ Set sequence number to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 **Exceptions**
 
@@ -103,7 +103,7 @@ Set sequence number to [`Transaction`].
 
 ## withChainId(chainId)
 
-Set chain id to [`Transaction`].
+Set chain id to `Transaction`.
 
 **Parameter**
 
@@ -111,11 +111,11 @@ Set chain id to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 ## withFee(fee)
 
-Set fee to [`Transaction`].
+Set fee to `Transaction`.
 
 **Parameter**
 
@@ -123,7 +123,7 @@ Set fee to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 **Exceptions**
 
@@ -133,7 +133,7 @@ Set fee to [`Transaction`].
 
 ## withMemo(memo)
 
-Set memo to [`Transaction`].
+Set memo to `Transaction`.
 
 **Parameter**
 
@@ -147,11 +147,11 @@ Set memo to [`Transaction`].
 
 **Return**
 
-- [`Transaction`] - This transaction instance for function chaining
+- `Transaction` - This transaction instance for function chaining
 
 ## getSignDoc()
 
-Get serialized data of transaction's content to be signed from [`Transaction`] by using `SIGNMODE_DIRECT`. See more about [signing mode](https://docs.cosmos.network/master/core/proto-docs.html#signmode).
+Get serialized data of transaction's content to be signed from `Transaction` by using `SIGNMODE_DIRECT`. See more about [signing mode](https://docs.cosmos.network/master/core/proto-docs.html#signmode).
 
 **Return**
 
@@ -168,7 +168,7 @@ Get serialized data of transaction's content to be signed from [`Transaction`] b
 
 ## getSignMessage()
 
-Get serialized data of transaction's content to be signed from [`Transaction`] by using `SIGN_MODE_LEGACY_AMINO_JSON`. See more about [signing mode](https://docs.cosmos.network/master/core/proto-docs.html#signmode). **When using the Ledger to sign message, you need to use this method.**
+Get serialized data of transaction's content to be signed from `Transaction` by using `SIGN_MODE_LEGACY_AMINO_JSON`. See more about [signing mode](https://docs.cosmos.network/master/core/proto-docs.html#signmode). **When using the Ledger to sign message, you need to use this method.**
 
 **Return**
 
@@ -176,7 +176,7 @@ Get serialized data of transaction's content to be signed from [`Transaction`] b
 
 ## getTxData(signature, publicKey, signMode)
 
-Get transaction data from [`Transaction`].
+Get transaction data from `Transaction`.
 
 **Parameter**
 
@@ -337,3 +337,4 @@ const sendCoin = async () => {
 [`fee`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#fee
 [`publickey`]: /client-library/bandchain.js/wallet.html#publickey
 [`signmode`]: https://docs.cosmos.network/master/core/proto-docs.html#signmode
+[`client`]: /client-library/bandchain.js/client.html
