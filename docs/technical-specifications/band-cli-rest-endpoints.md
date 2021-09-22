@@ -2,7 +2,9 @@
 order: 4
 -->
 
-# BandChain CLI & REST Endpoint
+# Band CLI & REST Endpoint
+
+You can get the RPC endpoint [here](/technical-specifications/band-endpoints.html).
 
 ## Get Data Source by ID
 
@@ -13,7 +15,7 @@ order: 4
 
 ```bash
 $ bandd query oracle data-source 1
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/data_sources/1
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/data_sources/1'
 {
   "data_source": {
     "owner": "band1jfdmjkxs3hvddsf4ef2wmsmte3s5llqhxqgcfe",
@@ -36,7 +38,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/data_sources/1
 
 ```bash
 $ bandd query oracle oracle-script 1
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/oracle_scripts/1
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/oracle_scripts/1'
 {
   "oracle_script": {
     "owner": "band1jfdmjkxs3hvddsf4ef2wmsmte3s5llqhxqgcfe",
@@ -46,7 +48,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/oracle_scripts/
     "schema": "{gas_option:string}/{gweix10:u64}",
     "source_code_url": ""
   }
-}   
+}
 ```
 
 ## Get Data Oracle Request by ID
@@ -58,7 +60,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/oracle_scripts/
 
 ```bash
 $ bandd query oracle request 238769
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/requests/238769
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/requests/238769'
 {
   "request": null,
   "reports": [
@@ -88,7 +90,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/requests/238769
 
 ```bash
 $ bandd query oracle request-search 57 00000040633137353434383063646638313161653935363861636437313437643933393533323063373065376230383466303436376432613032643536336663653637340000000061440b80 4 3
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/request_search?oracle_script_id=44&calldata=00000015000000044141504c00000005474f4f474c0000000454534c41000000044e464c5800000003515151000000045457545200000004424142410000000349415500000003534c560000000355534f000000045649585900000004414d5a4e000000044d5346540000000246420000000247530000000441424e4200000003474d4500000003414d430000000353505900000004434f494e00000004474c5859000000003b9aca00&min_count=10&ask_count=16
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/request_search?oracle_script_id=44&calldata=00000015000000044141504c00000005474f4f474c0000000454534c41000000044e464c5800000003515151000000045457545200000004424142410000000349415500000003534c560000000355534f000000045649585900000004414d5a4e000000044d5346540000000246420000000247530000000441424e4200000003474d4500000003414d430000000353505900000004434f494e00000004474c5859000000003b9aca00&min_count=10&ask_count=16'
 {
   "request": {
     "request": {
@@ -189,7 +191,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/request_search?
 **Method**: `GET`
 
 ```bash
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/data/32ee6262d4a615f2c3ca0589c1c1af79212f24823453cb3f4cfff85b8d338045
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/data/32ee6262d4a615f2c3ca0589c1c1af79212f24823453cb3f4cfff85b8d338045'
 {
   "data": "IyEvdXNyL2Jpbi9lbnYgcHl0aG9uMwoKaW1wb3J0IGpzb24KaW1wb3J0IHVybGxpYi5yZXF1ZXN0CmltcG9ydCBzeXMKCkVUSF9HQVNfU1RBVElPTl9VUkwgPSAiaHR0cHM6Ly9ldGhnYXNzdGF0aW9uLmluZm8vanNvbi9ldGhnYXNBUEkuanNvbiIKCgpkZWYgbWFrZV9qc29uX3JlcXVlc3QodXJsKToKICAgIHJlcSA9IHVybGxpYi5yZXF1ZXN0LlJlcXVlc3QodXJsKQogICAgcmVxLmFkZF9oZWFkZXIoCiAgICAgICAgIlVzZXItQWdlbnQiLAogICAgICAgICJNb3ppbGxhLzUuMCAoTWFjaW50b3NoOyBJbnRlbCBNYWMgT1MgWCAxMF8xMV81KSBBcHBsZVdlYktpdC81MzcuMzYgKEtIVE1MLCBsaWtlIEdlY2tvKSBDaHJvbWUvNTAuMC4yNjYxLjEwMiBTYWZhcmkvNTM3LjM2IiwKICAgICkKICAgIHJldHVybiBqc29uLmxvYWRzKHVybGxpYi5yZXF1ZXN0LnVybG9wZW4ocmVxKS5yZWFkKCkpCgoKZGVmIG1haW4odHlwZSk6CiAgICBwcmljZSA9IG1ha2VfanNvbl9yZXF1ZXN0KEVUSF9HQVNfU1RBVElPTl9VUkwpCiAgICByZXR1cm4gcHJpY2VbdHlwZV0KCgppZiBfX25hbWVfXyA9PSAiX19tYWluX18iOgogICAgdHJ5OgogICAgICAgIHByaW50KG1haW4oKnN5cy5hcmd2WzE6XSkpCiAgICBleGNlcHQgRXhjZXB0aW9uIGFzIGU6CiAgICAgICAgcHJpbnQoc3RyKGUpLCBmaWxlPXN5cy5zdGRlcnIpCiAgICAgICAgc3lzLmV4aXQoMSkK"
 }
@@ -204,7 +206,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/data/32ee6262d4
 
 ```bash
 $ bandd query oracle validator bandvaloper10ym9z7ujycr8e9veuccvy0q9qaxpfq47tnterl
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/validators/bandvaloper1p40yh3zkmhcv0ecqp3mcazy83sa57rgjde6wec
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/validators/bandvaloper1p40yh3zkmhcv0ecqp3mcazy83sa57rgjde6wec'
 {
   "status": {
     "is_active": false,
@@ -219,12 +221,11 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/validators/band
 **Method**: `GET`
 
 ```bash
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/reporter/bandvaloper1kfj48adjsnrgu83lau6wc646q2uf65rf84tzus/band1rgcrk9qttfjc5zfnmu63wj8503gc5r3wlagdrm
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/reporter/bandvaloper1kfj48adjsnrgu83lau6wc646q2uf65rf84tzus/band1rgcrk9qttfjc5zfnmu63wj8503gc5r3wlagdrm'
 {
   "is_reporter": true
 }
 ```
-
 
 ## Get Active Validators
 
@@ -235,7 +236,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/reporter/bandva
 
 ```bash
 $ bandd query oracle active-validators
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/active_validators
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/active_validators'
 {
   "validators": [
     {
@@ -276,7 +277,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/active_validato
 
 ```bash
 $ bandd query oracle pending-requests bandvaloper1kfj48adjsnrgu83lau6wc646q2uf65rf84tzus
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/pending_requests/bandvaloper1kfj48adjsnrgu83lau6wc646q2uf65rf84tzus
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/pending_requests/bandvaloper1kfj48adjsnrgu83lau6wc646q2uf65rf84tzus'
 {
   "request_ids": [
   ]
@@ -284,14 +285,15 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/pending_request
 ```
 
 ## Get Latest Price on Standard Price Reference Database
-**bandd**: `bandd query oracle request-price [symbols-comma-separated] [ask-count] [min-count]` 
+
+**bandd**: `bandd query oracle request-price [symbols-comma-separated] [ask-count] [min-count]`
 
 **Path**: `/oracle/v1/request_prices?ask_count={askCount}&min_count={minCount}&symbols={symbol-1}&symbols={symbol-2}&...&symbols={symbols-n}`
 **Method**: `GET`
 
 ```bash
 $ bandd query oracle request-price BTC,ETH 4 3
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/request_prices?symbols=BTC&symbols=ETH&ask_count=4&min_count=3
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/request_prices?symbols=BTC&symbols=ETH&ask_count=4&min_count=3'
 {
   "price_results": [
     {
@@ -312,7 +314,6 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/request_prices?
 }
 ```
 
-
 ## Get BandChain Oracle Governance Parameters
 
 **CLI**: `bandd query oracle params`
@@ -322,7 +323,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/request_prices?
 
 ```bash
 $ bandd query oracle params
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/params
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/params'
 {
   "params": {
     "max_raw_request_count": "12",
@@ -349,7 +350,7 @@ $ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/params
 
 ```bash
 $ bandd query oracle counts
-$ curl -X GET https://laozi-testnet4.bandchain.org/api/oracle/v1/counts
+$ curl -X GET 'https://laozi-testnet4.bandchain.org/api/oracle/v1/counts'
 {
   "data_source_count": "98",
   "oracle_script_count": "61",
