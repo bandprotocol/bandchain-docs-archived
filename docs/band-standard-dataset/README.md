@@ -8,7 +8,7 @@ This section introduces our Band Standard Dataset, how we believe it will help d
 
 The Band Standard Dataset introduces a standard for anyone looking to integrate price data from Band's oracle into their applications. The standard itself consists of two components: a new price dataset and our new `StdReference` interface.
 
-The dataset supports a growing set of cryptocurrency tokens, local currency rates, and commodity  prices. The prices are aggregated from reputable crypto price aggregators, crypto exchanges, and premium APIs for foreign exchange rates.
+The dataset supports a growing set of cryptocurrency tokens, local currency rates, and commodity prices. The prices are aggregated from reputable crypto price aggregators, crypto exchanges, and premium APIs for foreign exchange rates.
 
 Our new interface then provides developers with a simple and cost-effective method to integrate price data from Band's oracle into their applications.
 
@@ -24,7 +24,7 @@ For the cryptocurrency data, the price data is calculated by aggregating the res
 - [CryptoCompare](https://cryptocompare.com)
 - [CoinMarketCap](https://coinmarketcap.com)
 
-Along with that, we also pull the price data directly from major exchanges such as 
+Along with that, we also pull the price data directly from major exchanges such as
 
 - [Binance](https://binance.com)
 - [Huobi Pro](https://huobi.com)
@@ -48,7 +48,7 @@ As with all of Band's other offering, the entire data query request associated w
 
 The dataset will initially consist of the prices of 125 cryptocurrency tokens, as well as various fiat exchange rates and commodities. Going forward, we will continually be adding support for new tokens and data types based on the community's feedback.
 
-For the most recent updated list of supported token, please refer to the [next section](./supported-data.md)
+For the most recent updated list of supported token, please refer to the [next section](./supported-price-data.md)
 
 We have also significantly improved the efficiency of relaying data from BandChain into other blockchains. Now, price data in any EVM-compatible chains can be updated to reflect the latest data on BandChain in only one transaction. At the moment, this update is triggered every hour, as we believe this is a reasonable interval for many use cases. However, we will be closely monitoring the demands and feedback from the community and will adjust or increase the update interval as necessary.
 
