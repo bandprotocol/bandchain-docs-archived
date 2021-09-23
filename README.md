@@ -2,8 +2,8 @@
 
 ## Automatic Deployment
 
-- 🧪 [**`master` branch**] Staging: https://docs.staging.bandprotocol.com
-- ⛳️ [**`prod` branch**] Production: https://docs.bandprotocol.com
+- 🧪 [**`master` branch**] Staging: https://docs.staging.bandchain.org/
+- ⛳️ [**`production` branch**] Production: https://docs.bandchain.org/
 
 ## Development
 
