@@ -118,17 +118,17 @@ module.exports = {
           ],
         },
         {
-          title: "Data provider",
+          title: "Custom Script",
           children: [
             {
               title: "Data Source",
               directory: true,
-              path: "/data-provider/data-source",
+              path: "/custom-script/data-source",
             },
             {
               title: "Oracle Script",
               directory: true,
-              path: "/data-provider/oracle-script",
+              path: "/custom-script/oracle-script",
             },
           ],
         },

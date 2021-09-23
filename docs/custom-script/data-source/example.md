@@ -2,7 +2,7 @@
 order: 2
 -->
 
-# Implementation
+# Example
 
 To better explain the structure and implementation of a data source, let’s look at two possible examples.
 
