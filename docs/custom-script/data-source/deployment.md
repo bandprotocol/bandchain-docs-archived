@@ -25,11 +25,11 @@ bandd tx oracle create-data-source
 
 In this message, they specify various parameters of the data source they wish to register, including
 
-- the per-query fee that someone looking to use that data source needs to pay
-- the name of the data source
-- the content of the executable to be run by block validators upon receiving a data request for this data source
-- the sender who wish to create the data source
-- the owner of the data source, if specified
+- Per-query fee that someone looking to use that data source needs to pay
+- Name of the data source
+- Content of the executable to be run by block validators upon receiving a data request for this data source
+- Sender who wishes to create the data source
+- Owner of the data source, if specified
 
 When registering the data source, the message sender can choose whether to specify an owner of the source.
 If an owner is specified, only the owner can make any changes to the data source once it is registered.
@@ -39,8 +39,8 @@ omitted, the data source can no longer be edited after it is registered.
 If the procedures associated with that source depend on centralized sources, the actual source of the data can still be
 controlled by centralized parties.
 
-After the transaction is successfully broadcasted. The newly created data source id can be found in the response json.
-The registrant can also view the created data source details on [Cosmoscan](https://cosmoscan.io/data-sources/).
+After the transaction is successfully broadcasted. The newly created data source ID can be found in the response json.
+The registrant can also view the created data source details on [CosmoScan](https://cosmoscan.io/data-sources/).
 
 ```json
 {

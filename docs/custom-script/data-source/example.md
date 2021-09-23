@@ -41,7 +41,7 @@ if __name__ == "__main__":
 However, as mentioned above, the data source can take any number of arguments. The example below, also written in
 Python, gives an example of such a script that requires two arguments.
 
-This data source queries the given network rpc endpoint for the total supply of a given token address.
+This data source queries the given network's RPC endpoint for the total supply of a given token address.
 
 ```python
 #!/usr/bin/env python3
@@ -76,7 +76,7 @@ if __name__ == "__main__":
 ### More examples
 
 For more data source examples, please refer to the ones available on our [Mainnet](https://cosmoscan.io/data-sources)
-to get an idea of the type of data source we are working with our partners. Some of these includes:
+to get an idea of different types of data source that we are working with our partners. Some of these includes:
 
 - [Crypto prices from CoinGecko](https://cosmoscan.io/data-source/2#code)
 - [Latest stock price from Finage](https://cosmoscan.io/data-source/25#code)

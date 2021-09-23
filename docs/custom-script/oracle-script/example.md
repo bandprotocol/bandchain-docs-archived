@@ -13,7 +13,7 @@ Python, gives an example of such a script that requires two arguments.
 
 This oracle script queries the given network's RPC endpoint for the total supply of a given token address.
 
-Let's start by creating a rust directory structure like this example below.
+Let's start by creating a Rust directory structure like this example below.
 
 ##### Directory structure
 
@@ -24,6 +24,8 @@ Let's start by creating a rust directory structure like this example below.
     └── src
         └── lib.rs
 ```
+
+<br/>
 
 ##### Cargo.toml
 
@@ -42,6 +44,8 @@ crate-type = ["cdylib"]
 owasm-kit = { version = "0.1.13" }
 obi = { version = "0.0.2" }
 ```
+
+<br/>
 
 ##### lib.rs
 
