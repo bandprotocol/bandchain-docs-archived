@@ -2,7 +2,7 @@
 order: 4
 -->
 
-# Band CLI & REST Endpoint
+# Band CLI & REST Endpoints
 
 You can get the RPC and REST endpoints from [here](/technical-specifications/band-endpoints.html).
 
@@ -264,13 +264,10 @@ $ curl -X GET "${REST}/oracle/v1/requests/238769"
 
 ## Get Data Requests by Query Info
 
-**CLI**: `bandd query oracle request-search [oracle-script-id] [calldata-hex] [ask-count] [min-count] --node ${RPC}`
-
 **Path**: `/api/oracle/v1/request_search?oracle_script_id={oracleScriptID}&calldata={calldataHex}&min_count={minCount}&ask_count={askCount}`
 **Method**: `GET`
 
 ```bash
-$ bandd query oracle request-search 37 --node ${RPC} 000000010000000342544300000000000f4240 2 2
 $ curl -X GET "${REST}/oracle/v1/request_search?oracle_script_id=37&calldata=000000010000000342544300000000000f4240&min_count=2&ask_count=2"
 {
   "request": {
@@ -573,13 +570,10 @@ $ curl -X GET "${REST}/oracle/v1/pending_requests/bandvaloper1kfj48adjsnrgu83lau
 
 ## Get Latest Price on Standard Price Reference Database
 
-**bandd**: `bandd query oracle request-price [symbols-comma-separated] [ask-count] [min-count]`
-
 **Path**: `/oracle/v1/request_prices?ask_count={askCount}&min_count={minCount}&symbols={symbol-1}&symbols={symbol-2}&...&symbols={symbols-n}`
 **Method**: `GET`
 
 ```bash
-$ bandd query oracle request-price BTC,ETH 4 3 --node ${RPC}
 $ curl -X GET "${REST}/oracle/v1/request_prices?symbols=BTC&symbols=ETH&ask_count=4&min_count=3"
 {
   "price_results": [
