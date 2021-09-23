@@ -488,12 +488,12 @@ $ curl -X GET "${REST}/oracle/v1/data/32ee6262d4a615f2c3ca0589c1c1af79212f248234
 **Method**: `GET`
 
 ```bash
-$ bandd query oracle validator bandvaloper10ym9z7ujycr8e9veuccvy0q9qaxpfq47tnterl --node ${RPC}
-$ curl -X GET "${REST}/oracle/v1/validators/bandvaloper1p40yh3zkmhcv0ecqp3mcazy83sa57rgjde6wec"
+$ bandd query oracle validator bandvaloper1kfj48adjsnrgu83lau6wc646q2uf65rf84tzus --node ${RPC}
+$ curl -X GET ${REST}/oracle/v1/validators/bandvaloper1kfj48adjsnrgu83lau6wc646q2uf65rf84tzus
 {
   "status": {
-    "is_active": false,
-    "since": "0001-01-01T00:00:00Z"
+    "is_active": true,
+    "since": "2021-09-07T14:52:54.598085215Z"
   }
 }
 ```
