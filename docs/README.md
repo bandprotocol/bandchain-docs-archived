@@ -14,11 +14,11 @@ sections:
   - title: Decentralized Apps Integration
     desc: Discover how to integrate Band's oracle data into your applications
     icon: dapp
-    url: /developer/dapp-integrations/supported-blockchains
+    url: /band-standard-dataset/supported-blockchains.html
   - title: Technical Specifications
     desc: Specifications for the various standards used in BandChain's ecosystem
     icon: spec
-    url: /developer/technical-specifications/obi
+    url: /technical-specifications/obi
 stack:
   - title: Cosmos SDK
     desc: The blockchain framework powering BandChain

@@ -2,7 +2,7 @@
 order: 2
 -->
 
-# Implementation
+# Example
 
 To better explain the structure and implementation of a oracle script, let’s look at the example below.
 
