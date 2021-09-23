@@ -32,34 +32,3 @@ The page also shows information regarding the chains on which the specific symbo
 ![data.bandprotocol.com symbol page bottom part](https://i.imgur.com/YmCLHf4.png)
 
 The status for the price feed (the update interval, deviation update threshold, 24hr average deviation, and average update interval) is shown at the bottom of the page. Finally, the 24-hour on-chain historical price data for the token, as well as the deviation history is also available to view as a plot.
-
-## REST API Endpoint
-
-Alternatively, the list of supported tokens can also be retrieved using our API endpoint
-
-| Network |                                   API Endpoint                                   |
-| ------- | :------------------------------------------------------------------------------: |
-| Mainnet | `https://api-gm-lb.bandchain.org/oracle/price_symbols?ask_count=16&min_count=10` |
-
-
-This should give you a result similar to:
-
-```json
-{"height":"1130356","result":[
-    "2KEY",
-    "ABYSS",
-    "ADA",
-    "AKRO",
-    "ALGO",
-    "AMPL",
-    "ANT",
-    "AST",
-    "ATOM",
-    "AUD",
-    "BAL",
-    "BAND",
-    ...
-}
-```
-
-where `height` is the BandChain block height at which the list is queried, and `result` the list of tokens currently supported.
