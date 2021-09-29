@@ -14,7 +14,7 @@ _This section presented an overview of how IBC can be used to make an oracle dat
 
 ### OracleRequestPacketData
 
-`OracleRequestPacketData` is a data packet sent by a blockchain to BandChain's orcale to request data. It contains the following parameters:
+`OracleRequestPacketData` is a data packet sent by a blockchain to BandChain's oracle to request data. It contains the following parameters:
 
 | Parameter      | Type      | Description                                                                                                                                               |
 | -------------- | --------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
