@@ -96,7 +96,7 @@ def aggregate(symbol, number_of_reporters):
             get_px_from_crypto_compare,
             get_px_from_coin_market_cap,
         ):
-            price_sum = receive(reporter_index, data_source, symbol)
+            price_sum += receive(reporter_index, data_source, symbol)
             data_report_count += 1
     return price_sum / data_report_count
 ```
