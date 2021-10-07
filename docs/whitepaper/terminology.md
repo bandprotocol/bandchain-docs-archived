@@ -96,7 +96,7 @@ def aggregate(symbol, number_of_reporters):
             get_px_from_crypto_compare,
             get_px_from_coin_market_cap,
         ):
-            price_sum = receive(reporter_index, data_source, symbol)
+            price_sum += receive(reporter_index, data_source, symbol)
             data_report_count += 1
     return price_sum / data_report_count
 ```
@@ -107,4 +107,4 @@ Raw data reports are the results that BandChain's validators return when they ha
 
 ## Oracle Data Proof
 
-When the final data request result is successfully stored onto BandChain, an oracle data proof is produced. This proof is a Merkle proof that shows the existence of the final result of the data request on BandChain. In addition to the actual result value of the request, the proof contains information on the request parameters (oracle script hash, the parameters, the time of execution, etc) as well as as well as those of the associated response (e.g. number of validators that responded to the request). This proof can then be used by smart contracts on other blockchain to verify the existence of the data as well as to decode and retrieve the result stored. Both of these can be done by interacting with our [lite client](https://github.com/bandprotocol/bandchain/wiki/Lite-Client-Protocol).
+When the final data request result is successfully stored onto BandChain, an oracle data proof is produced. This proof is a Merkle proof that shows the existence of the final result of the data request on BandChain. In addition to the actual result value of the request, the proof contains information on the request parameters (oracle script hash, the parameters, the time of execution, etc) as well as those of the associated response (e.g. number of validators that responded to the request). This proof can then be used by smart contracts on other blockchain to verify the existence of the data as well as to decode and retrieve the result stored. Both of these can be done by interacting with our [lite client](https://github.com/bandprotocol/bandchain/wiki/Lite-Client-Protocol).
