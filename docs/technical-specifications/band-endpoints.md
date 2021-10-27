@@ -17,7 +17,7 @@ order: 5
 
 | Type     | End Point                                     |
 | -------- | --------------------------------------------- |
-| RPC      | http://rpc-laozi-testnet4.bandchain.org:26657 |
+| RPC      | http://rpc.laozi-testnet4.bandchain.org       |
 | REST     | https://laozi-testnet4.bandchain.org/api      |
 | GRPC     | https://laozi-testnet4.bandchain.org          |
 | faucet   | https://laozi-testnet4.bandchain.org/faucet   |
