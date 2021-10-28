@@ -275,7 +275,7 @@ print(public_key.to_hex())
 
 ### to_public_key_proto()
 
-This function returns a public key in the type protobuf.
+This function returns a public key in type protobuf.
 
 **Return**
 
