@@ -173,7 +173,7 @@ print(MessageToJson(latest_block))
 
 ## get_account(address)
 
-This function returns the account details of the specify address.
+This function returns the account details of the specified address.
 
 **Parameter**
 
