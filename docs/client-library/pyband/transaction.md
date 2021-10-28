@@ -4,13 +4,13 @@ order: 5
 
 # Transaction Module
 
-This module provides a preparation component that is required for sending a transaction.
+This module provides the preparatory component that is required for sending a transaction.
 
 ## with_message(msgs)
 
-This function add one or multiple messages to `<Transaction>`
+This function add one or more messages to `<Transaction>`
 
-The message can be in any message listed [Oracle Module](/client-library/protocol-buffers/oracle-module.html#oracle-v1-tx-proto) or [Cosmos Based Messages](https://docs.cosmos.network/v0.44/core/proto-docs.html). Please note that our message should be imported from the generated [protobuf files](https://github.com/bandprotocol/chain/tree/v2.0.3/proto/oracle/v1).
+The message can be any message as listed in [Oracle Module](/client-library/protocol-buffers/oracle-module.html#oracle-v1-tx-proto) or [Cosmos Based Messages](https://docs.cosmos.network/v0.44/core/proto-docs.html). Please note that our message should be imported from the generated [protobuf files](https://github.com/bandprotocol/chain/tree/v2.0.3/proto/oracle/v1).
 
 **Parameter**
 
@@ -46,7 +46,7 @@ This function set `account_num` and `sequence` from `<Client>` with the address 
 
 ## with_account_num(account_num)
 
-This function set the account number in `<Transaction>`.
+This function sets the account number in `<Transaction>`.
 
 **Parameter**
 
@@ -60,7 +60,7 @@ This function set the account number in `<Transaction>`.
 
 ## with_sequence(sequence)
 
-This function set the sequence number in `<Transaction>`.
+This function sets the sequence number in `<Transaction>`.
 
 **Parameter**
 
@@ -74,7 +74,7 @@ This function set the sequence number in `<Transaction>`.
 
 ## with_chain_id(chain_id)
 
-This function set the chain ID in `<Transaction>`.
+This function sets the chain ID in `<Transaction>`.
 
 **Parameter**
 
@@ -88,7 +88,7 @@ This function set the chain ID in `<Transaction>`.
 
 ## with_fee(fee)
 
-This function set the fee by using the given fee and gas limit `<Transaction>`.
+This function sets the fee by using the given fee and gas limit `<Transaction>`.
 
 **Parameter**
 
@@ -102,7 +102,7 @@ This function set the fee by using the given fee and gas limit `<Transaction>`.
 
 ## with_gas(gas)
 
-This function set the gas limit in `<Transaction>`.
+This function sets the gas limit in `<Transaction>`.
 
 **Parameter**
 
@@ -116,7 +116,7 @@ This function set the gas limit in `<Transaction>`.
 
 ## with_memo(memo)
 
-This function set the memo in `<Transaction>`.
+This function sets the memo in `<Transaction>`.
 
 **Parameter**
 
