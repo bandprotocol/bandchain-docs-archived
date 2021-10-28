@@ -39,7 +39,7 @@ This function set `account_num` and `sequence` from `<Client>` with the address 
 
 | Type          | Description                                                    |
 | ------------- | -------------------------------------------------------------- |
-| EmptyMsgError | Messsage is empty, please use with_messages at least 1 message |
+| EmptyMsgError | Message is empty, please use with_messages at least 1 message |
 | NotFoundError | Account doesn't exist                                          |
 
 ---
@@ -170,7 +170,7 @@ This function returns a transaction that need to be sent.
 
 - `<bytes>`
 
-### Usecase Example
+### Example use case
 
 **Note:** Get the `<GRPC>` [here](/technical-specifications/band-endpoints.html)
 
