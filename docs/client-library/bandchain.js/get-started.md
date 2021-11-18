@@ -674,7 +674,7 @@ And these are examples of bandchain.js usages, for more information, feel free t
 [`getaccount`]: /client-library/bandchain.js/client.html#getaccount-address
 [`withsender`]: /client-library/bandchain.js/transaction.html#withsender-client-sender
 [`msgrequestdata`]: /client-library/protocol-buffers/oracle-module.html#msgrequestdata
-[`msgsend`]: https://docs.cosmos.network/v0.44/modules/bank/03_messages.html#msgsend
+[`msgsend`]: https://docs.cosmos.network/master/modules/bank/03_messages.html
 [`transaction`]: /client-library/bandchain.js/transaction.html#transaction-module
 [`account`]: https://docs.cosmos.network/v0.44/basics/accounts.html
 [`sendtxblockmode`]: /client-library/bandchain.js/client.html#sendtxblockmode-txbytes
@@ -687,4 +687,4 @@ And these are examples of bandchain.js usages, for more information, feel free t
 [`getreferencedata`]: /client-library/bandchain.js/client.html#getreferencedata-pairs-mincount-askcount
 [`sign`]: /client-library/bandchain.js/wallet.html#sign-msg
 [`ibc`]: /whitepaper/cosmos-ibc.html
-[`msgtransfer`]: https://docs.cosmos.network/v0.44/modules/bank/03_messages.html#msgsend
+[`msgtransfer`]: https://docs.cosmos.network/master/modules/bank/03_messages.html
