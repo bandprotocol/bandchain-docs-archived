@@ -510,7 +510,7 @@ const sourceChannel = "channel-25";
 const sendAmount = new Coin();
 sendAmount.setDenom("uband");
 sendAmount.setAmount("10");
-const timeoutTimestamp = moment().unix() * 1e9;
+const timeoutTimestamp = moment().unix() + 600 * 1e9; // add 10 mins
 
 const msg = new MsgTransfer(
   sourcePort,
@@ -622,7 +622,7 @@ const sendCoinIbc = async () => {
   const sendAmount = new Coin();
   sendAmount.setDenom("uband");
   sendAmount.setAmount("10");
-  const timeoutTimestamp = moment().unix() * 1e9;
+  const timeoutTimestamp = moment().unix() + 600 * 1e9; // add 10 mins
 
   const msg = new MsgTransfer(
     sourcePort,
