@@ -478,7 +478,7 @@ And the result should look like this.
 
 ### Send BAND token via IBC Transfer
 
-With BandChain built based on the Cosmos-SDK, we also allow interaction with our data oracle through **Cosmos Inter-Blockchain-Communication protocol, [`IBC`]**, which connects other compatible blockchain chains to request data from BandChain.
+With BandChain built based on the Cosmos-SDK, we also allow interaction with our data oracle through **Cosmos Inter-Blockchain-Communication protocol, [`IBC`]**, which connects other compatible blockchains to request data from BandChain.
 
 To send BAND tokens through IBC Protocol, we will use [`MsgTransfer`] as a method to represents a message to send coins from one account to another between ICS20 enabled chains. See ICS spec [here](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer).
 
@@ -510,7 +510,7 @@ const sourceChannel = "channel-25";
 const sendAmount = new Coin();
 sendAmount.setDenom("uband");
 sendAmount.setAmount("10");
-const timeoutTimestamp = moment().unix() + 600 * 1e9; // add 10 mins
+const timeoutTimestamp = moment().unix() + 600 * 1e9; // timeout in 10 mins
 
 const msg = new MsgTransfer(
   sourcePort,
@@ -522,15 +522,12 @@ const msg = new MsgTransfer(
 );
 ```
 
-To find the right channel IDs for each chain to perform Interchain Transfers, go to the [BandChain's GraphQL Console](https://graphql-lm.bandchain.org/console) with the following query.
+To find the right channel IDs for each chain to perform Interchain Transfers, go to the [BandChain's GraphQL Console](https://graphql-lt4.bandchain.org/console) with the following query.
 
 ```graphql
 query MyQuery {
-  connections(
-    where: { channels: { port: { _eq: "transfer" } } }
-    order_by: { counterparty_chain_id: asc }
-  ) {
-    channels {
+  connections(where: {channels: {port: {_eq: "transfer"}}}, order_by: {counterparty_chain_id: asc}) {
+    channels(where: {port: {_eq: "transfer"}}) {
       channel
       port
     }
@@ -548,11 +545,52 @@ This query will list all the available IBC Relayers. like so:
       {
         "channels": [
           {
-            "channel": "channel-0",
-            "port": "oracle"
-          },
+            "channel": "channel-91",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "anca-1"
+      },
+      {
+        "channels": [
           {
-            "channel": "channel-2",
+            "channel": "channel-12",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "comdex-dev1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-11",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "comdex-dev1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-14",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "comdex-dev1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-13",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "comdexdevnet-4"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-25",
             "port": "transfer"
           }
         ],
@@ -561,16 +599,34 @@ This query will list all the available IBC Relayers. like so:
       {
         "channels": [
           {
-            "channel": "channel-8",
+            "channel": "channel-114",
             "port": "transfer"
           }
         ],
-        "counterparty_chain_id": "cosmoshub-4"
+        "counterparty_chain_id": "ibcoracle"
       },
       {
         "channels": [
           {
-            "channel": "channel-3",
+            "channel": "channel-116",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "ibcoracle"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-117",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "ibcoracle"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-90",
             "port": "transfer"
           }
         ],
@@ -579,20 +635,146 @@ This query will list all the available IBC Relayers. like so:
       {
         "channels": [
           {
-            "channel": "channel-4",
+            "channel": "channel-0",
             "port": "transfer"
           }
         ],
-        "counterparty_chain_id": "injective-1"
+        "counterparty_chain_id": "kichain-t-4"
       },
       {
         "channels": [
           {
-            "channel": "channel-6",
+            "channel": "channel-28",
             "port": "transfer"
           }
         ],
-        "counterparty_chain_id": "osmosis-1"
+        "counterparty_chain_id": "sifchain-testnet-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-252",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-256",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-257",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-30",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-38",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-46",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-69",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-93",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-96",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-139",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-162",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-164",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-169",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-208",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
       }
     ]
   }
@@ -622,7 +804,7 @@ const sendCoinIbc = async () => {
   const sendAmount = new Coin();
   sendAmount.setDenom("uband");
   sendAmount.setAmount("10");
-  const timeoutTimestamp = moment().unix() + 600 * 1e9; // add 10 mins
+  const timeoutTimestamp = moment().unix() + 600 * 1e9; // timeout in 10 mins
 
   const msg = new MsgTransfer(
     sourcePort,
@@ -666,7 +848,7 @@ const sendCoinIbc = async () => {
 })();
 ```
 
-And these are examples of bandchain.js usages, for more information, feel free to dive into specifications in each module.
+And these are examples of Bandchain.js usages, for more information, feel free to dive into specifications in each module.
 
 [`gettxdata`]: /client-library/bandchain.js/transaction.html#gettxdata-signature-publickey
 [`getsigndoc`]: /client-library/bandchain.js/transaction.html#getsigndoc
