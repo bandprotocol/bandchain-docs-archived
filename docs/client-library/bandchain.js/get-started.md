@@ -224,7 +224,7 @@ async function makeRequest() {
   console.log(sendTx)
 }
 
-;(async () => {
+(async () => {
   await makeRequest()
 })()
 ```
@@ -351,7 +351,7 @@ const sendCoin = async () => {
   console.log(response)
 }
 
-;(async () => {
+(async () => {
   await sendCoin()
 })()
 ```
@@ -438,9 +438,7 @@ const client = new Client(grpcUrl)
 // Step 2
 const minCount = 3
 const askCount = 4
-const pairs = ["BTC/USD", "ETH/USD"]
-
-;(async () => {
+const pairs = ["BTC/USD", "ETH/USD"(async () => {
   console.log(JSON.stringify(await client.getReferenceData(pairs, minCount, askCount)))
 })()
 ```
@@ -476,7 +474,382 @@ And the result should look like this.
 ]
 ```
 
-And these are examples of bandchain.js usages, for more information, feel free to dive into specifications in each module.
+### Send BAND token via IBC Transfer
+
+With BandChain built based on the Cosmos-SDK, we also allow interaction with our data oracle through **Cosmos Inter-Blockchain-Communication protocol, [`IBC`]**, which connects other compatible blockchains to request data from BandChain.
+
+To send BAND tokens through IBC Protocol, we will use [`MsgTransfer`] as a method to represents a message to send coins from one account to another between ICS20 enabled chains. See ICS spec [here](https://github.com/cosmos/ibc/tree/master/spec/app/ics-020-fungible-token-transfer).
+
+**Step 1:** First, you need to create a `MsgTransfer` instance from the Message module. The following code shows you how to create the instance.​
+
+```js
+import { Message } from "@bandprotocol/bandchain.js"
+
+const { MsgTransfer } = Message
+```
+
+**Step 2:** Now we can construct the `MsgTransfer` method, this method requires 5 fields to interact with:
+
+| Field            | Type   | Description                                                                 |
+| ---------------- | ------ | --------------------------------------------------------------------------- |
+| sourcePort       | string | The port on which the packet will be sent                                   |
+| sourceChannel    | string | The channel by which the packet will be sent                                |
+| sender           | string | The sender address                                                          |
+| receiver         | string | The recipient address on the destination chain                              |
+| token            | Coin   | The tokens to be transferred                                                |
+| timeoutTimestamp | number | Timeout timestamp (in nanoseconds) relative to the current block timestamp. |
+
+Your code should look like this.
+
+```js
+const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+const sourcePort = "transfer"
+const sourceChannel = "channel-25"
+const sendAmount = new Coin()
+sendAmount.setDenom("uband")
+sendAmount.setAmount("10")
+const timeoutTimestamp = moment().unix() + 600 * 1e9 // timeout in 10 mins
+
+const msg = new MsgTransfer(
+  sourcePort,
+  sourceChannel,
+  sendAmount,
+  sender,
+  receiver,
+  timeout_timestamp
+)
+```
+
+To find the right channel IDs for each chain to perform Interchain Transfers, go to the [BandChain's GraphQL Console](https://graphql-lt4.bandchain.org/console) with the following query.
+
+```graphql
+query MyQuery {
+  connections(
+    where: { channels: { port: { _eq: "transfer" } } }
+    order_by: { counterparty_chain_id: asc }
+  ) {
+    channels(where: { port: { _eq: "transfer" } }) {
+      channel
+      port
+    }
+    counterparty_chain_id
+  }
+}
+```
+
+This query will list all the available IBC Relayers. like so:
+
+```json
+{
+  "data": {
+    "connections": [
+      {
+        "channels": [
+          {
+            "channel": "channel-91",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "anca-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-12",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "comdex-dev1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-11",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "comdex-dev1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-14",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "comdex-dev1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-13",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "comdexdevnet-4"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-25",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "consumer"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-114",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "ibcoracle"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-116",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "ibcoracle"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-117",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "ibcoracle"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-90",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "injective-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-0",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "kichain-t-4"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-28",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "sifchain-testnet-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-252",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-256",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-257",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-30",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-38",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-46",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-69",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-93",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-96",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-139",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-162",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-164",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-169",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      },
+      {
+        "channels": [
+          {
+            "channel": "channel-208",
+            "port": "transfer"
+          }
+        ],
+        "counterparty_chain_id": "test-1"
+      }
+    ]
+  }
+}
+```
+
+Your final code should look something like this:
+
+```js
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js"
+
+const { PrivateKey } = Wallet
+const client = new Client("<GRPC_WEB>") // ex.https://laozi-testnet4.bandchain.org/grpc-web
+const privkey = PrivateKey.fromMnemonic(
+  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
+)
+const pubkey = privkey.toPubkey()
+const sender = pubkey.toAddress().toAccBech32()
+
+const sendCoinIbc = async () => {
+  // Step 1 constructs MsgTransfer message
+  const { MsgTransfer } = Message
+
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+  const sourcePort = "transfer"
+  const sourceChannel = "channel-25"
+  const sendAmount = new Coin()
+  sendAmount.setDenom("uband")
+  sendAmount.setAmount("10")
+  const timeoutTimestamp = moment().unix() + 600 * 1e9 // timeout in 10 mins
+
+  const msg = new MsgTransfer(
+    sourcePort,
+    sourceChannel,
+    sendAmount,
+    sender,
+    receiver,
+    timeout_timestamp
+  )
+
+  // Step 2 constructs a transaction
+  const account = await client.getAccount(sender)
+  const chainId = "band-laozi-testnet4"
+
+  let feeCoin = new Coin()
+  feeCoin.setDenom("uband")
+  feeCoin.setAmount("1000")
+
+  const fee = new Fee()
+  fee.setAmountList([feeCoin])
+  fee.setGasLimit(1000000)
+  const tx = new Transaction()
+    .withMessages(msg)
+    .withAccountNum(account.accountNumber)
+    .withSequence(account.sequence)
+    .withChainId(chainId)
+    .withFee(fee)
+
+  // Step 3 sign the transaction
+  const txSignData = tx.getSignDoc(pubkey)
+  const signature = privkey.sign(txSignData)
+  const signedTx = tx.getTxData(signature, pubkey)
+
+  // Step 4 send the transaction
+  const response = await client.sendTxBlockMode(signedTx)
+  console.log(response)
+}
+
+(async () => {
+  await sendCoinIbc()
+})()
+```
+
+And these are examples of Bandchain.js usages, for more information, feel free to dive into specifications in each module.
 
 [`gettxdata`]: /client-library/bandchain.js/transaction.html#gettxdata-signature-publickey
 [`getsigndoc`]: /client-library/bandchain.js/transaction.html#getsigndoc
@@ -484,7 +857,7 @@ And these are examples of bandchain.js usages, for more information, feel free t
 [`getaccount`]: /client-library/bandchain.js/client.html#getaccount-address
 [`withsender`]: /client-library/bandchain.js/transaction.html#withsender-client-sender
 [`msgrequestdata`]: /client-library/protocol-buffers/oracle-module.html#msgrequestdata
-[`msgsend`]: https://docs.cosmos.network/v0.44/modules/bank/03_messages.html#msgsend
+[`msgsend`]: https://docs.cosmos.network/master/modules/bank/03_messages.html
 [`transaction`]: /client-library/bandchain.js/transaction.html#transaction-module
 [`account`]: https://docs.cosmos.network/v0.44/basics/accounts.html
 [`sendtxblockmode`]: /client-library/bandchain.js/client.html#sendtxblockmode-txbytes
@@ -496,3 +869,5 @@ And these are examples of bandchain.js usages, for more information, feel free t
 [`address`]: /client-library/bandchain.js/wallet.html#address
 [`getreferencedata`]: /client-library/bandchain.js/client.html#getreferencedata-pairs-mincount-askcount
 [`sign`]: /client-library/bandchain.js/wallet.html#sign-msg
+[`ibc`]: /whitepaper/cosmos-ibc.html
+[`msgtransfer`]: https://docs.cosmos.network/master/modules/bank/03_messages.html
