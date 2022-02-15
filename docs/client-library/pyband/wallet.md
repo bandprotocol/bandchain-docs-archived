@@ -22,7 +22,7 @@ This function generates new private key with random mnemonic phrase.
 
 **Return**
 
-`Tuple[str, <PrivateKey>]`: Tuple of mnemonic phrase and `PrivateKey` instance.
+- `Tuple[str, <PrivateKey>]`: Tuple of mnemonic phrase and `PrivateKey` instance.
 
 **Example**
 

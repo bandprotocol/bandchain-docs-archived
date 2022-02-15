@@ -226,8 +226,142 @@ if __name__ == "__main__":
 
 And the result should look like this.
 
-```
-{"height":"603247","txhash":"587FF6D48E5CB8A23715389FE3CAC10262777B395E4D0C554916127461F63446","data":"0A090A0772657175657374","rawLog":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"request\"}]},{\"type\":\"raw_request\",\"attributes\":[{\"key\":\"data_source_id\",\"value\":\"61\"},{\"key\":\"data_source_hash\",\"value\":\"07be7bd61667327aae10b7a13a542c7dfba31b8f4c52b0b60bf9c7b11b1a72ef\"},{\"key\":\"external_id\",\"value\":\"6\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"57\"},{\"key\":\"data_source_hash\",\"value\":\"61b369daa5c0918020a52165f6c7662d5b9c1eee915025cb3d2b9947a26e48c7\"},{\"key\":\"external_id\",\"value\":\"0\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"62\"},{\"key\":\"data_source_hash\",\"value\":\"107048da9dbf7960c79fb20e0585e080bb9be07d42a1ce09c5479bbada8d0289\"},{\"key\":\"external_id\",\"value\":\"3\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"5\"},{\"key\":\"calldata\",\"value\":\"huobipro BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"59\"},{\"key\":\"data_source_hash\",\"value\":\"5c011454981c473af3bf6ef93c76b36bfb6cc0ce5310a70a1ba569de3fc0c15d\"},{\"key\":\"external_id\",\"value\":\"2\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"4\"},{\"key\":\"calldata\",\"value\":\"binance BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"9\"},{\"key\":\"calldata\",\"value\":\"bittrex BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"7\"},{\"key\":\"calldata\",\"value\":\"kraken BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"8\"},{\"key\":\"calldata\",\"value\":\"bitfinex BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"58\"},{\"key\":\"data_source_hash\",\"value\":\"7e6759fade717a06fb643392bfde837bfc3437da2ded54feed706e6cd35de461\"},{\"key\":\"external_id\",\"value\":\"1\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"}]},{\"type\":\"request\",\"attributes\":[{\"key\":\"id\",\"value\":\"306633\"},{\"key\":\"client_id\",\"value\":\"BandProtocol\"},{\"key\":\"oracle_script_id\",\"value\":\"37\"},{\"key\":\"calldata\",\"value\":\"0000000200000003425443000000034554480000000000000064\"},{\"key\":\"ask_count\",\"value\":\"4\"},{\"key\":\"min_count\",\"value\":\"3\"},{\"key\":\"gas_used\",\"value\":\"111048\"},{\"key\":\"total_fees\"},{\"key\":\"validator\",\"value\":\"bandvaloper1zl5925n5u24njn9axpygz8lhjl5a8v4cpkzx5g\"},{\"key\":\"validator\",\"value\":\"bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u\"},{\"key\":\"validator\",\"value\":\"bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz\"},{\"key\":\"validator\",\"value\":\"bandvaloper1ldtwjzsplhxzhrg3k5hhr8v0qterv05vpdxp9f\"}]}]}]","logs":[{"events":[{"type":"message","attributes":[{"key":"action","value":"request"}]},{"type":"raw_request","attributes":[{"key":"data_source_id","value":"61"},{"key":"data_source_hash","value":"07be7bd61667327aae10b7a13a542c7dfba31b8f4c52b0b60bf9c7b11b1a72ef"},{"key":"external_id","value":"6"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"57"},{"key":"data_source_hash","value":"61b369daa5c0918020a52165f6c7662d5b9c1eee915025cb3d2b9947a26e48c7"},{"key":"external_id","value":"0"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"62"},{"key":"data_source_hash","value":"107048da9dbf7960c79fb20e0585e080bb9be07d42a1ce09c5479bbada8d0289"},{"key":"external_id","value":"3"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"5"},{"key":"calldata","value":"huobipro BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"59"},{"key":"data_source_hash","value":"5c011454981c473af3bf6ef93c76b36bfb6cc0ce5310a70a1ba569de3fc0c15d"},{"key":"external_id","value":"2"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"4"},{"key":"calldata","value":"binance BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"9"},{"key":"calldata","value":"bittrex BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"7"},{"key":"calldata","value":"kraken BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"60"},{"key":"data_source_hash","value":"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"},{"key":"external_id","value":"8"},{"key":"calldata","value":"bitfinex BTC ETH"},{"key":"fee"},{"key":"data_source_id","value":"58"},{"key":"data_source_hash","value":"7e6759fade717a06fb643392bfde837bfc3437da2ded54feed706e6cd35de461"},{"key":"external_id","value":"1"},{"key":"calldata","value":"BTC ETH"},{"key":"fee"}]},{"type":"request","attributes":[{"key":"id","value":"306633"},{"key":"client_id","value":"BandProtocol"},{"key":"oracle_script_id","value":"37"},{"key":"calldata","value":"0000000200000003425443000000034554480000000000000064"},{"key":"ask_count","value":"4"},{"key":"min_count","value":"3"},{"key":"gas_used","value":"111048"},{"key":"total_fees"},{"key":"validator","value":"bandvaloper1zl5925n5u24njn9axpygz8lhjl5a8v4cpkzx5g"},{"key":"validator","value":"bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u"},{"key":"validator","value":"bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz"},{"key":"validator","value":"bandvaloper1ldtwjzsplhxzhrg3k5hhr8v0qterv05vpdxp9f"}]}]}],"gasWanted":"2000000","gasUsed":"566496"}
+```json
+{
+  "height": "603247",
+  "txhash": "587FF6D48E5CB8A23715389FE3CAC10262777B395E4D0C554916127461F63446",
+  "data": "0A090A0772657175657374",
+  "rawLog": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"request\"}]},{\"type\":\"raw_request\",\"attributes\":[{\"key\":\"data_source_id\",\"value\":\"61\"},{\"key\":\"data_source_hash\",\"value\":\"07be7bd61667327aae10b7a13a542c7dfba31b8f4c52b0b60bf9c7b11b1a72ef\"},{\"key\":\"external_id\",\"value\":\"6\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"57\"},{\"key\":\"data_source_hash\",\"value\":\"61b369daa5c0918020a52165f6c7662d5b9c1eee915025cb3d2b9947a26e48c7\"},{\"key\":\"external_id\",\"value\":\"0\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"62\"},{\"key\":\"data_source_hash\",\"value\":\"107048da9dbf7960c79fb20e0585e080bb9be07d42a1ce09c5479bbada8d0289\"},{\"key\":\"external_id\",\"value\":\"3\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"5\"},{\"key\":\"calldata\",\"value\":\"huobipro BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"59\"},{\"key\":\"data_source_hash\",\"value\":\"5c011454981c473af3bf6ef93c76b36bfb6cc0ce5310a70a1ba569de3fc0c15d\"},{\"key\":\"external_id\",\"value\":\"2\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"4\"},{\"key\":\"calldata\",\"value\":\"binance BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"9\"},{\"key\":\"calldata\",\"value\":\"bittrex BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"7\"},{\"key\":\"calldata\",\"value\":\"kraken BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"60\"},{\"key\":\"data_source_hash\",\"value\":\"2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac\"},{\"key\":\"external_id\",\"value\":\"8\"},{\"key\":\"calldata\",\"value\":\"bitfinex BTC ETH\"},{\"key\":\"fee\"},{\"key\":\"data_source_id\",\"value\":\"58\"},{\"key\":\"data_source_hash\",\"value\":\"7e6759fade717a06fb643392bfde837bfc3437da2ded54feed706e6cd35de461\"},{\"key\":\"external_id\",\"value\":\"1\"},{\"key\":\"calldata\",\"value\":\"BTC ETH\"},{\"key\":\"fee\"}]},{\"type\":\"request\",\"attributes\":[{\"key\":\"id\",\"value\":\"306633\"},{\"key\":\"client_id\",\"value\":\"BandProtocol\"},{\"key\":\"oracle_script_id\",\"value\":\"37\"},{\"key\":\"calldata\",\"value\":\"0000000200000003425443000000034554480000000000000064\"},{\"key\":\"ask_count\",\"value\":\"4\"},{\"key\":\"min_count\",\"value\":\"3\"},{\"key\":\"gas_used\",\"value\":\"111048\"},{\"key\":\"total_fees\"},{\"key\":\"validator\",\"value\":\"bandvaloper1zl5925n5u24njn9axpygz8lhjl5a8v4cpkzx5g\"},{\"key\":\"validator\",\"value\":\"bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u\"},{\"key\":\"validator\",\"value\":\"bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz\"},{\"key\":\"validator\",\"value\":\"bandvaloper1ldtwjzsplhxzhrg3k5hhr8v0qterv05vpdxp9f\"}]}]}]",
+  "logs": [
+    {
+      "events": [
+        {
+          "type": "message",
+          "attributes": [{ "key": "action", "value": "request" }]
+        },
+        {
+          "type": "raw_request",
+          "attributes": [
+            { "key": "data_source_id", "value": "61" },
+            {
+              "key": "data_source_hash",
+              "value": "07be7bd61667327aae10b7a13a542c7dfba31b8f4c52b0b60bf9c7b11b1a72ef"
+            },
+            { "key": "external_id", "value": "6" },
+            { "key": "calldata", "value": "BTC ETH" },
+            { "key": "fee" },
+            { "key": "data_source_id", "value": "57" },
+            {
+              "key": "data_source_hash",
+              "value": "61b369daa5c0918020a52165f6c7662d5b9c1eee915025cb3d2b9947a26e48c7"
+            },
+            { "key": "external_id", "value": "0" },
+            { "key": "calldata", "value": "BTC ETH" },
+            { "key": "fee" },
+            { "key": "data_source_id", "value": "62" },
+            {
+              "key": "data_source_hash",
+              "value": "107048da9dbf7960c79fb20e0585e080bb9be07d42a1ce09c5479bbada8d0289"
+            },
+            { "key": "external_id", "value": "3" },
+            { "key": "calldata", "value": "BTC ETH" },
+            { "key": "fee" },
+            { "key": "data_source_id", "value": "60" },
+            {
+              "key": "data_source_hash",
+              "value": "2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"
+            },
+            { "key": "external_id", "value": "5" },
+            { "key": "calldata", "value": "huobipro BTC ETH" },
+            { "key": "fee" },
+            { "key": "data_source_id", "value": "59" },
+            {
+              "key": "data_source_hash",
+              "value": "5c011454981c473af3bf6ef93c76b36bfb6cc0ce5310a70a1ba569de3fc0c15d"
+            },
+            { "key": "external_id", "value": "2" },
+            { "key": "calldata", "value": "BTC ETH" },
+            { "key": "fee" },
+            { "key": "data_source_id", "value": "60" },
+            {
+              "key": "data_source_hash",
+              "value": "2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"
+            },
+            { "key": "external_id", "value": "4" },
+            { "key": "calldata", "value": "binance BTC ETH" },
+            { "key": "fee" },
+            { "key": "data_source_id", "value": "60" },
+            {
+              "key": "data_source_hash",
+              "value": "2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"
+            },
+            { "key": "external_id", "value": "9" },
+            { "key": "calldata", "value": "bittrex BTC ETH" },
+            { "key": "fee" },
+            { "key": "data_source_id", "value": "60" },
+            {
+              "key": "data_source_hash",
+              "value": "2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"
+            },
+            { "key": "external_id", "value": "7" },
+            { "key": "calldata", "value": "kraken BTC ETH" },
+            { "key": "fee" },
+            { "key": "data_source_id", "value": "60" },
+            {
+              "key": "data_source_hash",
+              "value": "2e588de76a58338125022bc42b460072300aebbcc4acaf55f91755c1c1799bac"
+            },
+            { "key": "external_id", "value": "8" },
+            { "key": "calldata", "value": "bitfinex BTC ETH" },
+            { "key": "fee" },
+            { "key": "data_source_id", "value": "58" },
+            {
+              "key": "data_source_hash",
+              "value": "7e6759fade717a06fb643392bfde837bfc3437da2ded54feed706e6cd35de461"
+            },
+            { "key": "external_id", "value": "1" },
+            { "key": "calldata", "value": "BTC ETH" },
+            { "key": "fee" }
+          ]
+        },
+        {
+          "type": "request",
+          "attributes": [
+            { "key": "id", "value": "306633" },
+            { "key": "client_id", "value": "BandProtocol" },
+            { "key": "oracle_script_id", "value": "37" },
+            {
+              "key": "calldata",
+              "value": "0000000200000003425443000000034554480000000000000064"
+            },
+            { "key": "ask_count", "value": "4" },
+            { "key": "min_count", "value": "3" },
+            { "key": "gas_used", "value": "111048" },
+            { "key": "total_fees" },
+            {
+              "key": "validator",
+              "value": "bandvaloper1zl5925n5u24njn9axpygz8lhjl5a8v4cpkzx5g"
+            },
+            {
+              "key": "validator",
+              "value": "bandvaloper17n5rmujk78nkgss7tjecg4nfzn6geg4cqtyg3u"
+            },
+            {
+              "key": "validator",
+              "value": "bandvaloper1p46uhvdk8vr829v747v85hst3mur2dzlhfemmz"
+            },
+            {
+              "key": "validator",
+              "value": "bandvaloper1ldtwjzsplhxzhrg3k5hhr8v0qterv05vpdxp9f"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "gasWanted": "2000000",
+  "gasUsed": "566496"
+}
 ```
 
 ### Send BAND token
@@ -317,8 +451,46 @@ if __name__ == "__main__":
 
 And the result should look like this.
 
-```
-{"height":"603302","txhash":"815F488B3F05F2CBDD57C433DBEAF01FBFB06F378716A8ECDF5888095D6F7F7C","data":"0A060A0473656E64","rawLog":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"send\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"amount\",\"value\":\"1000000uband\"}]}]}]","logs":[{"events":[{"type":"message","attributes":[{"key":"action","value":"send"},{"key":"sender","value":"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"},{"key":"module","value":"bank"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"},{"key":"sender","value":"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"},{"key":"amount","value":"1000000uband"}]}]}],"gasWanted":"2000000","gasUsed":"49029"}
+```json
+{
+  "height": "603302",
+  "txhash": "815F488B3F05F2CBDD57C433DBEAF01FBFB06F378716A8ECDF5888095D6F7F7C",
+  "data": "0A060A0473656E64",
+  "rawLog": "[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"send\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"amount\",\"value\":\"1000000uband\"}]}]}]",
+  "logs": [
+    {
+      "events": [
+        {
+          "type": "message",
+          "attributes": [
+            { "key": "action", "value": "send" },
+            {
+              "key": "sender",
+              "value": "band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"
+            },
+            { "key": "module", "value": "bank" }
+          ]
+        },
+        {
+          "type": "transfer",
+          "attributes": [
+            {
+              "key": "recipient",
+              "value": "band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"
+            },
+            {
+              "key": "sender",
+              "value": "band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"
+            },
+            { "key": "amount", "value": "1000000uband" }
+          ]
+        }
+      ]
+    }
+  ],
+  "gasWanted": "2000000",
+  "gasUsed": "49029"
+}
 ```
 
 ### Get reference data
@@ -363,8 +535,25 @@ if __name__ == "__main__":
 
 And running the code above should return a result that looks like this.
 
-```
-[ReferencePrice(pair='BTC/USD', rate=34614.1, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134)), ReferencePrice(pair='ETH/USD', rate=2372.53, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134))]
+```json
+[
+  ReferencePrice(
+    (pair = "BTC/USD"),
+    (rate = 34614.1),
+    (updated_at = ReferencePriceUpdated(
+      (base = 1625655764),
+      (quote = 1625715134)
+    ))
+  ),
+  ReferencePrice(
+    (pair = "ETH/USD"),
+    (rate = 2372.53),
+    (updated_at = ReferencePriceUpdated(
+      (base = 1625655764),
+      (quote = 1625715134)
+    ))
+  )
+]
 ```
 
 [`get_tx_data`]: /client-library/pyband/transaction.html#get-tx-data-signature-public-key
