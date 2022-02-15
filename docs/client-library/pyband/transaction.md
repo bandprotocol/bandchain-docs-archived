@@ -18,7 +18,7 @@ The message can be in any message listed [Oracle Module](/client-library/protoco
 
 **Return**
 
-`<Transaction>`
+- `<Transaction>`
 
 ---
 
@@ -33,7 +33,7 @@ This function set `account_num` and `sequence` from `<Client>` with the address 
 
 **Return**
 
-`<Transaction>`
+- `<Transaction>`
 
 **Exception**
 
@@ -54,7 +54,7 @@ This function set the account number in `<Transaction>`.
 
 **Return**
 
-`<Transaction>`
+- `<Transaction>`
 
 ---
 
@@ -68,7 +68,7 @@ This function set the sequence number in `<Transaction>`.
 
 **Return**
 
-`<Transaction>`
+- `<Transaction>`
 
 ---
 
@@ -82,7 +82,7 @@ This function set the chain ID in `<Transaction>`.
 
 **Return**
 
-`<Transaction>`
+- `<Transaction>`
 
 ---
 
@@ -96,7 +96,7 @@ This function set the fee by using the given fee and gas limit `<Transaction>`.
 
 **Return**
 
-`<Transaction>`
+- `<Transaction>`
 
 ---
 
@@ -110,7 +110,7 @@ This function set the gas limit in `<Transaction>`.
 
 **Return**
 
-`<Transaction>`
+- `<Transaction>`
 
 ---
 
@@ -124,7 +124,7 @@ This function set the memo in `<Transaction>`.
 
 **Return**
 
-`<Transaction>`
+- `<Transaction>`
 
 **Exception**
 
@@ -144,7 +144,7 @@ This function returns a sign data from `<Transaction>`.
 
 **Return**
 
-`<cosmos_tx_type.SignDoc>`
+- `<cosmos_tx_type.SignDoc>`
 
 **Exception**
 
@@ -168,7 +168,7 @@ This function returns a transaction that need to be sent.
 
 **Return**
 
-`<bytes>`
+- `<bytes>`
 
 ### Usecase Example
 
