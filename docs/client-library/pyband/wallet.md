@@ -61,7 +61,7 @@ priv = PrivateKey.from_mnemonic("test mnemonic")
 
 ### from_hex(priv)
 
-This function creates a `PrivateKey` instance from a given hex that represent signing key.
+This function creates a `PrivateKey` instance from a given hex that represents a signing key.
 
 **Parameter**
 
@@ -83,7 +83,7 @@ priv = PrivateKey.from_hex("2442b724db7189468f16accc0fc505f0609817eb129e13702e69
 
 ### to_hex
 
-This function returns a hex representation of signing key.
+This function returns a hex representation of a signing key.
 
 **Return**
 
@@ -275,7 +275,7 @@ print(public_key.to_hex())
 
 ### to_public_key_proto()
 
-This function returns a public key in a type protobuf.
+This function returns a public key in type protobuf.
 
 **Return**
 
