@@ -4,7 +4,7 @@ order: 2
 
 # Data Module
 
-This module is used to construct the data in term of dataclass that is not generated from the protobuf files. It is used to ensure that all the inputs and outputs are in the correct format.
+This module is used to construct the data in terms of the dataclass that is not generated from the protobuf files. It is used to ensure that all the inputs and outputs are in the correct format.
 
 ## ReferencePriceUpdated
 
