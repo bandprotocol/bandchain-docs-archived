@@ -2,13 +2,25 @@
 order: 1
 -->
 
-# Get started
+# Getting Started
+
+## Overview
 
 Bandchain.js is a library written in TypeScript used for interacting with BandChain. The library provides classes and methods for convenient to send transactions, query data, OBI encoding, and wallet management.
 
 The library is implemented based on [gRPC-web protocol](https://grpc.io/blog/state-of-grpc-web/) which sends HTTP/1.5 or HTTP/2 requests to a gRPC proxy server, before serving them as HTTP/2 to gRPC server.
 
 The library support both Node.js and browsers.
+
+## System Requirements
+
+- Node.js 12.22.0 or later
+
+- MacOS, Windows (including WSL), and Linux are supported
+
+## Browser Support
+
+The default build targets browsers that support both [native ESM via script tags](https://caniuse.com/es6-module) and [native ESM dynamic import](https://caniuse.com/es6-module-dynamic-import).
 
 ## Installation
 
@@ -24,6 +36,8 @@ npm install --save @bandprotocol/bandchain.js
 yarn add @bandprotocol/bandchain.js
 ```
 
+## Basic Usages
+
 ### Make an oracle request
 
 This section describes methods to send a transaction of oracle request to BandChain
@@ -31,10 +45,10 @@ This section describes methods to send a transaction of oracle request to BandCh
 **Step 1:** Import `bandchain.js` and put `grpc_url_web` as a parameter and you can get `<GRPC_WEB>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js"
+import { Client } from "@bandprotocol/bandchain.js";
 
-const grpcUrl = "<GRPC_WEB>" // ex.https://laozi-testnet4.bandchain.org/grpc-web
-const client = new Client(grpcUrl)
+const grpcUrl = "<GRPC_WEB>"; // ex.https://laozi-testnet4.bandchain.org/grpc-web
+const client = new Client(grpcUrl);
 ```
 
 **Step 2:** Specify an account wallet for sending the transaction. This can be done by import [`PrivateKey`] from `Wallet` module and input a 24-words mnemonic string as a seed. For this example, we will use following mnemonic for demonstration.
@@ -46,20 +60,20 @@ subject economy equal whisper turn boil guard giraffe stick retreat wealth card 
 Here is the example on how to get a private key as an account.
 
 ```js
-import { Wallet } from "@bandprotocol/bandchain.js"
-const { PrivateKey } = Wallet
+import { Wallet } from "@bandprotocol/bandchain.js";
+const { PrivateKey } = Wallet;
 
 // Step 2.1
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-)
+);
 ```
 
 Then, we will use the private key to generate public key and a BAND address, as shown below
 
 ```js
-const pubkey = privkey.toPubkey()
-const sender = pubkey.toAddress().toAccBech32()
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 ```
 
 **Step 3:** As we have both an Client instance and an account wallet, we can now construct a transaction by importing [`Transaction`] and [`MsgRequestData`].
@@ -79,22 +93,22 @@ with following optional fields
 We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 9 fields as shown in the exmaple below.
 
 ```js
-import { Obi, Message, Coin } from "@bandprotocol/bandchain.js"
+import { Obi, Message, Coin } from "@bandprotocol/bandchain.js";
 
-const obi = new Obi("{symbols:[string],multiplier:u64}/{rates:[u64]}")
-const calldata = obi.encodeInput({ symbols: ["ETH"], multiplier: 100 })
+const obi = new Obi("{symbols:[string],multiplier:u64}/{rates:[u64]}");
+const calldata = obi.encodeInput({ symbols: ["ETH"], multiplier: 100 });
 
-const oracleScriptId = 37
-const askCount = 4
-const minCount = 3
-const clientId = "from_bandchain.js"
+const oracleScriptId = 37;
+const askCount = 4;
+const minCount = 3;
+const clientId = "from_bandchain.js";
 
-let feeLimit = new Coin()
-feeLimit.setDenom("uband")
-feeLimit.setAmount("100000")
+let feeLimit = new Coin();
+feeLimit.setDenom("uband");
+feeLimit.setAmount("100000");
 
-const prepareGas = 100000
-const executeGas = 200000
+const prepareGas = 100000;
+const executeGas = 200000;
 
 const requestMessage = new Message.MsgRequestData(
   oracleScriptId,
@@ -106,7 +120,7 @@ const requestMessage = new Message.MsgRequestData(
   [feeLimit],
   prepareGas,
   executeGas
-)
+);
 ```
 
 After constructed [`MsgRequestData`], we can get other required fields by following methods to constructs a transaction
@@ -115,23 +129,23 @@ After constructed [`MsgRequestData`], we can get other required fields by follow
 - Chain ID can be gathered from Client's [`getChainId`] method.
 
 ```js
-import { Coin, Fee, Transaction } from "@bandprotocol/bandchain.js"
+import { Coin, Fee, Transaction } from "@bandprotocol/bandchain.js";
 
-let feeCoin = new Coin()
-feeCoin.setDenom("uband")
-feeCoin.setAmount("50000")
+let feeCoin = new Coin();
+feeCoin.setDenom("uband");
+feeCoin.setAmount("50000");
 
-const fee = new Fee()
-fee.setAmountList([feeCoin])
-fee.setGasLimit(1000000)
+const fee = new Fee();
+fee.setAmountList([feeCoin]);
+fee.setGasLimit(1000000);
 
-const chainId = await client.getChainId()
-const txn = new Transaction()
-txn.withMessages(requestMessage)
-await txn.withSender(client, sender)
-txn.withChainId(chainId)
-txn.withFee(fee)
-txn.withMemo("")
+const chainId = await client.getChainId();
+const txn = new Transaction();
+txn.withMessages(requestMessage);
+await txn.withSender(client, sender);
+txn.withChainId(chainId);
+txn.withFee(fee);
+txn.withMemo("");
 ```
 
 **Step 4:** Sign and send the transaction
@@ -139,8 +153,8 @@ txn.withMemo("")
 Now, we had an instance of constructed transaction. In order to sign the transaction, [`getSignDoc`] method in [`Transaction`] instance can be used to get serialzed data of the transaction to be used for signing. Then, use [`PrivateKey`]'s [`sign`] to sign transaction. Finally, use [`getTxData`] to include signature and public key to the transaction to get a complete signed transaction.
 
 ```js
-const signDoc = txn.getSignDoc(pubkey)
-const signature = privateKey.sign(signDoc)
+const signDoc = txn.getSignDoc(pubkey);
+const signature = privateKey.sign(signDoc);
 ```
 
 **Step 5:** Send the signed transaction to Bandchain be using following method of choices
@@ -154,34 +168,34 @@ For our example, we will use [`sendTxBlockMode`] to send the transaction.
 The final code should now look like the code below.
 
 ```js
-import { Client, Wallet, Obi, Message, Coin, Transaction, Fee } from "@bandprotocol/bandchain.js"
+import { Client, Wallet, Obi, Message, Coin, Transaction, Fee } from "@bandprotocol/bandchain.js";
 
-const grpcUrl = "<GRPC_WEB>" // ex.https://laozi-testnet4.bandchain.org/grpc-web
-const client = new Client(grpcUrl)
+const grpcUrl = "<GRPC_WEB>"; // ex.https://laozi-testnet4.bandchain.org/grpc-web
+const client = new Client(grpcUrl);
 
 async function makeRequest() {
   // Step 1: Import a private key for signing transaction
-  const { PrivateKey } = Wallet
-  const mnemonic = "test"
-  const privateKey = PrivateKey.fromMnemonic(mnemonic)
-  const pubkey = privateKey.toPubkey()
-  const sender = pubkey.toAddress().toAccBech32()
+  const { PrivateKey } = Wallet;
+  const mnemonic = "test";
+  const privateKey = PrivateKey.fromMnemonic(mnemonic);
+  const pubkey = privateKey.toPubkey();
+  const sender = pubkey.toAddress().toAccBech32();
 
   // Step 2.1: Prepare oracle request's properties
-  const obi = new Obi("{symbols:[string],multiplier:u64}/{rates:[u64]}")
-  const calldata = obi.encodeInput({ symbols: ["ETH"], multiplier: 100 })
+  const obi = new Obi("{symbols:[string],multiplier:u64}/{rates:[u64]}");
+  const calldata = obi.encodeInput({ symbols: ["ETH"], multiplier: 100 });
 
-  const oracleScriptId = 37
-  const askCount = 4
-  const minCount = 3
-  const clientId = "from_bandchain.js"
+  const oracleScriptId = 37;
+  const askCount = 4;
+  const minCount = 3;
+  const clientId = "from_bandchain.js";
 
-  let feeLimit = new Coin()
-  feeLimit.setDenom("uband")
-  feeLimit.setAmount("100000")
+  let feeLimit = new Coin();
+  feeLimit.setDenom("uband");
+  feeLimit.setAmount("100000");
 
-  const prepareGas = 100000
-  const executeGas = 200000
+  const prepareGas = 100000;
+  const executeGas = 200000;
 
   // Step 2.2: Create an oracle request message
   const requestMessage = new Message.MsgRequestData(
@@ -194,39 +208,39 @@ async function makeRequest() {
     [feeLimit],
     prepareGas,
     executeGas
-  )
+  );
 
-  let feeCoin = new Coin()
-  feeCoin.setDenom("uband")
-  feeCoin.setAmount("50000")
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("50000");
 
   // Step 3.1: Construct a transaction
-  const fee = new Fee()
-  fee.setAmountList([feeCoin])
-  fee.setGasLimit(1000000)
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
 
-  const chainId = await client.getChainId()
-  const txn = new Transaction()
-  txn.withMessages(requestMessage)
-  await txn.withSender(client, sender)
-  txn.withChainId(chainId)
-  txn.withFee(fee)
-  txn.withMemo("")
+  const chainId = await client.getChainId();
+  const txn = new Transaction();
+  txn.withMessages(requestMessage);
+  await txn.withSender(client, sender);
+  txn.withChainId(chainId);
+  txn.withFee(fee);
+  txn.withMemo("");
 
   // Step 3.2: Sign the transaction using the private key
-  const signDoc = txn.getSignDoc(pubkey)
-  const signature = privateKey.sign(signDoc)
+  const signDoc = txn.getSignDoc(pubkey);
+  const signature = privateKey.sign(signDoc);
 
-  const txRawBytes = txn.getTxData(signature, pubkey)
+  const txRawBytes = txn.getTxData(signature, pubkey);
 
   // Step 4: Broadcast the transaction
-  const sendTx = await client.sendTxBlockMode(txRawBytes)
-  console.log(sendTx)
+  const sendTx = await client.sendTxBlockMode(txRawBytes);
+  console.log(sendTx);
 }
 
 (async () => {
-  await makeRequest()
-})()
+  await makeRequest();
+})();
 ```
 
 After, we run the script above, the result should look like this. The following log contains logs, which have events related to sent request.
@@ -290,70 +304,70 @@ Sending BAND token has code pattern similar to the previous section, except that
 The message used for this section is [`MsgSend`] which can be used as shown below
 
 ```js
-const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
-const sendAmount = new Coin()
-sendAmount.setDenom("uband")
-sendAmount.setAmount("10")
-const msg = new MsgSend(sender, receiver, [sendAmount])
+const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
+const sendAmount = new Coin();
+sendAmount.setDenom("uband");
+sendAmount.setAmount("10");
+const msg = new MsgSend(sender, receiver, [sendAmount]);
 ```
 
 Therefore, final result is as shown follow
 
 ```js
-import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js"
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
-const { PrivateKey } = Wallet
-const client = new Client("<GRPC_WEB>") // ex.https://laozi-testnet4.bandchain.org/grpc-web
+const { PrivateKey } = Wallet;
+const client = new Client("<GRPC_WEB>"); // ex.https://laozi-testnet4.bandchain.org/grpc-web
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-)
+);
 // Step 2.2 prepare public key and its address
-const pubkey = privkey.toPubkey()
-const sender = pubkey.toAddress().toAccBech32()
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 
 const sendCoin = async () => {
   // Step 3.1 constructs MsgSend message
-  const { MsgSend } = Message
+  const { MsgSend } = Message;
 
   // Here we use different message type, which is MsgSend
-  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
-  const sendAmount = new Coin()
-  sendAmount.setDenom("uband")
-  sendAmount.setAmount("10")
-  const msg = new MsgSend(sender, receiver, [sendAmount])
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
+  const sendAmount = new Coin();
+  sendAmount.setDenom("uband");
+  sendAmount.setAmount("10");
+  const msg = new MsgSend(sender, receiver, [sendAmount]);
   // Step 3.2 constructs a transaction
-  const account = await client.getAccount(sender)
-  const chainId = "band-laozi-testnet4"
+  const account = await client.getAccount(sender);
+  const chainId = "band-laozi-testnet4";
 
-  let feeCoin = new Coin()
-  feeCoin.setDenom("uband")
-  feeCoin.setAmount("1000")
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("1000");
 
-  const fee = new Fee()
-  fee.setAmountList([feeCoin])
-  fee.setGasLimit(1000000)
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
   const tx = new Transaction()
     .withMessages(msg)
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withFee(fee)
+    .withFee(fee);
 
   // Step 4 sign the transaction
-  const txSignData = tx.getSignDoc(pubkey)
-  const signature = privkey.sign(txSignData)
-  const signedTx = tx.getTxData(signature, pubkey)
+  const txSignData = tx.getSignDoc(pubkey);
+  const signature = privkey.sign(txSignData);
+  const signedTx = tx.getTxData(signature, pubkey);
 
   // Step 5 send the transaction
-  const response = await client.sendTxBlockMode(signedTx)
-  console.log(response)
-}
+  const response = await client.sendTxBlockMode(signedTx);
+  console.log(response);
+};
 
 (async () => {
-  await sendCoin()
-})()
+  await sendCoin();
+})();
 ```
 
 The response should be similar to as shown below
@@ -413,10 +427,10 @@ This section shows an example on how to query data from BandChain. This example 
 **Step 1:** Import `bandchain.js` and put `grpc_url_web` as a parameter and you can get `<GRPC_WEB>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
 
 ```js
-import { Client } from "@bandprotocol/bandchain.js"
+import { Client } from "@bandprotocol/bandchain.js";
 // Step 1
-const grpcUrl = "<GRPC_WEB>" // ex.https://laozi-testnet4.bandchain.org/grpc-web
-const client = new Client(grpcUrl)
+const grpcUrl = "<GRPC_WEB>"; // ex.https://laozi-testnet4.bandchain.org/grpc-web
+const client = new Client(grpcUrl);
 ```
 
 **Step 2:** After we import the [`Client`] already, then we call the [`Client`]'s [`getReferenceData`] function to get the latest price
@@ -483,9 +497,9 @@ To send BAND tokens through IBC Protocol, we will use [`MsgTransfer`] as a metho
 **Step 1:** First, you need to create a `MsgTransfer` instance from the Message module. The following code shows you how to create the instance.​
 
 ```js
-import { Message } from "@bandprotocol/bandchain.js"
+import { Message } from "@bandprotocol/bandchain.js";
 
-const { MsgTransfer } = Message
+const { MsgTransfer } = Message;
 ```
 
 **Step 2:** Now we can construct the `MsgTransfer` method, this method requires 5 fields to interact with:
@@ -502,13 +516,13 @@ const { MsgTransfer } = Message
 Your code should look like this.
 
 ```js
-const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
-const sourcePort = "transfer"
-const sourceChannel = "channel-25"
-const sendAmount = new Coin()
-sendAmount.setDenom("uband")
-sendAmount.setAmount("10")
-const timeoutTimestamp = moment().unix() + 600 * 1e9 // timeout in 10 mins
+const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
+const sourcePort = "transfer";
+const sourceChannel = "channel-25";
+const sendAmount = new Coin();
+sendAmount.setDenom("uband");
+sendAmount.setAmount("10");
+const timeoutTimestamp = moment().unix() + 600 * 1e9; // timeout in 10 mins
 
 const msg = new MsgTransfer(
   sourcePort,
@@ -517,7 +531,7 @@ const msg = new MsgTransfer(
   sender,
   receiver,
   timeout_timestamp
-)
+);
 ```
 
 To find the right channel IDs for each chain to perform Interchain Transfers, go to the [BandChain's GraphQL Console](https://graphql-lt4.bandchain.org/console) with the following query.
@@ -785,27 +799,27 @@ This query will list all the available IBC Relayers. like so:
 Your final code should look something like this:
 
 ```js
-import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js"
+import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js";
 
-const { PrivateKey } = Wallet
-const client = new Client("<GRPC_WEB>") // ex.https://laozi-testnet4.bandchain.org/grpc-web
+const { PrivateKey } = Wallet;
+const client = new Client("<GRPC_WEB>"); // ex.https://laozi-testnet4.bandchain.org/grpc-web
 const privkey = PrivateKey.fromMnemonic(
   "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
-)
-const pubkey = privkey.toPubkey()
-const sender = pubkey.toAddress().toAccBech32()
+);
+const pubkey = privkey.toPubkey();
+const sender = pubkey.toAddress().toAccBech32();
 
 const sendCoinIbc = async () => {
   // Step 1 constructs MsgTransfer message
-  const { MsgTransfer } = Message
+  const { MsgTransfer } = Message;
 
-  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
-  const sourcePort = "transfer"
-  const sourceChannel = "channel-25"
-  const sendAmount = new Coin()
-  sendAmount.setDenom("uband")
-  sendAmount.setAmount("10")
-  const timeoutTimestamp = moment().unix() + 600 * 1e9 // timeout in 10 mins
+  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f";
+  const sourcePort = "transfer";
+  const sourceChannel = "channel-25";
+  const sendAmount = new Coin();
+  sendAmount.setDenom("uband");
+  sendAmount.setAmount("10");
+  const timeoutTimestamp = moment().unix() + 600 * 1e9; // timeout in 10 mins
 
   const msg = new MsgTransfer(
     sourcePort,
@@ -814,39 +828,39 @@ const sendCoinIbc = async () => {
     sender,
     receiver,
     timeout_timestamp
-  )
+  );
 
   // Step 2 constructs a transaction
-  const account = await client.getAccount(sender)
-  const chainId = "band-laozi-testnet4"
+  const account = await client.getAccount(sender);
+  const chainId = "band-laozi-testnet4";
 
-  let feeCoin = new Coin()
-  feeCoin.setDenom("uband")
-  feeCoin.setAmount("1000")
+  let feeCoin = new Coin();
+  feeCoin.setDenom("uband");
+  feeCoin.setAmount("1000");
 
-  const fee = new Fee()
-  fee.setAmountList([feeCoin])
-  fee.setGasLimit(1000000)
+  const fee = new Fee();
+  fee.setAmountList([feeCoin]);
+  fee.setGasLimit(1000000);
   const tx = new Transaction()
     .withMessages(msg)
     .withAccountNum(account.accountNumber)
     .withSequence(account.sequence)
     .withChainId(chainId)
-    .withFee(fee)
+    .withFee(fee);
 
   // Step 3 sign the transaction
-  const txSignData = tx.getSignDoc(pubkey)
-  const signature = privkey.sign(txSignData)
-  const signedTx = tx.getTxData(signature, pubkey)
+  const txSignData = tx.getSignDoc(pubkey);
+  const signature = privkey.sign(txSignData);
+  const signedTx = tx.getTxData(signature, pubkey);
 
   // Step 4 send the transaction
-  const response = await client.sendTxBlockMode(signedTx)
-  console.log(response)
-}
+  const response = await client.sendTxBlockMode(signedTx);
+  console.log(response);
+};
 
 (async () => {
-  await sendCoinIbc()
-})()
+  await sendCoinIbc();
+})();
 ```
 
 And these are examples of Bandchain.js usages, for more information, feel free to dive into specifications in each module.
