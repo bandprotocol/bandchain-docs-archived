@@ -49,9 +49,9 @@ Deploys a new oracle script to BandChain's network. Once registered, the script 
 | Parameter       | Type             | Description                                                                                           |
 |-----------------|------------------|-------------------------------------------------------------------------------------------------------|
 | Sender          | sdk.AccAddress | The address of the message's sender. Note that the sender does not need to be the same as the owner   |
-| Owner           | sdk.AccAddress | The address of the entity who will be responsible for maintaining the data source                     |
-| Name            | string         | The human-readable string name for this data source                                                   |
-| Description     | string         | The description of this data source                                                                   |
+| Owner           | sdk.AccAddress | The address of the entity who will be responsible for maintaining the oracle script                   |
+| Name            | string         | The human-readable string name for this oracle script                                                 |
+| Description     | string         | The description of this oracle script                                                                 |
 | Code            | []byte         | The Owasm-compiled binary attached to this oracle script                                              |
 | Schema          | string         | The schema detailing the inputs and outputs of this oracle script, as well as the corresponding types |
 | Source Code URL | string         | The URL for the source code of this oracle script                                                     |
@@ -66,9 +66,9 @@ Edits an existing oracle script given the unique `int64` identifier (i.e. `oracl
 |-----------------|------------------|-------------------------------------------------------------------------------------------------------|
 | OracleScriptID  | int64          | The unique identifier number assigned to the oracle script when it was first registered on Bandchain  |
 | Sender          | sdk.AccAddress | The address of the message's sender. Note that the sender does not need to be the same as the owner   |
-| Owner           | sdk.AccAddress | The address of the entity who will be responsible for maintaining the data source                     |
-| Name            | string         | The human-readable string name for this data source                                                   |
-| Description     | string         | The description of this data source                                                                   |
+| Owner           | sdk.AccAddress | The address of the entity who will be responsible for maintaining the oracle script                   |
+| Name            | string         | The human-readable string name for this oracle script                                                 |
+| Description     | string         | The description of this oracle script                                                                 |
 | Code            | []byte         | The Owasm-compiled binary attached to this oracle script                                              |
 | Schema          | string         | The schema detailing the inputs and outputs of this oracle script, as well as the corresponding types |
 | Source Code URL | string         | The URL for the source code of this oracle script                                                     |
