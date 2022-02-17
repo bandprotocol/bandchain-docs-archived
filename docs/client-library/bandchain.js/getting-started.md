@@ -42,7 +42,7 @@ yarn add @bandprotocol/bandchain.js
 
 This section describes methods to send a transaction of oracle request to BandChain
 
-**Step 1:** Import `bandchain.js` and put `grpc_url_web` as a parameter and you can get `<GRPC_WEB>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
+**Step 1:** Import `Client` from `@bandprotocol/bandchain.js` and creates a new instance of `grpcUrl` as a parameter and you can get `<GRPC_WEB>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js";
@@ -91,6 +91,8 @@ with following optional fields
 - memo (default is empty string)
 
 We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 9 fields as shown in the exmaple below.
+
+Within [`MsgRequestData`]
 
 ```js
 import { Obi, Message, Coin } from "@bandprotocol/bandchain.js";
