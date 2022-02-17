@@ -2,7 +2,15 @@
 order: 1
 -->
 
-# Get Started
+# Getting Started
+
+## Overview
+
+PyBand is a library written in Python used for interacting with BandChain. The library provides classes, methods, and [protobuf](/client-library/protocol-buffers/oracle-module.html) classes for the ease of sending transactions, querying data, OBI encoding, and wallet management.
+
+The library is implemented based on gRPC-web protocol which sends HTTP/1.5 or HTTP/2 requests to a gRPC proxy server, before serving them as HTTP/2 to gRPC server.
+
+The library supports only implementation on Python.
 
 ## Installation
 
