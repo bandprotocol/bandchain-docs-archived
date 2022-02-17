@@ -567,18 +567,12 @@ And running the code above should return a result that looks like this.
   ReferencePrice(
     (pair = "BTC/USD"),
     (rate = 34614.1),
-    (updated_at = ReferencePriceUpdated(
-      (base = 1625655764),
-      (quote = 1625715134)
-    ))
+    (updated_at = ReferencePriceUpdated((base = 1625655764), (quote = 1625715134)))
   ),
   ReferencePrice(
     (pair = "ETH/USD"),
     (rate = 2372.53),
-    (updated_at = ReferencePriceUpdated(
-      (base = 1625655764),
-      (quote = 1625715134)
-    ))
+    (updated_at = ReferencePriceUpdated((base = 1625655764), (quote = 1625715134)))
   )
 ]
 =======
