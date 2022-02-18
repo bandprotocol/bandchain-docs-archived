@@ -90,7 +90,7 @@ with following optional fields
 
 - memo (default is empty string)
 
-We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 9 fields as shown in the exmaple below.
+We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 9 fields as shown in the example below.
 
 Within [`MsgRequestData`]
 
