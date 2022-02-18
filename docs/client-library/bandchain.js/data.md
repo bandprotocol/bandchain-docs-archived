@@ -33,5 +33,24 @@ Although there are Protobuf classes, some types are not exists. Therefore, addit
 | updatedAt | [ReferenceDataUpdated]   | Price update time             |
 | requestId | [ReferenceDataRequestID] | OracleRequest ID              |
 
+### Syntax
+
+```js
+(method) Client.getReferenceData(pairs: string[], minCount: number, askCount: number): Promise<Data.ReferenceData[]>
+```
+
+### Example
+
+```js
+import { Client, Data } from "@bandprotocol/bandchain.js"
+
+async function getReferenceData() {
+  const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web"
+  const client = new Client(grpcEndpoint)
+  const data = await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 4)
+  console.log(typeof data) // Promise<Data.ReferenceData[]>
+}
+```
+
 [referencedataupdated]: #referencedataupdated "ReferenceDataUpdated"
 [referencedatarequestid]: #referencedatarequestid "ReferenceDataRequestID"
