@@ -100,7 +100,7 @@ Below is an example OBI schema of an oracle script to fetch a cryptocurrency pri
   ^       ^     ^
   |       |     +- 64-bit be encode of 1000000000 is 0x000000003b9aca00
   |       +------- "BTC" data is encoded as 0x425443
-  +--------------- 32-bit be encode of length 3 is 0x00000003
+  +--------------- 32-bit be encode of length 3 is 0x00000003 #BTC is a string with a length of 3
 
 
 {
@@ -111,6 +111,15 @@ Below is an example OBI schema of an oracle script to fetch a cryptocurrency pri
   ]
 }
 0x0000086df1baab000000000200000009436f696e4765636b6f000000005eca223d0000000d43727970746f436f6d70617265000000005eca2252
+  ^               ^       ^       ^                 ^               ^       ^                         ^
+  |               |       |       |                 |               |       |                         +- 64-bit be encode of 1590305362 is 0x000000005eca2252
+  |               |       |       |                 |               |       +- "CryptoCompare" data is encoded as 0x43727970746f436f6d70617265
+  |               |       |       |                 |               +- 32-bit be encode of length 13 is 0x0000000d #CryptoCompare length is 13
+  |               |       |       |                 +- 64-bit be encode of 1590305341 is 0x000000005eca223d
+  |               |       |       +- "CoinGecko" data is encoded as 0x436f696e4765636b6f
+  |               |       +- 32-bit be encode of length 9 is 0x00000009 #CoinGecko length is 9
+  |               +------- 32-bit be encode of length 2 is 0x00000002 #sources has a value that is an array with a length of 2
+  +--------------- 64-bit be encode of 9268300000000 is 0x0000086df1baab00
 ```
 
 ## Reference Implementations
