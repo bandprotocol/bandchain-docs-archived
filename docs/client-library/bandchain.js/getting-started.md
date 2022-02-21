@@ -2,13 +2,25 @@
 order: 1
 -->
 
-# Get started
+# Getting Started
+
+## Overview
 
 Bandchain.js is a library written in TypeScript used for interacting with BandChain. The library provides classes and methods for convenient to send transactions, query data, OBI encoding, and wallet management.
 
 The library is implemented based on [gRPC-web protocol](https://grpc.io/blog/state-of-grpc-web/) which sends HTTP/1.5 or HTTP/2 requests to a gRPC proxy server, before serving them as HTTP/2 to gRPC server.
 
 The library support both Node.js and browsers.
+
+## System Requirements
+
+- Node.js 12.22.0 or later
+
+- MacOS, Windows (including WSL), and Linux are supported
+
+## Browser Support
+
+The default build targets browsers that support both [native ESM via script tags](https://caniuse.com/es6-module) and [native ESM dynamic import](https://caniuse.com/es6-module-dynamic-import).
 
 ## Installation
 
@@ -24,11 +36,13 @@ npm install --save @bandprotocol/bandchain.js
 yarn add @bandprotocol/bandchain.js
 ```
 
+## Basic Usages
+
 ### Make an oracle request
 
 This section describes methods to send a transaction of oracle request to BandChain
 
-**Step 1:** Import `bandchain.js` and put `grpc_url_web` as a parameter and you can get `<GRPC_WEB>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
+**Step 1:** Import `Client` from `@bandprotocol/bandchain.js` and creates a new instance of `grpcUrl` as a parameter and you can get `<GRPC_WEB>` endpoint from [here](/technical-specifications/band-endpoints.html). Then initialize the client instance. Every method in client module can now be used.
 
 ```js
 import { Client } from "@bandprotocol/bandchain.js"
@@ -76,7 +90,9 @@ with following optional fields
 
 - memo (default is empty string)
 
-We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 9 fields as shown in the exmaple below.
+We will firstly construct a [`MsgRequestData`] to be included in a list of messages of the transaction. The message requires 9 fields as shown in the example below.
+
+Within [`MsgRequestData`]
 
 ```js
 import { Obi, Message, Coin } from "@bandprotocol/bandchain.js"
@@ -224,7 +240,7 @@ async function makeRequest() {
   console.log(sendTx)
 }
 
-(async () => {
+;(async () => {
   await makeRequest()
 })()
 ```
@@ -351,7 +367,7 @@ const sendCoin = async () => {
   console.log(response)
 }
 
-(async () => {
+;(async () => {
   await sendCoin()
 })()
 ```
@@ -844,7 +860,7 @@ const sendCoinIbc = async () => {
   console.log(response)
 }
 
-(async () => {
+;(async () => {
   await sendCoinIbc()
 })()
 ```
