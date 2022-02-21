@@ -45,7 +45,7 @@ Although there are Protobuf classes, some types are not exists. Therefore, addit
 import { Client, Data } from "@bandprotocol/bandchain.js"
 
 async function getReferenceData() {
-  const grpcEndpoint = "https://laozi-testnet4.bandchain.org/grpc-web"
+  const grpcEndpoint = ${GRPC_ENDPOINT}
   const client = new Client(grpcEndpoint)
   const data = await client.getReferenceData(["BTC/USD", "ETH/BTC"], 3, 4)
   console.log(typeof data) // Promise<Data.ReferenceData[]>
