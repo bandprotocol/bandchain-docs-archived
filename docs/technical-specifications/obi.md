@@ -4,11 +4,11 @@ order: 1
 
 # Oracle Binary Encoding (OBI)
 
-Oracle Binary Encoding (OBI) is the standard way to serialized and deserialize binary data in the BandChain ecosystem. Similar to Ethereum's [Contract ABI Specification](https://solidity.readthedocs.io/en/latest/abi-spec.html) or Google's [ProtoBuf](https://developers.google.com/protocol-buffers), an OBI schema explains how a data object, in any supported programming language, can be encoded to and decoded from plain bytes.
+Oracle Binary Encoding (OBI) is a standard method for serializing and deserializing binary data in the BandChain ecosystem. Under the concept of Ethereum's [Contract ABI Specification](https://solidity.readthedocs.io/en/latest/abi-spec.html) and Google's [ProtoBuf](https://developers.google.com/protocol-buffers), an OBI schema explains how a data object in any supported programming language can be encoded to and decoded from plain bytes.
 
 OBI is designed with the following properties in mind:
 
-- **Compactness**: OBI schema will be stored on-chain and passed around between blockchains. Thus, it is essential to keep the size of the schema specification as small as possible.
+- **Compactness**: OBI schema will be stored on-chain and passed around between blockchains. Thus, it is essential to keep the size of the schema specification tiniest.
 - **Simplicity & Portability**: As a blockchain-agnostic protocol, OBI serialization and deserialization must be easy to implement in any environment. Consequently, complex platform-specific features are not supported.
 - **Readability**: Lastly, OBI is intended to be used as a communication tool between oracle script creators and smart contract developers. It must be intuitive for readers to understand the OBI underlying objects from reading the schema.
 
@@ -30,7 +30,7 @@ Below is the [Backus–Naur form (BNF)](https://en.wikipedia.org/wiki/Backus%E2%
 <obi_schema>    ::= <obi_schema> | <obi_schema> "/" <indv_schema>
 <indv_schema>   ::= <int_schema> | <uint_schema> | <string_schema> |
                     <bytes_schema> | <vector_schema> | <struct_schema>
-<bool_schema>    ::= "bool"
+<bool_schema>   ::= "bool"
 <int_schema>    ::= "i8" | "i16" | "i32" | "i64" | "i128" | "i256"
 <uint_schema>   ::= "u8" | "u16" | "u32" | "i64" | "u128" | "u256"
 <string_schema> ::= "string"
@@ -73,10 +73,10 @@ let encode (s : indv_schema) (o : object) :=
 
 ## OBI Schema Examples
 
-Below is an example OBI schema of an oracle script to fetch the price of a cryptocurrency, which is then multiplied by a specific multiplier. The OBI itself schema consists of two internal schemas, one for the inputs to the oracle script and the other for the output.
+Below is an example OBI schema of an oracle script to fetch a cryptocurrency price, which is then multiplied by a specific multiplier. The OBI itself schema consists of two internal schemas, one for the inputs to the oracle script and the other for the output.
 
-- The input is a struct with two fields: a string symbol and a u64 multiplier.
-- The output is a struct with two fields: a u64 final price and a vector of struct each has string name and u64 timestamp.
+- The input consists with two fields: a string symbol and a u64 multiplier.
+- The output consists with two fields: a u64 final price and a vector of struct each has string name and u64 timestamp.
 
 ```json
 # Compact OBI representation...
