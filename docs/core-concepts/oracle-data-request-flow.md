@@ -1,3 +1,7 @@
+<!--
+order: 3
+-->
+
 # Oracle Data Request Flow
 
 The flow of requesting data from BandChain can be broken down into four main steps:

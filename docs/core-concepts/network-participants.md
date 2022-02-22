@@ -1,3 +1,7 @@
+<!--
+order: 2
+-->
+
 # Network Participants
 
 BandChain's network consists of a number of network participants, each owning BAND tokens. In the Laozi mainnet, these participants can be broken down into three main groups; validators, delegators, and data providers.
