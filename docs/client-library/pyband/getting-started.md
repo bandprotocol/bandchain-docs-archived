@@ -2,19 +2,32 @@
 order: 1
 -->
 
-# Get Started
+# Getting Started
+
+## Overview
+
+PyBand is a library written in Python used for interacting with BandChain. The library provides classes, methods, and [protobuf](/client-library/protocol-buffers/oracle-module.html) classes for the ease of sending transactions, querying data, OBI encoding, and wallet management.
+
+The library is implemented based on gRPC-web protocol which sends HTTP/1.5 or HTTP/2 requests to a gRPC proxy server, before serving them as HTTP/2 to gRPC server.
+
+This library is only implemented on Python.
+
+## System Requirements
+
+- Recommended Python version: `3.8.x` or below
+- MacOS, Windows (including WSL), and Linux are supported
 
 ## Installation
 
-The library is available on [PyPI](https://pypi.org/project/pyband/)
+This library is available on [PyPI](https://pypi.org/project/pyband/)
 
 ```
 pip install pyband
 ```
 
-## Example Usage
+## Basic Usages
 
-### Make an oracle request
+### Making an oracle request
 
 This section describes the methods used to send a transaction containing an oracle request to BandChain
 
@@ -65,7 +78,7 @@ to be constructed, we will need to get those.
 In this example, we will use [`MsgRequestData`] with the following parameters as our message.
 
 - **oracle_script_id** `<int>`: The oracle script ID.
-- **calldata** `<bytes>`: The calldata from a request.
+- **calldata** `<bytes>`: The calldata from a request (e.g., the hex string representing OBI-encoded value of `{"symbols": ["ETH"], "multiplier": 100}`).
 - **ask_count** `<int>`: The number of validator required to process this transaction.
 - **min_count** `<int>`: The minimum number of validator required to process this transaction.
 - **client_id** `<str>`: Name of the client (can be any name or an empty string).
@@ -364,7 +377,7 @@ And the result should look like this.
 }
 ```
 
-### Send BAND token
+### Sending BAND token
 
 The process of sending BAND token is similar to **making an oracle request** , except we will use [`MsgSend`] as our message.
 
@@ -493,7 +506,7 @@ And the result should look like this.
 }
 ```
 
-### Get reference data
+### Getting reference data
 
 This section shows an example on how to query data from BandChain. This example queries the standard price reference based on the given symbol pairs, min count, and ask count.
 
