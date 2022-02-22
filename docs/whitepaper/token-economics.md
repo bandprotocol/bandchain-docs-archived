@@ -16,6 +16,8 @@ BandChain currently utilizes its native BAND token as the sole token on its netw
 
 BandChain applies an inflationary model on the BAND token to incentivize network participation by the token holders. The desired outcome of this model is that token holders will opt to stake their coins on the network, rather than solely focusing on trading, or doing nothing with it at all. The specific inflation parameters currently mirrors that of the Cosmos network; namely, the annual inflation rate ranges from 7% to 20%, and is adjusted to target to have 66% of the total supply of BAND token staked.
 
+When the inflation is over because of the issuance of all tokens, the maximum supply is 100,000,000 Band Token and will never increase.
+
 To illustrate how inflation incentivizes staking, imagine we have a network participant with a certain amount of holding. With inflation, if they choose to not use their coins to participate in the network’s activities, they will find that the percentage of their holding with respect to the total supply decreases over time. However, if they decide to stake their coins, they will be given a share of coins proportional to the inflation, meaning their total token holding ratio will now remain relatively unchanged.
 
 ## Validators and Stakers
