@@ -119,6 +119,10 @@ module.exports = {
               title: "IBC Integration",
               path: "/core-concepts/ibc-intregation",
             },
+            {
+              title: "Lite Client Protocol",
+              path: "/core-concepts/lite-client-protocol",
+            },
           ],
         },
         {
@@ -273,4 +277,4 @@ module.exports = {
       ],
     },
   },
-};
+}
