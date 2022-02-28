@@ -20,7 +20,7 @@ We recommend experimenting with using our solution on a test network first befor
 
 ## Mainnets
 
-| Blockchain |      `StdReference` Contract Address       |                                       Explorer                                       |
-| ---------- | :----------------------------------------: | :----------------------------------------------------------------------------------: |
-| Celo       | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://explorer.celo.org/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
-| Oasis      | 0xaf4DB1f08d6226ae58D7cA1596f4E0B9D28Bb7Ae |                 [link](https://testnet.explorer.emerald.oasis.dev/)                  |
+| Blockchain      |      `StdReference` Contract Address       |                                       Explorer                                       |
+| --------------- | :----------------------------------------: | :----------------------------------------------------------------------------------: |
+| Celo            | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://explorer.celo.org/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
+| Oasis (Emerald) | 0xaf4DB1f08d6226ae58D7cA1596f4E0B9D28Bb7Ae |                 [link](https://testnet.explorer.emerald.oasis.dev/)                  |
