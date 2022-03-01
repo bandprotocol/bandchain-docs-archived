@@ -464,8 +464,6 @@ if __name__ == "__main__":
 
 And the result should look like this.
 
-<<<<<<< HEAD
-
 ```json
 {
   "height": "603302",
@@ -510,15 +508,11 @@ And the result should look like this.
 
 ### Getting reference data
 
-=======
-
 ```
 {"height":"603302","txhash":"815F488B3F05F2CBDD57C433DBEAF01FBFB06F378716A8ECDF5888095D6F7F7C","data":"0A060A0473656E64","rawLog":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"send\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"amount\",\"value\":\"1000000uband\"}]}]}]","logs":[{"events":[{"type":"message","attributes":[{"key":"action","value":"send"},{"key":"sender","value":"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"},{"key":"module","value":"bank"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"},{"key":"sender","value":"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"},{"key":"amount","value":"1000000uband"}]}]}],"gasWanted":"2000000","gasUsed":"49029"}
 ```
 
 ### Get reference data
-
-> > > > > > > be96920 (change to getting-started, added overview)
 
 This section shows an example on how to query data from BandChain. This example queries the standard price reference based on the given symbol pairs, min count, and ask count.
 
@@ -560,8 +554,6 @@ if __name__ == "__main__":
 
 And running the code above should return a result that looks like this.
 
-<<<<<<< HEAD
-
 ```json
 [
   ReferencePrice(
@@ -575,12 +567,9 @@ And running the code above should return a result that looks like this.
     (updated_at = ReferencePriceUpdated((base = 1625655764), (quote = 1625715134)))
   )
 ]
-=======
 ```
 
 [ReferencePrice(pair='BTC/USD', rate=34614.1, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134)), ReferencePrice(pair='ETH/USD', rate=2372.53, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134))]
-
-> > > > > > > be96920 (change to getting-started, added overview)
 
 ```
 
