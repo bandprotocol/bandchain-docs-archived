@@ -508,12 +508,6 @@ And the result should look like this.
 
 ### Getting reference data
 
-```
-{"height":"603302","txhash":"815F488B3F05F2CBDD57C433DBEAF01FBFB06F378716A8ECDF5888095D6F7F7C","data":"0A060A0473656E64","rawLog":"[{\"events\":[{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"send\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte\"},{\"key\":\"sender\",\"value\":\"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph\"},{\"key\":\"amount\",\"value\":\"1000000uband\"}]}]}]","logs":[{"events":[{"type":"message","attributes":[{"key":"action","value":"send"},{"key":"sender","value":"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"},{"key":"module","value":"bank"}]},{"type":"transfer","attributes":[{"key":"recipient","value":"band1jrhuqrymzt4mnvgw8cvy3s9zhx3jj0dq30qpte"},{"key":"sender","value":"band18p27yl962l8283ct7srr5l3g7ydazj07dqrwph"},{"key":"amount","value":"1000000uband"}]}]}],"gasWanted":"2000000","gasUsed":"49029"}
-```
-
-### Get reference data
-
 This section shows an example on how to query data from BandChain. This example queries the standard price reference based on the given symbol pairs, min count, and ask count.
 
 **Step 1:** Import `pyband` and create a parameter: `grpc_url` with the required `<GRPC>` endpoint which can be found [here](/technical-specifications/band-endpoints.html). Then the client instance needs to be initialized in order to allow for the methods in client module to be used.
@@ -559,18 +553,20 @@ And running the code above should return a result that looks like this.
   ReferencePrice(
     (pair = "BTC/USD"),
     (rate = 34614.1),
-    (updated_at = ReferencePriceUpdated((base = 1625655764), (quote = 1625715134)))
+    (updated_at = ReferencePriceUpdated(
+      (base = 1625655764),
+      (quote = 1625715134)
+    ))
   ),
   ReferencePrice(
     (pair = "ETH/USD"),
     (rate = 2372.53),
-    (updated_at = ReferencePriceUpdated((base = 1625655764), (quote = 1625715134)))
+    (updated_at = ReferencePriceUpdated(
+      (base = 1625655764),
+      (quote = 1625715134)
+    ))
   )
 ]
-```
-
-[ReferencePrice(pair='BTC/USD', rate=34614.1, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134)), ReferencePrice(pair='ETH/USD', rate=2372.53, updated_at=ReferencePriceUpdated(base=1625655764, quote=1625715134))]
-
 ```
 
 [`get_tx_data`]: /client-library/pyband/transaction.html#get-tx-data-signature-public-key
@@ -586,4 +582,3 @@ And running the code above should return a result that looks like this.
 [`get_reference_data`]: /client-library/pyband/client.html#get-reference-data-pairs-min-count-ask-count
 [`msgrequestdata`]: /client-library/protocol-buffers/oracle-module.html#msgrequestdata
 [`msgsend`]: https://docs.cosmos.network/v0.44/core/proto-docs.html#msgsend
-```
