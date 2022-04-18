@@ -10,7 +10,7 @@ You can get the RPC and REST endpoints from [here](/technical-specifications/ban
 
 **CLI**: `bandd query oracle data-source [id] --node ${RPC}`
 
-**Path**: `/api/oracle/v1/{id}`
+**Path**: `/api/oracle/v1/data_sources/{id}`
 **Method**: `GET`
 
 ```bash
