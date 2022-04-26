@@ -91,7 +91,9 @@ Create a [`PrivateKey`] instance from a given a hex representation of signing ke
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { PrivateKey } = Wallet
-const priv = PrivateKey.fromHex('2442b724db7189468f16accc0fc505f0609817eb129e13702e696d8b84609ea9')
+const priv = PrivateKey.fromHex(
+  '2442b724db7189468f16accc0fc505f0609817eb129e13702e696d8b84609ea9'
+)
 ```
 
 ---
@@ -528,7 +530,9 @@ Create an [`Address`] instance from a bech32-encoded with account prefix.
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Address } = Wallet
-const address = Address.fromAccBech32('band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c')
+const address = Address.fromAccBech32(
+  'band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c'
+)
 ```
 
 ---
@@ -558,7 +562,9 @@ Create an [`Address`] instance from a bech32-encoded with validator prefix
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Address } = Wallet
-const address = Address.fromValBech32('bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn')
+const address = Address.fromValBech32(
+  'bandvaloper13eznuehmqzd3r84fkxu8wklxl22r2qfm8f05zn'
+)
 ```
 
 ---
@@ -588,7 +594,9 @@ Create an [`Address`] instance from a bech32-encoded with validator consensus pr
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Address } = Wallet
-const address = Address.fromConsBech32('bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj')
+const address = Address.fromConsBech32(
+  'bandvalcons13eznuehmqzd3r84fkxu8wklxl22r2qfmn6ugwj'
+)
 ```
 
 ---
@@ -607,7 +615,9 @@ Return a hex representation of `Address`.
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Address } = Wallet
-const address = Address.fromAccBech32('band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c')
+const address = Address.fromAccBech32(
+  'band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c'
+)
 console.log(address.toHex())
 ```
 
@@ -639,7 +649,9 @@ Return bech32-encoded with account prefix
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Address } = Wallet
-const address = Address.fromAccBech32('band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c')
+const address = Address.fromAccBech32(
+  'band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c'
+)
 console.log(address.toAccBech32())
 ```
 
@@ -671,7 +683,9 @@ Return bech32-encoded with validator prefix
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Address } = Wallet
-const address = Address.fromAccBech32('band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c')
+const address = Address.fromAccBech32(
+  'band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c'
+)
 console.log(address.toValBech32())
 ```
 
@@ -703,7 +717,9 @@ Return bech32-encoded with validator consensus prefix
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Address } = Wallet
-const address = Address.fromAccBech32('band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c')
+const address = Address.fromAccBech32(
+  'band13eznuehmqzd3r84fkxu8wklxl22r2qfmtlth8c'
+)
 console.log(address.toConsBech32())
 ```
 
@@ -733,7 +749,7 @@ A static method used to connect Ledger with Node HID implementation.
 
 **Example**
 
-```javascript=
+```js
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Ledger } = Wallet
@@ -760,7 +776,7 @@ A static method used to connect Ledger with WebUSB/WebHID protocol implementatio
 
 - `<Ledger>`: `Ledger` object.
 
-```javascript=
+```js
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Ledger } = Wallet
@@ -788,7 +804,7 @@ An object containing public key and bech32 address with the following keys
 
 **Example**
 
-```javascript=
+```js
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Ledger } = Wallet
@@ -802,10 +818,10 @@ const { Ledger } = Wallet
 
 **Return**
 
-```javascript=
+```js
 {
-    "bech32_address": "band1pxzqj53rg87e2n0swh8h7a6m2umjlja6uwffp9",
-    "pubKey": PublicKey {verifyKey: Uint8Array(33)}
+    bech32_address: "band1pxzqj53rg87e2n0swh8h7a6m2umjlja6uwffp9",
+    pubKey: PublicKey {verifyKey: Uint8Array(33)}
 }
 ```
 
@@ -829,7 +845,7 @@ As its namesake dictates, this function will disconnect the Ledger device.
 
 **Example**
 
-```javascript=
+```js
 import { Wallet } from '@bandprotocol/bandchain.js'
 
 const { Ledger } = Wallet
