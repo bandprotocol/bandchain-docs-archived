@@ -837,7 +837,7 @@ This function returns the signature of the associated Ledger. The message is sig
 
 - `<Buffer>`: A signature of the connected ledger over the given Transaction message.
 
-[Example in Bandchain.js Basic Usage](#Sending-Band-Token-using-Ledger)
+[Example in Bandchain.js Basic Usage](/client-library/bandchain.js/getting-started.html#sending-band-token-using-ledger)
 
 ### disconnect
 
