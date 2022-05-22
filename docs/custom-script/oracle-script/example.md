@@ -91,6 +91,18 @@ After we've filled the contents of `lib.rs` and `Cargo.toml`, let's compile the 
 
 ##### Build .wasm
 
+Make sure you have set-up [WebAssembly](https://rustwasm.github.io/docs/book/introduction.html) with Rust:
+
+```shell
+cargo check --target wasm32-unknown-unknown
+```
+
+If you get errors, run:
+```shell
+rustup target add wasm32-unknown-unknown
+```
+
+Then build by running:
 ```shell
 RUSTFLAGS='-C link-arg=-s' cargo build --release --target wasm32-unknown-unknown
 ```
