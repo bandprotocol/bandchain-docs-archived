@@ -70,8 +70,8 @@ const EXTERNAL_ID: i64 = 0;
 #[no_mangle]
 fn prepare_impl(input: Input) {
     oei::ask_external_data(
-        DATA_SOURCE_ID,
         EXTERNAL_ID,
+        DATA_SOURCE_ID,
         format!("{} {}", input.rpc, input.to).as_bytes(),
     );
 }
