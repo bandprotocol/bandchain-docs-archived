@@ -4,15 +4,19 @@ order: 3
 
 # Supported Blockchains
 
-Currently, our `StdReference` smart contracts are available on the following blockchain networks:
+Currently, our `StdReferenceProxy` smart contracts are available on the following networks:
 
 ::: warning
 We recommend experimenting with using our solution on a test network first before proceeding to mainnet.
 :::
 
+::: warning
+Please ONLY use the proxy contract as in the case that the base contract is updated, the proxy contract will always point to the correct base contract and show the most updated price feeds.
+:::
+
 ## Testnets
 
-| Blockchain       |      `StdReference` Contract Address       |                                                      Explorer                                                      |
+| Blockchain       |    `StdReferenceProxy` Contract Address    |                                                      Explorer                                                      |
 | ---------------- | :----------------------------------------: | :----------------------------------------------------------------------------------------------------------------: |
 | Ethereum (Kovan) | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |               [link](https://kovan.etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
 | Celo (Alfajores) | 0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc |      [link](https://alfajores-blockscout.celo-testnet.org/address/0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc)      |
@@ -22,7 +26,7 @@ We recommend experimenting with using our solution on a test network first befor
 
 ## Mainnets
 
-| Blockchain |      `StdReference` Contract Address       |                                                  Explorer                                                  |
+| Blockchain |    `StdReferenceProxy` Contract Address    |                                                  Explorer                                                  |
 | ---------- | :----------------------------------------: | :--------------------------------------------------------------------------------------------------------: |
 | Celo       | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |            [link](https://explorer.celo.org/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)            |
 | Oasis      | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://explorer.emerald.oasis.dev/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3/transactions) |
