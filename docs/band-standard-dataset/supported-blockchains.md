@@ -22,7 +22,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Celo (Alfajores) | 0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc |      [link](https://alfajores-blockscout.celo-testnet.org/address/0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc)      |
 | Oasis (Emerald)  | 0xdE2022A8aB68AE86B0CD3Ba5EFa10AaB859d0293 | [link](https://testnet.explorer.emerald.oasis.dev/address/0xdE2022A8aB68AE86B0CD3Ba5EFa10AaB859d0293/transactions) |
 | Evmos            | 0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68 |           [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68/transactions)            |
-| Cronos           | 0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa |    [link](https://cronos.org/explorer/testnet3/address/0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa/transactions)    |
+| Cronos           | 0xD0b2234eB9431e850a814bCdcBCB18C1093F986B |              [link](https://testnet.cronoscan.com/address/0xD0b2234eB9431e850a814bCdcBCB18C1093F986B)              |
 
 ## Mainnets
 
