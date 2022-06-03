@@ -57,7 +57,7 @@ Once a relayer has been set up, the module on another IBC-compatible blockchain 
 - Once the request is submitted to BandChain, the oracle module fetches the corresponding oracle script and starts the oracle script's preparation phase returning information of all related data sources.
 - Then BandChain performs various checks such as preparation phase smaller than the provided prepare gas (This is actually done in the oracle's script preparation phase) and the total fee for the request does not exceed the provided fee limit (More details can be found in the next [section](./on-chain-payment-protocol)).
 - (IBC Process Only) Then an acknowledgement is sent back to the requester's chain which either contains the error from the checks or the request identifier created by BandChain.
-- If there is no error, the request is then broadcasted. Each validator selected for the particular request will then proceeed to retrieve data from each of the data source
+- If there is no error, the request is then broadcast. Each validator selected for the particular request will then proceeed to retrieve data from each of the data source
 - If a validator's retrieval is successful, they will submit back a report to BandChain containing the result they received from each of the data source.
 - If the number of validators that managed to successfully submit the report exceeds the `minCount` specified in the `OracleRequestPacketData`, BandChain then computes and stores an aggregate final value.
 - (IBC Process Only) The final result is also directly relayed back to the requesting chain and module in the form of a [`OracleResponsePacketData`](#oracleresponsepacketdata) data packet.
