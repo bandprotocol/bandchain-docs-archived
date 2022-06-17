@@ -101,7 +101,7 @@ After we've filled the contents of `lib.rs` and `Cargo.toml`, let's compile the 
 
 #### Manually add WebAssembly Support wasm32-unknown-unknown
 
-To manually add the wasm32-unknown-unknown target you will need to download it from the rust-lang website and put the contents in the correct folder.
+If wasm32-unknown-unknown hasn't been added as a target, add it using the command below before attempting to compile.
 
 ```
 rustup target add wasm32-unknown-unknown
