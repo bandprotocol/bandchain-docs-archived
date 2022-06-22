@@ -20,7 +20,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | ---------------- | :----------------------------------------: | :----------------------------------------------------------------------------------------------------------------: |
 | Ethereum (Kovan) | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |               [link](https://kovan.etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
 | Celo (Alfajores) | 0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc |      [link](https://alfajores-blockscout.celo-testnet.org/address/0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc)      |
-| Oasis (Emerald)  | 0xdE2022A8aB68AE86B0CD3Ba5EFa10AaB859d0293 | [link](https://testnet.explorer.emerald.oasis.dev/address/0xdE2022A8aB68AE86B0CD3Ba5EFa10AaB859d0293/transactions) |
+| Oasis (Emerald)  | 0x61704EFB8b8120c03C210cAC5f5193BF8c80852a | [link](https://testnet.explorer.emerald.oasis.dev/address/0x61704EFB8b8120c03C210cAC5f5193BF8c80852a/transactions) |
 | Evmos            | 0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68 |           [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68/transactions)            |
 | Cronos           | 0xD0b2234eB9431e850a814bCdcBCB18C1093F986B |              [link](https://testnet.cronoscan.com/address/0xD0b2234eB9431e850a814bCdcBCB18C1093F986B)              |
 | BitTorrent-Chain | 0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68 |              [link](https://testnet.bttcscan.com/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)               |
