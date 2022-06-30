@@ -10,15 +10,6 @@ a [`MsgCreateDataSource`](/whitepaper/protocol-messages.html#msgcreatedatasource
 A MsgCreateDataSource message contains various parameters of the data source they wish to register. These parameters
 include
 
-[//]: # (- Per-query fee that someone looking to use that data source needs to pay)
-
-[//]: # (- Name of the data source)
-
-[//]: # (- Content of the executable to be run by block validators upon receiving a data request for this data source)
-
-[//]: # (- Sender who wishes to create the data source)
-
-[//]: # (- Owner of the data source, if specified)
 - `name`: Name of the data source
 - `description`: A description of the data source 
 - `executable`: Contents of the executable to be run by block validators upon receiving a data request for this data 
