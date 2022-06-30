@@ -2,15 +2,21 @@
 order: 2
 -->
 
-# Example
+# Example Data Sources
 
-To better explain the structure and implementation of a data source, let’s look at two possible examples.
+At its core, a data source is just a simple script that returns data the user requires.
 
-### Getting Gold Price Data
+In order for the data source to run, always make sure to add a shebang line containing `#!/usr/bin/env python3` 
+and to print the required output.
+
+In order to better understand the structure and implementation of a data source, let’s look at two examples below,
+Gold Price and Token Total Supply.
+
+### Gold Price
 
 First, let’s look at a data source that queries [GoldPrice.org](https://goldprice.org) for the current price of gold.
-The script itself is written in Python. Although this data source does not expect any arguments, it can have any number
-of arguments as needed.
+The script itself is written in Python and although this specific data source does not expect any arguments, a data 
+source can have any number of arguments required.
 
 ```python
 #!/usr/bin/env python3
@@ -26,7 +32,7 @@ def main():
         pxs = requests.get(URL, headers=HEADERS).json()
         return pxs['items'][0]['xauPrice']
     except Exception as e:
-        print(e)
+        raise e
 
 if __name__ == "__main__":
     try:
@@ -36,10 +42,10 @@ if __name__ == "__main__":
         sys.exit(1)
 ```
 
-### Query for token total supply
+### Token Total Supply
 
-However, as mentioned above, the data source can take any number of arguments. The example below, also written in
-Python, gives an example of such a script that requires two arguments.
+As mentioned above, a data source can take any number of arguments. The example below, gives an example of a data source
+which requires two arguments.
 
 This data source queries the given network's RPC endpoint for the total supply of a given token address.
 
@@ -78,6 +84,6 @@ if __name__ == "__main__":
 For more data source examples, please refer to the ones available on our [Mainnet](https://cosmoscan.io/data-sources)
 to get an idea of different types of data source that we are working with our partners. Some of these includes:
 
-- [Crypto prices from CoinGecko](https://cosmoscan.io/data-source/2#code)
-- [Latest stock price from Finage](https://cosmoscan.io/data-source/25#code)
-- [Forex & Commodities price from Alpha Vantage](https://cosmoscan.io/data-source/9#code)
+- [Latest crypto prices from CoinGecko](https://cosmoscan.io/data-source/74#code)
+- [Latest stock prices from Finage](https://cosmoscan.io/data-source/23#code)
+- [Latest forex prices from Alpha Vantage](https://cosmoscan.io/data-source/9#code)
