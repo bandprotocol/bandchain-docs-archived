@@ -7,7 +7,7 @@ order: 3
 On BandChain, a data source can be registered into the system by anyone. This is done through the registrant sending
 a [`MsgCreateDataSource`](/whitepaper/protocol-messages.html#msgcreatedatasource) message to the chain.
 
-A MsgCreateDataSource message contains various parameters of the data source they wish to register. These parameters
+A `MsgCreateDataSource` message contains various parameters of the data source they wish to register. These parameters
 include
 
 - `name`: Name of the data source
@@ -20,7 +20,7 @@ source
 parameters will no longer be able to be edited after being registered
 - `sender`: The message sender account 
 
-In order to send a MsgCreateDataSource message, we can use either
+In order to send a `MsgCreateDataSource` message, we can use either
 [bandchain.js](https://docs.bandchain.org/client-library/bandchain.js/getting-started.html#) or 
 [pyband](https://docs.bandchain.org/client-library/pyband/getting-started.html) 
 
