@@ -18,7 +18,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 
 | Blockchain       |    `StdReferenceProxy` Contract Address    |                                                      Explorer                                                      |
 | ---------------- | :----------------------------------------: | :----------------------------------------------------------------------------------------------------------------: |
-| Ethereum (Kovan) | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |               [link](https://kovan.etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
+| Ethereum (Kovan) | 0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa |               [link](https://kovan.etherscan.io/address/0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa)                |
 | Celo (Alfajores) | 0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc |      [link](https://alfajores-blockscout.celo-testnet.org/address/0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc)      |
 | Oasis (Emerald)  | 0x61704EFB8b8120c03C210cAC5f5193BF8c80852a | [link](https://testnet.explorer.emerald.oasis.dev/address/0x61704EFB8b8120c03C210cAC5f5193BF8c80852a/transactions) |
 | Evmos            | 0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68 |           [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68/transactions)            |
