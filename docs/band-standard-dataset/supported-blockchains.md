@@ -27,13 +27,13 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Cronos | 0xD0b2234eB9431e850a814bCdcBCB18C1093F986B | [link](https://testnet.cronoscan.com/address/0xD0b2234eB9431e850a814bCdcBCB18C1093F986B) |
 | Ethereum (Kovan) |  0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa | [link](https://kovan.etherscan.io/address/0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa) |
 | Evmos |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68 | [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68) |
+| Godwoken | 0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a | [link](https://v1.betanet.gwscan.com/address/0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a) |
 | ICE (Arctic) | 0xb6256DCb23CEE06eDa2408E73945963606fdddd7 | [link](https://arctic.epirus.io/dashboard/accounts/0xb6256DCb23CEE06eDa2408E73945963606fdddd7) |
 | Meter | 0xe1bCC505f2Bdd02C9480C924856f5080834A3897 | [link](https://scan-warringstakes.meter.io/address/0xe1bCC505f2Bdd02C9480C924856f5080834A3897) |
 | Oasis | 0x61704EFB8b8120c03C210cAC5f5193BF8c80852a | [link](https://testnet.explorer.emerald.oasis.dev/address/0x61704EFB8b8120c03C210cAC5f5193BF8c80852a) |
 | OKC | 0xb6256DCb23CEE06eDa2408E73945963606fdddd7 | [link](https://www.oklink.com/en/okc-test/address/0xb6256DCb23CEE06eDa2408E73945963606fdddd7) |
 | Optimism | 0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa | [link](https://kovan-optimistic.etherscan.io/address/0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa) |
 | PlatON | 0x0c2362c9A0586Dd7295549C65a4A5e3aFE10a88A | [link](https://devnetscan.platon.network/address/0x0c2362c9A0586Dd7295549C65a4A5e3aFE10a88A) |
-| Godwoken | 0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a | [link](https://v1.betanet.gwscan.com/address/0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a) |
 | Secret (Pulsar-2) | secret14swdnnllsfvtnvwmtvnvcj2zu0njsl9cdkk5xp | [link](https://secretnodes.com/secret/chains/pulsar-2/accounts/secret14swdnnllsfvtnvwmtvnvcj2zu0njsl9cdkk5xp) |
 
 ## Mainnets
@@ -53,6 +53,6 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Meter | 0x861C20f77f194EEa4f86e0d39069D789265A3A82 | [link](https://scan.meter.io/address/0x861C20f77f194EEa4f86e0d39069D789265A3A82) |
 | Moonriver | 0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E | [link](https://moonriver.moonscan.io/address/0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E) |
 | Oasis (Emerald) | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://explorer.emerald.oasis.dev/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
+| OKC | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://www.oklink.com/oec/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
 | Optimism | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://optimistic.etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
 | Secret 4 | secret1ezamax2vrhjpy92fnujlpwfj2dpredaafss47k | [link](https://secretnodes.com/secret/chains/secret-4/accounts/secret1ezamax2vrhjpy92fnujlpwfj2dpredaafss47k) |
-| OKC | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://www.oklink.com/oec/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
