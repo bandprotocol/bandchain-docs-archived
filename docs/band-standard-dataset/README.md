@@ -26,14 +26,17 @@ For the cryptocurrency data, the price data is calculated by aggregating the res
 
 Along with that, we also pull the price data directly from major exchanges such as
 
+- [Bibox](https://www.bibox.com/en)
 - [Binance](https://binance.com)
-- [Huobi Pro](https://huobi.com)
+- [Bitfinex](https://www.bitfinex.com/)
+- [Bittrex](https://global.bittrex.com/)
 - [Coinbase Pro](https://pro.coinbase.com)
-- [Kraken](https://kraken.com)
-- [Bitfinex](https://bitfinex.com)
-- [Bittrex](https://bittrex.com)
-- [Bitstamp](https://bitstamp.net)
-- [OKEX](https://okex.com)
+- [FTX](https://ftx.com/en)
+- [HitBTC](https://hitbtc.com/)
+- [Huobi Pro](https://www.huobi.com)
+- [Kraken](https://www.kraken.com/)
+- [OKX](https://www.okx.com/)
+
 
 For the FX and commodity prices, we also aggregate data from premium sources
 
