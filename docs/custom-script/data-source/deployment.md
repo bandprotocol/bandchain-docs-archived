@@ -7,18 +7,18 @@ order: 3
 On BandChain, a data source can be registered into the system by anyone. This is done through the registrant sending
 a [`MsgCreateDataSource`](/whitepaper/protocol-messages.html#msgcreatedatasource) message to the chain.
 
-A `MsgCreateDataSource` message contains various parameters of the data source they wish to register. These parameters
-include
+A `MsgCreateDataSource` message contains various parameters of the data source that is to be registered. These 
+parameters include:
 
-- `name`: Name of the data source
-- `description`: A description of the data source 
+- `name`: Name of the data source.
+- `description`: A description of the data source .
 - `executable`: Contents of the executable to be run by block validators upon receiving a data request for this data 
-source
-- `fee`: A stipulated per-query fee that those who use this data source are required to pay
-- `treasury`: A treasury address of which the stipulated fee is to be paid to
+source.
+- `fee`: A stipulated per-query fee that those who use this data source are required to pay.
+- `treasury`: A treasury address of which the stipulated fee is to be paid to.
 - `owner`: The owner address of this data source. The owner will have edit rights. If omitted, the data source 
-parameters will no longer be able to be edited after being registered
-- `sender`: The message sender account 
+parameters will no longer be able to be edited after being registered.
+- `sender`: The message sender account.
 
 In order to send a `MsgCreateDataSource` message, we can use either
 [bandchain.js](https://docs.bandchain.org/client-library/bandchain.js/getting-started.html#) or 
@@ -91,6 +91,7 @@ async function createDataSource() {
   console.log(await createDataSource())
 })()
 ```
+
 An example on how to send a `MsgCreateDataSource` message via 
 [pyband](https://docs.bandchain.org/client-library/pyband/getting-started.html) can also be seen below.
 
