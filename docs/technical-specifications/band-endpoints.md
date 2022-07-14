@@ -20,5 +20,5 @@ order: 5
 | RPC      | https://rpc.laozi-testnet5.bandchain.org      |
 | REST     | https://laozi-testnet5.bandchain.org/api      |
 | GRPC     | https://laozi-testnet5.bandchain.org          |
-| faucet   | https://laozi-testnet5.bandchain.org/faucet   |
 | GRPC_WEB | https://laozi-testnet5.bandchain.org/grpc-web |
+| faucet   | https://laozi-testnet5.bandchain.org/faucet   |
