@@ -13,12 +13,12 @@ order: 5
 | GRPC     | https://laozi1.bandchain.org          |
 | GRPC_WEB | https://laozi1.bandchain.org/grpc-web |
 
-## Laozi Testnet 4
+## Laozi Testnet 5
 
 | Type     | End Point                                     |
 | -------- | --------------------------------------------- |
-| RPC      | http://rpc.laozi-testnet4.bandchain.org       |
-| REST     | https://laozi-testnet4.bandchain.org/api      |
-| GRPC     | https://laozi-testnet4.bandchain.org          |
-| faucet   | https://laozi-testnet4.bandchain.org/faucet   |
-| GRPC_WEB | https://laozi-testnet4.bandchain.org/grpc-web |
+| RPC      | https://rpc.laozi-testnet5.bandchain.org      |
+| REST     | https://laozi-testnet5.bandchain.org/api      |
+| GRPC     | https://laozi-testnet5.bandchain.org          |
+| GRPC_WEB | https://laozi-testnet5.bandchain.org/grpc-web |
+| faucet   | https://laozi-testnet5.bandchain.org/faucet   |
