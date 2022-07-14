@@ -2,15 +2,35 @@
 order: 2
 -->
 
-# Example Data Sources
+# Creating a data source
+In this section, we will take a look at how to create a data source.
 
-At its core, a data source is just a simple script that returns data the user requires.
-
+## Writing the data source
 In order for the data source to run, always make sure to add a shebang line containing `#!/usr/bin/env python3` 
-and to print the required output.
+and to print the function output. A simple `Hello World!` example can be seen below.
 
-In order to better understand the structure and implementation of a data source, let’s look at two examples below,
-Gold Price and Token Total Supply.
+```python
+#!/usr/bin/env python3
+
+import sys
+
+
+def main():
+    return "Hello World!"
+
+
+if __name__ == "__main__":
+    try:
+        print(main())
+    except Exception as e:
+        print(str(e), file=sys.stderr)
+        sys.exit(1)
+
+```
+
+## More Examples
+However, in order to better understand the structure and implementation of a data source, let’s look at two more 
+examples below: Gold Price and Token Total Supply.
 
 ### Gold Price
 
@@ -23,6 +43,7 @@ source can have any number of arguments required.
 
 import requests
 import sys
+
 
 URL = "https://data-asg.goldprice.org/dbXRates/USD"
 HEADERS = {'User-Agent': 'curl/7.64.1'}
@@ -45,15 +66,15 @@ if __name__ == "__main__":
 ### Token Total Supply
 
 As mentioned above, a data source can take any number of arguments. The example below, gives an example of a data source
-which requires two arguments.
-
-This data source queries the given network's RPC endpoint for the total supply of a given token address.
+which requires two arguments. The data source shown below queries the given network's RPC endpoint for the total supply 
+of a given token address.
 
 ```python
 #!/usr/bin/env python3
 
 import requests
 import sys
+
 
 def main(rpc, to):
     headers = {
@@ -82,7 +103,7 @@ if __name__ == "__main__":
 ### More examples
 
 For more data source examples, please refer to the ones available on our [Mainnet](https://cosmoscan.io/data-sources)
-to get an idea of different types of data source that we are working with our partners. Some of these includes:
+to get an idea of the different types of data source used on BandChain:
 
 - [Latest crypto prices from CoinGecko](https://cosmoscan.io/data-source/74#code)
 - [Latest stock prices from Finage](https://cosmoscan.io/data-source/23#code)
