@@ -211,7 +211,7 @@ Returns all the account balances for the given account address.
 
 **Return**
 
-- [`Coin[]`] - A list of Coin that the account have.
+- `Coin[]` - A list of Coin that the account have
 
 **Example**
 
