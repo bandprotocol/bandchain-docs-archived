@@ -15,15 +15,15 @@ parameters include:
 - `schema`: The oracle script's schema which details the inputs and outputs of this oracle script.
 - `source_code_url`: The URL for the source code of the oracle script.
 - `code`: The Owasm-compiled binary of the oracle script.
-- `owner`: The owner of the oracle script. The owner will have edit rights. If omitted, the oracle script's parameters 
-will no longer be able to be edited after being registered.
+- `owner`: The owner of the oracle script. The owner will have edit rights. If omitted, the oracle script's parameters
+  will no longer be able to be edited after being registered.
 - `sender`: The message sender account.
 
 In order to send a `MsgCreateOracleScript` message, we can use either
-[bandchain.js](https://docs.bandchain.org/client-library/bandchain.js/getting-started.html#) or 
-[pyband](https://docs.bandchain.org/client-library/pyband/getting-started.html) 
+[bandchain.js](https://docs.bandchain.org/client-library/bandchain.js/getting-started.html#) or
+[pyband](https://docs.bandchain.org/client-library/pyband/getting-started.html)
 
-An example on how to send a `MsgCreateOracleScript` message via 
+An example on how to send a `MsgCreateOracleScript` message via
 [bandchain.js](https://docs.bandchain.org/client-library/bandchain.js/getting-started.html#) can be seen below.
 
 ```javascript
@@ -31,7 +31,7 @@ import { Client, Wallet, Message, Coin, Transaction, Fee } from '@bandprotocol/b
 import fs from 'fs'
 import path from 'path'
 
-const grpcURL = 'https://laozi-testnet4.bandchain.org/grpc-web'
+const grpcURL = 'https://laozi-testnet5.bandchain.org/grpc-web'
 const client = new Client(grpcURL)
 
 // Setup the client
@@ -42,7 +42,7 @@ async function createOracleScript() {
   const privateKey = PrivateKey.fromMnemonic(mnemonic)
   const publicKey = privateKey.toPubkey()
   const sender = publicKey.toAddress().toAccBech32()
-    
+
   // Setup the transaction's properties
   const chainId = await client.getChainId()
   const execPath = path.resolve(__dirname, 'hello_world.wasm')
@@ -62,7 +62,7 @@ async function createOracleScript() {
     '{repeat:u64}/{response:string}', // schema
     'https://ipfs.io/ipfs/QmSSrgJ6QuFDJHyC2SyTgnHKRBhPdLHUD2tJJ86xejrCfn' // source code url
   )
-    
+
   // Construct the transaction
   const fee = new Fee()
   fee.setAmountList([feeCoin])
@@ -91,7 +91,7 @@ async function createOracleScript() {
 })()
 ```
 
-An example on how to send a `MsgCreateDataSource` message via 
+An example on how to send a `MsgCreateDataSource` message via
 [pyband](https://docs.bandchain.org/client-library/pyband/getting-started.html) can also be seen below.
 
 ```python
@@ -106,7 +106,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Setup Client
-    grpc_url = "laozi-testnet4.bandchain.org"
+    grpc_url = "laozi-testnet5.bandchain.org"
     c = Client(grpc_url)
 
     # Setup Wallet

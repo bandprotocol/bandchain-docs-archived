@@ -20,18 +20,18 @@ This module provides functionalities to send transactions on BandChain which req
 Add one or multiple messages as a list of Google Protobuf's [`Any`] to `Transaction`. There are predefined message classes that can be used to convert to `Any` instance using `toAny()` method, but for the other type of message can be converted to `Any` instance using `Any.pack()` as shown in the code below.
 
 ```js
-import { MsgCreateDataSource } from "@bandprotocol/bandchain.js/proto/oracle/v1/tx_pb"
-import { Any } from "google-protobuf/google/protobuf/any_pb"
-import { Transaction } from "@bandprotocol/bandchain.js"
+import { MsgCreateDataSource } from '@bandprotocol/bandchain.js/proto/oracle/v1/tx_pb'
+import { Any } from 'google-protobuf/google/protobuf/any_pb'
+import { Transaction } from '@bandprotocol/bandchain.js'
 
 const msg = new MsgCreateDataSource()
-msg.setName("dsName")
-msg.setDescription("dsDescription")
+msg.setName('dsName')
+msg.setDescription('dsDescription')
 // msg.set...() for every fields
 
 const anyMsg = new Any()
-const typeUrl = "oracle.v1.MsgCreateDataSource"
-anyMsg.pack(msg.serializeBinary(), typeUrl, "/")
+const typeUrl = 'oracle.v1.MsgCreateDataSource'
+anyMsg.pack(msg.serializeBinary(), typeUrl, '/')
 
 const tx = new Transaction()
 tx.withMessages(anyMsg)
@@ -198,14 +198,14 @@ Get transaction data from `Transaction`.
 **Example**
 
 ```js
-import { Client, Wallet, Transaction, Message, Coin, Fee } from "@bandprotocol/bandchain.js"
+import { Client, Wallet, Transaction, Message, Coin, Fee } from '@bandprotocol/bandchain.js'
 
 const { PrivateKey } = Wallet
-const client = new Client("https://laozi-testnet4.bandchain.org/grpc-web")
+const client = new Client('https://laozi-testnet5.bandchain.org/grpc-web')
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
-  "subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid"
+  'subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid'
 )
 // Step 2.2 prepare public key and its address
 const pubkey = privkey.toPubkey()
@@ -216,18 +216,18 @@ const sendCoin = async () => {
   const { MsgSend } = Message
 
   // Here we use different message type, which is MsgSend
-  const receiver = "band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f"
+  const receiver = 'band1p46uhvdk8vr829v747v85hst3mur2dzlmlac7f'
   const sendAmount = new Coin()
-  sendAmount.setDenom("uband")
-  sendAmount.setAmount("10")
+  sendAmount.setDenom('uband')
+  sendAmount.setAmount('10')
   const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender)
-  const chainId = "band-laozi-testnet4"
+  const chainId = 'band-laozi-testnet5'
 
   let feeCoin = new Coin()
-  feeCoin.setDenom("uband")
-  feeCoin.setAmount("1000")
+  feeCoin.setDenom('uband')
+  feeCoin.setAmount('1000')
 
   const fee = new Fee()
   fee.setAmountList([feeCoin])

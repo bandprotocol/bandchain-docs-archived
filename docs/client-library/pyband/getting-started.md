@@ -37,7 +37,7 @@ This section describes the methods used to send a transaction containing an orac
 from pyband.client import Client
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
+    grpc_url = "<GRPC>" # ex.laozi-testnet5.bandchain.org(without https://)
     c = Client(grpc_url)
 
 if __name__ == "__main__":
@@ -181,7 +181,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
+    grpc_url = "<GRPC>" # ex.laozi-testnet5.bandchain.org(without https://)
     c = Client(grpc_url)
 
     # Step 2
@@ -412,7 +412,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
+    grpc_url = "<GRPC>" # ex.laozi-testnet5.bandchain.org(without https://)
     c = Client(grpc_url)
 
     # Step 2
@@ -517,7 +517,7 @@ from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
+    grpc_url = "<GRPC>" # ex.laozi-testnet5.bandchain.org(without https://)
 
 if __name__ == "__main__":
     main()
@@ -536,7 +536,7 @@ from pyband.client import Client
 
 def main():
     # Step 1
-    grpc_url = "<GRPC>" # ex.laozi-testnet4.bandchain.org(without https://)
+    grpc_url = "<GRPC>" # ex.laozi-testnet5.bandchain.org(without https://)
     c = Client(grpc_url)
 
     # Step 2
@@ -553,18 +553,12 @@ And running the code above should return a result that looks like this.
   ReferencePrice(
     (pair = "BTC/USD"),
     (rate = 34614.1),
-    (updated_at = ReferencePriceUpdated(
-      (base = 1625655764),
-      (quote = 1625715134)
-    ))
+    (updated_at = ReferencePriceUpdated((base = 1625655764), (quote = 1625715134)))
   ),
   ReferencePrice(
     (pair = "ETH/USD"),
     (rate = 2372.53),
-    (updated_at = ReferencePriceUpdated(
-      (base = 1625655764),
-      (quote = 1625715134)
-    ))
+    (updated_at = ReferencePriceUpdated((base = 1625655764), (quote = 1625715134)))
   )
 ]
 ```
