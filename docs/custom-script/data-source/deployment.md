@@ -7,24 +7,24 @@ order: 3
 On BandChain, a data source can be registered into the system by anyone. This is done through the registrant sending
 a [`MsgCreateDataSource`](/whitepaper/protocol-messages.html#msgcreatedatasource) message to the chain.
 
-A `MsgCreateDataSource` message contains various parameters of the data source that is to be registered. These 
+A `MsgCreateDataSource` message contains various parameters of the data source that is to be registered. These
 parameters include:
 
 - `name`: Name of the data source.
 - `description`: A description of the data source .
-- `executable`: Contents of the executable to be run by block validators upon receiving a data request for this data 
-source.
+- `executable`: Contents of the executable to be run by block validators upon receiving a data request for this data
+  source.
 - `fee`: A stipulated per-query fee that those who use this data source are required to pay.
 - `treasury`: A treasury address of which the stipulated fee is to be paid to.
-- `owner`: The owner address of this data source. The owner will have edit rights. If omitted, the data source 
-parameters will no longer be able to be edited after being registered.
+- `owner`: The owner address of this data source. The owner will have edit rights. If omitted, the data source
+  parameters will no longer be able to be edited after being registered.
 - `sender`: The message sender account.
 
 In order to send a `MsgCreateDataSource` message, we can use either
-[bandchain.js](https://docs.bandchain.org/client-library/bandchain.js/getting-started.html#) or 
-[pyband](https://docs.bandchain.org/client-library/pyband/getting-started.html) 
+[bandchain.js](https://docs.bandchain.org/client-library/bandchain.js/getting-started.html#) or
+[pyband](https://docs.bandchain.org/client-library/pyband/getting-started.html)
 
-An example on how to send a `MsgCreateDataSource` message via 
+An example on how to send a `MsgCreateDataSource` message via
 [bandchain.js](https://docs.bandchain.org/client-library/bandchain.js/getting-started.html#) can be seen below.
 
 ```javascript
@@ -33,7 +33,7 @@ import fs from 'fs'
 import path from 'path'
 
 // Setup the client
-const grpcURL = 'https://laozi-testnet4.bandchain.org/grpc-web'
+const grpcURL = 'https://laozi-testnet5.bandchain.org/grpc-web'
 const client = new Client(grpcURL)
 
 async function createDataSource() {
@@ -43,7 +43,7 @@ async function createDataSource() {
   const privateKey = PrivateKey.fromMnemonic(mnemonic)
   const publicKey = privateKey.toPubkey()
   const sender = publicKey.toAddress().toAccBech32()
-    
+
   // Setup the transaction's properties
   const chainId = await client.getChainId()
   const execPath = path.resolve(__dirname, 'hello_world.py')
@@ -59,7 +59,7 @@ async function createDataSource() {
     executable, // Data source executable
     sender, // Treasury address
     sender, // Owner address
-    sender, // Sender address 
+    sender, // Sender address
     [feeCoin], // Fee
     '' // Data source description
   )
@@ -80,7 +80,7 @@ async function createDataSource() {
   const signDoc = txn.getSignDoc(publicKey)
   const signature = privateKey.sign(signDoc)
   const txRawBytes = txn.getTxData(signature, publicKey)
-  
+
   // Broadcast the transaction
   const sendTx = await client.sendTxBlockMode(txRawBytes)
 
@@ -92,7 +92,7 @@ async function createDataSource() {
 })()
 ```
 
-An example on how to send a `MsgCreateDataSource` message via 
+An example on how to send a `MsgCreateDataSource` message via
 [pyband](https://docs.bandchain.org/client-library/pyband/getting-started.html) can also be seen below.
 
 ```python
@@ -107,7 +107,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Setup the client
-    grpc_url = "laozi-testnet4.bandchain.org"
+    grpc_url = "laozi-testnet5.bandchain.org"
     c = Client(grpc_url)
 
     # Setup the wallet
