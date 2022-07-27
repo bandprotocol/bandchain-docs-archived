@@ -28,7 +28,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Ethereum (Kovan) |  0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa | [link](https://kovan.etherscan.io/address/0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa) |
 | Evmos |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68 | [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68) |
 | Godwoken | 0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a | [link](https://v1.betanet.gwscan.com/address/0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a) |
-| ICE (Arctic) | 0xb6256DCb23CEE06eDa2408E73945963606fdddd7 | [link](https://arctic.epirus.io/dashboard/accounts/0xb6256DCb23CEE06eDa2408E73945963606fdddd7) |
+| ICE (Arctic) | 0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68 | [link](https://arctic.epirus.io/accounts/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68) |
 | Meter | 0xe1bCC505f2Bdd02C9480C924856f5080834A3897 | [link](https://scan-warringstakes.meter.io/address/0xe1bCC505f2Bdd02C9480C924856f5080834A3897) |
 | Oasis | 0x61704EFB8b8120c03C210cAC5f5193BF8c80852a | [link](https://testnet.explorer.emerald.oasis.dev/address/0x61704EFB8b8120c03C210cAC5f5193BF8c80852a) |
 | OKC | 0xb6256DCb23CEE06eDa2408E73945963606fdddd7 | [link](https://www.oklink.com/en/okc-test/address/0xb6256DCb23CEE06eDa2408E73945963606fdddd7) |
