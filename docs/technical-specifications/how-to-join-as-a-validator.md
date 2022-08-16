@@ -3,6 +3,7 @@ order: 5
 -->
 
 # How to Join as a Validator
+
 This document describes methods on how to join as a validator in Laozi Mainnet.
 
 ## Step 1: Set Up Validator Node
@@ -26,7 +27,7 @@ export GENESIS_FILE_URL=https://raw.githubusercontent.com/bandprotocol/launch/ma
 export BIN_FILES_URL=https://raw.githubusercontent.com/bandprotocol/launch/master/laozi-mainnet/files.tar.gz
 ```
 
-### Step 1.1: Install Prerequisites
+### Step 1.1: Installation
 
 The following application is required for Building and running Bandchain node.
 
@@ -121,7 +122,7 @@ EOF'
 
 Based on design, validator need to send a transaction to submit reports based on certain oracle requests. The validator should send transactions to submit reports within specified timeframe. However, the method is quite tedious. Therefore, we have develop an application called `Yoda`, which is a bot application that help validator automatically listen new oracle requests on Bandchain, execute data sources, and submit report to Bandchain, so validators don't have to send the transactions manually.
 
-### Step 2.1: Prerequisites
+### Step 2.1: Installation
 
 Before setting up Yoda, Lambda function executor need to be setup to execute data sources. If this step has not been done yet, please follow the instructions on following pages (select either one of these methods):
 

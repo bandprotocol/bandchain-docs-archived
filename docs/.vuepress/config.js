@@ -94,36 +94,6 @@ module.exports = {
               title: "Technical Specifications",
               directory: true,
               path: "/technical-specifications",
-              children: [
-                {
-                  title: "Oracle Binary Encoding (OBI)",
-                  path: "/technical-specifications/obi",
-                },
-                {
-                  title: "Oracle WebAssembly (Owasm)",
-                  path: "/technical-specifications/owasm",
-                },
-                {
-                  title: "Remote Data Source Executor",
-                  path: "/technical-specifications/remote-data-source-executor",
-                },
-                {
-                  title: "Yoda",
-                  path: "/technical-specifications/yoda",
-                },
-                {
-                  title: "How to Join as a Validator",
-                  path: "/technical-specifications/how-to-join-as-a-validator",
-                },
-                {
-                  title: "Band CLI & REST Endpoints",
-                  path: "/technical-specifications/band-cli-rest-endpoints",
-                },
-                {
-                  title: "Band Endpoints",
-                  path: "/technical-specifications/band-endpoints",
-                },
-              ]
             }
           ],
         },
