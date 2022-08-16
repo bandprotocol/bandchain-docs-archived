@@ -1,3 +1,7 @@
+<!--
+order: 5
+-->
+
 # How to Join as a Validator
 This document describes methods on how to join as a validator in Laozi Mainnet.
 
