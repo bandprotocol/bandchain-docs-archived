@@ -4,11 +4,11 @@ order: 5
 
 # How to Join as a Validator
 
-This document describes methods on how to join as a validator in Laozi Mainnet.
+In this section, we'll explain the requirements and basics for running your own BandChain validator node.
 
 ## Step 1: Set Up Validator Node
 
-This step provides procedures to install Bandchain's executable and sync blocks with other peers.
+This step provides procedures to install BandChain's executable and sync blocks with other peers.
 
 Assuming to run on Ubuntu 20.04 LTS allowing connection on port `26656` for P2P connection.
 
@@ -29,7 +29,7 @@ export BIN_FILES_URL=https://raw.githubusercontent.com/bandprotocol/launch/maste
 
 ### Step 1.1: Installation
 
-The following application is required for Building and running Bandchain node.
+The following applications are required to build and run the BandChain node.
 
 - make, gcc, g++ (can be obtained from `build-essential` package on linux)
 - wget, curl for downloading files
@@ -55,10 +55,10 @@ source ~/.profile
 
 Go binary should be at `/usr/local/go/bin` and any executable compiled by `go install` command should be at `~/go/bin`
 
-### Step 1.2: Clone & Install Bandchain Laozi
+### Step 1.2: Clone & Install BandChain Laozi
 
 ```bash
-# Clone Bandchain Laozi version v2.3.3
+# Clone BandChain Laozi version v2.3.3
 git clone https://github.com/bandprotocol/chain
 cd chain
 git checkout v2.3.3
@@ -67,7 +67,7 @@ git checkout v2.3.3
 make install
 ```
 
-### Step 1.3: Initialize the Bandchain and download genesis file
+### Step 1.3: Initialize the BandChain and download genesis file
 
 ```bash
 cd $HOME
@@ -90,7 +90,7 @@ bandd keys add $WALLET_NAME
 This can be done by editing `seeds` or `persistent_peers` property in `$HOME/.band/config/config.toml`.
 Please see [here](https://github.com/bandprotocol/launch/tree/master/laozi-mainnet) for the list of seeds and peers.
 
-### Step 1.5: Create Bandchain service
+### Step 1.5: Create BandChain service
 
 We do recommend to run bandchain node as a daemon, which can be setup using `systemctl`. Run the following command to create a new daemon for `bandd` (This script work on non-root user).
 
@@ -120,7 +120,9 @@ EOF'
 
 ## Step 2: Setup Yoda
 
-Based on design, validator need to send a transaction to submit reports based on certain oracle requests. The validator should send transactions to submit reports within specified timeframe. However, the method is quite tedious. Therefore, we have develop an application called `Yoda`, which is a bot application that help validator automatically listen new oracle requests on Bandchain, execute data sources, and submit report to Bandchain, so validators don't have to send the transactions manually.
+Since a subset of validators who are selected for a data request must send the data they received as a transaction of [MsgReportData](../whitepaper/protocol-messages.md#msgreportdatas) to BandChain.
+
+Yoda is a program used by BandChain's validator nodes to help automatically query data from data providers by executing data source script, then submitting the result to fulfill the request. [Read more on the Yoda section.](./yoda.md)
 
 ### Step 2.1: Installation
 
@@ -129,16 +131,16 @@ Before setting up Yoda, Lambda function executor need to be setup to execute dat
 - [AWS Lambda Function](https://github.com/bandprotocol/data-source-runtime/wiki/Setup-Yoda-Executor-Using-AWS-Lambda)
 - [Google Cloud Function](https://github.com/bandprotocol/data-source-runtime/wiki/Setup-Yoda-Executor-Using-Google-Cloud-Function)
 
-Then, check Yoda version that we have compiled. It should be `v2.3.3`.
+To check Yoda version, use the following command.
 
 ```bash
 yoda version
 # v2.3.3
 ```
 
-### Step 2.2: Configure Yoda
+### Step 2.2: Set the Yoda configurations
 
-Firstly, configure Yoda's basic configurations
+Use the command below to config your Yoda, replacing `$VARIABLES` with their actual values.
 
 ```bash
 rm -rf ~/.yoda # clear old config if exist
@@ -149,8 +151,7 @@ yoda config rpc-poll-interval "1s"
 yoda config max-try 5
 yoda config validator $(bandd keys show $WALLET_NAME -a --bech val)
 ```
-
-Secondly, add multiple reporter accounts to allow Yoda submitting transactions concurrently.
+Then, add multiple reporter accounts to allow Yoda to submit transactions concurrently.
 
 ```bash
 yoda keys add REPORTER_1
@@ -160,7 +161,7 @@ yoda keys add REPORTER_4
 yoda keys add REPORTER_5
 ```
 
-Thirdly, config Lambda Executor endpoint
+Lastly, configure the Lambda Executor endpoint to helps running data source scripts and return results to Yoda. More details about the executor can be found in this [section](remote-data-source-executor.md).
 
 ```bash
 export EXECUTOR_URL=<YOUR_EXECUTOR_URL>
@@ -168,7 +169,7 @@ yoda config executor "rest:${EXECUTOR_URL}?timeout=10s"
 ```
 ### Step 2.3: Start Yoda
 
-We also do recommend to use `systemctl` the same as `bandd`.
+To start Yoda, it's recommend to use `systemctl` the same as `bandd`.
 
 ```bash
 # Write yoda service to /etc/systemd/system/yoda.service
@@ -190,7 +191,7 @@ WantedBy=multi-user.target
 EOF'
 ```
 
-To register both `bandd` and `yoda` services, run the following commands.
+The first time running the Yoda, you will need to register both `bandd` and `yoda` services by running the following commands.
 
 ```bash
 # Register bandd daemon to systemctl
@@ -199,16 +200,16 @@ sudo systemctl enable bandd
 sudo systemctl enable yoda
 ```
 
-Then start `bandd` service which also automatically initiates `yoda`
+You can now connect to BandChain using `bandd` service which also automatically initiates `yoda`
 
 ```bash
 # Start bandd daemon
 sudo systemctl start bandd
 ```
 
-Once `bandd` service has been started, logs can be queried by running `journalctl -u bandd.service -f` command. You will see your node beginning to sync.
+Once `bandd` and `yoda` services starting to sync, logs can be queried by running `journalctl -u bandd.service -f` command.
 
-After `yoda` service has been started, logs can be queried by running `journalctl -u yoda.service -f` command. Log should be similar to the following log example below. Once verified, you can stop tailing the log by typing `Control-C`.
+Logs should be similar to the following log example below. Once verified, you can stop tailing the log by typing `Control+C`.
 
 ```bash
 ... systemd[...]: Started Yoda Daemon.
@@ -217,13 +218,13 @@ After `yoda` service has been started, logs can be queried by running `journalct
 ... yoda[...]: I[...] 👂  Subscribing to events with query: tm.event = 'Tx'...
 ```
 
-### Step 2.4: Wait for latest blocks to be synced
+### Step 2.4: Wait for the latest blocks to be synced
 
-**This is an important step.** We should wait for newly started Bandchain node to sync their blocks until the latest block is reached. The latest block can be checked on [CosmoScan](https://cosmoscan.io/blocks).
+**This is an important step.** We should wait for newly started BandChain node to sync their blocks until the latest block is reached. The latest block can be checked on [CosmoScan](https://cosmoscan.io/blocks).
 
 ## Step 3: Become a Validator
 
-This step provides procedures to register the node as a validator.
+This guide will show you how to register the running node as a validator. So that the program can fulfill the data on BandChain.
 
 ### Step 3.1: Fund the Validator Account
 
@@ -247,14 +248,14 @@ bandd tx staking create-validator \
     --chain-id $CHAIN_ID
 ```
 
-After became a validator, the validator node will be shown on [CosmoScan](https://cosmoscan.io/validators).
+Registered validators can be found on [CosmoScan](https://cosmoscan.io/validators).
 
 
 ### Step 3.3: Register Reporters and Become Oracle Provider
 
-Now, Yoda have multiple reporters. In order to register the reporters to be owned by the validator, the following commands should be run.
+Yoda contains multiple reporters. You will need to register the reporters in order to help the validator submit transactions of reporting data.
 
-Firstly, reporter accounts must be create on Bandchain by supplying some small amount of BAND tokens.
+Firstly, reporter accounts must be create on BandChain by supplying some small amount of BAND tokens.
 
 ```bash
 # Send 1uband from a wallet to each reporter.
@@ -290,6 +291,6 @@ bandd query oracle validator $(bandd keys show -a $WALLET_NAME --bech val)
 # }
 ```
 
-And now you have become a validator on Bandchain Laozi mainnet.
+And now you have become a validator on BandChain Laozi mainnet.
 
 Happy staking :chart_with_upwards_trend:, and may the **HODL** be with you.
