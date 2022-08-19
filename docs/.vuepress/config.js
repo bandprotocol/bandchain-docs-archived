@@ -94,7 +94,7 @@ module.exports = {
               title: "Technical Specifications",
               directory: true,
               path: "/technical-specifications",
-            },
+            }
           ],
         },
         {
