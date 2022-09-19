@@ -195,7 +195,7 @@ Get transaction data from `Transaction`.
 | UndefinedError | accountNum should be defined |
 | UndefinedError | sequence should be defined   |
 
-**Example**
+## Example
 
 ```js
 import { Client, Wallet, Transaction, Message, Coin, Fee } from '@bandprotocol/bandchain.js'

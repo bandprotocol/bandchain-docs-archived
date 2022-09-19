@@ -24,6 +24,8 @@ Deploys and registers a new data source to BandChain. Once registered, the data 
 | Name        | string         | The human-readable string name for this data source                                                                                                                                               |
 | Description | string         | The description of this data source                                                                                                                                                               |
 | Executable  | []byte         | The content of executable to be run by block upon receiving a data request for this data source. The executable can be in any format, as long as it is accepted by the general public. |
+| Treasury  | sdk.AccAddress |  Treasury is the account address who receive data source fee from requester. |
+| Fee  | sdk.Coin | Fee is the data source fee per AskCount that data provider will receive from requester. |
 
 ### MsgEditDataSource
 
@@ -39,6 +41,8 @@ Edits an existing data source given the unique `int64` identifier (i.e. `dataSou
 | Name         | string         | The human-readable string name for this data source                                                                                                                                               |
 | Description  | string         | The description of this data source                                                                                                                                                               |
 | Executable   | []byte         | The content of executable to be run by block validators upon receiving a data request for this data source. The executable can be in any format, as long as it is accepted by the general public. |
+| Treasury  | sdk.AccAddress |  Treasury is the account address who receive data source fee from requester. |
+| Fee  | sdk.Coin | Fee is the data source fee per AskCount that data provider will receive from requester. |
 
 ### MsgCreateOracleScript
 
@@ -87,6 +91,7 @@ Requests a new data based on an existing oracle script. A data request will be a
 | AskCount       | int64          | The number of validators that are requested to respond to this request                                                                                     |
 | MinCount       | int64          | The minimum number of validators necessary for the request to proceed to the execution phase                                                               |
 | ClientID       | string         | the unique identifier of this oracle request, as specified by the client. This same unique ID will be sent back to the requester with the oracle response. |
+
 
 ### MsgReportData
 
