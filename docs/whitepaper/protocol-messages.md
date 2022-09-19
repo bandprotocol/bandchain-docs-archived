@@ -25,7 +25,7 @@ Deploys and registers a new data source to BandChain. Once registered, the data 
 | Description | string         | The description of this data source                                                                                                                                                               |
 | Executable  | []byte         | The content of executable to be run by block upon receiving a data request for this data source. The executable can be in any format, as long as it is accepted by the general public. |
 | Treasury  | sdk.AccAddress |  Treasury is the account address who receive data source fee from requester. |
-| Fee  | sdk.Coin | Fee is the data source fee per AskCount that data provider will receive from requester. |
+| Fee  | sdk.Coins | Fee is the data source fee per AskCount that data provider will receive from requester. |
 
 ### MsgEditDataSource
 
@@ -42,7 +42,7 @@ Edits an existing data source given the unique `int64` identifier (i.e. `dataSou
 | Description  | string         | The description of this data source                                                                                                                                                               |
 | Executable   | []byte         | The content of executable to be run by block validators upon receiving a data request for this data source. The executable can be in any format, as long as it is accepted by the general public. |
 | Treasury  | sdk.AccAddress |  Treasury is the account address who receive data source fee from requester. |
-| Fee  | sdk.Coin | Fee is the data source fee per AskCount that data provider will receive from requester. |
+| Fee  | sdk.Coins | Fee is the data source fee per AskCount that data provider will receive from requester. |
 
 ### MsgCreateOracleScript
 
