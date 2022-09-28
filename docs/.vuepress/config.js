@@ -133,6 +133,23 @@ module.exports = {
           ],
         },
         {
+          title: "VRF",
+          children: [
+            {
+              title: "VRF Integration",
+              path: "/vrf/vrf-integration",
+            },
+            {
+              title: "Example Use Cases",
+              path: "/vrf/example",
+            },
+            {
+              title: "How to deploy and run VRF Worker",
+              path: "/vrf/how-to-deploy",
+            },
+          ],
+        },
+        {
           title: "Band Standard Dataset",
           children: [
             {
