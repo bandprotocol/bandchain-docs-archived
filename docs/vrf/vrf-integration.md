@@ -117,3 +117,43 @@ contract VRFProvider {
 ```
 
 When the resolver (this can be a self-implemented worker bot or a bounty hunter) finds an unresolved request, the resolver can resolve it by making a request transaction on the BandChain for the VRF randomness. After the random result is finalized on the BandChain, the resolver can retrieve the proof of inclusion of the result, and then relay the proof via a `relayProof` function on the `VRFProvider` contract. The resolver also needs to specify the nonce of the task that it wants to resolve.
+
+#### Manually request and resolve
+
+This section will demonstrate how to request random data from the VRF provider and then resolve the request manually using [Goerli](https://goerli.etherscan.io/) and [Laozi-Testnet5](https://laozi-testnet5.cosmoscan.io/) UI.
+
+Firstly, go to the [VRF provider contract on Goerli](https://goerli.etherscan.io/address/0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad#readContract) to view some of its configuration.
+
+![img2](https://user-images.githubusercontent.com/12705423/193009074-542be3ea-8b6f-4f12-b96f-1b153afdd2a8.png)
+
+The image above shows three parameters for requesting data on Bandchain: `askCount`, `minCount`, and `oracleScriptID`.
+
+Let's move to the `Write Contract` tab to begin requesting data on the Ethereum side.
+
+<iframe style="width: 100%"  height="400" src="https://www.youtube.com/embed/3ki0LhArdoI" title="Making a request on client chain" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+The video above shows that anyone can request Band VRF randomness by calling `requestRandomData` on the VRF provider contract. After the calling is successful, the VRF provider will log some parameters that will be used to make a request on the Bandchain side.
+
+_See the request transaction [here](https://goerli.etherscan.io/tx/0x640425325d7fa5f7b56a9d966f75863a40e8a1139ddf5a77b55a66dd8d03ba46#eventlog)_
+
+![img_task_1](https://user-images.githubusercontent.com/12705423/193093565-bc89e14b-b357-4dda-88f8-788b56c5eff0.png)
+
+The image above shows the current stage of the task/request that we just **created**.
+
+The next step is making a request on Bandchain using those parameters from the previous steps.
+
+<iframe style="width: 100%" height="400" src="https://www.youtube.com/embed/oxbLmLv_fgQ" title="Use the parameters from the log of the VRF provider to make a request on Bandchain" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+In this case, we will go to [oracleScriptID 152 or O152](https://laozi-testnet5.cosmoscan.io/oracle-script/152#execute) and then fill in the `seed`, `time`, `workerAddress`, `minCount`, and `askCount`, as shown in the video above.
+
+_The worker address can be any EOA address that the resolver will use for relaying to resolve the request on the Ethereum side._
+
+The next step is to copy the Merkle proof and then switch back to the Ethereum side to relay the proof on the VRF provider contract.
+
+<iframe style="width: 100%" height="400" src="https://www.youtube.com/embed/uFDPKyerWLY" title="Take the Merkle proof from Band and relay it on the Ethereum side to resolve the request" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+_See the relay transaction [here](https://goerli.etherscan.io/tx/0x5e7d85d4d2cd41b71f3ea35fff2a17dba8d19c085678d6f8dd7e22ca664da9b8#eventlog)_
+
+![img_task_2](https://user-images.githubusercontent.com/12705423/193094318-67cee15a-220d-4122-b7bb-79f64158a0c9.png)
+
+The image above shows the current stage of the task/request that we just **resolved**.
