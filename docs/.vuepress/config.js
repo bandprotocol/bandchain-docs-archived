@@ -133,8 +133,16 @@ module.exports = {
           ],
         },
         {
-          title: "VRF",
+          title: "Band VRF",
           children: [
+            {
+              title: "Introduction",
+              path: "/vrf/introduction",
+            },
+            {
+              title: "Getting Started",
+              path: "/vrf/getting-started",
+            },
             {
               title: "VRF Integration",
               path: "/vrf/vrf-integration",
@@ -144,8 +152,8 @@ module.exports = {
               path: "/vrf/example",
             },
             {
-              title: "How to deploy and run VRF Worker",
-              path: "/vrf/how-to-deploy",
+              title: "Supported Blockchain",
+              path: "/vrf/supported-blockchains",
             },
           ],
         },
