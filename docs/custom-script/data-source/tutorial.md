@@ -2,11 +2,13 @@
 order: 2
 -->
 
-# Creating a data source
+# Creating a Data Source
+
 In this section, we will take a look at how to create a data source.
 
 ## Writing the data source
-In order for the data source to run, always make sure to add a shebang line containing `#!/usr/bin/env python3` 
+
+In order for the data source to run, always make sure to add a shebang line containing `#!/usr/bin/env python3`
 and to print the function output. A simple `Hello World!` example can be seen below.
 
 ```python
@@ -29,13 +31,14 @@ if __name__ == "__main__":
 ```
 
 ## More Examples
-However, in order to better understand the structure and implementation of a data source, let’s look at two more 
+
+However, in order to better understand the structure and implementation of a data source, let’s look at two more
 examples below: Gold Price and Token Total Supply.
 
 ### Gold Price
 
 First, let’s look at a data source that queries [GoldPrice.org](https://goldprice.org) for the current price of gold.
-The script itself is written in Python and although this specific data source does not expect any arguments, a data 
+The script itself is written in Python and although this specific data source does not expect any arguments, a data
 source can have any number of arguments required.
 
 ```python
@@ -66,7 +69,7 @@ if __name__ == "__main__":
 ### Token Total Supply
 
 As mentioned above, a data source can take any number of arguments. The example below, gives an example of a data source
-which requires two arguments. The data source shown below queries the given network's RPC endpoint for the total supply 
+which requires two arguments. The data source shown below queries the given network's RPC endpoint for the total supply
 of a given token address.
 
 ```python
