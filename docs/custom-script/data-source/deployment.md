@@ -2,7 +2,7 @@
 order: 3
 -->
 
-# Deploying Data Sources
+# Deployment
 
 On BandChain, a data source can be registered into the system by anyone. This is done through the registrant sending
 a [`MsgCreateDataSource`](/whitepaper/protocol-messages.html#msgcreatedatasource) message to the chain.
@@ -28,12 +28,12 @@ An example on how to send a `MsgCreateDataSource` message via
 [bandchain.js](https://docs.bandchain.org/client-library/bandchain.js/getting-started.html#) can be seen below.
 
 ```javascript
-import { Client, Wallet, Message, Coin, Transaction, Fee } from '@bandprotocol/bandchain.js'
-import fs from 'fs'
-import path from 'path'
+import { Client, Wallet, Message, Coin, Transaction, Fee } from "@bandprotocol/bandchain.js"
+import fs from "fs"
+import path from "path"
 
 // Setup the client
-const grpcURL = 'https://laozi-testnet5.bandchain.org/grpc-web'
+const grpcURL = "https://laozi-testnet5.bandchain.org/grpc-web"
 const client = new Client(grpcURL)
 
 async function createDataSource() {
@@ -46,22 +46,22 @@ async function createDataSource() {
 
   // Setup the transaction's properties
   const chainId = await client.getChainId()
-  const execPath = path.resolve(__dirname, 'hello_world.py')
-  const file = fs.readFileSync(execPath, 'utf8')
-  const executable = Buffer.from(file).toString('base64')
+  const execPath = path.resolve(__dirname, "hello_world.py")
+  const file = fs.readFileSync(execPath, "utf8")
+  const executable = Buffer.from(file).toString("base64")
 
   let feeCoin = new Coin()
-  feeCoin.setDenom('uband')
-  feeCoin.setAmount('50000')
+  feeCoin.setDenom("uband")
+  feeCoin.setAmount("50000")
 
   const requestMessage = new Message.MsgCreateDataSource(
-    'Hello World!', // Data source name
+    "Hello World!", // Data source name
     executable, // Data source executable
     sender, // Treasury address
     sender, // Owner address
     sender, // Sender address
     [feeCoin], // Fee
-    '' // Data source description
+    "" // Data source description
   )
 
   // Construct the transaction
@@ -74,7 +74,7 @@ async function createDataSource() {
   await txn.withSender(client, sender)
   txn.withChainId(chainId)
   txn.withFee(fee)
-  txn.withMemo('')
+  txn.withMemo("")
 
   // Sign the transaction
   const signDoc = txn.getSignDoc(publicKey)

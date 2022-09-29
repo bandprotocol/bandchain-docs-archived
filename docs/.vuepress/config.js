@@ -133,6 +133,31 @@ module.exports = {
           ],
         },
         {
+          title: "Band VRF",
+          children: [
+            {
+              title: "Introduction",
+              path: "/vrf/introduction",
+            },
+            {
+              title: "Getting Started",
+              path: "/vrf/getting-started",
+            },
+            {
+              title: "VRF Integration",
+              path: "/vrf/vrf-integration",
+            },
+            {
+              title: "Example Use Cases",
+              path: "/vrf/example",
+            },
+            {
+              title: "Supported Blockchain",
+              path: "/vrf/supported-blockchains",
+            },
+          ],
+        },
+        {
           title: "Band Standard Dataset",
           children: [
             {
