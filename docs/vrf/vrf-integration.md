@@ -86,7 +86,7 @@ contract MockVRFConsumer {
 
 As shown above, the `consume` function implements a logic that verifies whether the caller is the VRFProvider contract or not. This is to ensure that no one can call this function except the VRFProvider contract. With regards to the remaining logic in the example, the callback function only saves the callback data from the VRFProvider contract to its state.
 
-See the deployed contracts [here](/vrf/supported-blockchain)
+See the deployed contracts [here](/vrf/supported-blockchains.html)
 
 ### Resolving
 
