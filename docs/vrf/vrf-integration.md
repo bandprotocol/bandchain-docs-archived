@@ -130,7 +130,7 @@ The image above shows three parameters for requesting data on Bandchain: `askCou
 
 Let's move to the `Write Contract` tab to begin requesting data on the Ethereum side.
 
-<iframe style="width: 100%"  height="400" src="https://www.youtube.com/embed/3ki0LhArdoI" title="Making a request on client chain" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe style="width: 100%"  height="400" src="https://www.youtube.com/embed/3gov_wqCCIE" title="Making a request on client chain" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 The video above shows that anyone can request Band VRF randomness by calling `requestRandomData` on the VRF provider contract. After the calling is successful, the VRF provider will log some parameters that will be used to make a request on the Bandchain side.
 
@@ -142,7 +142,7 @@ The image above shows the current stage of the task/request that we just **creat
 
 The next step is making a request on Bandchain using those parameters from the previous steps.
 
-<iframe style="width: 100%" height="400" src="https://www.youtube.com/embed/oxbLmLv_fgQ" title="Use the parameters from the log of the VRF provider to make a request on Bandchain" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe style="width: 100%" height="400" src="https://www.youtube.com/embed/PjjcEFqxRAY" title="Use the parameters from the log of the VRF provider to make a request on Bandchain" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 In this case, we will go to [oracleScriptID 152 or O152](https://laozi-testnet5.cosmoscan.io/oracle-script/152#execute) and then fill in the `seed`, `time`, `workerAddress`, `minCount`, and `askCount`, as shown in the video above.
 
@@ -150,7 +150,7 @@ _The worker address can be any EOA address that the resolver will use for relayi
 
 The next step is to copy the Merkle proof and then switch back to the Ethereum side to relay the proof on the VRF provider contract.
 
-<iframe style="width: 100%" height="400" src="https://www.youtube.com/embed/uFDPKyerWLY" title="Take the Merkle proof from Band and relay it on the Ethereum side to resolve the request" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe style="width: 100%" height="400" src="https://www.youtube.com/embed/uFmPbCDvi6E" title="Take the Merkle proof from Band and relay it on the Ethereum side to resolve the request" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 _See the relay transaction [here](https://goerli.etherscan.io/tx/0x5e7d85d4d2cd41b71f3ea35fff2a17dba8d19c085678d6f8dd7e22ca664da9b8#eventlog)_
 
