@@ -6,36 +6,40 @@ Band VRF provides deterministic pre-commitments for low entropy inputs, which mu
 
 We separate the use cases into four categories based on the behaviors of the VRF users/consumers.
 
-1.  **One-time-use:** Consumers only request random data once in their product lifetime, typically when they initiate their contracts.
-    
-    -   NFT minting - in the case where a single random seed is used to generate the entire collection.
-2.  **Batch-use:** Consumers request random data multiple times but with a countable number of requests for the entire life of their product.
-    
-    -   NFT minting - in the case where every single ID will be minted one by one. Therefore, whenever the end-user tries to mint an NFT, the VRF request is created to resolve the minting. This process will continue until the entire collection is minted.
-3.  **Interval-use:** Consumers set their specific intervals to request random data from our VRF protocol. This process will continue indefinitely since some parts of their products rely on a trusted source of randomness.
-    
-    -   Lottery dApps (predetermined start-end, calculatable start-end)
-    -   NFT minting with a specific minting interval
-4.  **Continuous-use:** Consumers use randomness as parts of their product with no specific interval. Therefore, they can request random data at any time based on the internal logic of their contracts/system.
-    
-    -   Lottery dApps (no predetermined interval, unable to calculate future start-end)
-    -   On-chain games
-    -   NFT on-demand minting
+1. **One-time-use:** Consumers only request random data once in their product lifetime, typically when they initiate their contracts.
 
-### An example use case with implementation
+   - NFT minting - in the case where a single random seed is used to generate the entire collection.
+
+2. **Batch-use:** Consumers request random data multiple times but with a countable number of requests for the entire life of their product.
+
+   - NFT minting - in the case where every single ID will be minted one by one. Therefore, whenever the end-user tries to mint an NFT, the VRF request is created to resolve the minting. This process will continue until the entire collection is minted.
+
+3. **Interval-use:** Consumers set their specific intervals to request random data from our VRF protocol. This process will continue indefinitely since some parts of their products rely on a trusted source of randomness.
+
+   - Lottery dApps (predetermined start-end, calculatable start-end)
+   - NFT minting with a specific minting interval
+
+4. **Continuous-use:** Consumers use randomness as parts of their product with no specific interval. Therefore, they can request random data at any time based on the internal logic of their contracts/system.
+   - Lottery dApps (no predetermined interval, unable to calculate future start-end)
+   - On-chain games
+   - NFT on-demand minting
+
+---
+
+### Lottery Example (Continuous-use)
 
 This on-chain lottery dApp is an example of a continuous-use VRF, and it satisfies the requirements below.
 
 **Requirements:**
 
--   Only the owner can set the minimum price and the round’s duration.
--   Only the owner can start a new round.
--   The owner determined the seed of the ‘started’ round.
--   Anyone can buy lotteries during a ‘started’ round.
--   Anyone can request to resolve the current round if it has ended.
--   Only the VRFProvider contract can resolve the ‘resolving’ round.
+- Only the owner can set the minimum price and the round's duration.
+- Only the owner can start a new round.
+- The owner determined the seed of the 'started' round.
+- Anyone can buy lotteries during a 'started' round.
+- Anyone can request to resolve the current round if it has ended.
+- Only the VRFProvider contract can resolve the 'resolving' round.
 
-```solidity
+```solidity=
 pragma solidity ^0.8.17;
 
 interface IVRFConsumer {
@@ -72,7 +76,7 @@ contract SimpleLottery is IVRFConsumer {
     bool public isResolvingCurrentRound;
 
     IVRFProvider public provider;
-    
+
     struct Round {
         uint256 startBlock;
         uint256 endBlock;
@@ -175,12 +179,134 @@ contract SimpleLottery is IVRFConsumer {
 }
 ```
 
-We have deployed the reference contracts to the [Goerli](https://goerli.etherscan.io/) testnet here.
+We have deployed the reference contracts to the [Goerli](https://goerli.etherscan.io) testnet here.
 
-| Contract | Address |
-| -------- | ------- |
-| Bridge | [0x6f057CE91CFcB59d839Db91e8DF067278a704cb8](https://goerli.etherscan.io/address/0x6f057CE91CFcB59d839Db91e8DF067278a704cb8) |
-| VRFProvider | [0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad](https://goerli.etherscan.io/address/0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad) |
-| MockVRFConsumer | [0x6aFCBD05f4718B994a290cfF03547DDFFcd74E08](https://goerli.etherscan.io/address/0x6aFCBD05f4718B994a290cfF03547DDFFcd74E08) |
-| VRFLens | [0x6e876b4Ed458af275Eb049a3f89BF0909618d154](https://goerli.etherscan.io/address/0x6e876b4Ed458af275Eb049a3f89BF0909618d154) |
+| Contract      | Address                                                                                                                      |
+| ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| Bridge        | [0x6f057CE91CFcB59d839Db91e8DF067278a704cb8](https://goerli.etherscan.io/address/0x6f057CE91CFcB59d839Db91e8DF067278a704cb8) |
+| VRFProvider   | [0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad](https://goerli.etherscan.io/address/0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad) |
+| VRFLens       | [0x6e876b4Ed458af275Eb049a3f89BF0909618d154](https://goerli.etherscan.io/address/0x6e876b4Ed458af275Eb049a3f89BF0909618d154) |
 | SimpleLottery | [0xCD3528283aA330003E50350134a48d1920BA70A0](https://goerli.etherscan.io/address/0xCD3528283aA330003E50350134a48d1920BA70A0) |
+
+---
+
+### NFT Minting Example (Batch-use)
+
+This NFT is an example of a batch-use VRF, and it satisfies the requirements below.
+
+**Requirements:**
+
+- The max supply is set once at the time the contract is deployed.
+- Anyone can call `mintWithVRF` to start minting an NFT for themself.
+- An actual minting is done when the VRFprovider resolves the token id for the minter/receiver.
+
+```solidity=
+pragma solidity ^0.8.17;
+
+import {ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+
+/**
+ * @dev String operations.
+ */
+library Strings {
+    bytes16 private constant _HEX_SYMBOLS = "0123456789abcdef";
+
+    /**
+     * @dev Converts a `uint256` to its ASCII `string` decimal representation.
+     */
+    function toString(uint256 value) internal pure returns (string memory) {
+        // Inspired by OraclizeAPI's implementation - MIT licence
+        // https://github.com/oraclize/ethereum-api/blob/b42146b063c7d6ee1358846c198246239e9360e8/oraclizeAPI_0.4.25.sol
+
+        if (value == 0) {
+            return "0";
+        }
+        uint256 temp = value;
+        uint256 digits;
+        while (temp != 0) {
+            digits++;
+            temp /= 10;
+        }
+        bytes memory buffer = new bytes(digits);
+        while (value != 0) {
+            digits -= 1;
+            buffer[digits] = bytes1(uint8(48 + uint256(value % 10)));
+            value /= 10;
+        }
+        return string(buffer);
+    }
+}
+
+interface IVRFConsumer {
+    /// @dev The function is called by the VRF provider in order to deliver results to the consumer.
+    /// @param seed Any string that used to initialize the randomizer.
+    /// @param time Timestamp where the random data was created.
+    /// @param result A random bytes for given seed anfd time.
+    function consume(
+        string calldata seed,
+        uint64 time,
+        bytes32 result
+    ) external;
+}
+
+interface IVRFProvider {
+    /// @dev The function for consumers who want random data.
+    /// Consumers can simply make requests to get random data back later.
+    /// @param seed Any string that used to initialize the randomizer.
+    function requestRandomData(string calldata seed) external payable;
+}
+
+contract ExampleNFT is ERC721Enumerable, IVRFConsumer {
+   using Strings for uint256;
+
+    IVRFProvider public immutable provider;
+    uint256 public immutable maxSupply;
+
+    uint256 public mintRequestCount = 0;
+    uint256 public mintResolveCount = 0;
+
+    mapping(uint256 => uint256) public tokenMintingLogs;
+    mapping(string => address) public tokenSeedToMinter;
+
+    constructor(IVRFProvider _provider, uint256 _maxSupply) ERC721("ExampleNFT", "ENFT") {
+        provider = _provider;
+        maxSupply = _maxSupply;
+    }
+
+    function mintWithVRF() external {
+        require(mintRequestCount < maxSupply, "Reach max supply");
+        string memory clientSeed = string(abi.encodePacked("ExampleNFT-", mintRequestCount.toString()));
+        tokenSeedToMinter[clientSeed] = msg.sender;
+
+        mintRequestCount++;
+
+        provider.requestRandomData{value: 0}(clientSeed);
+    }
+
+    function consume(string calldata seed, uint64 time, bytes32 result) external override {
+        require(msg.sender == address(provider), "Caller is not the provider");
+
+        address _receiver = tokenSeedToMinter[seed];
+        uint256 index = uint256(result) % (maxSupply - mintResolveCount);
+
+        uint256 tokenID = tokenMintingLogs[index];
+        if (tokenID == 0) {
+            tokenID = index;
+        }
+
+        mintResolveCount++;
+        tokenMintingLogs[index] = maxSupply - mintResolveCount;
+
+        _safeMint(_receiver, tokenID);
+    }
+}
+```
+
+We have deployed the reference contracts to the [Goerli](https://goerli.etherscan.io) testnet here.
+
+| Contract        | Address                                                                                                                           |
+| --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| Bridge          | [0x6f057CE91CFcB59d839Db91e8DF067278a704cb8](https://goerli.etherscan.io/address/0x6f057CE91CFcB59d839Db91e8DF067278a704cb8)      |
+| VRFProvider     | [0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad](https://goerli.etherscan.io/address/0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad)      |
+| VRFLens         | [0x6e876b4Ed458af275Eb049a3f89BF0909618d154](https://goerli.etherscan.io/address/0x6e876b4Ed458af275Eb049a3f89BF0909618d154)      |
+| NFTBatchMinting | [0x0b590C537608d121F8e46c2b366f5d22EC942c0f](https://goerli.etherscan.io/address/0x0b590C537608d121F8e46c2b366f5d22EC942c0f#code) |
