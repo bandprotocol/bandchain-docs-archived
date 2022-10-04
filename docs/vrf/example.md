@@ -34,12 +34,12 @@ This on-chain lottery dApp is an example of a continuous-use VRF, and it satisfi
 
 - Only the owner can set the minimum price and the round's duration.
 - Only the owner can start a new round.
-- The owner determined the seed of the 'started' round.
-- Anyone can buy lotteries during a 'started' round.
+- The owner determined the seed of the `started` round.
+- Anyone can buy lotteries during a `started` round.
 - Anyone can request to resolve the current round if it has ended.
-- Only the VRFProvider contract can resolve the 'resolving' round.
+- Only the VRFProvider contract can resolve the `resolving` round.
 
-```solidity=
+```solidity
 pragma solidity ^0.8.17;
 
 interface IVRFConsumer {
@@ -200,7 +200,7 @@ This NFT is an example of a batch-use VRF, and it satisfies the requirements bel
 - Anyone can call `mintWithVRF` to start minting an NFT for themself.
 - An actual minting is done when the VRFprovider resolves the token id for the minter/receiver.
 
-```solidity=
+```solidity
 pragma solidity ^0.8.17;
 
 import {ERC721Enumerable} from "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
