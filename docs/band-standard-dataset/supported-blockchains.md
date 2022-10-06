@@ -25,6 +25,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Celo (Alfajores)  |  0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc   |   [link](https://alfajores-blockscout.celo-testnet.org/address/0x660cBc25F0cFD31F0Bdcaa43525f0bACC6DB2ABc)    |
 | CLV               |  0xD0b2234eB9431e850a814bCdcBCB18C1093F986B   |         [link](https://clover-testnet.subscan.io/account/0xD0b2234eB9431e850a814bCdcBCB18C1093F986B)          |
 | Cronos            |  0xD0b2234eB9431e850a814bCdcBCB18C1093F986B   |           [link](https://testnet.cronoscan.com/address/0xD0b2234eB9431e850a814bCdcBCB18C1093F986B)            |
+| Ethereum (Goerli) |  0x61704EFB8b8120c03C210cAC5f5193BF8c80852a   |            [link](https://goerli.etherscan.io/address/0x61704EFB8b8120c03C210cAC5f5193BF8c80852a)             |
 | Ethereum (Kovan)  |  0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa   |             [link](https://kovan.etherscan.io/address/0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa)             |
 | Evmos             |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |               [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)                |
 | Godwoken          |  0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a   |           [link](https://v1.betanet.gwscan.com/address/0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a)            |
