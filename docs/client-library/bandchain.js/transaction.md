@@ -201,7 +201,7 @@ Get transaction data from `Transaction`.
 import { Client, Wallet, Transaction, Message, Coin, Fee } from '@bandprotocol/bandchain.js'
 
 const { PrivateKey } = Wallet
-const client = new Client('https://laozi-testnet5.bandchain.org/grpc-web')
+const client = new Client('https://laozi-testnet6.bandchain.org/grpc-web')
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -223,7 +223,7 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender)
-  const chainId = 'band-laozi-testnet5'
+  const chainId = 'band-laozi-testnet6'
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')

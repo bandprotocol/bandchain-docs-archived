@@ -120,7 +120,7 @@ When the resolver (this can be a self-implemented worker bot or a bounty hunter)
 
 #### Manually request and resolve
 
-This section will demonstrate how to request random data from the VRF provider and then resolve the request manually using [Goerli](https://goerli.etherscan.io/) and [Laozi-Testnet5](https://laozi-testnet5.cosmoscan.io/) UI.
+This section will demonstrate how to request random data from the VRF provider and then resolve the request manually using [Goerli](https://goerli.etherscan.io/) and [Laozi-testnet6](https://laozi-testnet6.cosmoscan.io/) UI.
 
 Firstly, go to the [VRF provider contract on Goerli](https://goerli.etherscan.io/address/0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad#readContract) to view some of its configuration.
 
@@ -144,7 +144,7 @@ The next step is making a request on Bandchain using those parameters from the p
 
 <iframe style="width: 100%" height="400" src="https://www.youtube.com/embed/PjjcEFqxRAY" title="Use the parameters from the log of the VRF provider to make a request on Bandchain" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-In this case, we will go to [oracleScriptID 152 or O152](https://laozi-testnet5.cosmoscan.io/oracle-script/152#execute) and then fill in the `seed`, `time`, `workerAddress`, `minCount`, and `askCount`, as shown in the video above.
+In this case, we will go to [oracleScriptID 152 or O152](https://laozi-testnet6.cosmoscan.io/oracle-script/152#execute) and then fill in the `seed`, `time`, `workerAddress`, `minCount`, and `askCount`, as shown in the video above.
 
 _The worker address can be any EOA address that the resolver will use for relaying to resolve the request on the Ethereum side._
 

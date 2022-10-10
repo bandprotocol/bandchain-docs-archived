@@ -41,7 +41,7 @@ const client = new Client('<GRPC_WEB>')
 **Result**
 
 ```
-band-laozi-testnet5
+band-laozi-testnet6
 ```
 
 ---
@@ -710,7 +710,7 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender)
-  const chainId = 'band-laozi-testnet5'
+  const chainId = 'band-laozi-testnet6'
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')
@@ -833,7 +833,7 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender)
-  const chainId = 'band-laozi-testnet5'
+  const chainId = 'band-laozi-testnet6'
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')
@@ -924,7 +924,7 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender)
-  const chainId = 'band-laozi-testnet5'
+  const chainId = 'band-laozi-testnet6'
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')
