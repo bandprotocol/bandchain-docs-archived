@@ -476,7 +476,7 @@ print(c.get_request_id_by_tx_hash(tx_hash))
 
 ---
 
-## get_chain_id
+## get_chain_id()
 
 This function returns a chain ID.
 
@@ -487,18 +487,25 @@ This function returns a chain ID.
 **Example**
 
 ```python
+import asyncio
 from pyband import Client
 
-grpc_url = "<GRPC>" # without https://
+async def main():
+    # Step 1
+    grpc_url = "<GRPC>" # ex.laozi-testnet5.bandchain.org(without https://)
+    c = Client.from_endpoint(grpc_url, 443)
 
-c = Client(grpc_url)
-print(c.get_chain_id())
+    chain_id = await c.get_chain_id()
+    print( chain_id )
+
+if __name__ == "__main__":
+    asyncio.run(main())
 ```
 
 **Result**
 
 ```
-band-laozi-testnet2
+band-laozi-testnet5
 ```
 
 ---
@@ -546,18 +553,12 @@ print(client.get_reference_data(pairs, min_count, ask_count))
   ReferencePrice(
     (pair = "BTC/USD"),
     (rate = 33373.93),
-    (updated_at = ReferencePriceUpdated(
-      (base = 1625715297),
-      (quote = 1625715749)
-    ))
+    (updated_at = ReferencePriceUpdated((base = 1625715297), (quote = 1625715749)))
   ),
   ReferencePrice(
     (pair = "ETH/USD"),
     (rate = 2261.97),
-    (updated_at = ReferencePriceUpdated(
-      (base = 1625715297),
-      (quote = 1625715749)
-    ))
+    (updated_at = ReferencePriceUpdated((base = 1625715297), (quote = 1625715749)))
   )
 ]
 ```
