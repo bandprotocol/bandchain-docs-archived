@@ -94,7 +94,7 @@ struct Output {
 #### Preparation Phase
 
 The function below shows an example preparation phase for requesting data from data source
-[`D327`](https://laozi-testnet5.cosmoscan.io/data-source/327). As `D327` does not require any inputs, an empty byte will
+[`D327`](https://laozi-testnet6.cosmoscan.io/data-source/327). As `D327` does not require any inputs, an empty byte will
 be passed. However, in other data sources that do require an input, the corresponding calldata should be sent instead.
 
 ```rust

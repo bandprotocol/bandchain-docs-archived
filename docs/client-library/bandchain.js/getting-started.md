@@ -47,7 +47,7 @@ This section describes methods to send a transaction of oracle request to BandCh
 ```js
 import { Client } from '@bandprotocol/bandchain.js'
 
-const grpcUrl = '<GRPC_WEB>' // ex.https://laozi-testnet5.bandchain.org/grpc-web
+const grpcUrl = '<GRPC_WEB>' // ex.https://laozi-testnet6.bandchain.org/grpc-web
 const client = new Client(grpcUrl)
 ```
 
@@ -172,7 +172,7 @@ The final code should now look like the code below.
 ```js
 import { Client, Wallet, Obi, Message, Coin, Transaction, Fee } from '@bandprotocol/bandchain.js'
 
-const grpcUrl = '<GRPC_WEB>' // ex.https://laozi-testnet5.bandchain.org/grpc-web
+const grpcUrl = '<GRPC_WEB>' // ex.https://laozi-testnet6.bandchain.org/grpc-web
 const client = new Client(grpcUrl)
 
 async function makeRequest() {
@@ -321,7 +321,7 @@ Therefore, final result is as shown follow
 import { Client, Wallet, Transaction, Message, Coin, Fee } from '@bandprotocol/bandchain.js'
 
 const { PrivateKey } = Wallet
-const client = new Client('<GRPC_WEB>') // ex.https://laozi-testnet5.bandchain.org/grpc-web
+const client = new Client('<GRPC_WEB>') // ex.https://laozi-testnet6.bandchain.org/grpc-web
 
 // Step 2.1 import private key based on given mnemonic string
 const privkey = PrivateKey.fromMnemonic(
@@ -343,7 +343,7 @@ const sendCoin = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount])
   // Step 3.2 constructs a transaction
   const account = await client.getAccount(sender)
-  const chainId = 'band-laozi-testnet5'
+  const chainId = 'band-laozi-testnet6'
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')
@@ -435,7 +435,7 @@ This section shows an example on how to query data from BandChain. This example 
 ```js
 import { Client } from '@bandprotocol/bandchain.js'
 // Step 1
-const grpcUrl = '<GRPC_WEB>' // ex.https://laozi-testnet5.bandchain.org/grpc-web
+const grpcUrl = '<GRPC_WEB>' // ex.https://laozi-testnet6.bandchain.org/grpc-web
 const client = new Client(grpcUrl)
 ```
 
@@ -452,7 +452,7 @@ The final code should look like the code below.
 ```js
 import { Client } from "@bandprotocol/bandchain.js"
 // Step 1
-const grpcUrl = "<GRPC_WEB>" // ex.https://laozi-testnet5.bandchain.org/grpc-web
+const grpcUrl = "<GRPC_WEB>" // ex.https://laozi-testnet6.bandchain.org/grpc-web
 const client = new Client(grpcUrl)
 
 // Step 2
@@ -810,7 +810,7 @@ Your final code should look something like this:
 import { Client, Wallet, Transaction, Message, Coin, Fee } from '@bandprotocol/bandchain.js'
 
 const { PrivateKey } = Wallet
-const client = new Client('<GRPC_WEB>') // ex.https://laozi-testnet5.bandchain.org/grpc-web
+const client = new Client('<GRPC_WEB>') // ex.https://laozi-testnet6.bandchain.org/grpc-web
 const privkey = PrivateKey.fromMnemonic(
   'subject economy equal whisper turn boil guard giraffe stick retreat wealth card only buddy joy leave genuine resemble submit ghost top polar adjust avoid'
 )
@@ -840,7 +840,7 @@ const sendCoinIbc = async () => {
 
   // Step 2 constructs a transaction
   const account = await client.getAccount(sender)
-  const chainId = 'band-laozi-testnet5'
+  const chainId = 'band-laozi-testnet6'
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')
@@ -928,7 +928,7 @@ const sendCoinWithLedger = async () => {
   const msg = new MsgSend(sender, receiver, [sendAmount])
 
   const account = await client.getAccount(sender)
-  const chainId = 'band-laozi-testnet5'
+  const chainId = 'band-laozi-testnet6'
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')

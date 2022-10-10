@@ -68,4 +68,4 @@ As a slight aside, a data request to BandChain generally takes roughly 5 seconds
 
 > NOTE: Work in progress
 
-[Starport](https://cosmos.network/starport/) has offerred an easy way to scaffold a project with an ability to request oracle data from BandChain. Developers can initialize a new chain app that requires oracle capability with a few commands and try to request data from BandChain immediately with our [Laozi Testnet 4](https://laozi-testnet5.cosmoscan.io/). For more information regarding Starport project with an oracle requesting module, you can find it [here](https://docs.starport.network/kb/band.html).
+[Starport](https://cosmos.network/starport/) has offerred an easy way to scaffold a project with an ability to request oracle data from BandChain. Developers can initialize a new chain app that requires oracle capability with a few commands and try to request data from BandChain immediately with our [Laozi Testnet 4](https://laozi-testnet6.cosmoscan.io/). For more information regarding Starport project with an oracle requesting module, you can find it [here](https://docs.starport.network/kb/band.html).
