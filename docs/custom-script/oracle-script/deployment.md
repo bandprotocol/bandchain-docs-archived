@@ -31,7 +31,7 @@ import { Client, Wallet, Message, Coin, Transaction, Fee } from '@bandprotocol/b
 import fs from 'fs'
 import path from 'path'
 
-const grpcURL = 'https://laozi-testnet5.bandchain.org/grpc-web'
+const grpcURL = 'https://laozi-testnet6.bandchain.org/grpc-web'
 const client = new Client(grpcURL)
 
 // Setup the client
@@ -106,7 +106,7 @@ from google.protobuf.json_format import MessageToJson
 
 def main():
     # Setup Client
-    grpc_url = "laozi-testnet5.bandchain.org"
+    grpc_url = "laozi-testnet6.bandchain.org"
     c = Client(grpc_url)
 
     # Setup Wallet
