@@ -13,7 +13,7 @@ order: 7
 | GRPC     | https://laozi1.bandchain.org          |
 | GRPC_WEB | https://laozi1.bandchain.org/grpc-web |
 
-## Laozi Testnet 5
+## Laozi Testnet 6
 
 | Type     | End Point                                     |
 | -------- | --------------------------------------------- |
