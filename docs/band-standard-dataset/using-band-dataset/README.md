@@ -8,7 +8,7 @@ This section will walk you through how you can query and use Band's standard dat
 
 ## Using the Datasets in Smart Contracts
 
-This section will cover how to use Band's aggregator smart contracts to query the latest price data of various cryptocurrey tokens, commodities, and foreign currency exchange rates.
+This section will cover how to use Band's aggregator smart contracts to query the latest price data of various cryptocurrency tokens, commodities, and foreign currency exchange rates.
 
 ## Using the Dataset in the Frontend
 
