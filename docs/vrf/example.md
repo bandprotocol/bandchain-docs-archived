@@ -183,7 +183,7 @@ We have deployed the reference contracts to the [Goerli](https://goerli.ethersca
 
 | Contract      | Address                                                                                                                      |
 | ------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| Bridge        | [0x6f057CE91CFcB59d839Db91e8DF067278a704cb8](https://goerli.etherscan.io/address/0x6f057CE91CFcB59d839Db91e8DF067278a704cb8) |
+| Bridge        | [0xD291A502e3ca4Bb13E09892e57d8Ff0271Bd198A](https://goerli.etherscan.io/address/0xD291A502e3ca4Bb13E09892e57d8Ff0271Bd198A) |
 | VRFProvider   | [0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad](https://goerli.etherscan.io/address/0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad) |
 | VRFLens       | [0x6e876b4Ed458af275Eb049a3f89BF0909618d154](https://goerli.etherscan.io/address/0x6e876b4Ed458af275Eb049a3f89BF0909618d154) |
 | SimpleLottery | [0xCD3528283aA330003E50350134a48d1920BA70A0](https://goerli.etherscan.io/address/0xCD3528283aA330003E50350134a48d1920BA70A0) |
@@ -306,7 +306,7 @@ We have deployed the reference contracts to the [Goerli](https://goerli.ethersca
 
 | Contract        | Address                                                                                                                           |
 | --------------- | --------------------------------------------------------------------------------------------------------------------------------- |
-| Bridge          | [0x6f057CE91CFcB59d839Db91e8DF067278a704cb8](https://goerli.etherscan.io/address/0x6f057CE91CFcB59d839Db91e8DF067278a704cb8)      |
+| Bridge          | [0xD291A502e3ca4Bb13E09892e57d8Ff0271Bd198A](https://goerli.etherscan.io/address/0xD291A502e3ca4Bb13E09892e57d8Ff0271Bd198A)      |
 | VRFProvider     | [0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad](https://goerli.etherscan.io/address/0xF1F3554b6f46D8f172c89836FBeD1ea8551eabad)      |
 | VRFLens         | [0x6e876b4Ed458af275Eb049a3f89BF0909618d154](https://goerli.etherscan.io/address/0x6e876b4Ed458af275Eb049a3f89BF0909618d154)      |
 | NFTBatchMinting | [0x0b590C537608d121F8e46c2b366f5d22EC942c0f](https://goerli.etherscan.io/address/0x0b590C537608d121F8e46c2b366f5d22EC942c0f#code) |
