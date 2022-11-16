@@ -264,7 +264,7 @@ yoda config executor "rest:${EXECUTOR_URL}?timeout=10s"
 ```
 ### Step 4.3: Start Yoda
 
-To start Yoda, it's recommend to use `systemctl` the same as `bandd`.
+To start Yoda, it's also recommend to use `systemctl`.
 
 ```bash
 # Write yoda service to /etc/systemd/system/yoda.service
