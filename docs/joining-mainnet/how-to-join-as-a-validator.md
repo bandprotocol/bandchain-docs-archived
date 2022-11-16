@@ -4,13 +4,13 @@ order: 5
 
 # How to Join as a Validator
 
-In this section, we'll explain the requirements and basics for running your own BandChain validator node.
+In this section, we'll explain the requirements and basics for running your own BandChain validator node and syncing from the starting block. If you want to join using State Sync or Quick Sync, please follow next documents.
 
 ## Step 1: Set Up Validator Node
 
 This step provides procedures to install BandChain's executable and sync blocks with other peers.
 
-Assuming to run on Ubuntu 20.04 LTS allowing connection on port `26656` for P2P connection.
+Assuming to run on Ubuntu 22.04 LTS allowing connection on port `26656` for P2P connection.
 
 Before beginning instructions, following variables should be set to be used in further instructions. **Please make sure that these variables are set every time when using the new shell session.**
 
@@ -58,10 +58,10 @@ Go binary should be at `/usr/local/go/bin` and any executable compiled by `go in
 ### Step 1.2: Clone & Install BandChain Laozi
 
 ```bash
-# Clone BandChain Laozi version v2.3.3
+# Clone BandChain Laozi version v2.3.6
 git clone https://github.com/bandprotocol/chain
 cd chain
-git checkout v2.3.3
+git checkout v2.3.6
 
 # Install binaries to $GOPATH/bin
 make install
@@ -90,41 +90,136 @@ bandd keys add $WALLET_NAME
 This can be done by editing `seeds` or `persistent_peers` property in `$HOME/.band/config/config.toml`.
 Please see [here](https://github.com/bandprotocol/launch/tree/master/laozi-mainnet) for the list of seeds and peers.
 
-### Step 1.5: Create BandChain service
-
-We do recommend to run bandchain node as a daemon, which can be setup using `systemctl`. Run the following command to create a new daemon for `bandd` (This script work on non-root user).
-
 ```bash
+# List of seeds and persistent peers you want to add
+export SEEDS="<SEED>,<SEED>,..." 
+export PERSISTENT_PEERS="<PERSISTENT_PEER>,<PERSISTENT_PEER>,..."
+
+# Add seeds and persistent peers to config.toml
+sed -E -i \
+  "s/seeds = \".*\"/seeds = \"${SEEDS}\"/" \
+  $HOME/.band/config/config.toml
+
+sed -E -i \
+  "s/persistent_peers = \".*\"/persistent_peers = \"${PERSISTENT_PEERS}\"/" \
+  $HOME/.band/config/config.toml
+```
+
+## Step 2: Setup Cosmovisor
+This step provides procedures to setup Cosmovisor. Cosmovisor is a small process manager for Cosmos SDK application binaries that monitors the governance module via stdout for incoming chain upgrade proposals
+
+### Step 2.1: Setup environment variables
+Add required environment variables for Cosmovisor into your profile
+
+```bash=
+cd ~
+echo "export DAEMON_NAME=bandd" >> ~/.profile
+echo "export DAEMON_HOME=$HOME/.band" >> ~/.profile
+source ~/.profile
+```
+### Step 2.2: Setup Cosmovisor
+Install Cosmovisor and provide bandd binary to Cosmovisor
+
+```bash=
+# Install Cosmovisor
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
+
+# Setup folder and provide bandd binary for Cosmovisor
+mkdir -p $HOME/.band/cosmovisor/genesis/bin
+mkdir -p $HOME/.band/cosmovisor/upgrades
+cp $HOME/go/bin/bandd $HOME/.band/cosmovisor/genesis/bin
+```
+
+### Step 2.3: Create BandChain service
+
+We do recommend to run bandchain node as a daemon, which can be setup using `systemctl`. Run the following command to create a new daemon for `cosmovisor` that runs `bandd` (This script work on non-root user).
+
+```bash=
 # Write bandd service file to /etc/systemd/system/bandd.service
 export USERNAME=$(whoami)
 sudo -E bash -c 'cat << EOF > /etc/systemd/system/bandd.service
 [Unit]
 Description=BandChain Node Daemon
 After=network-online.target
-
 [Service]
+Environment="DAEMON_NAME=bandd"
+Environment="DAEMON_HOME=${HOME}/.band"
+Environment="DAEMON_RESTART_AFTER_UPGRADE=true"
+Environment="DAEMON_ALLOW_DOWNLOAD_BINARIES=false"
+Environment="UNSAFE_SKIP_BACKUP=true"
 User=$USERNAME
-ExecStart=/home/$USERNAME/go/bin/bandd start
+ExecStart=${HOME}/go/bin/cosmovisor start
 Restart=always
 RestartSec=3
 LimitNOFILE=4096
-
 [Install]
 WantedBy=multi-user.target
 EOF'
 ```
 
-### Extra: Sync from chain snapshot
-- You can download daily chain snapshot from [quicksync](https://quicksync.io/networks/band.html) and sync from that point instead sync from start.
+## Step 3: Provide bandd v2.4 for Cosmovisor
+This Step provides procedures to provide bandd version 2.4 for Cosmovisor  to upgrade when it's reach the upgrade height
 
+### Step 3.1: Update Go version to 1.19.1 and Reinstall Binary
+Remove your old go version and install go version 1.19.1 into your system. 
 
-## Step 2: Setup Yoda
+> Note: You can skip this step if you are running Go version 1.19.1
+##### Update Go version
+```bash=
+cd ~
+source ~/.profile
+# Remove old Go version
+sudo rm -rf /usr/local/go
+sudo rm -rf ~/go
+# Install Go 1.19.1
+wget https://go.dev/dl/go1.19.1.linux-amd64.tar.gz
+tar xf go1.19.1.linux-amd64.tar.gz
+sudo mv go /usr/local/go
+# Verify go version
+go version
+```
+
+##### Reinstall Binary
+```bash=
+# Reinstall cosmovisor
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
+# Reinstall binary for current version (bandd, yoda)
+cd ~
+cd chain
+git checkout v2.3.6
+make install
+```
+
+### Step 3.2: Clone & Install the new Bandchain Laozi
+Make new bandd binary from chain v2.4.1
+
+```bash=
+# Clone Bandchain Laozi version 2.4.1
+cd ~
+cd chain
+git checkout v2.4.1
+# Install binaries to $GOPATH/bin
+make install
+# Verify bandd version
+bandd version
+```
+
+### Step 3.3: Install and provide new binary to Cosmovisor
+Provide bandd binary to Cosmovisor
+
+```bash=
+# Setup folder and provide new bandd binary for Cosmovisor
+mkdir -p $HOME/.band/cosmovisor/upgrades/v2_4/bin
+cp $HOME/go/bin/bandd $DAEMON_HOME/cosmovisor/upgrades/v2_4/bin
+```
+
+## Step 4: Setup Yoda
 
 Since a subset of validators who are selected for a data request must send the data they received as a transaction of [MsgReportData](../whitepaper/protocol-messages.md#msgreportdatas) to BandChain.
 
 Yoda is a program used by BandChain's validator nodes to help automatically query data from data providers by executing data source script, then submitting the result to fulfill the request. [Read more on the Yoda section.](./yoda.md)
 
-### Step 2.1: Installation
+### Step 4.1: Installation
 
 Before setting up Yoda, Lambda function executor need to be setup to execute data sources. If this step has not been done yet, please follow the instructions on following pages (select either one of these methods):
 
@@ -135,10 +230,10 @@ To check Yoda version, use the following command.
 
 ```bash
 yoda version
-# v2.3.3
+# v2.4.1
 ```
 
-### Step 2.2: Set the Yoda configurations
+### Step 4.2: Set the Yoda configurations
 
 Use the command below to config your Yoda, replacing `$VARIABLES` with their actual values.
 
@@ -167,7 +262,7 @@ Lastly, configure the Lambda Executor endpoint to helps running data source scri
 export EXECUTOR_URL=<YOUR_EXECUTOR_URL>
 yoda config executor "rest:${EXECUTOR_URL}?timeout=10s"
 ```
-### Step 2.3: Start Yoda
+### Step 4.3: Start Yoda
 
 To start Yoda, it's recommend to use `systemctl` the same as `bandd`.
 
@@ -205,11 +300,13 @@ You can now connect to BandChain using `bandd` service which also automatically 
 ```bash
 # Start bandd daemon
 sudo systemctl start bandd
+# Start yoda daemon
+sudo systemctl start yoda
 ```
 
-Once `bandd` and `yoda` services starting to sync, logs can be queried by running `journalctl -u bandd.service -f` command.
+Once `bandd` service has been started, logs can be queried by running `journalctl -u bandd.service -f` command. You will see your node beginning to sync.
 
-Logs should be similar to the following log example below. Once verified, you can stop tailing the log by typing `Control+C`.
+After `yoda` service has been started, logs can be queried by running `journalctl -u yoda.service -f` command. Log should be similar to the following log example below. Once verified, you can stop tailing the log by typing `Control-C`.
 
 ```bash
 ... systemd[...]: Started Yoda Daemon.
@@ -218,22 +315,22 @@ Logs should be similar to the following log example below. Once verified, you ca
 ... yoda[...]: I[...] 👂  Subscribing to events with query: tm.event = 'Tx'...
 ```
 
-### Step 2.4: Wait for the latest blocks to be synced
+### Step 4.4: Wait for the latest blocks to be synced
 
 **This is an important step.** We should wait for newly started BandChain node to sync their blocks until the latest block is reached. The latest block can be checked on [CosmoScan](https://cosmoscan.io/blocks).
 
-## Step 3: Become a Validator
+## Step 5: Become a Validator
 
 This guide will show you how to register the running node as a validator. So that the program can fulfill the data on BandChain.
 
-### Step 3.1: Fund the Validator Account
+### Step 5.1: Fund the Validator Account
 
 ```bash
 bandd keys show $WALLET_NAME
 ```
 Then fund tokens into this account ready for staking.
 
-### Step 3.2: Stake Tokens with the Validator Account
+### Step 5.2: Stake Tokens with the Validator Account
 
 ```bash
 bandd tx staking create-validator \
@@ -251,7 +348,7 @@ bandd tx staking create-validator \
 Registered validators can be found on [CosmoScan](https://cosmoscan.io/validators).
 
 
-### Step 3.3: Register Reporters and Become Oracle Provider
+### Step 5.3: Register Reporters and Become Oracle Provider
 
 Yoda contains multiple reporters. You will need to register the reporters in order to help the validator submit transactions of reporting data.
 
