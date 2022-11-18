@@ -107,9 +107,9 @@ sed -E -i \
 ```bash
 # Get trust height and trust hash
 
-LATEST_HEIGHT=$(curl -s http://rpc.laozi1.bandchain.org:80/block | jq -r .result.block.header.height);
+LATEST_HEIGHT=$(curl -s http://rpc.laozi1.bandchain.org/block | jq -r .result.block.header.height);
 TRUST_HEIGHT=$(($LATEST_HEIGHT-45000))
-TRUST_HASH=$(curl -s "http://rpc.laozi1.bandchain.org:80/block?height=$TRUST_HEIGHT" | jq -r .result.block_id.hash)
+TRUST_HASH=$(curl -s "http://rpc.laozi1.bandchain.org/block?height=$TRUST_HEIGHT" | jq -r .result.block_id.hash)
 
  # show trust height and trust hash
  echo "TRUST HEIGHT: $TRUST_HEIGHT"
