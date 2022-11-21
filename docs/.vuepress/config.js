@@ -87,6 +87,7 @@ module.exports = {
                 {
                   title: 'Example Use Cases',
                   path: '/whitepaper/example-use-cases',
+                  next: '/technical-specifications',
                 },
               ],
             },
@@ -162,7 +163,7 @@ module.exports = {
               path: '/vrf/example',
             },
             {
-              title: 'Supported Blockchain',
+              title: 'VRF Supported Blockchain',
               path: '/vrf/supported-blockchains',
             },
           ],
@@ -184,7 +185,6 @@ module.exports = {
             },
             {
               title: 'Using the Data',
-              directory: true,
               path: '/band-standard-dataset/using-band-dataset',
             },
           ],
