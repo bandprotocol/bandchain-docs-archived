@@ -22,7 +22,7 @@ export WALLET_NAME=<YOUR_WALLET_NAME>
 # Name of your validator node, please change this into your name.
 export MONIKER=<YOUR_MONIKER>
 # URL of genesis file for Laozi Mainnet
-export GENESIS_FILE_URL=https://raw.githubusercontent.com/bandprotocol/launch/master/laozi-mainnet/genesis.json 
+export GENESIS_FILE_URL=https://raw.githubusercontent.com/bandprotocol/launch/master/laozi-mainnet/genesis.json
 # Data sources/oracle scripts files
 export BIN_FILES_URL=https://raw.githubusercontent.com/bandprotocol/launch/master/laozi-mainnet/files.tar.gz
 ```
@@ -42,6 +42,7 @@ sudo apt-get install -y build-essential curl wget
 ```
 
 - Go 1.16
+
 ```bash
 # Install Go 1.16.7
 wget https://dl.google.com/go/go1.16.7.linux-amd64.tar.gz
@@ -92,7 +93,7 @@ Please see [here](https://github.com/bandprotocol/launch/tree/master/laozi-mainn
 
 ```bash
 # List of seeds and persistent peers you want to add
-export SEEDS="<SEED>,<SEED>,..." 
+export SEEDS="<SEED>,<SEED>,..."
 export PERSISTENT_PEERS="<PERSISTENT_PEER>,<PERSISTENT_PEER>,..."
 
 # Add seeds and persistent peers to config.toml
@@ -106,9 +107,11 @@ sed -E -i \
 ```
 
 ## Step 2: Setup Cosmovisor
+
 This step provides procedures to setup Cosmovisor. Cosmovisor is a small process manager for Cosmos SDK application binaries that monitors the governance module via stdout for incoming chain upgrade proposals
 
 ### Step 2.1: Setup environment variables
+
 Add required environment variables for Cosmovisor into your profile
 
 ```bash
@@ -117,7 +120,9 @@ echo "export DAEMON_NAME=bandd" >> ~/.profile
 echo "export DAEMON_HOME=$HOME/.band" >> ~/.profile
 source ~/.profile
 ```
+
 ### Step 2.2: Setup Cosmovisor
+
 Install Cosmovisor and provide bandd binary to Cosmovisor
 
 ```bash
@@ -158,13 +163,17 @@ EOF'
 ```
 
 ## Step 3: Provide bandd v2.4 for Cosmovisor
-This Step provides procedures to provide bandd version 2.4 for Cosmovisor  to upgrade when it's reach the upgrade height
+
+This Step provides procedures to provide bandd version 2.4 for Cosmovisor to upgrade when it's reach the upgrade height
 
 ### Step 3.1: Update Go version to 1.19.1 and Reinstall Binary
-Remove your old go version and install go version 1.19.1 into your system. 
+
+Remove your old go version and install go version 1.19.1 into your system.
 
 > Note: You can skip this step if you are running Go version 1.19.1
+
 ##### Update Go version
+
 ```bash
 cd ~
 source ~/.profile
@@ -180,6 +189,7 @@ go version
 ```
 
 ##### Reinstall Binary
+
 ```bash
 # Reinstall cosmovisor
 go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
@@ -191,6 +201,7 @@ make install
 ```
 
 ### Step 3.2: Clone & Install the new Bandchain Laozi
+
 Make new bandd binary from chain v2.4.1
 
 ```bash
@@ -205,6 +216,7 @@ bandd version
 ```
 
 ### Step 3.3: Install and provide new binary to Cosmovisor
+
 Provide bandd binary to Cosmovisor
 
 ```bash
@@ -246,6 +258,7 @@ yoda config rpc-poll-interval "1s"
 yoda config max-try 5
 yoda config validator $(bandd keys show $WALLET_NAME -a --bech val)
 ```
+
 Then, add multiple reporter accounts to allow Yoda to submit transactions concurrently.
 
 ```bash
@@ -262,6 +275,7 @@ Lastly, configure the Lambda Executor endpoint to helps running data source scri
 export EXECUTOR_URL=<YOUR_EXECUTOR_URL>
 yoda config executor "rest:${EXECUTOR_URL}?timeout=10s"
 ```
+
 ### Step 4.3: Start Yoda
 
 To start Yoda, it's also recommend to use `systemctl`.
@@ -328,6 +342,7 @@ This guide will show you how to register the running node as a validator. So tha
 ```bash
 bandd keys show $WALLET_NAME
 ```
+
 Then fund tokens into this account ready for staking.
 
 ### Step 5.2: Stake Tokens with the Validator Account

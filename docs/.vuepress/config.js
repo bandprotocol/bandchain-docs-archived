@@ -1,29 +1,29 @@
 module.exports = {
-  theme: "cosmos",
-  title: "Band Protocol Documentation",
-  plugins: ["vuepress-plugin-element-tabs"],
+  theme: 'cosmos',
+  title: 'Band Protocol Documentation',
+  plugins: ['vuepress-plugin-element-tabs'],
   locales: {
-    "/": {
-      lang: "en-US",
+    '/': {
+      lang: 'en-US',
     },
   },
   plugins: [
-    "@maginapp/vuepress-plugin-katex",
+    '@maginapp/vuepress-plugin-katex',
     {
-      delimiters: "dollars",
+      delimiters: 'dollars',
     },
   ],
-  base: process.env.VUEPRESS_BASE || "/",
+  base: process.env.VUEPRESS_BASE || '/',
   themeConfig: {
-    repo: "BandProtocol/bandchain",
-    docsRepo: "BandProtocol/bandchain-docs",
-    docsDir: "docs",
+    repo: 'BandProtocol/bandchain',
+    docsRepo: 'BandProtocol/bandchain-docs',
+    docsDir: 'docs',
     editLinks: true,
     // docs 1.0.168: custom true hides subpages searchbar
     // docs 1.0.168: custom true hides hub, ibc, core sidebar footer logos
     custom: true,
     logo: {
-      src: "https://i.imgur.com/mAYHWdb.png",
+      src: 'https://i.imgur.com/mAYHWdb.png',
     },
     topbar: {
       banner: false,
@@ -32,150 +32,160 @@ module.exports = {
       auto: false,
       nav: [
         {
-          title: "Documentation",
+          title: 'Documentation',
           children: [
             {
-              title: "Introduction",
+              title: 'Introduction',
               directory: true,
-              path: "/introduction",
+              path: '/introduction',
             },
             {
-              title: "Whitepaper",
+              title: 'Whitepaper',
               directory: true,
-              path: "/whitepaper",
+              path: '/whitepaper',
               children: [
                 {
-                  title: "Introduction",
-                  path: "/whitepaper/introduction",
+                  title: 'Introduction',
+                  path: '/whitepaper/introduction',
                 },
                 {
-                  title: "Terminology",
-                  path: "/whitepaper/terminology",
+                  title: 'Terminology',
+                  path: '/whitepaper/terminology',
                 },
                 {
-                  title: "System Overview",
-                  path: "/whitepaper/system-overview",
+                  title: 'System Overview',
+                  path: '/whitepaper/system-overview',
                 },
                 {
-                  title: "Token Economics",
-                  path: "/whitepaper/token-economics",
+                  title: 'Token Economics',
+                  path: '/whitepaper/token-economics',
                 },
                 {
-                  title: "Protocol Messages",
-                  path: "/whitepaper/protocol-messages",
+                  title: 'Protocol Messages',
+                  path: '/whitepaper/protocol-messages',
                 },
                 {
-                  title: "Decentralized Validator Sampling",
-                  path: "/whitepaper/decentralized-validator-sampling",
+                  title: 'Decentralized Validator Sampling',
+                  path: '/whitepaper/decentralized-validator-sampling',
                 },
                 {
-                  title: "Oracle WebAssembly (Owasm)",
-                  path: "/whitepaper/oracle-webassembly",
+                  title: 'Oracle WebAssembly (Owasm)',
+                  path: '/whitepaper/oracle-webassembly',
                 },
                 {
-                  title: "Lite Client Protocol",
-                  path: "/whitepaper/lite-client-protocol",
+                  title: 'Lite Client Protocol',
+                  path: '/whitepaper/lite-client-protocol',
                 },
                 {
-                  title: "Cosmos IBC Integration",
-                  path: "/whitepaper/cosmos-ibc",
+                  title: 'Cosmos IBC Integration',
+                  path: '/whitepaper/cosmos-ibc',
                 },
                 {
-                  title: "On-chain Payment Protocol",
-                  path: "/whitepaper/on-chain-payment-protocol",
+                  title: 'On-chain Payment Protocol',
+                  path: '/whitepaper/on-chain-payment-protocol',
                 },
                 {
-                  title: "Example Use Cases",
-                  path: "/whitepaper/example-use-cases",
+                  title: 'Example Use Cases',
+                  path: '/whitepaper/example-use-cases',
                 },
               ],
             },
             {
-              title: "Technical Specifications",
+              title: 'Technical Specifications',
               directory: true,
-              path: "/technical-specifications",
-            }
-          ],
-        },
-        {
-          title: "Client Library",
-          children: [
-            {
-              title: "Protobuf Documentation",
-              directory: true,
-              path: "/client-library/protocol-buffers",
+              path: '/technical-specifications',
             },
             {
-              title: "PyBand",
+              title: 'Join the BandChain Mainnet',
               directory: true,
-              path: "/client-library/pyband",
+              path: '/joining-mainnet',
             },
             {
-              title: "Bandchain.js",
+              title: 'Join the BandChain Testnet',
               directory: true,
-              path: "/client-library/bandchain.js",
+              path: '/joining-testnet',
             },
           ],
         },
         {
-          title: "Custom Script",
+          title: 'Client Library',
           children: [
             {
-              title: "Data Source",
+              title: 'Protobuf Documentation',
               directory: true,
-              path: "/custom-script/data-source",
+              path: '/client-library/protocol-buffers',
             },
             {
-              title: "Oracle Script",
+              title: 'PyBand',
               directory: true,
-              path: "/custom-script/oracle-script",
+              path: '/client-library/pyband',
+            },
+            {
+              title: 'Bandchain.js',
+              directory: true,
+              path: '/client-library/bandchain.js',
             },
           ],
         },
         {
-          title: "Band VRF",
+          title: 'Custom Script',
           children: [
             {
-              title: "Introduction",
-              path: "/vrf/introduction",
+              title: 'Data Source',
+              directory: true,
+              path: '/custom-script/data-source',
             },
             {
-              title: "Getting Started",
-              path: "/vrf/getting-started",
-            },
-            {
-              title: "VRF Integration",
-              path: "/vrf/vrf-integration",
-            },
-            {
-              title: "Example Use Cases",
-              path: "/vrf/example",
-            },
-            {
-              title: "Supported Blockchain",
-              path: "/vrf/supported-blockchains",
+              title: 'Oracle Script',
+              directory: true,
+              path: '/custom-script/oracle-script',
             },
           ],
         },
         {
-          title: "Band Standard Dataset",
+          title: 'Band VRF',
           children: [
             {
-              title: "Introduction",
-              path: "/band-standard-dataset/",
+              title: 'Introduction',
+              path: '/vrf/introduction',
             },
             {
-              title: "Supported Blockchains",
-              path: "/band-standard-dataset/supported-blockchains",
+              title: 'Getting Started',
+              path: '/vrf/getting-started',
             },
             {
-              title: "Supported Price Data",
-              path: "/band-standard-dataset/supported-price-data",
+              title: 'VRF Integration',
+              path: '/vrf/vrf-integration',
             },
             {
-              title: "Using the Data",
+              title: 'Example Use Cases',
+              path: '/vrf/example',
+            },
+            {
+              title: 'Supported Blockchain',
+              path: '/vrf/supported-blockchains',
+            },
+          ],
+        },
+        {
+          title: 'Band Standard Dataset',
+          children: [
+            {
+              title: 'Introduction',
+              path: '/band-standard-dataset/',
+            },
+            {
+              title: 'Supported Blockchains',
+              path: '/band-standard-dataset/supported-blockchains',
+            },
+            {
+              title: 'Supported Price Data',
+              path: '/band-standard-dataset/supported-price-data',
+            },
+            {
+              title: 'Using the Data',
               directory: true,
-              path: "/band-standard-dataset/using-band-dataset",
+              path: '/band-standard-dataset/using-band-dataset',
             },
           ],
         },
@@ -208,86 +218,86 @@ module.exports = {
       ],
     },
     gutter: {
-      title: "Help & Support",
+      title: 'Help & Support',
       editLink: true,
       chat: {
-        title: "Developer Discord",
-        text: "For technical-related discussions and queries",
-        url: "https://100x.band/discord",
-        bg: "linear-gradient(103.75deg, #1B1E36 0%, #22253F 100%)",
+        title: 'Developer Discord',
+        text: 'For technical-related discussions and queries',
+        url: 'https://100x.band/discord',
+        bg: 'linear-gradient(103.75deg, #1B1E36 0%, #22253F 100%)',
       },
       forum: {
-        title: "Telegram Group",
-        text: "General chat for all things Band Protocol",
-        url: "https://100x.band/tg",
-        bg: "linear-gradient(221.79deg, #2eb1f3 -1.08%, #0289cc 95.88%)",
-        logo: "telegram",
+        title: 'Telegram Group',
+        text: 'General chat for all things Band Protocol',
+        url: 'https://100x.band/tg',
+        bg: 'linear-gradient(221.79deg, #2eb1f3 -1.08%, #0289cc 95.88%)',
+        logo: 'telegram',
       },
       github: {
-        title: "Found an Issue?",
-        text: "Help us improve this page by suggesting edits on GitHub.",
-        url: "https://github.com/BandProtocol/bandchain-docs",
-        bg: "#F8F9FC",
+        title: 'Found an Issue?',
+        text: 'Help us improve this page by suggesting edits on GitHub.',
+        url: 'https://github.com/BandProtocol/bandchain-docs',
+        bg: '#F8F9FC',
       },
     },
     footer: {
-      logo: "https://i.imgur.com/mAYHWdb.png",
+      logo: 'https://i.imgur.com/mAYHWdb.png',
       textLink: {
-        text: "bandprotocol.com",
-        url: "https://bandprotocol.com",
+        text: 'bandprotocol.com',
+        url: 'https://bandprotocol.com',
       },
       services: [
         {
-          service: "github",
-          url: "https://github.com/BandProtocol/bandchain",
+          service: 'github',
+          url: 'https://github.com/BandProtocol/bandchain',
         },
         {
-          service: "twitter",
-          url: "https://twitter.com/bandprotocol",
+          service: 'twitter',
+          url: 'https://twitter.com/bandprotocol',
         },
         {
-          service: "telegram",
-          url: "https://100x.band/tg",
+          service: 'telegram',
+          url: 'https://100x.band/tg',
         },
         {
-          service: "discord",
-          url: "https://100x.band/discord",
+          service: 'discord',
+          url: 'https://100x.band/discord',
         },
         {
-          service: "medium",
-          url: "https://medium.com/bandprotocol",
+          service: 'medium',
+          url: 'https://medium.com/bandprotocol',
         },
       ],
       smallprint:
-        "This website is maintained by [Band Protocol](https://bandprotocol.com). The contents and opinions of this website are those of Band Protocol.",
+        'This website is maintained by [Band Protocol](https://bandprotocol.com). The contents and opinions of this website are those of Band Protocol.',
       links: [
         {
-          title: "Links",
+          title: 'Links',
           children: [
             {
-              title: "Band Protocol Website",
-              url: "https://bandprotocol.com",
+              title: 'Band Protocol Website',
+              url: 'https://bandprotocol.com',
             },
             {
-              title: "BandChain Block Explorer",
-              url: "https://cosmoscan.io",
+              title: 'BandChain Block Explorer',
+              url: 'https://cosmoscan.io',
             },
           ],
         },
         {
-          title: "Community",
+          title: 'Community',
           children: [
             {
-              title: "Telegram Group",
-              url: "https://100x.band/tg",
+              title: 'Telegram Group',
+              url: 'https://100x.band/tg',
             },
             {
-              title: "Developer Discord",
-              url: "https://100x.band/discord",
+              title: 'Developer Discord',
+              url: 'https://100x.band/discord',
             },
             {
-              title: "Band Protocol Blog",
-              url: "https://medium.com/bandprotocol",
+              title: 'Band Protocol Blog',
+              url: 'https://medium.com/bandprotocol',
             },
           ],
         },
