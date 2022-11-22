@@ -1,3 +1,7 @@
+<!--
+order: 2
+-->
+
 # Getting started with Band VRF
 
 This guide serves as a quick reference on how to request random data from the Band VRF. For a detailed reference with examples, please refer to the [VRF Integration](/vrf/vrf-integration.html) section.

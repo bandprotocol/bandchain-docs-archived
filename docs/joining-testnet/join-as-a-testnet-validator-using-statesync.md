@@ -1,4 +1,8 @@
-# Bandchain Laozi Testnet #6: How to Join as a Validator using State Sync
+<!--
+order: 8
+-->
+
+# How to Join as a Validator using State Sync
 
 This document describes methods on how to join as a validator in Laozi testnet #6 using [State Sync](https://blog.cosmos.network/cosmos-sdk-state-sync-guide-99e4cf43be2f).
 
@@ -42,6 +46,7 @@ sudo apt-get install -y build-essential curl wget jq
 ```
 
 - Go 1.19.1
+
 ```bash
 # Install Go 1.19.1
 wget https://go.dev/dl/go1.19.1.linux-amd64.tar.gz
@@ -101,6 +106,7 @@ sed -E -i \
 ```
 
 ### Step 1.5: Setup State Sync config
+
 ```bash
 # Get trust height and trust hash
 
@@ -118,17 +124,17 @@ echo "TRUST HASH: $TRUST_HASH"
 sed -i \
     '/\[statesync\]/,+34 s/enable = false/enable = true/' \
     $HOME/.band/config/config.toml
-    
+
 # Set RPC Endpoint for State Sync
 sed -E -i \
     "/\[statesync\]/,+34 s/rpc_servers = \".*\"/rpc_servers = \"https\:\/\/rpc.laozi-testnet6.bandchain.org\:443,https\:\/\/rpc.laozi-testnet6.bandchain.org\:443\"/" \
     $HOME/.band/config/config.toml
- 
+
 # Set Trust Height for State Sync
 sed -i \
     "/\[statesync\]/,+34 s/trust_height = .*/trust_height = ${TRUST_HEIGHT}/" \
     $HOME/.band/config/config.toml
-    
+
 # Set Trust Hash for State Sync
 sed -i \
     "/\[statesync\]/,+34 s/trust_hash = \".*\"/trust_hash = \"${TRUST_HASH}\"/" \
@@ -136,9 +142,11 @@ sed -i \
 ```
 
 ## Step 2: Setup Cosmovisor
+
 This step provides procedures to setup Cosmovisor. Cosmovisor is a small process manager for Cosmos SDK application binaries that monitors the governance module via stdout for incoming chain upgrade proposals
 
 ### Step 2.1: Setup environment variables
+
 Add required environment variables for Cosmovisor into your profile
 
 ```bash
@@ -147,7 +155,9 @@ echo "export DAEMON_NAME=bandd" >> ~/.profile
 echo "export DAEMON_HOME=$HOME/.band" >> ~/.profile
 source ~/.profile
 ```
+
 ### Step 2.2: Setup Cosmovisor
+
 Install Cosmovisor and provide bandd binary to Cosmovisor
 
 ```bash
@@ -188,6 +198,7 @@ LimitNOFILE=4096
 WantedBy=multi-user.target
 EOF'
 ```
+
 ## Step 3: Setup Yoda
 
 Since a subset of validators who are selected for a data request must send the data they received as a transaction of [MsgReportData](../whitepaper/protocol-messages.md#msgreportdatas) to BandChain.
@@ -238,6 +249,7 @@ Thirdly, config Lambda Executor endpoint
 export EXECUTOR_URL=<YOUR_EXECUTOR_URL>
 yoda config executor "rest:${EXECUTOR_URL}?timeout=10s"
 ```
+
 ### Step 3.3: Start Yoda
 
 To start Yoda, it's also recommend to use `systemctl`.
@@ -327,7 +339,6 @@ bandd tx staking create-validator \
 ```
 
 After became a validator, the validator node will be shown on Block Explorer [here](https://laozi-testnet6.cosmoscan.io/validators).
-
 
 ### Step 4.3: Register Reporters and Become Oracle Provider
 

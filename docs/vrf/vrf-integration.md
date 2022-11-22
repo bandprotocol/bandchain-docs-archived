@@ -1,3 +1,7 @@
+<!--
+order: 3
+-->
+
 # VRF integration
 
 In this section, we will discuss how to integrate your smart contracts with the Band VRF. This section is separated into two sub-sections: **Requesting** and **Resolving**.
