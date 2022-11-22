@@ -58,6 +58,7 @@ Go binary should be at `/usr/local/go/bin` and any executable compiled by `go in
 ### Step 1.2: Clone & Install Bandchain Laozi
 
 ```bash
+cd ~
 # Clone Bandchain Laozi version v2.3.6
 git clone https://github.com/bandprotocol/chain
 cd chain

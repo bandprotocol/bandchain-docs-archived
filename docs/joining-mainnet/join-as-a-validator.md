@@ -58,6 +58,7 @@ Go binary should be at `/usr/local/go/bin` and any executable compiled by `go in
 ### Step 1.2: Clone & Install BandChain Laozi
 
 ```bash
+cd ~
 # Clone BandChain Laozi version v2.3.6
 git clone https://github.com/bandprotocol/chain
 cd chain
@@ -93,6 +94,8 @@ Please see [here](https://github.com/bandprotocol/launch/tree/master/laozi-mainn
 ```bash
 # List of seeds and persistent peers you want to add
 export SEEDS="<SEED>,<SEED>,..." 
+# e.g. SEEDS="8d42bdcb6cced03e0b67fa3957e4e9c8fd89015a@34.87.86.195:26656,543e0cab9c3016a0e99775443a17bcf163038912@34.150.156.78:26656"
+
 export PERSISTENT_PEERS="<PERSISTENT_PEER>,<PERSISTENT_PEER>,..."
 
 # Add seeds and persistent peers to config.toml

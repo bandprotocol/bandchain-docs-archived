@@ -58,6 +58,7 @@ Go binary should be at `/usr/local/go/bin` and any executable compiled by `go in
 ### Step 1.2: Clone & Install Bandchain Laozi
 
 ```bash
+cd ~
 # Clone Bandchain Laozi version v2.4.1
 git clone https://github.com/bandprotocol/chain
 cd chain
@@ -107,9 +108,9 @@ LATEST_HEIGHT=$(curl -s https://rpc.laozi-testnet6.bandchain.org/block | jq -r .
 TRUST_HEIGHT=$(($LATEST_HEIGHT-45000))
 TRUST_HASH=$(curl -s "https://rpc.laozi-testnet6.bandchain.org/block?height=$TRUST_HEIGHT" | jq -r .result.block_id.hash)
 
- # show trust height and trust hash
- echo "TRUST HEIGHT: $TRUST_HEIGHT"
- echo "TRUST HASH: $TRUST_HASH"
+# show trust height and trust hash
+echo "TRUST HEIGHT: $TRUST_HEIGHT"
+echo "TRUST HASH: $TRUST_HASH"
 ```
 
 ```bash

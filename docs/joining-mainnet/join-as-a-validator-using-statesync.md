@@ -57,6 +57,7 @@ Go binary should be at `/usr/local/go/bin` and any executable compiled by `go in
 ### Step 1.2: Clone & Install Bandchain Laozi
 
 ```bash
+cd ~
 # Clone Bandchain Laozi version v2.4.1
 git clone https://github.com/bandprotocol/chain
 cd chain
@@ -90,7 +91,9 @@ Please see [here](https://github.com/bandprotocol/launch/tree/master/laozi-mainn
 
 ```bash
 # List of seeds and persistent peers you want to add
-export SEEDS="<SEED>,<SEED>,..." 
+export SEEDS="<SEED>,<SEED>,..."
+# e.g. SEEDS="8d42bdcb6cced03e0b67fa3957e4e9c8fd89015a@34.87.86.195:26656,543e0cab9c3016a0e99775443a17bcf163038912@34.150.156.78:26656"
+
 export PERSISTENT_PEERS="<PERSISTENT_PEER>,<PERSISTENT_PEER>,..."
 
 # Add seeds and persistent peers to config.toml
@@ -111,9 +114,9 @@ LATEST_HEIGHT=$(curl -s http://rpc.laozi1.bandchain.org/block | jq -r .result.bl
 TRUST_HEIGHT=$(($LATEST_HEIGHT-45000))
 TRUST_HASH=$(curl -s "http://rpc.laozi1.bandchain.org/block?height=$TRUST_HEIGHT" | jq -r .result.block_id.hash)
 
- # show trust height and trust hash
- echo "TRUST HEIGHT: $TRUST_HEIGHT"
- echo "TRUST HASH: $TRUST_HASH"
+# show trust height and trust hash
+echo "TRUST HEIGHT: $TRUST_HEIGHT"
+echo "TRUST HASH: $TRUST_HASH"
 ```
 
 ```bash
