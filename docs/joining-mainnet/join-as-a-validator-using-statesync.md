@@ -6,6 +6,10 @@ order: 6
 
 In this section, we'll explain the requirements and basics for running your own BandChain validator node using [State Sync](https://blog.cosmos.network/cosmos-sdk-state-sync-guide-99e4cf43be2f).
 
+## Warning
+
+You have to have at least 32 GB of RAM to using State Sync
+
 ## Step 1: Set Up Validator Node
 
 This step provides procedures to install BandChain's executable and sync blocks with other peers.
