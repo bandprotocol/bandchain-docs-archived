@@ -1,10 +1,14 @@
 <!--
-order: 5
+order: 6
 -->
 
-# How to Join as a Validator
+# How to Join as a Validator using State Sync
 
-In this section, we'll explain the requirements and basics for running your own BandChain validator node and syncing from the starting block. If you want to join using State Sync or Quick Sync, please follow next documents.
+In this section, we'll explain the requirements and basics for running your own BandChain validator node using [State Sync](https://blog.cosmos.network/cosmos-sdk-state-sync-guide-99e4cf43be2f).
+
+## Warning
+
+You have to have at least 32 GB of RAM to use State Sync
 
 ## Step 1: Set Up Validator Node
 
@@ -38,33 +42,31 @@ The following applications are required to build and run the BandChain node.
 # install required tools
 sudo apt-get update && \
 sudo apt-get upgrade -y && \
-sudo apt-get install -y build-essential curl wget
+sudo apt-get install -y build-essential curl wget jq
 ```
 
-- Go 1.16
+- Go 1.19.1
 
 ```bash
-# Install Go 1.16.7
-wget https://dl.google.com/go/go1.16.7.linux-amd64.tar.gz
-tar xf go1.16.7.linux-amd64.tar.gz
+# Install Go 1.19.1
+wget https://go.dev/dl/go1.19.1.linux-amd64.tar.gz
+tar xf go1.19.1.linux-amd64.tar.gz
 sudo mv go /usr/local/go
-
 # Set Go path to $PATH variable
-echo "export PATH=$PATH:/usr/local/go/bin:~/go/bin" >> $HOME/.profile
+echo "export PATH=\$PATH:/usr/local/go/bin:~/go/bin" >> $HOME/.profile
 source ~/.profile
 ```
 
 Go binary should be at `/usr/local/go/bin` and any executable compiled by `go install` command should be at `~/go/bin`
 
-### Step 1.2: Clone & Install BandChain Laozi
+### Step 1.2: Clone & Install Bandchain Laozi
 
 ```bash
 cd ~
-# Clone BandChain Laozi version v2.3.6
+# Clone Bandchain Laozi version v2.4.1
 git clone https://github.com/bandprotocol/chain
 cd chain
-git checkout v2.3.6
-
+git checkout v2.4.1
 # Install binaries to $GOPATH/bin
 make install
 ```
@@ -94,8 +96,8 @@ Please see [here](https://github.com/bandprotocol/launch/tree/master/laozi-mainn
 
 ```bash
 # List of seeds and persistent peers you want to add
-export SEEDS="<SEED>,<SEED>,..." 
 # e.g. SEEDS="8d42bdcb6cced03e0b67fa3957e4e9c8fd89015a@34.87.86.195:26656,543e0cab9c3016a0e99775443a17bcf163038912@34.150.156.78:26656"
+export SEEDS="<SEED>,<SEED>,..."
 
 export PERSISTENT_PEERS="<PERSISTENT_PEER>,<PERSISTENT_PEER>,..."
 
@@ -107,6 +109,41 @@ sed -E -i \
 sed -E -i \
   "s/persistent_peers = \".*\"/persistent_peers = \"${PERSISTENT_PEERS}\"/" \
   $HOME/.band/config/config.toml
+```
+
+### Step 1.5: Setup State Sync config
+
+```bash
+# Get trust height and trust hash
+LATEST_HEIGHT=$(curl -s https://rpc.laozi4.bandchain.org/block | jq -r .result.block.header.height);
+TRUST_HEIGHT=$(($LATEST_HEIGHT-45000))
+TRUST_HASH=$(curl -s "https://rpc.laozi4.bandchain.org/block?height=$TRUST_HEIGHT" | jq -r .result.block_id.hash)
+
+# show trust height and trust hash
+echo "TRUST HEIGHT: $TRUST_HEIGHT"
+echo "TRUST HASH: $TRUST_HASH"
+```
+
+```bash
+# Enable State Sync
+sed -i \
+    '/\[statesync\]/,+34 s/enable = false/enable = true/' \
+    $HOME/.band/config/config.toml
+
+# Set RPC Endpoint for State Sync
+sed -E -i \
+    "/\[statesync\]/,+34 s/rpc_servers = \".*\"/rpc_servers = \"http\:\/\/rpc.laozi1.bandchain.org\:80,http\:\/\/rpc.laozi2.bandchain.org\:80,https\:\/\/rpc.laozi3.bandchain.org\:443,https\:\/\/rpc.laozi4.bandchain.org\:443\"/" \
+    $HOME/.band/config/config.toml
+
+# Set Trust Height for State Sync
+sed -i \
+    "/\[statesync\]/,+34 s/trust_height = .*/trust_height = ${TRUST_HEIGHT}/" \
+    $HOME/.band/config/config.toml
+
+# Set Trust Hash for State Sync
+sed -i \
+    "/\[statesync\]/,+34 s/trust_hash = \".*\"/trust_hash = \"${TRUST_HASH}\"/" \
+    $HOME/.band/config/config.toml
 ```
 
 ## Step 2: Setup Cosmovisor
@@ -149,6 +186,7 @@ sudo -E bash -c 'cat << EOF > /etc/systemd/system/bandd.service
 [Unit]
 Description=BandChain Node Daemon
 After=network-online.target
+
 [Service]
 Environment="DAEMON_NAME=bandd"
 Environment="DAEMON_HOME=${HOME}/.band"
@@ -160,81 +198,19 @@ ExecStart=${HOME}/go/bin/cosmovisor start
 Restart=always
 RestartSec=3
 LimitNOFILE=4096
+
 [Install]
 WantedBy=multi-user.target
 EOF'
 ```
 
-## Step 3: Provide bandd v2.4 for Cosmovisor
-
-This Step provides procedures to provide bandd version 2.4 for Cosmovisor to upgrade when it's reach the upgrade height
-
-### Step 3.1: Update Go version to 1.19.1 and Reinstall Binary
-
-Remove your old go version and install go version 1.19.1 into your system.
-
-> Note: You can skip this step if you are running Go version 1.19.1
-
-##### Update Go version
-
-```bash
-cd ~
-source ~/.profile
-# Remove old Go version
-sudo rm -rf /usr/local/go
-sudo rm -rf ~/go
-# Install Go 1.19.1
-wget https://go.dev/dl/go1.19.1.linux-amd64.tar.gz
-tar xf go1.19.1.linux-amd64.tar.gz
-sudo mv go /usr/local/go
-# Verify go version
-go version
-```
-
-##### Reinstall Binary
-
-```bash
-# Reinstall cosmovisor
-go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
-# Reinstall binary for current version (bandd, yoda)
-cd ~
-cd chain
-git checkout v2.3.6
-make install
-```
-
-### Step 3.2: Clone & Install the new Bandchain Laozi
-
-Make new bandd binary from chain v2.4.1
-
-```bash
-# Clone Bandchain Laozi version 2.4.1
-cd ~
-cd chain
-git checkout v2.4.1
-# Install binaries to $GOPATH/bin
-make install
-# Verify bandd version
-bandd version
-```
-
-### Step 3.3: Install and provide new binary to Cosmovisor
-
-Provide bandd binary to Cosmovisor
-
-```bash
-# Setup folder and provide new bandd binary for Cosmovisor
-mkdir -p $HOME/.band/cosmovisor/upgrades/v2_4/bin
-cp $HOME/go/bin/bandd $DAEMON_HOME/cosmovisor/upgrades/v2_4/bin
-```
-
-## Step 4: Setup Yoda
+## Step 3: Setup Yoda
 
 Since a subset of validators who are selected for a data request must send the data they received as a transaction of [MsgReportData](../whitepaper/protocol-messages.md#msgreportdatas) to BandChain.
 
 Yoda is a program used by BandChain's validator nodes to help automatically query data from data providers by executing data source script, then submitting the result to fulfill the request. [Read more on the Yoda section.](./yoda.md)
 
-### Step 4.1: Installation
+### Step 3.1: Installation
 
 Before setting up Yoda, Lambda function executor need to be setup to execute data sources. If this step has not been done yet, please follow the instructions on following pages (select either one of these methods):
 
@@ -248,7 +224,7 @@ yoda version
 # v2.4.1
 ```
 
-### Step 4.2: Set the Yoda configurations
+### Step 3.2: Set the Yoda configurations
 
 Use the command below to config your Yoda, replacing `$VARIABLES` with their actual values.
 
@@ -279,7 +255,7 @@ export EXECUTOR_URL=<YOUR_EXECUTOR_URL>
 yoda config executor "rest:${EXECUTOR_URL}?timeout=10s"
 ```
 
-### Step 4.3: Start Yoda
+### Step 3.3: Start Yoda
 
 To start Yoda, it's also recommend to use `systemctl`.
 
@@ -332,15 +308,15 @@ After `yoda` service has been started, logs can be queried by running `journalct
 ... yoda[...]: I[...] 👂  Subscribing to events with query: tm.event = 'Tx'...
 ```
 
-### Step 4.4: Wait for the latest blocks to be synced
+### Step 3.4: Wait for the latest blocks to be synced
 
 **This is an important step.** We should wait for newly started BandChain node to sync their blocks until the latest block is reached. The latest block can be checked on [CosmoScan](https://cosmoscan.io/blocks).
 
-## Step 5: Become a Validator
+## Step 4: Become a Validator
 
 This guide will show you how to register the running node as a validator. So that the program can fulfill the data on BandChain.
 
-### Step 5.1: Fund the Validator Account
+### Step 4.1: Fund the Validator Account
 
 ```bash
 bandd keys show $WALLET_NAME
@@ -348,7 +324,7 @@ bandd keys show $WALLET_NAME
 
 Then fund tokens into this account ready for staking.
 
-### Step 5.2: Stake Tokens with the Validator Account
+### Step 4.2: Stake Tokens with the Validator Account
 
 ```bash
 bandd tx staking create-validator \
@@ -365,7 +341,7 @@ bandd tx staking create-validator \
 
 Registered validators can be found on [CosmoScan](https://cosmoscan.io/validators).
 
-### Step 5.3: Register Reporters and Become Oracle Provider
+### Step 4.3: Register Reporters and Become Oracle Provider
 
 Yoda contains multiple reporters. You will need to register the reporters in order to help the validator submit transactions of reporting data.
 
