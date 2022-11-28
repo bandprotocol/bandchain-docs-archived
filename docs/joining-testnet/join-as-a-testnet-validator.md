@@ -4,7 +4,7 @@ order: 7
 
 # How to Join as a Validator
 
-In this section, we'll explain the requirements and basics for running your own BandChain testnet#6 validator node and syncing from the starting block. If you want to join using State Sync or Quick Sync, please follow next documents.
+In this section, we'll explain the requirements and basics for running your own BandChain testnet#6 validator node and syncing from the starting block. If you want to join using State Sync, please follow next documents.
 
 ## Step 1: Set Up Validator Node
 
