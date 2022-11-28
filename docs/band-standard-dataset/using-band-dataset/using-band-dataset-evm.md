@@ -1,3 +1,7 @@
+<!--
+order: 5
+-->
+
 # Using the Reference Prices in Smart Contracts
 
 To query prices from Band's oracle through smart contracts, the contract looking to use the price values should reference Band's `StdReference` contract. This contract exposes `getReferenceData` and `getReferenceDataBulk` functions.
@@ -22,7 +26,7 @@ For example, if we call `getReferenceDataBulk` with `['BTC','BTC','ETH']` and `[
 
 ## Example Usage
 
-The contract code below demonstrates a simple usage of the new `StdReference` contract and the `getReferenceData` function. 
+The contract code below demonstrates a simple usage of the new `StdReference` contract and the `getReferenceData` function.
 
 ```solidity
 pragma solidity 0.6.11;
