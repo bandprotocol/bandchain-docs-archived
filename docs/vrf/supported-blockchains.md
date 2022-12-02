@@ -12,8 +12,6 @@ Our deployed `Bridge`, `VRFProvider`, `MockVRFConsumer` and `VRFLens`contra
 
 #### Testnet
 
-#### Testnet
-
 | Chain \ Contract                                     | Bridge                                     | VRFProvider                                | MockVRFConsumer                            | VRFLens                                    |
 | ---------------------------------------------------- | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | [Goerli](https://goerli.etherscan.io)                | 0xD291A502e3ca4Bb13E09892e57d8Ff0271Bd198A | 0xBCA1F17f6c01FA81f214F0e11e76e85C2261188c | 0x6aFCBD05f4718B994a290cfF03547DDFFcd74E08 | 0x1Bd28e8b372F7ccF30cD3bCFfc68c5389d081e8F |
