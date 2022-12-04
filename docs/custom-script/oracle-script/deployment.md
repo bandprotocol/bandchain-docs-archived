@@ -46,8 +46,7 @@ async function createOracleScript() {
   // Setup the transaction's properties
   const chainId = await client.getChainId()
   const execPath = path.resolve(__dirname, 'hello_world.wasm')
-  const file = fs.readFileSync(execPath, 'utf8')
-  const code = Buffer.from(file).toString('base64')
+  const code = fs.readFileSync(execPath);
 
   let feeCoin = new Coin()
   feeCoin.setDenom('uband')
