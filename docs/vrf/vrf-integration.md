@@ -161,3 +161,7 @@ _See the relay transaction [here](https://goerli.etherscan.io/tx/0x5e7d85d4d2cd4
 ![img_task_2](https://user-images.githubusercontent.com/12705423/193094318-67cee15a-220d-4122-b7bb-79f64158a0c9.png)
 
 The image above shows the current stage of the task/request that we just **resolved**.
+
+#### Implement your own resolver
+
+Anyone can implement their own version of resolver bot. An open-source version of Band's VRF worker bot is available at [VRFWorkerV1 repository](https://github.com/bandprotocol/vrf-worker-v1).

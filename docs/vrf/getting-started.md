@@ -17,7 +17,7 @@ There are currently 3 methods for relaying and resolving the VRF request:
 
 - **Band's VRF worker solution** - We provide both standard and customized solutions for all clients. Please <a href="mailto:bd@bandprotolcol.com?subject=Request for Band's VRF worker solution"> Email Us </a> for more details.
 - **Manually resolve on CosmoScan** - This is an ideal and low cost solution for one-off Band VRF requests. Please refer to this [guide](/vrf/vrf-integration.html#manually-request-and-resolve) for how to resolve manually.
-- **Implement your own resolver bot** - Anyone can implement their own version of resolver bot. An open-source version of Band's VRF worker bot will be available soon.
+- **Implement your own resolver bot** - Anyone can implement their own version of resolver bot. An open-source version of Band's VRF worker bot is available at [VRFWorkerV1 repository](https://github.com/bandprotocol/vrf-worker-v1).
 
 ### Step 3: Request a random value
 
