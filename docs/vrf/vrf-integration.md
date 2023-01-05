@@ -164,9 +164,9 @@ Now, let's move to the [MockVRFConsumer](https://goerli.etherscan.io/address/0x6
 
 The video below shows the flow of the `MockConsumer` that requests the VRF random value from the `VRFProvider`.
 
-<iframe style="width: 100%"  height="400" src="https://youtu.be/Mhmr4tS9z5Q?t=208" title="Manual request and resolve method" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe style="width: 100%"  height="400" src="https://www.youtube.com/watch?v=Mhmr4tS9z5Q&t=208s" title="Manual request and resolve method" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-##### Recommended Oracle Script Request Settings
+**Recommended Oracle Script Request Settings**
 
 | Parameter   | Value         |
 | ----------- | ------------- |
