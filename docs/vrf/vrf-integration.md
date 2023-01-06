@@ -178,4 +178,4 @@ The video below shows the flow of the `MockConsumer` that requests the VRF rando
 
 #### Implement your own resolver
 
-Anyone can implement their own version of resolver bot. An open-source version of Band's VRF worker bot is available at [VRFWorkerV1 repository](https://github.com/bandprotocol/vrf-worker-v1).
+An alternative to manually resolve the request is to use a resolver bot. Anyone can implement their own version of resolver bot to automate the resolving process. We provide an open-source version of Band's VRF worker bot, which is available at [VRFWorkerV1 repository](https://github.com/bandprotocol/vrf-worker-v1).
