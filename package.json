@@ -21,7 +21,9 @@
     "vuepress": "^1.5.2"
   },
   "dependencies": {
+    "vue-tabs-component": "^1.5.0",
     "vuepress-plugin-mathjax": "^1.2.8",
+    "vuepress-plugin-tabs": "^0.3.0",
     "vuepress-theme-cosmos": "./theme/vuepress-theme-cosmos"
   }
 }

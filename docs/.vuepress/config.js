@@ -1,18 +1,12 @@
 module.exports = {
   theme: 'cosmos',
   title: 'Band Protocol Documentation',
-  plugins: ['vuepress-plugin-element-tabs'],
   locales: {
     '/': {
       lang: 'en-US',
     },
   },
-  plugins: [
-    '@maginapp/vuepress-plugin-katex',
-    {
-      delimiters: 'dollars',
-    },
-  ],
+  plugins: [['tabs']],
   base: process.env.VUEPRESS_BASE || '/',
   themeConfig: {
     repo: 'BandProtocol/bandchain',
@@ -98,8 +92,7 @@ module.exports = {
             },
             {
               title: 'Join the BandChain Mainnet',
-              directory: true,
-              path: '/joining-mainnet',
+              path: '/joining-mainnet-2',
             },
             {
               title: 'Join the BandChain Testnet',
