@@ -1,6 +1,9 @@
-# How to Join as a Validator using snapshots
+# How to Join as a Validator using snapshots from ChainLayer
 
-In this section, we'll explain the requirements and basics for running your own BandChain validator node using snapshots.
+In this section, we'll explain the requirements and basics for running your own BandChain validator node using snapshots from ChainLayer.
+
+For more information about ChainLayer, click on the link below: 
+https://www.chainlayer.io/
 
 ## Warning
 You have to have at least 16 GB of RAM and 4 CPU Cores to use snapshots
