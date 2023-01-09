@@ -29,7 +29,6 @@ title: Joining Mainnet
 Make sure the following prerequisites are completed:
 
 - Choose the proper hardware/server configuration. See the [hardware guide](#hardware).
-- Ensure Gaia is properly installed. See the [installation guide](https://hub.cosmos.network/main/getting-started/installation.html) for a walkthrough.
 - Follow the [configuration guide](#General-Configuration) to intialize and prepare the node to sync with the network.
 
 ## Hardware
