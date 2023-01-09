@@ -108,20 +108,13 @@ sudo apt-get install wget liblz4-tool aria2 -y
 sudo apt install -y jq
 ```
 Download snapshots
+You can choose `laozi-mainnet-pruned` size 144G or `laozi-mainnet-default` size 1.8T
 ```
 cd ~/.band/
 
 # change network to default/pruned/archive depending on your needs
 URL=`curl -L https://quicksync.io/band.json|jq -r '.[] |select(.file=="laozi-mainnet-pruned")|.url'`
-aria2c -x5 $URL
-wget https://raw.githubusercontent.com/chainlayer/quicksync-playbooks/master/roles/quicksync/files/checksum.sh
-wget $URL.checksum
-
-# Compare checksum with onchain version. Hash can be found at $URL.hash
-curl -s https://lcd-cosmos.cosmostation.io/txs/`curl -s $URL.hash`|jq -r '.tx.value.memo'|sha512sum -c
-./checksum.sh `basename $URL`
-
-lz4 -d `basename $URL` | tar xf -
+wget -O - $URL | lz4 -d | tar -xvf -
 ```
 
 ## Step 3: Setup Cosmovisor
@@ -345,3 +338,9 @@ bandd query oracle validator $(bandd keys show -a $WALLET_NAME --bech val)
 And now you have become a validator on BandChain Laozi mainnet.
 
 Happy staking 📈, and may the HODL be with you.
+
+
+
+
+
+
