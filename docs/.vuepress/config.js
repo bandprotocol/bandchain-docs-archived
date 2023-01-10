@@ -91,13 +91,9 @@ module.exports = {
               path: '/technical-specifications',
             },
             {
-              title: 'Join the BandChain Mainnet',
-              path: '/joining-mainnet-2',
-            },
-            {
-              title: 'Join the BandChain Testnet',
+              title: 'Joining networks',
               directory: true,
-              path: '/joining-testnet',
+              path: '/joining-networks',
             },
           ],
         },
