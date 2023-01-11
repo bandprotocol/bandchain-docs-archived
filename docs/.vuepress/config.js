@@ -6,7 +6,14 @@ module.exports = {
       lang: 'en-US',
     },
   },
-  plugins: [['tabs']],
+  plugins: [
+    'tabs',
+    [
+      '@maginapp/vuepress-plugin-katex',
+      {
+        delimiters: 'dollars',
+      },
+    ]],
   base: process.env.VUEPRESS_BASE || '/',
   themeConfig: {
     repo: 'BandProtocol/bandchain',
