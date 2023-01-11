@@ -190,7 +190,7 @@ sudo apt install -y jq
 ```
 
 #### Download snapshots 
-You can choose `laozi-mainnet-pruned` size 144G or `laozi-mainnet-default` size 1.8T
+You can choose `laozi-mainnet-pruned` size 100-200 GB or `laozi-mainnet-default` size ~2TB
 ```bash
 cd ~/.band/
 
