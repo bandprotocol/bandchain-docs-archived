@@ -13,7 +13,8 @@ module.exports = {
       {
         delimiters: 'dollars',
       },
-    ]],
+    ],
+  ],
   base: process.env.VUEPRESS_BASE || '/',
   themeConfig: {
     repo: 'BandProtocol/bandchain',

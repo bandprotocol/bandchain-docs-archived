@@ -128,62 +128,61 @@
   &:active
     opacity 0.7
     transition-duration 0s
-
 </style>
 
 <script>
 export default {
-  props: ["selected", "asideBanners", "asideBannersUrl", "prereq"],
+  props: ['selected', 'asideBanners', 'asideBannersUrl', 'prereq'],
   data: function() {
     return {
       headerCurrent: null,
-    };
+    }
   },
   async mounted() {
-    window.addEventListener("scroll", this.headerActive);
-    window.addEventListener("hashchange", this.headerActive);
+    window.addEventListener('scroll', this.headerActive)
+    window.addEventListener('hashchange', this.headerActive)
   },
   beforeDestroy() {
-    window.removeEventListener("scroll", this.headerActive);
-    window.removeEventListener("hashchange", this.headerActive);
+    window.removeEventListener('scroll', this.headerActive)
+    window.removeEventListener('hashchange', this.headerActive)
   },
   computed: {
     headersFiltered() {
-      return this.$page.headers.filter((e) => {
-        const notHidden = !e.title.match(/{hide}/);
-        const notPrereq = !e.title.match(/pre-requisite/i);
-        return notHidden && notPrereq;
-      });
+      return this.$page.headers.filter(e => {
+        const notHidden = !e.title.match(/{hide}/)
+        const notPrereq = !e.title.match(/pre-requisite/i)
+        return notHidden && notPrereq
+      })
     },
   },
   methods: {
     headerActive(e) {
-      const middleY = window.scrollY + 50;
-      if (!this.$page.headers) return;
+      const middleY = window.scrollY + 50
+      if (!this.$page.headers) return
       const headers = this.$page.headers
-        .map((h) => ({
+        .map(h => ({
           ...h,
           y: document.getElementById(h.slug).getBoundingClientRect().top,
         }))
-        .filter((h) => !h.title.match(/\{hide\}/))
-        .map((h) => ({
+        .filter(h => !h.title.match(/\{hide\}/))
+        .map(h => ({
           ...h,
           y: h.y + window.scrollY,
-        }));
+        }))
       headers.forEach((h, i) => {
-        const curr = headers[i];
-        const next = headers[i + 1];
+        const curr = headers[i]
+        const next = headers[i + 1]
         if (curr && next) {
           if (middleY >= curr.y && middleY < next.y) {
-            return (this.headerCurrent = { ...curr });
+            return (this.headerCurrent = { ...curr })
           }
         } else {
           if (middleY >= curr.y) {
-            return (this.headerCurrent = { ...curr });
+            return (this.headerCurrent = { ...curr })
           }
         }
-      });
+      })
     },
   },
-};
+}
 </script>

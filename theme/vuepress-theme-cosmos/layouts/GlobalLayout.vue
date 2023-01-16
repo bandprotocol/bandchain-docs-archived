@@ -273,19 +273,19 @@ import {
   isString,
   isArray,
   flattenDeep,
-  map
-} from "lodash";
-import hotkeys from "hotkeys-js";
-import { CookieBanner, SectionSearch } from "@cosmos-ui/vue";
-import axios from "axios";
+  map,
+} from 'lodash'
+import hotkeys from 'hotkeys-js'
+import { CookieBanner, SectionSearch } from '@cosmos-ui/vue'
+import axios from 'axios'
 
-const endingSlashRE = /\/$/;
-const outboundRE = /^[a-z]+:/i;
+const endingSlashRE = /\/$/
+const outboundRE = /^[a-z]+:/i
 
 export default {
   components: {
     CookieBanner,
-    SectionSearch
+    SectionSearch,
   },
   data: function() {
     return {
@@ -296,37 +296,43 @@ export default {
       asideBottom: null,
       searchQuery: null,
       prereq: null,
-      asideBannersUrl: "https://cosmos.network/aside-banners",
-      topBannerUrl: "https://cosmos.network/top-banner",
+      asideBannersUrl: 'https://cosmos.network/aside-banners',
+      topBannerUrl: 'https://cosmos.network/top-banner',
       asideBanners: null,
       topBanner: null,
-      heightBanners: null
-    };
+      heightBanners: null,
+    }
   },
   mounted() {
-    const fetchTopBanner = axios.get(`${this.topBannerUrl}/index.json`)
+    const fetchTopBanner = axios
+      .get(`${this.topBannerUrl}/index.json`)
       .then(response => response.data)
-      .catch(() => console.log(`Error in fetching data from ${this.topBannerUrl}`))
+      .catch(() =>
+        console.log(`Error in fetching data from ${this.topBannerUrl}`)
+      )
 
-    const fetchAsideBanner = axios.get(`${this.asideBannersUrl}/index.json`)
+    const fetchAsideBanner = axios
+      .get(`${this.asideBannersUrl}/index.json`)
       .then(response => response.data)
-      .catch(() => console.log(`Error in fetching data from ${this.asideBannersUrl}`))
+      .catch(() =>
+        console.log(`Error in fetching data from ${this.asideBannersUrl}`)
+      )
 
     Promise.all([fetchTopBanner, fetchAsideBanner]).then(responses => {
       this.topBanner = responses[0]
       this.asideBanners = responses[1]
     })
 
-    document.addEventListener("scroll", () => {
-      const banners = this.$refs.asideBanners;
+    document.addEventListener('scroll', () => {
+      const banners = this.$refs.asideBanners
       if (banners) {
-        this.heightBanners = banners.offsetHeight;
+        this.heightBanners = banners.offsetHeight
       }
-      const content = document.querySelector("#content-scroll");
-      const aside = document.querySelector("#aside-scroll");
-      const top = window.scrollY;
+      const content = document.querySelector('#content-scroll')
+      const aside = document.querySelector('#aside-scroll')
+      const top = window.scrollY
       if (aside && aside.getBoundingClientRect().height < window.innerHeight) {
-        this.asideBottom = false;
+        this.asideBottom = false
       }
       if (
         content &&
@@ -335,36 +341,36 @@ export default {
       ) {
         this.asideBottom =
           top + aside.getBoundingClientRect().height >
-          content.getBoundingClientRect().height - this.heightBanners;
+          content.getBoundingClientRect().height - this.heightBanners
       }
-    });
-    hotkeys("/", (event, handler) => {
-      event.preventDefault();
-      this.searchPanel = !this.searchPanel;
-    });
-    hotkeys("escape", (event, handler) => {
-      event.preventDefault();
-      this.searchPanel = false;
-    });
-    let vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
+    })
+    hotkeys('/', (event, handler) => {
+      event.preventDefault()
+      this.searchPanel = !this.searchPanel
+    })
+    hotkeys('escape', (event, handler) => {
+      event.preventDefault()
+      this.searchPanel = false
+    })
+    let vh = window.innerHeight * 0.01
+    document.documentElement.style.setProperty('--vh', `${vh}px`)
   },
   computed: {
     algoliaConfig() {
-      const algolia = this.$themeConfig.algolia;
-      return algolia ? algolia : {};
+      const algolia = this.$themeConfig.algolia
+      return algolia ? algolia : {}
     },
     editLink() {
       if (this.$page.frontmatter.editLink === false) {
-        return;
+        return
       }
       const {
         repo,
         editLinks,
-        docsDir = "",
-        docsBranch = "master",
-        docsRepo = repo
-      } = this.$site.themeConfig;
+        docsDir = '',
+        docsBranch = 'master',
+        docsRepo = repo,
+      } = this.$site.themeConfig
       if (docsRepo && editLinks && this.$page.relativePath) {
         return this.createEditLink(
           repo,
@@ -372,160 +378,158 @@ export default {
           docsDir,
           docsBranch,
           this.$page.relativePath
-        );
+        )
       }
     },
     layout() {
       if (this.$page.path) {
         if (this.$frontmatter.layout) {
           // You can also check whether layout exists first as the default global layout does.
-          return this.$frontmatter.layout;
+          return this.$frontmatter.layout
         }
-        return "LayoutDefault";
+        return 'LayoutDefault'
       }
-      return "NotFound";
+      return 'NotFound'
     },
     hasLocales() {
-      return (
-        this.$site.locales && Object.entries(this.$site.locales).length > 1
-      );
+      return this.$site.locales && Object.entries(this.$site.locales).length > 1
     },
     directoryTree() {
-      const files = this.$site.pages;
+      const files = this.$site.pages
       const langDirs = Object.keys(this.$site.locales || {}).map(e =>
-        e.replace(/\//g, "")
-      );
-      const langCurrent = (this.$localeConfig.path || "").replace(/\//g, "");
-      const langOther = langCurrent.length > 0;
-      let tree = {};
+        e.replace(/\//g, '')
+      )
+      const langCurrent = (this.$localeConfig.path || '').replace(/\//g, '')
+      const langOther = langCurrent.length > 0
+      let tree = {}
       files.forEach(file => {
-        let location = file.relativePath.split("/");
+        let location = file.relativePath.split('/')
         if (location.length === 1) {
-          return (tree[location[0]] = file);
+          return (tree[location[0]] = file)
         }
         location.reduce((prevDir, currDir, i, filePath) => {
           if (i === filePath.length - 1) {
-            prevDir[currDir] = file;
+            prevDir[currDir] = file
           }
           if (!prevDir.hasOwnProperty(currDir)) {
-            prevDir[currDir] = {};
+            prevDir[currDir] = {}
           }
-          return prevDir[currDir];
-        }, tree);
-      });
-      tree = langOther ? tree[langCurrent] : omit(tree, langDirs);
-      tree = omitBy(tree, e => typeof e.key === "string");
+          return prevDir[currDir]
+        }, tree)
+      })
+      tree = langOther ? tree[langCurrent] : omit(tree, langDirs)
+      tree = omitBy(tree, e => typeof e.key === 'string')
       const toArray = object => {
         return map(object, (page, title) => {
           const properties =
             page.key && isString(page.key)
               ? page
-              : { children: this.sortedList(toArray(page)) };
+              : { children: this.sortedList(toArray(page)) }
           return {
             title,
-            ...properties
-          };
-        });
-      };
-      tree = toArray(tree);
-      return this.sortedList(tree);
+            ...properties,
+          }
+        })
+      }
+      tree = toArray(tree)
+      return this.sortedList(tree)
     },
     tree() {
       const autoSidebar =
         this.$themeConfig.sidebar.auto == false
-          ? { title: "", children: this.directoryTree } //{}
-          : { title: "", children: this.directoryTree };
-      return [autoSidebar, ...(this.$themeConfig.sidebar.nav || [])];
-    }
+          ? { title: '', children: this.directoryTree } //{}
+          : { title: '', children: this.directoryTree }
+      return [autoSidebar, ...(this.$themeConfig.sidebar.nav || [])]
+    },
   },
   methods: {
     searchSelect(e) {
       if (e.id) {
-        const page = find(this.$site.pages, ["key", e.id]);
+        const page = find(this.$site.pages, ['key', e.id])
         if (page && page.regularPath) {
           if (this.$page.regularPath != page.regularPath) {
-            this.$router.push(page.regularPath);
-            this.searchPanel = false;
+            this.$router.push(page.regularPath)
+            this.searchPanel = false
           }
         }
       } else if (e.url) {
-        window.location.assign(e.url);
+        window.location.assign(e.url)
       }
     },
     createEditLink(repo, docsRepo, docsDir, docsBranch, path) {
-      const bitbucket = /bitbucket.org/;
+      const bitbucket = /bitbucket.org/
       if (bitbucket.test(repo)) {
-        const base = outboundRE.test(docsRepo) ? docsRepo : repo;
+        const base = outboundRE.test(docsRepo) ? docsRepo : repo
         return (
-          base.replace(endingSlashRE, "") +
+          base.replace(endingSlashRE, '') +
           `/src` +
           `/${docsBranch}/` +
-          (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
+          (docsDir ? docsDir.replace(endingSlashRE, '') + '/' : '') +
           path +
           `?mode=edit&spa=0&at=${docsBranch}&fileviewer=file-view-default`
-        );
+        )
       }
       const base = outboundRE.test(docsRepo)
         ? docsRepo
-        : `https://github.com/${docsRepo}`;
+        : `https://github.com/${docsRepo}`
       return (
-        base.replace(endingSlashRE, "") +
+        base.replace(endingSlashRE, '') +
         `/edit` +
         `/${docsBranch}/` +
-        (docsDir ? docsDir.replace(endingSlashRE, "") + "/" : "") +
+        (docsDir ? docsDir.replace(endingSlashRE, '') + '/' : '') +
         path
-      );
+      )
     },
     searchVisible(bool) {
-      this.searchPanel = bool;
+      this.searchPanel = bool
     },
     overlayClick(e) {
-      this.sidebarVisible = false;
-      this.rsidebarVisible = false;
-      this.searchPanel = false;
+      this.sidebarVisible = false
+      this.rsidebarVisible = false
+      this.searchPanel = false
     },
     selectHeader(elements) {
       if (elements.length > 0) {
-        this.headerSelected = elements[0].target.id;
+        this.headerSelected = elements[0].target.id
       }
     },
     indexFile(item) {
-      if (!item.children) return false;
+      if (!item.children) return false
       return find(item.children, page => {
-        const path = page.relativePath;
-        if (!path) return false;
+        const path = page.relativePath
+        if (!path) return false
         return (
           path.toLowerCase().match(/index.md$/i) ||
           path.toLowerCase().match(/readme.md$/i)
-        );
-      });
+        )
+      })
     },
     sortedList(val) {
-      if (!isArray(val)) return val;
+      if (!isArray(val)) return val
       const sorted = sortBy(val, item => {
-        if (item.frontmatter) return item.frontmatter.order;
+        if (item.frontmatter) return item.frontmatter.order
         if (item.children) {
-          const index = this.indexFile(item);
+          const index = this.indexFile(item)
           return (
             index &&
             index.frontmatter &&
             index.frontmatter.parent &&
             index.frontmatter.parent.order
-          );
+          )
         }
-      });
-      return sorted;
-    }
+      })
+      return sorted
+    },
   },
   props: {
     aside: {
       type: Boolean,
-      default: true
+      default: true,
     },
     search: {
       type: Boolean,
-      default: false
-    }
-  }
-};
+      default: false,
+    },
+  },
+}
 </script>
