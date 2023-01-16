@@ -233,7 +233,9 @@ sed -i \
 
 ### Snapshot - ChainLayer
 
-For more information about ChainLayer, click on the links below: [https://www.chainlayer.io/](https://www.chainlayer.io/), [https://quicksync.io/networks/band.html](https://quicksync.io/networks/band.html)
+ChainLayer (Quicksync) provides the latest chain data snapshot both default and pruned versions every day. You can download snapshot data and start to sync the block from snapshot height without syncing from the first block.
+
+For more information, click on the links below: [https://quicksync.io/networks/band.html](https://quicksync.io/networks/band.html)
 
 #### Install compression tools
 ```bash
@@ -257,7 +259,10 @@ wget -O - $URL | lz4 -d | tar -xvf -
 
 ### Snapshot - HighStakes
 
-For more information about HighStake, click on the link below: [https://highstakes.ch/](https://highstakes.ch/)
+
+HighStakes provides the latest chain data snapshot with a very small size every day. You can download snapshot data and start to sync the block from snapshot height without syncing from the first block.
+
+For more information, click on the link below: [https://tools.highstakes.ch/snapshots/bandprotocol](https://tools.highstakes.ch/snapshots/bandprotocol)
 
 #### Download snapshots
 
