@@ -6,7 +6,7 @@ order: 2
 
 <!-- Introduction TBD -->
 
-**This guide includes full instructions for joining the testnet either as an archive/full node or a pruned node.**
+This guide includes full instructions for joining the testnet either as an archive/full node or a pruned node.{synopsis}
 
 ## Overview
 
@@ -52,6 +52,7 @@ export FAUCET_URL=https://laozi-testnet6.bandchain.org/faucet
 ```
 
 ### Step 1: Installation
+
 The following applications are required to build and run the BandChain node.
 
 - make, gcc, g++ (can be obtained from the build-essential package on linux)
@@ -65,6 +66,7 @@ sudo apt-get install -y build-essential curl wget
 ```
 
 - Install Go 1.19.1
+
 ```bash
 # Install Go 1.19.1
 wget https://go.dev/dl/go1.19.1.linux-amd64.tar.gz
@@ -79,6 +81,7 @@ source ~/.profile
 Go binary should be at /usr/local/go/bin and any executable compiled by go install command should be at ~/go/bin
 
 ### Step 2: Clone & Install BandChain Laozi
+
 ```bash
 cd ~
 # Clone BandChain Laozi version v2.4.1
@@ -91,6 +94,7 @@ make install
 ```
 
 ### Step 3: Initialize the BandChain and download the genesis file
+
 ```bash
 cd $HOME
 
@@ -126,6 +130,7 @@ sed -E -i \
 Cosmovisor is a small process manager for Cosmos SDK application binaries that monitors the governance module via stdout for incoming chain upgrade proposals
 
 ### Step 1: Setup environment variables
+
 Add required environment variables for Cosmovisor into your profile
 
 ```bash
@@ -136,6 +141,7 @@ source ~/.profile
 ```
 
 ### Step 2: Install and provide binaries
+
 Install Cosmovisor and provide bandd binary to Cosmovisor
 
 ```bash
@@ -170,10 +176,10 @@ When syncing via Blocksync, node operators will need to provide the binary of ea
 
 You can see the detail of genesis and each upgrade in the table below.
 
-| Upgrade name  | Upgrade Height | Upgrade detail | Go version | Bandd version | Binary path                            |
-| -----------   | -------------- | -------------- | ---------- | ------------- | -------------------------------------- |
-| `genesis`     | `0`            | -              | `1.16.7`   | `v2.3.6`      | `~/.band/cosmovisor/genesis/bin`       |
-| `v2_4`        | `427000`       | [link](https://medium.com/bandprotocol/bandchain-v2-4-upgrade-70dbb896618c) | `1.19.1`   | `v2.4.1`      | `~/.band/cosmovisor/upgrades/v2_4/bin` |
+| Upgrade name | Upgrade Height | Upgrade detail                                                              | Go version | Bandd version | Binary path                            |
+| ------------ | -------------- | --------------------------------------------------------------------------- | ---------- | ------------- | -------------------------------------- |
+| `genesis`    | `0`            | -                                                                           | `1.16.7`   | `v2.3.6`      | `~/.band/cosmovisor/genesis/bin`       |
+| `v2_4`       | `427000`       | [link](https://medium.com/bandprotocol/bandchain-v2-4-upgrade-70dbb896618c) | `1.19.1`   | `v2.4.1`      | `~/.band/cosmovisor/upgrades/v2_4/bin` |
 
 Before doing the next step, you have to build and provide each correct bandd binary version to Cosmovisor in the binary path so that Cosmovisor can automatically switch it correctly.
 
@@ -229,9 +235,10 @@ sed -i \
 
 ## Setup daemon service
 
-We do recommend running the Bandchain node as a daemon, which can be set up using `systemctl`. 
+We do recommend running the Bandchain node as a daemon, which can be set up using `systemctl`.
 
 ### Step 1: Create BandChain service
+
 Run the following command to create a new daemon for `cosmovisor` that runs bandd (This script work on non-root user).
 
 ```bash
@@ -260,6 +267,7 @@ EOF'
 ```
 
 ### Step 2: Register and start bandd service
+
 In this step, we will register and start bandd service
 
 ```bash
@@ -270,7 +278,6 @@ sudo systemctl start bandd
 ```
 
 Once `bandd` service has been started, logs can be queried by running `journalctl -u bandd.service -f` command. You will see your node beginning to sync.
-
 
 ## Setup Yoda
 

@@ -6,7 +6,7 @@ order: 1
 
 <!-- Introduction TBD -->
 
-**This guide includes full instructions for joining the mainnet either as an archive/full node or a pruned node.**
+This guide includes full instructions for joining the mainnet either as an archive/full node or a pruned node.{synopsis}
 
 ## Overview
 
@@ -52,6 +52,7 @@ export BIN_FILES_URL=https://raw.githubusercontent.com/bandprotocol/launch/maste
 ```
 
 ### Step 1: Installation
+
 The following applications are required to build and run the BandChain node.
 
 - make, gcc, g++ (can be obtained from the build-essential package on linux)
@@ -65,6 +66,7 @@ sudo apt-get install -y build-essential curl wget
 ```
 
 - Install Go 1.19.1
+
 ```bash
 # Install Go 1.19.1
 wget https://go.dev/dl/go1.19.1.linux-amd64.tar.gz
@@ -79,6 +81,7 @@ source ~/.profile
 Go binary should be at /usr/local/go/bin and any executable compiled by go install command should be at ~/go/bin
 
 ### Step 2: Clone & Install BandChain Laozi
+
 ```bash
 cd ~
 # Clone BandChain Laozi version v2.4.1
@@ -91,6 +94,7 @@ make install
 ```
 
 ### Step 3: Initialize the BandChain and download the genesis file
+
 ```bash
 cd $HOME
 
@@ -108,11 +112,13 @@ bandd keys add $WALLET_NAME
 ```
 
 ### Step 4: Setup seeds or persistence peers
+
 This can be done by editing `seeds` or `persistent_peers` property in `$HOME/.band/config/config.toml`. Please see [here](https://github.com/bandprotocol/launch/tree/master/laozi-mainnet) for the list of seeds and peers.
+
 ```bash
 # List of seeds and persistent peers you want to add
 # e.g. SEEDS="8d42bdcb6cced03e0b67fa3957e4e9c8fd89015a@34.87.86.195:26656,543e0cab9c3016a0e99775443a17bcf163038912@34.150.156.78:26656"
-export SEEDS="<SEED>,<SEED>,..." 
+export SEEDS="<SEED>,<SEED>,..."
 export PERSISTENT_PEERS="<PERSISTENT_PEER>,<PERSISTENT_PEER>,..."
 
 # Add seeds and persistent peers to config.toml
@@ -125,12 +131,12 @@ sed -E -i \
   $HOME/.band/config/config.toml
 ```
 
-
 ## Setup Cosmovisor
 
 Cosmovisor is a small process manager for Cosmos SDK application binaries that monitors the governance module via stdout for incoming chain upgrade proposals
 
 ### Step 1: Setup environment variables
+
 Add required environment variables for Cosmovisor into your profile
 
 ```bash
@@ -141,6 +147,7 @@ source ~/.profile
 ```
 
 ### Step 2: Install and provide binaries
+
 Install Cosmovisor and provide bandd binary to Cosmovisor
 
 ```bash
@@ -157,12 +164,14 @@ mkdir -p $HOME/.band/cosmovisor/upgrades/v2_4/bin
 cp $HOME/go/bin/bandd $DAEMON_HOME/cosmovisor/upgrades/v2_4/bin
 ```
 
-
 ## Sync Options
 
-There are three main ways to sync a node on the BandChain; Blocksync, State Sync, and snapshots. However, we recommend using State Sync/snapshots as it's faster.
+There are three main ways to sync a node on the BandChain; Blocksync, State Sync, and Snapshots.
+
+> It is highly recommended to use State Sync or Snapshots as it's faster. However, if you want to use Blocksync, please read the following section.
 
 <!-- #sync options -->
+
 ::::::: tabs :options="{ useUrlFragment: false }"
 
 :::::: tab "Block Sync"
@@ -175,10 +184,10 @@ When syncing via Blocksync, node operators will need to provide the binary of ea
 
 You can see the detail of genesis and each upgrade in the table below.
 
-| Upgrade name  | Upgrade Height | Upgrade detail | Go version | Bandd version | Binary path                            |
-| -----------   | -------------- | -------------- | ---------- | ------------- | -------------------------------------- |
-| `genesis`     | `0`            | -              | `1.16.7`   | `v2.3.6`      | `~/.band/cosmovisor/genesis/bin`       |
-| `v2_4`        | `11525000`       | [link](https://medium.com/bandprotocol/bandchain-v2-4-upgrade-70dbb896618c) | `1.19.1`   | `v2.4.1`      | `~/.band/cosmovisor/upgrades/v2_4/bin` |
+| Upgrade name | Upgrade Height | Upgrade detail                                                              | Go version | Bandd version | Binary path                            |
+| ------------ | -------------- | --------------------------------------------------------------------------- | ---------- | ------------- | -------------------------------------- |
+| `genesis`    | `0`            | -                                                                           | `1.16.7`   | `v2.3.6`      | `~/.band/cosmovisor/genesis/bin`       |
+| `v2_4`       | `11525000`     | [link](https://medium.com/bandprotocol/bandchain-v2-4-upgrade-70dbb896618c) | `1.19.1`   | `v2.4.1`      | `~/.band/cosmovisor/upgrades/v2_4/bin` |
 
 Before doing the next step, you have to build and provide each correct bandd binary version to Cosmovisor in the binary path so that Cosmovisor can automatically switch it correctly.
 
@@ -227,25 +236,31 @@ sed -i \
     "/\[statesync\]/,+34 s/trust_hash = \".*\"/trust_hash = \"${TRUST_HASH}\"/" \
     $HOME/.band/config/config.toml
 ```
+
 ::::::
 
 :::::: tab "Snapshot - ChainLayer"
 
 ### Snapshot - ChainLayer
 
-ChainLayer (Quicksync) provides the latest chain data snapshot both default and pruned versions every day. You can download snapshot data and start to sync the block from snapshot height without syncing from the first block.
+ChainLayer (QuickSync) provides daily chain data snapshots with varying levels of pruning. You can download snapshot data and start to sync the block from snapshot height without syncing from the first block.
 
-For more information, click on the links below: [https://quicksync.io/networks/band.html](https://quicksync.io/networks/band.html)
+For downloads and installation instructions, visit the [Band Protocol QuickSync Guide](https://quicksync.io/networks/band.html)
 
 #### Install compression tools
+
+Before downloading a snapshot, make sure that you have the streaming and unpacking utilities installed:
+
 ```bash
 sudo apt-get update -y
 sudo apt-get install wget liblz4-tool aria2 -y
 sudo apt install -y jq
 ```
 
-#### Download snapshots 
+#### Download snapshots
+
 You can choose `laozi-mainnet-pruned` size 100-200 GB or `laozi-mainnet-default` size ~2TB
+
 ```bash
 cd ~/.band/
 
@@ -253,12 +268,12 @@ cd ~/.band/
 URL=`curl -L https://quicksync.io/band.json|jq -r '.[] |select(.file=="laozi-mainnet-pruned")|.url'`
 wget -O - $URL | lz4 -d | tar -xvf -
 ```
+
 ::::::
 
 :::::: tab "Snapshot - HighStakes"
 
 ### Snapshot - HighStakes
-
 
 HighStakes provides the latest chain data snapshot with a very small size every day. You can download snapshot data and start to sync the block from snapshot height without syncing from the first block.
 
@@ -272,16 +287,17 @@ cd ~/.band/
 wget https://tools.highstakes.ch/files/bandprotocol.tar.gz
 tar -xvf bandprotocol.tar.gz
 ```
+
 ::::::
 
 :::::::
 
-
 ## Setup daemon service
 
-We do recommend running the Bandchain node as a daemon, which can be set up using `systemctl`. 
+We do recommend running the Bandchain node as a daemon, which can be set up using `systemctl`.
 
 ### Step 1: Create BandChain service
+
 Run the following command to create a new daemon for `cosmovisor` that runs bandd (This script work on non-root user).
 
 ```bash
@@ -310,6 +326,7 @@ EOF'
 ```
 
 ### Step 2: Register and start bandd service
+
 In this step, we will register and start bandd service
 
 ```bash
@@ -320,7 +337,6 @@ sudo systemctl start bandd
 ```
 
 Once `bandd` service has been started, logs can be queried by running `journalctl -u bandd.service -f` command. You will see your node beginning to sync.
-
 
 ## Setup Yoda
 
