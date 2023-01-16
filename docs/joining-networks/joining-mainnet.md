@@ -12,7 +12,9 @@ order: 1
 
 - [Hardware Requirements](#hardware)
 - [Setup Node](#setup-node-configuration)
+- [Setup Cosmovisor](#setup-cosmovisor)
 - [Sync Options](#sync-options)
+  - [Block Sync](#block-sync)
   - [State Sync](#state-sync)
   - [Snapshot - ChainLayer](#snapshot---chainlayer)
   - [Snapshot - HighStakes](#snapshot---highstakes)
@@ -123,13 +125,64 @@ sed -E -i \
   $HOME/.band/config/config.toml
 ```
 
+
+## Setup Cosmovisor
+
+Cosmovisor is a small process manager for Cosmos SDK application binaries that monitors the governance module via stdout for incoming chain upgrade proposals
+
+### Step 1: Setup environment variables
+Add required environment variables for Cosmovisor into your profile
+
+```bash
+cd ~
+echo "export DAEMON_NAME=bandd" >> ~/.profile
+echo "export DAEMON_HOME=$HOME/.band" >> ~/.profile
+source ~/.profile
+```
+
+### Step 2: Install and provide binaries
+Install Cosmovisor and provide bandd binary to Cosmovisor
+
+```bash
+# Install Cosmovisor
+go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
+
+# Setup folder and provide bandd binary for Cosmovisor Genesis
+mkdir -p $HOME/.band/cosmovisor/genesis/bin
+mkdir -p $HOME/.band/cosmovisor/upgrades
+cp $HOME/go/bin/bandd $HOME/.band/cosmovisor/genesis/bin
+
+# Setup folder and provide bandd binary for Cosmovisor Upgrades
+mkdir -p $HOME/.band/cosmovisor/upgrades/v2_4/bin
+cp $HOME/go/bin/bandd $DAEMON_HOME/cosmovisor/upgrades/v2_4/bin
+```
+
+
 ## Sync Options
 
-There are three main ways to sync a node on the BandChain; Blocksync, State Sync, and snapshots.
+There are three main ways to sync a node on the BandChain; Blocksync, State Sync, and snapshots. However, we recommend using State Sync/snapshots as it's faster.
 
 <!-- #sync options -->
-
 ::::::: tabs :options="{ useUrlFragment: false }"
+
+:::::: tab "Block Sync"
+
+### Block Sync
+
+Blocksync is faster than traditional consensus and syncs the chain from genesis by downloading blocks and verifying against the Merkle tree of validators. For more information see [Tendermint's Fastsync Docs](https://docs.tendermint.com/v0.34/tendermint-core/fast-sync.html)
+
+When syncing via Blocksync, node operators will need to provide the binary of each upgrade version for Cosmovisor to switch when it reaches the upgrade heights.
+
+You can see the detail of genesis and each upgrade in the table below.
+
+| Upgrade name  | Upgrade Height | Upgrade detail | Go version | Bandd version | Binary path                            |
+| -----------   | -------------- | -------------- | ---------- | ------------- | -------------------------------------- |
+| `genesis`     | `0`            | -              | `1.16.7`   | `v2.3.6`      | `~/.band/cosmovisor/genesis/bin`       |
+| `v2_4`        | `11525000`       | [link](https://medium.com/bandprotocol/bandchain-v2-4-upgrade-70dbb896618c) | `1.19.1`   | `v2.4.1`      | `~/.band/cosmovisor/upgrades/v2_4/bin` |
+
+Before doing the next step, you have to build and provide each correct bandd binary version to Cosmovisor in the binary path so that Cosmovisor can automatically switch it correctly.
+
+::::::
 
 :::::: tab "State Sync"
 
@@ -218,39 +271,13 @@ tar -xvf bandprotocol.tar.gz
 
 :::::::
 
+
 ## Setup daemon service
 
-This step provides procedures to set up Cosmovisor as a daemon service to run bandd. Cosmovisor is a small process manager for Cosmos SDK application binaries that monitors the governance module via stdout for incoming chain upgrade proposals
+We do recommend running the Bandchain node as a daemon, which can be set up using `systemctl`. 
 
-### Step 1: Setup environment variables
-Add required environment variables for Cosmovisor into your profile
-
-```bash
-cd ~
-echo "export DAEMON_NAME=bandd" >> ~/.profile
-echo "export DAEMON_HOME=$HOME/.band" >> ~/.profile
-source ~/.profile
-```
-
-### Step 2: Setup Cosmovisor
-Install Cosmovisor and provide bandd binary to Cosmovisor
-
-```bash
-# Install Cosmovisor
-go install github.com/cosmos/cosmos-sdk/cosmovisor/cmd/cosmovisor@v1.0.0
-
-# Setup folder and provide bandd binary for Cosmovisor Genesis
-mkdir -p $HOME/.band/cosmovisor/genesis/bin
-mkdir -p $HOME/.band/cosmovisor/upgrades
-cp $HOME/go/bin/bandd $HOME/.band/cosmovisor/genesis/bin
-
-# Setup folder and provide bandd binary for Cosmovisor Upgrades
-mkdir -p $HOME/.band/cosmovisor/upgrades/v2_4/bin
-cp $HOME/go/bin/bandd $DAEMON_HOME/cosmovisor/upgrades/v2_4/bin
-```
-
-### Step 3: Create BandChain service
-We do recommend running the Bandchain node as a daemon, which can be set up using `systemctl`. Run the following command to create a new daemon for `cosmovisor` that runs bandd (This script work on non-root user).
+### Step 1: Create BandChain service
+Run the following command to create a new daemon for `cosmovisor` that runs bandd (This script work on non-root user).
 
 ```bash
 # Write bandd service file to /etc/systemd/system/bandd.service
@@ -277,7 +304,7 @@ WantedBy=multi-user.target
 EOF'
 ```
 
-### Step 4: Register and start bandd service
+### Step 2: Register and start bandd service
 In this step, we will register and start bandd service
 
 ```bash
