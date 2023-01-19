@@ -1,13 +1,13 @@
 <template lang="pug">
-  div(style="width: 100%")
-    .search__container
-      .search(@click="$emit('search', true)")
-        .search__icon
-          icon-search
-        .search__text Search
-    .container
-      slot
-      tm-content-cards(v-if="$frontmatter.cards")
+div(style="width: 100%")
+  .search__container
+    .search(@click="$emit('search', true)")
+      .search__icon
+        icon-search
+      .search__text Search
+  .container
+    slot
+    //- tm-content-cards(v-if="$frontmatter.cards")
 </template>
 
 <style lang="stylus" scoped>
@@ -563,95 +563,94 @@
     padding 1rem
     font-size 0.875rem
     line-height 1.25rem
-
 </style>
 
 <script>
-import { findIndex, sortBy } from "lodash";
-import copy from "clipboard-copy";
+import { findIndex, sortBy } from 'lodash'
+import copy from 'clipboard-copy'
 
 export default {
   props: {
     aside: {
       type: Boolean,
-      default: true
+      default: true,
     },
     tree: {
-      type: Array
-    }
+      type: Array,
+    },
   },
   mounted() {
-    this.emitPrereqLinks();
+    this.emitPrereqLinks()
     const headerAnchorClick = event => {
-      event.target.setAttribute("data-header-anchor-text", "Copied!");
-      copy(event.target.href);
+      event.target.setAttribute('data-header-anchor-text', 'Copied!')
+      copy(event.target.href)
       setTimeout(() => {
-        event.target.setAttribute("data-header-anchor-text", "Copy link");
-      }, 4000);
-      event.preventDefault();
-    };
+        event.target.setAttribute('data-header-anchor-text', 'Copy link')
+      }, 4000)
+      event.preventDefault()
+    }
     document
       .querySelectorAll(
         'h1[id*="requisite"], h2[id*="requisite"], h3[id*="requisite"], h4[id*="requisite"], h5[id*="requisite"], h6[id*="requisite"]'
       )
       .forEach(node => {
-        node.addEventListener("click", this.prereqToggle);
-      });
+        node.addEventListener('click', this.prereqToggle)
+      })
     document
-      .querySelectorAll(".content__default a.header-anchor")
+      .querySelectorAll('.content__default a.header-anchor')
       .forEach(node => {
-        node.setAttribute("data-header-anchor-text", "Copy link");
-        node.addEventListener("click", headerAnchorClick);
-      });
+        node.setAttribute('data-header-anchor-text', 'Copy link')
+        node.addEventListener('click', headerAnchorClick)
+      })
     if (window.location.hash) {
-      const elementId = document.querySelector(window.location.hash);
-      if (elementId) elementId.scrollIntoView();
+      const elementId = document.querySelector(window.location.hash)
+      if (elementId) elementId.scrollIntoView()
     }
   },
   methods: {
     emitPrereqLinks() {
-      const prereq = [...document.querySelectorAll("[prereq]")].map(item => {
-        const link = item.querySelector("[href]");
+      const prereq = [...document.querySelectorAll('[prereq]')].map(item => {
+        const link = item.querySelector('[href]')
         return {
-          href: link.getAttribute("href"),
-          text: link.innerText
-        };
-      });
-      this.$emit("prereq", prereq);
+          href: link.getAttribute('href'),
+          text: link.innerText,
+        }
+      })
+      this.$emit('prereq', prereq)
     },
     prereqToggle(e) {
       if (e.target.classList.contains('header-anchor')) return
-      e.target.classList.toggle("prereqTitleShow");
-      document.querySelectorAll("[prereq]").forEach(node => {
-        node.classList.toggle("prereqLinkShow");
-      });
-    }
+      e.target.classList.toggle('prereqTitleShow')
+      document.querySelectorAll('[prereq]').forEach(node => {
+        node.classList.toggle('prereqLinkShow')
+      })
+    },
   },
   computed: {
     noAside() {
-      return !this.aside;
+      return !this.aside
     },
     linkPrevNext() {
-      if (!this.tree) return;
-      let result = {};
+      if (!this.tree) return
+      let result = {}
       const search = tree => {
         return tree.forEach(item => {
-          const children = item.children;
+          const children = item.children
           if (children) {
-            const index = findIndex(children, ["regularPath", this.$page.path]);
+            const index = findIndex(children, ['regularPath', this.$page.path])
             if (index >= 0 && children[index - 1]) {
-              result.prev = children[index - 1];
+              result.prev = children[index - 1]
             }
             if (index >= 0 && children[index + 1]) {
-              result.next = children[index + 1];
+              result.next = children[index + 1]
             }
-            return search(item.children);
+            return search(item.children)
           }
-        });
-      };
-      search(this.tree);
-      return result;
-    }
-  }
-};
+        })
+      }
+      search(this.tree)
+      return result
+    },
+  },
+}
 </script>

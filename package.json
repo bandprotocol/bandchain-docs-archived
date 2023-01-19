@@ -15,13 +15,17 @@
   "license": "MIT",
   "devDependencies": {
     "@maginapp/vuepress-plugin-katex": "^1.0.7",
+    "@volar/vue-language-plugin-pug": "^1.0.24",
+    "@vue/runtime-dom": "^3.2.45",
     "@vuepress/plugin-back-to-top": "^1.3.1",
     "@vuepress/plugin-medium-zoom": "^1.3.1",
     "@vuepress/plugin-search": "^1.5.2",
-    "vuepress": "^1.5.2"
+    "vuepress": "^1.9.8"
   },
   "dependencies": {
+    "vue-tabs-component": "^1.5.0",
     "vuepress-plugin-mathjax": "^1.2.8",
+    "vuepress-plugin-tabs": "^0.3.0",
     "vuepress-theme-cosmos": "./theme/vuepress-theme-cosmos"
   }
 }
