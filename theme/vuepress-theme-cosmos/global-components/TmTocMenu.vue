@@ -10,7 +10,7 @@
 
   &__item
     position relative
-    
+
     &__small
       margin-left 10px
 
@@ -66,11 +66,11 @@
 export default {
   methods: {
     goto(fragment) {
-      location.replace(`#${fragment}`);
-      location.replace(`#${fragment}`);
-      this.$emit("visible", false);
-      this.$emit("toc", false);
-    }
-  }
-};
+      location.replace(`#${fragment}`)
+      location.replace(`#${fragment}`)
+      this.$emit('visible', false)
+      this.$emit('toc', false)
+    },
+  },
+}
 </script>

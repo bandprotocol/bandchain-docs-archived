@@ -1,17 +1,19 @@
 module.exports = {
   theme: 'cosmos',
   title: 'Band Protocol Documentation',
-  plugins: ['vuepress-plugin-element-tabs'],
   locales: {
     '/': {
       lang: 'en-US',
     },
   },
   plugins: [
-    '@maginapp/vuepress-plugin-katex',
-    {
-      delimiters: 'dollars',
-    },
+    'tabs',
+    [
+      '@maginapp/vuepress-plugin-katex',
+      {
+        delimiters: 'dollars',
+      },
+    ],
   ],
   base: process.env.VUEPRESS_BASE || '/',
   themeConfig: {
@@ -97,14 +99,9 @@ module.exports = {
               path: '/technical-specifications',
             },
             {
-              title: 'Join the BandChain Mainnet',
+              title: 'Joining networks',
               directory: true,
-              path: '/joining-mainnet',
-            },
-            {
-              title: 'Join the BandChain Testnet',
-              directory: true,
-              path: '/joining-testnet',
+              path: '/joining-networks',
             },
           ],
         },
