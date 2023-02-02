@@ -30,6 +30,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Evmos             |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |               [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)                |
 | Godwoken          |  0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a   |           [link](https://v1.betanet.gwscan.com/address/0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a)            |
 | ICE (Arctic)      |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |             [link](https://arctic.epirus.io/accounts/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)              |
+| Icon (Berlin)     |  cx087b4164a87fdfb7b714f3bafe9dfb050fd6b132   |       [link](https://berlin.tracker.solidwallet.io/contract/cx5dcc865783046cbda45584beac572463cc025add)       |
 | Meter             |  0xe1bCC505f2Bdd02C9480C924856f5080834A3897   |        [link](https://scan-warringstakes.meter.io/address/0xe1bCC505f2Bdd02C9480C924856f5080834A3897)         |
 | Oasis             |  0x61704EFB8b8120c03C210cAC5f5193BF8c80852a   |     [link](https://testnet.explorer.emerald.oasis.dev/address/0x61704EFB8b8120c03C210cAC5f5193BF8c80852a)     |
 | OKC               |  0xb6256DCb23CEE06eDa2408E73945963606fdddd7   |         [link](https://www.oklink.com/en/okc-test/address/0xb6256DCb23CEE06eDa2408E73945963606fdddd7)         |
@@ -51,6 +52,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Cronos           |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |               [link](https://cronoscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
 | Ethereum         |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |                [link](https://etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
 | Fantom           |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |                [link](https://ftmscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                 |
+| Icon (Java)      |  cx087b4164a87fdfb7b714f3bafe9dfb050fd6b132   |          [link](https://tracker.icon.community/contract/cx087b4164a87fdfb7b714f3bafe9dfb050fd6b132)           |
 | Meter            |  0x861C20f77f194EEa4f86e0d39069D789265A3A82   |               [link](https://scan.meter.io/address/0x861C20f77f194EEa4f86e0d39069D789265A3A82)                |
 | Moonriver        |  0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E   |           [link](https://moonriver.moonscan.io/address/0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E)            |
 | Oasis (Emerald)  |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |         [link](https://explorer.emerald.oasis.dev/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)         |
