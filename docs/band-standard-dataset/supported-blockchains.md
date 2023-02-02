@@ -43,22 +43,28 @@ point to the correct base contract and show the most updated price feeds.
 
 ## Mainnets
 
-| Blockchain       |     `StdReferenceProxy` Contract Address      |                                                   Explorer                                                    |
-| ---------------- | :-------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
-| Astar (Astar)    |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |            [link](https://blockscout.com/astar/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)            |
-| Astar (Shiden)   |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |             [link](https://shiden.subscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)              |
-| Avalanche        |  0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E   |                [link](https://snowtrace.io/address/0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E)                |
-| BitTorrent Chain |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |                [link](https://bttcscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
-| BNB              |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |                [link](https://bscscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                 |
-| Celo             |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |             [link](https://explorer.celo.org/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)              |
-| CLV              |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |                [link](https://clvscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                 |
-| Cronos           |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |               [link](https://cronoscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
-| Ethereum         |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |                [link](https://etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
-| Fantom           |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |                [link](https://ftmscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                 |
-| Icon (Java)      |  cxe647e0af68a4661566f5e9861ad4ac854de808a2   |          [link](https://tracker.icon.community/contract/cxe647e0af68a4661566f5e9861ad4ac854de808a2)           |
-| Meter            |  0x861C20f77f194EEa4f86e0d39069D789265A3A82   |               [link](https://scan.meter.io/address/0x861C20f77f194EEa4f86e0d39069D789265A3A82)                |
-| Moonriver        |  0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E   |           [link](https://moonriver.moonscan.io/address/0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E)            |
-| Oasis (Emerald)  |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |         [link](https://explorer.emerald.oasis.dev/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)         |
-| OKC              |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |             [link](https://www.oklink.com/oec/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)             |
-| Optimism         |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |          [link](https://optimistic.etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)           |
-| Secret 4         | secret1ezamax2vrhjpy92fnujlpwfj2dpredaafss47k | [link](https://secretnodes.com/secret/chains/secret-4/accounts/secret1ezamax2vrhjpy92fnujlpwfj2dpredaafss47k) |
+| Blockchain       |    `StdReferenceProxy` Contract Address    |                                        Explorer                                         |
+| ---------------- | :----------------------------------------: | :-------------------------------------------------------------------------------------: |
+| Astar (Astar)    | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://blockscout.com/astar/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
+| Astar (Shiden)   | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |  [link](https://shiden.subscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)   |
+| Avalanche        | 0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E |     [link](https://snowtrace.io/address/0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E)     |
+| BitTorrent Chain | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |     [link](https://bttcscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)     |
+| BNB              | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |     [link](https://bscscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)      |
+| Celo             | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |  [link](https://explorer.celo.org/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)   |
+| CLV              | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |     [link](https://clvscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)      |
+| Cronos           | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |    [link](https://cronoscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)     |
+| Ethereum         | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |     [link](https://etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)     |
+| Fantom           | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 |     [link](https://ftmscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)      |
+
+<<<<<<< HEAD
+| Icon (Java) | cxe647e0af68a4661566f5e9861ad4ac854de808a2 | [link](https://tracker.icon.community/contract/cxe647e0af68a4661566f5e9861ad4ac854de808a2) |
+=======
+| Icon (Java) | cx087b4164a87fdfb7b714f3bafe9dfb050fd6b132 | [link](https://tracker.icon.community/contract/cx087b4164a87fdfb7b714f3bafe9dfb050fd6b132) |
+
+> > > > > > > 20aa291 (add icon contract address)
+> > > > > > > | Meter | 0x861C20f77f194EEa4f86e0d39069D789265A3A82 | [link](https://scan.meter.io/address/0x861C20f77f194EEa4f86e0d39069D789265A3A82) |
+> > > > > > > | Moonriver | 0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E | [link](https://moonriver.moonscan.io/address/0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E) |
+> > > > > > > | Oasis (Emerald) | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://explorer.emerald.oasis.dev/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
+> > > > > > > | OKC | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://www.oklink.com/oec/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
+> > > > > > > | Optimism | 0xDA7a001b254CD22e46d3eAB04d937489c93174C3 | [link](https://optimistic.etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3) |
+> > > > > > > | Secret 4 | secret1ezamax2vrhjpy92fnujlpwfj2dpredaafss47k | [link](https://secretnodes.com/secret/chains/secret-4/accounts/secret1ezamax2vrhjpy92fnujlpwfj2dpredaafss47k) |
