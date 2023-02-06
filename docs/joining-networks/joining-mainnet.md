@@ -111,9 +111,12 @@ wget -qO- $BIN_FILES_URL | tar xvz -C $HOME/.band/
 bandd keys add $WALLET_NAME
 ```
 
-### Step 4: Setup seeds or persistence peers
+### Step 4: Node configuration
+This can be done by editing fields in `$HOME/.band/config/config.toml` and `$HOME/.band/config/app.toml`. 
 
-This can be done by editing `seeds` or `persistent_peers` property in `$HOME/.band/config/config.toml`. Please see [here](https://github.com/bandprotocol/launch/tree/master/laozi-mainnet) for the list of seeds and peers.
+For a list of seeds and peers, please see [here](https://github.com/bandprotocol/launch/tree/master/laozi-mainnet).
+
+For minimum-gas-prices, you can set any number but the recommendation is 0.0025uband (according to [this proposal](https://www.cosmoscan.io/proposal/10)).
 
 ```bash
 # List of seeds and persistent peers you want to add
@@ -129,6 +132,11 @@ sed -E -i \
 sed -E -i \
   "s/persistent_peers = \".*\"/persistent_peers = \"${PERSISTENT_PEERS}\"/" \
   $HOME/.band/config/config.toml
+
+# Add minimum gas price
+sed -E -i \
+  "s/^minimum-gas-prices *=.*/minimum-gas-prices = \"0.0025uband\"/" \
+  $HOME/.band/config/app.toml
 ```
 
 ## Setup Cosmovisor
