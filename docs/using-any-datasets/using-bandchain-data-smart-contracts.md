@@ -1,3 +1,6 @@
+<!--
+order: 2
+-->
 # Using BandChain Data in EVM Smart Contract
 
 ## Example Contract
