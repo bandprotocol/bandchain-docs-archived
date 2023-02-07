@@ -1,4 +1,6 @@
-<!-- order: 10 -->
+<!--
+order: 10
+-->
 
 # On-chain Payment Protocol
 
