@@ -13,14 +13,17 @@ module.exports = (options = {}, context) => ({
       const $ = cheerio.load(md.render($page._content));
       description = $("[synopsis]").text();
     } catch {
-      console.log(
+      console.log("====================================");
+      console.log($page);
+      console.log("====================================");
+      console.error(
         `Error in processing description: $page.content is ${$page._content}`
       );
     }
     try {
       frontmatter = matter($page._content, { delims: ["<!--", "-->"] }).data;
     } catch {
-      console.log(
+      console.error(
         `Error in processing frontmatter: $page.content is ${$page._content}`
       );
     }
