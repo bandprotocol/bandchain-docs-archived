@@ -141,6 +141,27 @@ module.exports = {
           ],
         },
         {
+          title: 'Band Standard Dataset',
+          children: [
+            {
+              title: 'Introduction',
+              path: '/band-standard-dataset/',
+            },
+            {
+              title: 'Supported Blockchains',
+              path: '/band-standard-dataset/supported-blockchains',
+            },
+            {
+              title: 'Supported Price Data',
+              path: '/band-standard-dataset/supported-price-data',
+            },
+            {
+              title: 'Using the Data',
+              path: '/band-standard-dataset/using-band-dataset',
+            },
+          ],
+        },
+        {
           title: 'Band VRF',
           children: [
             {
@@ -166,23 +187,20 @@ module.exports = {
           ],
         },
         {
-          title: 'Band Standard Dataset',
+          title: 'Integration tools',
           children: [
             {
-              title: 'Introduction',
-              path: '/band-standard-dataset/',
+              title: 'CW-Band',
+              directory: true,
+              path: '/integration-tools//cw-band',
             },
             {
-              title: 'Supported Blockchains',
-              path: '/band-standard-dataset/supported-blockchains',
+              title: 'Falcon (coming soon)',
+              path: '/integration-tools/falcon/introduction',
             },
             {
-              title: 'Supported Price Data',
-              path: '/band-standard-dataset/supported-price-data',
-            },
-            {
-              title: 'Using the Data',
-              path: '/band-standard-dataset/using-band-dataset',
+              title: 'PricefeedX (coming soon)',
+              path: '/integration-tools/pricefeedx/introduction',
             },
           ],
         },
