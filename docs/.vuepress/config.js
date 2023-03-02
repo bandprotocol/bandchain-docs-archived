@@ -188,6 +188,7 @@ module.exports = {
         },
         {
           title: 'Integration tools',
+          directory: true,
           children: [
             {
               title: 'CW-Band',
@@ -195,12 +196,14 @@ module.exports = {
               path: '/integration-tools//cw-band',
             },
             {
-              title: 'Falcon (coming soon)',
-              path: '/integration-tools/falcon/introduction',
+              title: 'PricefeedX (coming soon)',
+              directory: false,
+              path: '/integration-tools/pricefeedx/introduction',
             },
             {
-              title: 'PricefeedX (coming soon)',
-              path: '/integration-tools/pricefeedx/introduction',
+              title: 'Falcon (coming soon)',
+              directory: false,
+              path: '/integration-tools/falcon/introduction',
             },
           ],
         },
