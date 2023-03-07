@@ -2,6 +2,4 @@
 order: 1
 -->
 
-# Introduction
-
-Coming soon
+# PricefeedX (Coming soon)
