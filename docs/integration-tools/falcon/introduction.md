@@ -16,4 +16,61 @@ The Falcon program consists of three key components, trigger, band, and relayer 
 
 ![falcon-bz drawio](https://user-images.githubusercontent.com/54426055/222410609-1e11f43f-8301-4866-94d8-4dbc46b7d024.png)
 
-At a high level, the workflow will be as follows.
+At a high level, the workflow will be as follows. Firstly, when reached the specified condition such as time interval, Trigger will trigger Falcon to request data from BandChain. Then, BandChain will run the Oracle script specified in the request which will get data from the Data sources and return data result along with its proof to Falcon.
+
+After Falcon recieved the result and proof, it will send the data and proof to all other chains' contract that are specified in the Falcon program.
+
+At this point, the smart contract in other chains can verify the proof using the bridge contract provided in that chain. If the proof is correct, the smart contract can trust and use the data.
+
+### Bridge contract
+
+Conceptually, you can think of the Bridge contract as a generic logic that helps verify the availability of any data stored on the BandChain. In order to verify the data's availability, the Bridge contract contains a set of validators of the BandChain, which is used for signature verification when any external actors relay a BandChain's block. After the block relaying is successful (accumulated power of more than 2/3), the rest is the verification of the actual data (leaf) against the root hash. Finally, the result/leaf is extracted and returned to the caller if the data is successfully verified.
+
+#### State
+
+```
+    // The encoded chain's ID of Band.
+    // This value is only set at the deployment time
+    bytes public encodedChainID;
+
+
+
+    //============================== Set by the owner ==============================
+
+    struct ValidatorWithPower {
+        address addr;
+        uint256 power;
+    }
+
+    // Mapping from an address to its voting power.
+    EnumerableMap.AddressToUintMap private validatorPowers;
+
+    // The total voting power of active validators currently on duty.
+    uint256 public totalValidatorPower;
+
+    //============================== Set by the owner ==============================
+
+
+
+
+    //==============================      Public      ==============================
+
+    struct BlockDetail {
+        bytes32 oracleState;
+        uint64 timeSecond;
+        uint32 timeNanoSecondFraction; // between 0 to 10^9
+    }
+
+    // Mapping from block height to the struct that contains block time and hash of "oracle" iAVL Merkle tree.
+    mapping(uint256 => BlockDetail) public blockDetails;
+
+    //==============================      Public      ==============================
+```
+
+#### Functions
+
+The two key functions of the Bridge contract are updateValidatorPowers and relayAndVerify.
+
+The updateValidatorPowers function can only be called by the owner of the Bridge contract. The function is used for updating the Bridge contract's validator set in order for the contract's state to be consistent with the actual validator set on the BandChain.
+
+The relayAndVerify function is a public function for anyone who wants to relay request data from the BandChain into the Bridge contract. As a result, the relayed and verified data can be used safely by those who wish to consume data from Band oracle.
