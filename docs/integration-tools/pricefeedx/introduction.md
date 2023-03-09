@@ -6,37 +6,37 @@ order: 1
 
 The [cosmos-sdk](https://docs.cosmos.network/main/intro/overview) is presently the most widely utilized framework for developing blockchain applications. A crucial necessity for such apps is an oracle. As decentralized applications (dApps) rely heavily on real-world data, ensuring the accuracy of this data holds significant importance.
 
-It would be advantageous for your cosmos SDK app to possess an built-in oracle that obtains data from BandChain via IBC. By importing the pricefeedx module implemented by Band Protocol.
+It would be advantageous for your cosmos SDK app to possess an built-in oracle that obtains data from BandChain via IBC. By importing the pricefeed module implemented by Band Protocol.
 
 ## Workflow
-![pricefeedx](https://user-images.githubusercontent.com/32817745/223335123-6ecefd6a-ffb1-4b93-8a6d-c0ddf8dae7a0.png)
+![pricefeed](https://user-images.githubusercontent.com/32817745/223335123-6ecefd6a-ffb1-4b93-8a6d-c0ddf8dae7a0.png)
 
 ### Proposal
 
-The initial step for the pricefeedx module is to obtain information about the symbols that require price data from BandChain on every `n` block. This is accomplished by submitting the `UpdateSymbolRequest` Proposal.
+The initial step for the pricefeed module is to obtain information about the symbols that require price data from BandChain on every `n` block. This is accomplished by submitting the `UpdateSymbolRequest` Proposal.
 
-The Proposal submitted to update tasks for the pricefeedx module consists of three components - the name of the symbol, the oracle script ID required to obtain the price, and the block interval for requesting the data every `n` block.
+The Proposal submitted to update tasks for the pricefeed module consists of three components - the name of the symbol, the oracle script ID required to obtain the price, and the block interval for requesting the data every `n` block.
 
-Upon the proposal's approval, the pricefeedx module will request price data from BandChain based on the SymbolRequest that was updated through the proposal. 
+Upon the proposal's approval, the pricefeed module will request price data from BandChain based on the SymbolRequest that was updated through the proposal. 
 
 
 ### Request
 
-At a high level, the workflow will be as follows. First, the pricefeedx module creates an IBC packet to request data from BandChain. Then, relayers will pick up the IBC packet and relay it on BandChain.
+At a high level, the workflow will be as follows. First, the pricefeed module creates an IBC packet to request data from BandChain. Then, relayers will pick up the IBC packet and relay it on BandChain.
 
 After BandChain processes the request, it will send an acknowledgement message along with `request_id` back. And, when the result of the request is finalized, BandChain will send a new IBC packet that contains the final data back. Relayers will listen and pick up those packets and relay them to the smart contract.
 
 After this stage, the cosmos-sdk app can safely use the data obtained from BandChain in its application at every `n` block interval. If the cosmos-sdk app requires additional data, it can submit an update symbols request proposal at any time.
 
-## PricefeedX
+## pricefeed
 
-The pricefeedx module obtains price data from BandChain through IBC and stores the most recent prices on your Cosmos SDK applications.
+The pricefeed module obtains price data from BandChain through IBC and stores the most recent prices on your Cosmos SDK applications.
 
 An example of the usage of this module is provided on the [ConsumerChain](https://).
 
 ### Params
 
-The pricefeedx module stores its params in state, it can be updated with governance or the address with authority. The information contained in these parameters is utilized to request data from BandChain.
+The pricefeed module stores its params in state, it can be updated with governance or the address with authority. The information contained in these parameters is utilized to request data from BandChain.
 
 > proto/consumer/pricefeed/params.proto
 ```protobuf
@@ -60,7 +60,7 @@ message Params {
 
 ### Proposal
 
-The pricefeedx module includes the `UpdateSymbolRequestProposal` for updating symbols that request prices from BandChain on a block-by-block basis based on `block_interval` configuration by submit the proposal on your Cosmos SDK application.
+The pricefeed module includes the `UpdateSymbolRequestProposal` for updating symbols that request prices from BandChain on a block-by-block basis based on `block_interval` configuration by submit the proposal on your Cosmos SDK application.
 
 > proto/consumer/pricefeed/pricefeed.proto
 ```protobuf
@@ -84,16 +84,16 @@ The example of submit and vote the proposal is demonstrated in the CLI section.
 
 ### CLI
 
-A user can query and interact with the pricefeedx module using the CLI.
+A user can query and interact with the pricefeed module using the CLI.
 
 > Note: This example use `oracle-consumerd` as a command-line interface (CLI) from [oracle consumer chain](https://). Please replace it with your own cosmos app.
 
 #### Query
 
-The query commands allow users to query pricefeedx state.
+The query commands allow users to query pricefeed state.
 
 ```
-oracle-consumerd query pricefeedx --help
+oracle-consumerd query pricefeed --help
 ```
 
 ##### Symbol Requests 
@@ -101,7 +101,7 @@ oracle-consumerd query pricefeedx --help
 The `symbol-requests` command enables users to retrieve information about all symbol requests that are save in this Cosmos SDK application.
 
 ```
-oracle-consumerd query pricefeedx symbol-requests
+oracle-consumerd query pricefeed symbol-requests
 ```
 
 ##### Price
@@ -109,13 +109,13 @@ oracle-consumerd query pricefeedx symbol-requests
 The `price` command allows users to query price data by symbol.
 
 ```
-oracle-consumerd query pricefeedx price [symbol]
+oracle-consumerd query pricefeed price [symbol]
 ```
 
 Example:
 
 ```
-oracle-consumerd query pricefeedx price BTC
+oracle-consumerd query pricefeed price BTC
 ```
 
 Example Output:
