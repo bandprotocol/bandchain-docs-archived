@@ -275,23 +275,23 @@ The purpose of this proposal is to request price data from BandChain at `block_i
 #### Submit proposal
 
 ```
-oracle-consumerd tx gov submit-legacy-proposal update-symbol-request proposal.json --from alice
+exampled tx gov submit-legacy-proposal update-symbol-request proposal.json --from alice
 ```
 
 #### Vote the proposal
 
 ```
-oracle-consumerd tx gov vote 1 yes --from alice
+exampled tx gov vote 1 yes --from alice
 ```
 
 ```
-oracle-consumerd tx gov vote 1 yes --from bob
+exampled tx gov vote 1 yes --from bob
 ```
 
 #### Check proposal status
 
 ```
-oracle-consumerd query gov proposals
+exampled query gov proposals
 ```
 
 ### Query latest price that got from BandChain
@@ -299,5 +299,5 @@ oracle-consumerd query gov proposals
 Once the proposal has been approved, the pricefeed module will query BTC and ETH from BandChain every 40 blocks on your chain, and you can view the latest price by executing this command.
 
 ```
-oracle-consumerd query pricefeed price BTC
+exampled query pricefeed price BTC
 ```
