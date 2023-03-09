@@ -9,7 +9,7 @@ The [cosmos-sdk](https://docs.cosmos.network/main/intro/overview) is presently t
 It would be advantageous for your cosmos SDK app to possess an built-in oracle that obtains data from BandChain via IBC. By importing the pricefeed module implemented by Band Protocol.
 
 ## Workflow
-![pricefeed](https://user-images.githubusercontent.com/32817745/223335123-6ecefd6a-ffb1-4b93-8a6d-c0ddf8dae7a0.png)
+![pricefeed](https://user-images.githubusercontent.com/32817745/223923701-1ceedb8d-01c1-4663-9852-1caf6f226b7b.png)
 
 ### Proposal
 
