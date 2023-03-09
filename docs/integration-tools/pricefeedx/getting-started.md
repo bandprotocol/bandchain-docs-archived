@@ -4,7 +4,7 @@ order: 2
 
 # Getting started
 
-This guide serves as a brief guide on how to utilize the pricefeedx module in your cosmos-sdk app. For demonstrations on how to use the prices obtained from this module, kindly refer to the [Example Use Cases](https://) section.
+This guide serves as a brief guide on how to utilize the pricefeed module in your cosmos-sdk app. For demonstrations on how to use the prices obtained from this module, kindly refer to the [Example Use Cases](https://) section.
 
 ### Prerequisites
 Be sure you have met the prerequisites before you following this guide.
@@ -42,7 +42,7 @@ The ignite scaffold chain command will create a new blockchain in a new director
 
 ### Config proposal voting period
 
-To expedite the testing of the pricefeedx module, modify the default voting period to 40 seconds by incorporating this code in `example/config.yml`.
+To expedite the testing of the pricefeed module, modify the default voting period to 40 seconds by incorporating this code in `example/config.yml`.
 
 ```
 ...
@@ -54,11 +54,11 @@ genesis:
 ```
 
 
-### Step 1: Import pricefeedx moudle to your cosmos app
+### Step 1: Import pricefeed moudle to your cosmos app
 
 ##### Replace to use tendermint that develop by informalsystems 
 
-As tendermint is no longer being developed, the pricefeedx module now uses the version implemented by informalsystems. Therefore, to replace the tendermint version, kindly add this line in `example/go.mod`.
+As tendermint is no longer being developed, the pricefeed module now uses the version implemented by informalsystems. Therefore, to replace the tendermint version, kindly add this line in `example/go.mod`.
 
 ```
 replace (
@@ -69,7 +69,7 @@ replace (
 
 ##### Replace to use ibc-go v5
 
-To ensure compatibility with the pricefeedx module, kindly update the ibc-go version to v5 by replacing
+To ensure compatibility with the pricefeed module, kindly update the ibc-go version to v5 by replacing
 
 ```go
 require (
@@ -87,18 +87,18 @@ require (
 )
 ```
 
-##### Install pricefeedx package
+##### Install pricefeed package
 
 ```
 go install github.com/bandprotocol/oracle-consumer
 ```
 
-##### Add pricefeedx in proposal handler
+##### Add pricefeed in proposal handler
 
 ```go
 import (
     ...
-    pricefeedxclient "github.com/bandprotocol/oracle-consumer/x/pricefeedx/client"
+    pricefeedclient "github.com/bandprotocol/oracle-consumer/x/pricefeed/client"
 )
 
 func getGovProposalHandlers() []govclient.ProposalHandler {
@@ -106,133 +106,133 @@ func getGovProposalHandlers() []govclient.ProposalHandler {
     
     govProposalHandlers = append(
         ...
-        pricefeedxclient.ProposalHandler,
+        pricefeedclient.ProposalHandler,
     )
 
     return govProposalHandlers
 }
 ```
 
-##### Add pricefeedx module basic
+##### Add pricefeed module basic
 
 ```go
 import (
     ...
-    pricefeedx "github.com/bandprotocol/oracle-consumer/x/pricefeedx"
+    pricefeed "github.com/bandprotocol/oracle-consumer/x/pricefeed"
 )
 
 ModuleBasics = module.NewBasicManager(
     ...
-    pricefeedx.AppModuleBasic{},
+    pricefeed.AppModuleBasic{},
 )
 ```
 
-##### Add pricefeedx keeper
+##### Add pricefeed keeper
 
 ```go
 import (
     ...
-    pricefeedxkeeper "github.com/bandprotocol/oracle-consumer/x/pricefeedx/keeper"
+    pricefeedkeeper "github.com/bandprotocol/oracle-consumer/x/pricefeed/keeper"
 )
 
 type BandApp struct {
     ...
-    scopedPricefeedxKeeper capabilitykeeper.ScopedKeeper
-    PricefeedxKeeper pricefeedxkeeper.Keeper
+    scopedpricefeedKeeper capabilitykeeper.ScopedKeeper
+    pricefeedKeeper pricefeedkeeper.Keeper
 }
 ```
 
-##### Add pricefeedx store key
+##### Add pricefeed store key
 
 ```go
 keys := sdk.NewKVStoreKeys(
     ...
-    pricefeedxtypes.StoreKey,
+    pricefeedtypes.StoreKey,
 )
 ```
 
-##### Add pricefeedx keeper in app
+##### Add pricefeed keeper in app
 
 ```go
-scopedPricefeedxKeeper := app.CapabilityKeeper.ScopeToModule(pricefeedxtypes.ModuleName)
-app.scopedPricefeedxKeeper = scopedPricefeedxKeeper
-app.PricefeedxKeeper = *pricefeedxkeeper.NewKeeper(
+scopedpricefeedKeeper := app.CapabilityKeeper.ScopeToModule(pricefeedtypes.ModuleName)
+app.scopedpricefeedKeeper = scopedpricefeedKeeper
+app.pricefeedKeeper = *pricefeedkeeper.NewKeeper(
     appCodec,
-    keys[pricefeedxtypes.StoreKey],
-    keys[pricefeedxtypes.MemStoreKey],
-    app.GetSubspace(pricefeedxtypes.ModuleName),
+    keys[pricefeedtypes.StoreKey],
+    keys[pricefeedtypes.MemStoreKey],
+    app.GetSubspace(pricefeedtypes.ModuleName),
     app.IBCKeeper.ChannelKeeper,
     &app.IBCKeeper.PortKeeper,
-    scopedPricefeedxKeeper,
+    scopedpricefeedKeeper,
 )
 ```
 
-##### Create pricefeedx module 
+##### Create pricefeed module 
 
 ```go
-pricefeedxModule := pricefeedxmodule.NewAppModule(appCodec, app.PricefeedxKeeper, app.AccountKeeper, app.BankKeeper)
-pricefeedxIBCModule := pricefeedxmodule.NewIBCModule(app.PricefeedxKeeper)
+pricefeedModule := pricefeedmodule.NewAppModule(appCodec, app.pricefeedKeeper, app.AccountKeeper, app.BankKeeper)
+pricefeedIBCModule := pricefeedmodule.NewIBCModule(app.pricefeedKeeper)
 ```
 
-##### Add pricefeedx in governance Handler router
+##### Add pricefeed in governance Handler router
 
 ```go
 govRouter.
     AddRoute(...).
-    AddRoute(pricefeedxtypes.RouterKey, pricefeedxmodule.NewUpdateSymbolRequestProposalHandler(app.PricefeedxKeeper))
+    AddRoute(pricefeedtypes.RouterKey, pricefeedmodule.NewUpdateSymbolRequestProposalHandler(app.pricefeedKeeper))
 ```
 
-##### Add pricefeedx in module manager
+##### Add pricefeed in module manager
 
 ```go
 app.mm = module.NewManager(
 	...,
-	pricefeedxModule,
+	pricefeedModule,
 )
 ```
 
-##### Set pricefeedx order in begin block, end block and init genesis
+##### Set pricefeed order in begin block, end block and init genesis
 
 ```go
 app.mm.SetOrderBeginBlockers(
     ...,
-    pricefeedxtypes.ModuleName,
+    pricefeedtypes.ModuleName,
 )
 
 app.mm.SetOrderEndBlockers(
     ...,
-    pricefeedxtypes.ModuleName,
+    pricefeedtypes.ModuleName,
 )
 
 app.mm.SetOrderInitGenesis(
-    pricefeedxtypes.ModuleName,
+    pricefeedtypes.ModuleName,
 )
 ```
 
-##### Define the order of the pricefeedx for deterministic simulations
+##### Define the order of the pricefeed for deterministic simulations
 
 ```go
 app.sm = module.NewSimulationManager(
     ...
-    pricefeedxModule,
+    pricefeedModule,
 )
 ```
 
-##### Add pricefeedx subspace in params Keeper
+##### Add pricefeed subspace in params Keeper
 
 ```go
 func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino, key, tkey storetypes.StoreKey) paramskeeper.Keeper {
 	paramsKeeper := paramskeeper.NewKeeper(appCodec, legacyAmino, key, tkey)
 
 	paramsKeeper.Subspace(...)
-	paramsKeeper.Subspace(pricefeedxmoduletypes.ModuleName)
+	paramsKeeper.Subspace(pricefeedmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper
 }
 ```
 
-You have completed importing the pricefeedx module and can now execute the chain by running this command :tada:
+You have completed importing the pricefeed module and can now execute the chain by running this command :tada:
 ```
 ignite chain serve -v
 ```
@@ -299,5 +299,5 @@ oracle-consumerd query gov proposals
 Once the proposal has been approved, the pricefeed module will query BTC and ETH from BandChain every 40 blocks on your chain, and you can view the latest price by executing this command.
 
 ```
-oracle-consumerd query pricefeedx price BTC
+oracle-consumerd query pricefeed price BTC
 ```
