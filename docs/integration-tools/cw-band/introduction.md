@@ -10,7 +10,7 @@ The CW-Band introduces a standard for anyone looking to integrate data from Band
 
 ### Workflow
 
-![figure1](https://user-images.githubusercontent.com/13800683/221420722-d86465ed-e110-4660-a530-ebb084f40f44.png)
+![figure1](https://user-images.githubusercontent.com/13800683/225055001-07f95e3b-f6a7-4bbc-b0c3-6db1afa15b53.png)
 
 At a high level, the workflow will be as follows. First, the smart contract creates an IBC packet to request data from BandChain. Then, relayers will pick up the IBC packet and relay it on BandChain. 
 
