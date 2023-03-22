@@ -198,7 +198,7 @@ module.exports = {
             {
               title: 'Pricefeed',
               directory: true,
-              path: '/integration-tools//pricefeed',
+              path: '/integration-tools/pricefeed',
             },
             {
               title: 'Falcon (coming soon)',
