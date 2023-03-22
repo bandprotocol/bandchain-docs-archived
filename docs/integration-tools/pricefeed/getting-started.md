@@ -170,7 +170,7 @@ app.pricefeedKeeper = *pricefeedkeeper.NewKeeper(
 ##### Create pricefeed module 
 
 ```go
-pricefeedModule := pricefeedmodule.NewAppModule(appCodec, app.pricefeedKeeper, app.AccountKeeper, app.BankKeeper)
+pricefeedModule := pricefeedmodule.NewAppModule(appCodec, app.pricefeedKeeper)
 pricefeedIBCModule := pricefeedmodule.NewIBCModule(app.pricefeedKeeper)
 ```
 
