@@ -193,7 +193,7 @@ module.exports = {
             {
               title: 'CW-Band',
               directory: true,
-              path: '/integration-tools//cw-band',
+              path: '/integration-tools/cw-band',
             },
             {
               title: 'PricefeedX (coming soon)',
