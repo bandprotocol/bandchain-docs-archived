@@ -17,7 +17,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 ## Testnets
 
 | Blockchain        |     `StdReferenceProxy` Contract Address      |                                                   Explorer                                                    |
-| ----------------- | :-------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
+|-------------------| :-------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
 | Astar (Shibuya)   |  0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa   |           [link](https://blockscout.com/shibuya/address/0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa)           |
 | Avalanche (Fuji)  |  0xD0b2234eB9431e850a814bCdcBCB18C1093F986B   |            [link](https://testnet.snowtrace.io/address/0xD0b2234eB9431e850a814bCdcBCB18C1093F986B)            |
 | Boba              |  0xe8e974b6b294AC1f5031AC54B968E8afFb7306Cb   |     [link](https://blockexplorer.rinkeby.boba.network/address/0xe8e974b6b294AC1f5031AC54B968E8afFb7306Cb)     |
@@ -30,7 +30,8 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Evmos             |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |               [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)                |
 | Godwoken          |  0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a   |           [link](https://v1.betanet.gwscan.com/address/0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a)            |
 | ICE (Arctic)      |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |             [link](https://arctic.epirus.io/accounts/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)              |
-| Icon (Berlin)     |  cx087b4164a87fdfb7b714f3bafe9dfb050fd6b132   |       [link](https://berlin.tracker.solidwallet.io/contract/cx5dcc865783046cbda45584beac572463cc025add)       |
+| Icon (Berlin)     |  cxd2bac764a0277efb9a6861fa991be4e5a46f16a2   |       [link](https://berlin.tracker.solidwallet.io/contract/cxb1636436029165d0a044f313b9abdb0c13adecfc)       |
+| Icon (Lisbon)     |  cx734512ad03efdcedb69e0526415a7ce21340e0db   |       [link](https://lisbon.tracker.solidwallet.io/contract/cxdcd25424bf0a129fd9ba933600a72b42c168f60e)       |
 | Meter             |  0xe1bCC505f2Bdd02C9480C924856f5080834A3897   |        [link](https://scan-warringstakes.meter.io/address/0xe1bCC505f2Bdd02C9480C924856f5080834A3897)         |
 | Oasis             |  0x61704EFB8b8120c03C210cAC5f5193BF8c80852a   |     [link](https://testnet.explorer.emerald.oasis.dev/address/0x61704EFB8b8120c03C210cAC5f5193BF8c80852a)     |
 | OKC               |  0xb6256DCb23CEE06eDa2408E73945963606fdddd7   |         [link](https://www.oklink.com/en/okc-test/address/0xb6256DCb23CEE06eDa2408E73945963606fdddd7)         |
@@ -41,7 +42,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 ## Mainnets
 
 | Blockchain       |     `StdReferenceProxy` Contract Address      |                                                   Explorer                                                    |
-| ---------------- | :-------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
+| ---------------- | :-------------------------------------------: |:-------------------------------------------------------------------------------------------------------------:|
 | Astar (Astar)    |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |            [link](https://blockscout.com/astar/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)            |
 | Astar (Shiden)   |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |             [link](https://shiden.subscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)              |
 | Avalanche        |  0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E   |                [link](https://snowtrace.io/address/0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E)                |
@@ -52,7 +53,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Cronos           |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |               [link](https://cronoscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
 | Ethereum         |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |                [link](https://etherscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                |
 | Fantom           |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |                [link](https://ftmscan.com/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)                 |
-| Icon (Java)      |  cx087b4164a87fdfb7b714f3bafe9dfb050fd6b132   |          [link](https://tracker.icon.community/contract/cx087b4164a87fdfb7b714f3bafe9dfb050fd6b132)           |
+| Icon (Java)      |  cxe647e0af68a4661566f5e9861ad4ac854de808a2   |          [link](https://tracker.icon.community/contract/cxe647e0af68a4661566f5e9861ad4ac854de808a2)           |
 | Meter            |  0x861C20f77f194EEa4f86e0d39069D789265A3A82   |               [link](https://scan.meter.io/address/0x861C20f77f194EEa4f86e0d39069D789265A3A82)                |
 | Moonriver        |  0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E   |           [link](https://moonriver.moonscan.io/address/0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E)            |
 | Oasis (Emerald)  |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |         [link](https://explorer.emerald.oasis.dev/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)         |
