@@ -30,8 +30,8 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Evmos             |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |               [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)                |
 | Godwoken          |  0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a   |           [link](https://v1.betanet.gwscan.com/address/0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a)            |
 | ICE (Arctic)      |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |             [link](https://arctic.epirus.io/accounts/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)              |
-| Icon (Berlin)     |  cxd2bac764a0277efb9a6861fa991be4e5a46f16a2   |       [link](https://berlin.tracker.solidwallet.io/contract/cxb1636436029165d0a044f313b9abdb0c13adecfc)       |
-| Icon (Lisbon)     |  cx734512ad03efdcedb69e0526415a7ce21340e0db   |       [link](https://lisbon.tracker.solidwallet.io/contract/cxdcd25424bf0a129fd9ba933600a72b42c168f60e)       |
+| Icon (Berlin)     |  cxd2bac764a0277efb9a6861fa991be4e5a46f16a2   |       [link](https://berlin.tracker.solidwallet.io/contract/cxd2bac764a0277efb9a6861fa991be4e5a46f16a2)       |
+| Icon (Lisbon)     |  cx734512ad03efdcedb69e0526415a7ce21340e0db   |       [link](https://lisbon.tracker.solidwallet.io/contract/cx734512ad03efdcedb69e0526415a7ce21340e0db)       |
 | Meter             |  0xe1bCC505f2Bdd02C9480C924856f5080834A3897   |        [link](https://scan-warringstakes.meter.io/address/0xe1bCC505f2Bdd02C9480C924856f5080834A3897)         |
 | Oasis             |  0x61704EFB8b8120c03C210cAC5f5193BF8c80852a   |     [link](https://testnet.explorer.emerald.oasis.dev/address/0x61704EFB8b8120c03C210cAC5f5193BF8c80852a)     |
 | OKC               |  0xb6256DCb23CEE06eDa2408E73945963606fdddd7   |         [link](https://www.oklink.com/en/okc-test/address/0xb6256DCb23CEE06eDa2408E73945963606fdddd7)         |
