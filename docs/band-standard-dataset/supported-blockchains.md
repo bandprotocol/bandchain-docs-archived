@@ -11,13 +11,14 @@ We recommend experimenting with using our solution on a test network first befor
 :::
 
 ::: warning
-Please ONLY use the proxy contract as in the case that the base contract is updated, the proxy contract will always point to the correct base contract and show the most updated price feeds.
+Please ONLY use the proxy contract as in the case that the base contract is updated, the proxy contract will always
+point to the correct base contract and show the most updated price feeds.
 :::
 
 ## Testnets
 
 | Blockchain        |     `StdReferenceProxy` Contract Address      |                                                   Explorer                                                    |
-|-------------------| :-------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
+| ----------------- | :-------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
 | Astar (Shibuya)   |  0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa   |           [link](https://blockscout.com/shibuya/address/0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa)           |
 | Avalanche (Fuji)  |  0xD0b2234eB9431e850a814bCdcBCB18C1093F986B   |            [link](https://testnet.snowtrace.io/address/0xD0b2234eB9431e850a814bCdcBCB18C1093F986B)            |
 | Boba              |  0xe8e974b6b294AC1f5031AC54B968E8afFb7306Cb   |     [link](https://blockexplorer.rinkeby.boba.network/address/0xe8e974b6b294AC1f5031AC54B968E8afFb7306Cb)     |
@@ -28,6 +29,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 | Ethereum (Goerli) |  0x61704EFB8b8120c03C210cAC5f5193BF8c80852a   |            [link](https://goerli.etherscan.io/address/0x61704EFB8b8120c03C210cAC5f5193BF8c80852a)             |
 | Ethereum (Kovan)  |  0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa   |             [link](https://kovan.etherscan.io/address/0xceE4b505233BC0719ab2caE556b179e53Cffd3Aa)             |
 | Evmos             |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |               [link](https://evm.evmos.dev/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)                |
+| Findora           |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |          https://testnet-anvil.evm.findorascan.io/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68          |
 | Godwoken          |  0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a   |           [link](https://v1.betanet.gwscan.com/address/0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a)            |
 | ICE (Arctic)      |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |             [link](https://arctic.epirus.io/accounts/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)              |
 | Icon (Berlin)     |  cxd2bac764a0277efb9a6861fa991be4e5a46f16a2   |       [link](https://berlin.tracker.solidwallet.io/contract/cxd2bac764a0277efb9a6861fa991be4e5a46f16a2)       |
@@ -42,7 +44,7 @@ Please ONLY use the proxy contract as in the case that the base contract is upda
 ## Mainnets
 
 | Blockchain       |     `StdReferenceProxy` Contract Address      |                                                   Explorer                                                    |
-| ---------------- | :-------------------------------------------: |:-------------------------------------------------------------------------------------------------------------:|
+| ---------------- | :-------------------------------------------: | :-----------------------------------------------------------------------------------------------------------: |
 | Astar (Astar)    |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |            [link](https://blockscout.com/astar/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)            |
 | Astar (Shiden)   |  0xDA7a001b254CD22e46d3eAB04d937489c93174C3   |             [link](https://shiden.subscan.io/address/0xDA7a001b254CD22e46d3eAB04d937489c93174C3)              |
 | Avalanche        |  0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E   |                [link](https://snowtrace.io/address/0x75B01902D9297fD381bcF3B155a8cEAC78F5A35E)                |
