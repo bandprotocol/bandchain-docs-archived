@@ -1,4 +1,6 @@
-<!-- order: 11 -->
+<!--
+order: 11
+-->
 
 # Example Use Cases
 
