@@ -10,7 +10,7 @@ As you can request any oracle script in BandChain from your CosmWasm contract. i
 
 ### Pricefeed
 
-This price feed contract is an example of getting crypto prices from BandChain.
+This price feed contract is an example of getting crypto prices from BandChain using the push model to allow other contracts can read the latest prices and execute actions in one transaction.
 
 **Requirements:**
 
@@ -20,3 +20,7 @@ This price feed contract is an example of getting crypto prices from BandChain.
 - Able to bulk query the price of symbols in any unit. (Query `GetReferenceDataBulk`)
 
 You can see the full implementation of the contract [here](https://github.com/bandprotocol/cw-band/tree/main/contracts/price-feed)
+
+### Lottery
+
+Lottery dApp is one of the use cases that can do with CW-Band using the pull model to get the winning number when it reaches the end of the period to find the winner.
