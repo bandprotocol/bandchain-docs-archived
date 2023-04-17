@@ -58,12 +58,12 @@ genesis:
 
 #### Replace to use tendermint that develop by informalsystems 
 
-As tendermint is no longer being developed, the pricefeed module now uses the version implemented by informalsystems. Therefore, to replace the tendermint version, kindly add this line in `example/go.mod`.
+As tendermint is no longer being developed, the pricefeed module now uses the version implemented by cometbft. Therefore, to replace the tendermint version, kindly add this line in `example/go.mod`.
 
 ```
 replace (
     ...
-    github.com/tendermint/tendermint => github.com/informalsystems/tendermint v0.34.26
+    github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.27
 )
 ```
 
@@ -83,7 +83,7 @@ To
 ```go
 require (
     ...
-    github.com/cosmos/ibc-go/v5 v5.1.0
+    github.com/cosmos/ibc-go/v5 v5.2.0
 )
 ```
 
