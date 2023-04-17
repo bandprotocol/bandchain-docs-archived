@@ -23,7 +23,7 @@ Be sure you have met the prerequisites before you following this guide.
 
 #### Installation
 
-##### Installing build-essential package in Ubuntu 
+#### Installing build-essential package in Ubuntu 
 
 ```
 sudo apt update && sudo apt install build-essential
@@ -54,9 +54,9 @@ genesis:
 ```
 
 
-### Step 1: Import pricefeed moudle to your cosmos app
+### Step 1: Import pricefeed module to your cosmos app
 
-##### Replace to use tendermint that develop by informalsystems 
+#### Replace to use tendermint that develop by informalsystems 
 
 As tendermint is no longer being developed, the pricefeed module now uses the version implemented by informalsystems. Therefore, to replace the tendermint version, kindly add this line in `example/go.mod`.
 
@@ -67,7 +67,7 @@ replace (
 )
 ```
 
-##### Replace to use ibc-go v5
+#### Replace to use ibc-go v5
 
 To ensure compatibility with the pricefeed module, kindly update the ibc-go version to v5 by replacing
 
@@ -87,13 +87,13 @@ require (
 )
 ```
 
-##### Install pricefeed package
+#### Install pricefeed package
 
 ```
 go install github.com/bandprotocol/oracle-consumer
 ```
 
-##### Add pricefeed in proposal handler
+#### Add pricefeed in proposal handler
 
 ```go
 import (
@@ -113,7 +113,7 @@ func getGovProposalHandlers() []govclient.ProposalHandler {
 }
 ```
 
-##### Add pricefeed module basic
+#### Add pricefeed module basic
 
 ```go
 import (
@@ -127,7 +127,7 @@ ModuleBasics = module.NewBasicManager(
 )
 ```
 
-##### Add pricefeed keeper
+#### Add pricefeed keeper
 
 ```go
 import (
@@ -142,7 +142,7 @@ type BandApp struct {
 }
 ```
 
-##### Add pricefeed store key
+#### Add pricefeed store key
 
 ```go
 keys := sdk.NewKVStoreKeys(
@@ -151,7 +151,7 @@ keys := sdk.NewKVStoreKeys(
 )
 ```
 
-##### Add pricefeed keeper in app
+#### Add pricefeed keeper in app
 
 ```go
 scopedpricefeedKeeper := app.CapabilityKeeper.ScopeToModule(pricefeedtypes.ModuleName)
@@ -167,14 +167,14 @@ app.pricefeedKeeper = *pricefeedkeeper.NewKeeper(
 )
 ```
 
-##### Create pricefeed module 
+#### Create pricefeed module 
 
 ```go
 pricefeedModule := pricefeedmodule.NewAppModule(appCodec, app.pricefeedKeeper)
 pricefeedIBCModule := pricefeedmodule.NewIBCModule(app.pricefeedKeeper)
 ```
 
-##### Add pricefeed in governance Handler router
+#### Add pricefeed in governance Handler router
 
 ```go
 govRouter.
@@ -182,7 +182,7 @@ govRouter.
     AddRoute(pricefeedtypes.RouterKey, pricefeedmodule.NewUpdateSymbolRequestProposalHandler(app.pricefeedKeeper))
 ```
 
-##### Add pricefeed in module manager
+#### Add pricefeed in module manager
 
 ```go
 app.mm = module.NewManager(
@@ -191,7 +191,7 @@ app.mm = module.NewManager(
 )
 ```
 
-##### Set pricefeed order in begin block, end block and init genesis
+#### Set pricefeed order in begin block, end block and init genesis
 
 ```go
 app.mm.SetOrderBeginBlockers(
@@ -209,7 +209,7 @@ app.mm.SetOrderInitGenesis(
 )
 ```
 
-##### Define the order of the pricefeed for deterministic simulations
+#### Define the order of the pricefeed for deterministic simulations
 
 ```go
 app.sm = module.NewSimulationManager(
@@ -218,7 +218,7 @@ app.sm = module.NewSimulationManager(
 )
 ```
 
-##### Add pricefeed subspace in params Keeper
+#### Add pricefeed subspace in params Keeper
 
 ```go
 func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino, key, tkey storetypes.StoreKey) paramskeeper.Keeper {

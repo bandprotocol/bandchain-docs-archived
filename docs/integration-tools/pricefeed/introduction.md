@@ -8,9 +8,6 @@ The [cosmos-sdk](https://docs.cosmos.network/main/intro/overview) is presently t
 
 It would be advantageous for your cosmos SDK app to possess an built-in oracle that obtains data from BandChain via IBC. By importing the pricefeed module implemented by Band Protocol.
 
-## Workflow
-![pricefeed](https://user-images.githubusercontent.com/32817745/226537402-8a76a57d-41e8-4299-ad8d-11521e31504d.png)
-
 ### Proposal
 
 The initial step for the pricefeed module is to obtain information about the symbols that require price data from BandChain on every `n` block. This is accomplished by submitting the `UpdateSymbolRequest` Proposal.
@@ -19,12 +16,14 @@ The Proposal submitted to update tasks for the pricefeed module consists of thre
 
 Upon the proposal's approval, the pricefeed module will request price data from BandChain based on the SymbolRequest that was updated through the proposal. 
 
+## Workflow
+![pricefeed](https://user-images.githubusercontent.com/32817745/226537402-8a76a57d-41e8-4299-ad8d-11521e31504d.png)
 
 ### Request
 
 At a high level, the workflow will be as follows. First, the pricefeed module creates an IBC packet to request data from BandChain. Then, relayers will pick up the IBC packet and relay it on BandChain.
 
-After BandChain processes the request, it will send an acknowledgement message along with `request_id` back. And, when the result of the request is finalized, BandChain will send a new IBC packet that contains the final data back. Relayers will listen and pick up those packets and relay them to the smart contract.
+After BandChain processes the request, it will send an acknowledgement message along with `request_id` back. And, when the result of the request is finalized, BandChain will send a new IBC packet that contains the final data back. Relayers will listen and pick up those packets and relay them to your cosmos sdk app.
 
 After this stage, the cosmos-sdk app can safely use the data obtained from BandChain in its application at every `n` block interval. If the cosmos-sdk app requires additional data, it can submit an update symbols request proposal at any time.
 
