@@ -191,7 +191,7 @@ module.exports = {
           directory: true,
           children: [
             {
-              title: 'CW-Band',
+              title: 'cw-band',
               directory: true,
               path: '/integration-tools/cw-band',
             },

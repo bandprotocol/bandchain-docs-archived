@@ -23,4 +23,4 @@ You can see the full implementation of the contract [here](https://github.com/ba
 
 ### Lottery
 
-Lottery dApp is one of the use cases that can do with CW-Band using the pull model to get the winning number when it reaches the end of the period to find the winner.
+Lottery dApp is one of the use cases that can do with cw-band using the pull model to get the winning number when it reaches the end of the period to find the winner.
