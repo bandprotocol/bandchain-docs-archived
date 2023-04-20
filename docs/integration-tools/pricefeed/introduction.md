@@ -17,7 +17,7 @@ The Proposal submitted to update tasks for the pricefeed module consists of thre
 Upon the proposal's approval, the pricefeed module will request price data from BandChain based on the SymbolRequest that was updated through the proposal. 
 
 ## Workflow
-![pricefeed](https://user-images.githubusercontent.com/32817745/226537402-8a76a57d-41e8-4299-ad8d-11521e31504d.png)
+![pricefeed](https://user-images.githubusercontent.com/13800683/233438703-c0835bcc-98ea-454f-ab87-5339dde43bc5.png)
 
 ### Request
 
