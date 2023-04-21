@@ -55,7 +55,7 @@ genesis:
 
 ## Step 2: Initiate source channel and symbol requests by Ignite
 
-To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restat the chin by using `ignite chain serve -r -v` command.
+To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restart the chin by using `ignite chain serve -r -v` command.
 
 ```yml
 pricefeed:
@@ -89,7 +89,7 @@ require (
 )
 ```
 
-To
+With
 
 ```go
 require (

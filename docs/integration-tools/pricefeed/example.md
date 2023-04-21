@@ -4,7 +4,7 @@ order: 3
 
 # Example Use Cases
 
-By utilizing pricefeed module in your cosmos-sdk application, you have the ability to request price data from BandChain via IBC. This creates a chance to obtain a variety of real-world data, including cryptocurrency and stock prices. Please take a look at the following example of an oracle-consumer chain that requests data from BandChain for use in their module.
+By utilizing pricefeed module in your cosmos-sdk application, you have the ability to request price data from BandChain via IBC. This creates a chance to obtain a variety of real-world data, including cryptocurrency and stock prices. Please take a look at the following example of an oracle-consumer chain that requests data from BandChain to use in their module.
 
 
 ---

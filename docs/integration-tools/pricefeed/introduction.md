@@ -85,7 +85,7 @@ The example of submit and vote the proposal is demonstrated in the CLI section.
 
 A user can query and interact with the pricefeed module using the CLI.
 
-> Note: This example use `oracle-consumerd` as a command-line interface (CLI) from [oracle consumer chain](https://). Please replace it with your own cosmos app.
+> Note: This example use `oracle-consumerd` as a command-line interface (CLI) from [oracle consumer chain](https://github.com/bandprotocol/oracle-consumer). Please replace it with your own cosmos app.
 
 ### Query
 
@@ -204,7 +204,7 @@ Example:
 
 ### Another way to initiate source channel and symbol requests
 
-To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restat the chin by using `ignite chain serve -r -v` command.
+To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restart the chin by using `ignite chain serve -r -v` command.
 
 ```yml
 pricefeed:
