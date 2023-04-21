@@ -331,6 +331,17 @@ exampled tx gov vote 2 yes --from bob
 exampled query gov proposals
 ```
 
+### Another way to initiate source channel and symbol requests
+
+To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restat the chin by using `ignite chain serve -r -v` command.
+
+```yml
+pricefeed:
+    params:
+        source_channel: "channel-0"
+    symbol_requests: [{"symbol": "BAND", "oracle_script_id": 396, "block_interval":  40}]
+```
+
 ### Query latest price that got from BandChain
 
 Once the proposal has been approved, the pricefeed module will query BTC and ETH from BandChain every 40 blocks on your chain, and you can view the latest price by executing this command.
