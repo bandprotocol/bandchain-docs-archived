@@ -6,30 +6,30 @@ order: 2
 
 This guide serves as a brief guide on how to utilize the pricefeed module in your cosmos-sdk app. For demonstrations on how to use the prices obtained from this module, kindly refer to the [Example Use Cases](https://) section.
 
-### Prerequisites
+## Prerequisites
 Be sure you have met the prerequisites before you following this guide.
 
-#### Operating systems
+### Operating systems
 - Ubuntu 22.04
 
-#### Go (for ignite and consumer chain)
+### Go (for ignite and consumer chain)
 - 1.19.5 or higher
 
-#### Ignite CLI
+### Ignite CLI
 - 0.26.1 or higher
 
-#### Rust (for Hermes Relayer)
+### Rust (for Hermes Relayer)
 - 1.65.0 or higher
 
-#### Installation
+### Installation
 
-#### Installing build-essential package in Ubuntu 
+### Installing build-essential package in Ubuntu 
 
 ```
 sudo apt update && sudo apt install build-essential
 ```
 
-### Creating a new blockchain
+## Creating a new blockchain
 
 To create a new blockchain project with Ignite, you will need to run the following command:
 
@@ -40,7 +40,7 @@ The ignite scaffold chain command will create a new blockchain in a new director
 
 
 
-### Config proposal voting period
+## Step 1: Config proposal voting period by Ignite
 
 To expedite the testing of the pricefeed module, modify the default voting period to 40 seconds by incorporating this code in `example/config.yml`.
 
@@ -53,10 +53,21 @@ genesis:
         voting_period: "40s"
 ```
 
+## Step 2: Initiate source channel and symbol requests by Ignite
 
-### Step 1: Import pricefeed module to your cosmos app
+To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restat the chin by using `ignite chain serve -r -v` command.
 
-#### Replace to use tendermint that develop by informalsystems 
+```yml
+pricefeed:
+    params:
+        source_channel: "channel-0"
+    symbol_requests: [{"symbol": "BAND", "oracle_script_id": 396, "block_interval":  40}]
+```
+
+
+## Step 3: Import pricefeed module to your cosmos app
+
+### Replace to use tendermint that develop by informalsystems 
 
 As tendermint is no longer being developed, the pricefeed module now uses the version implemented by cometbft. Therefore, to replace the tendermint version, kindly add this line in `example/go.mod`.
 
@@ -67,7 +78,7 @@ replace (
 )
 ```
 
-#### Replace to use ibc-go v5
+### Replace to use ibc-go v5
 
 To ensure compatibility with the pricefeed module, kindly update the ibc-go version to v5 by replacing
 
@@ -87,13 +98,13 @@ require (
 )
 ```
 
-#### Install pricefeed package
+### Install pricefeed package
 
 ```
 go install github.com/bandprotocol/oracle-consumer
 ```
 
-#### Add pricefeed in proposal handler
+### Add pricefeed in proposal handler
 
 ```go
 import (
@@ -113,7 +124,7 @@ func getGovProposalHandlers() []govclient.ProposalHandler {
 }
 ```
 
-#### Add pricefeed module basic
+### Add pricefeed module basic
 
 ```go
 import (
@@ -127,7 +138,7 @@ ModuleBasics = module.NewBasicManager(
 )
 ```
 
-#### Add pricefeed keeper
+### Add pricefeed keeper
 
 ```go
 import (
@@ -142,7 +153,7 @@ type BandApp struct {
 }
 ```
 
-#### Add pricefeed store key
+### Add pricefeed store key
 
 ```go
 keys := sdk.NewKVStoreKeys(
@@ -151,7 +162,7 @@ keys := sdk.NewKVStoreKeys(
 )
 ```
 
-#### Add pricefeed keeper in app
+### Add pricefeed keeper in app
 
 ```go
 scopedpricefeedKeeper := app.CapabilityKeeper.ScopeToModule(pricefeedtypes.ModuleName)
@@ -167,14 +178,14 @@ app.pricefeedKeeper = *pricefeedkeeper.NewKeeper(
 )
 ```
 
-#### Create pricefeed module 
+### Create pricefeed module 
 
 ```go
 pricefeedModule := pricefeedmodule.NewAppModule(appCodec, app.pricefeedKeeper)
 pricefeedIBCModule := pricefeedmodule.NewIBCModule(app.pricefeedKeeper)
 ```
 
-#### Add pricefeed in governance Handler router
+### Add pricefeed in governance Handler router
 
 ```go
 govRouter.
@@ -182,7 +193,7 @@ govRouter.
     AddRoute(pricefeedtypes.RouterKey, pricefeedmodule.NewUpdateSymbolRequestProposalHandler(app.pricefeedKeeper))
 ```
 
-#### Add pricefeed in module manager
+### Add pricefeed in module manager
 
 ```go
 app.mm = module.NewManager(
@@ -191,7 +202,7 @@ app.mm = module.NewManager(
 )
 ```
 
-#### Set pricefeed order in begin block, end block and init genesis
+### Set pricefeed order in begin block, end block and init genesis
 
 ```go
 app.mm.SetOrderBeginBlockers(
@@ -209,7 +220,7 @@ app.mm.SetOrderInitGenesis(
 )
 ```
 
-#### Define the order of the pricefeed for deterministic simulations
+### Define the order of the pricefeed for deterministic simulations
 
 ```go
 app.sm = module.NewSimulationManager(
@@ -218,7 +229,7 @@ app.sm = module.NewSimulationManager(
 )
 ```
 
-#### Add pricefeed subspace in params Keeper
+### Add pricefeed subspace in params Keeper
 
 ```go
 func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino, key, tkey storetypes.StoreKey) paramskeeper.Keeper {
@@ -237,7 +248,7 @@ You have completed importing the pricefeed module and can now execute the chain 
 ignite chain serve -v
 ```
 
-### Step 2: Setup a relayer
+## Step 4: Setup a relayer
 The second step is to set up a relayer to listen and relay IBC packets between a your chain and BandChain.
 
 Here are the simple guides for setting up a relayer.
@@ -245,7 +256,11 @@ Here are the simple guides for setting up a relayer.
 - [Hermes relayer](https://github.com/bandprotocol/cw-band/blob/main/docs/setup_relayer_hermes.md)
 - [Go relayer](https://github.com/bandprotocol/cw-band/blob/main/docs/setup_relayer_go-relayer.md)
 
-### Step 3: Open source channel param change proposal and vote
+## Step 5 (optional): Open proposal for change params and update symbol requests
+
+Since you have already configured the symbol requests and source-channel in the `config.yml` file during the [step 2](#step-2-initiate-source-channel-and-symbol-requests-by-ignite) , you may skip this particular step.
+
+### Step 5.1 Open source channel param change proposal and vote
 
 The current default value for the source channel is `[not_set]`. If you wish to obtain BandChain data through IBC, you will need to open the proposal to change the source channel param to your own source channel. An example of how to open parameter change proposal is provided below.
 
@@ -283,7 +298,7 @@ exampled tx gov vote 1 yes --from bob
 ```
 
 
-### Step 4: Open update symbol request proposal and vote
+### Step 5.2: Open update symbol request proposal and vote
 
 The purpose of this proposal is to request price data from BandChain at `block_interval` specified in the proposal. If the proposal is approved, the pricefeed module will retrieve the data and store the response on the consumer chain.
 
@@ -325,21 +340,10 @@ exampled tx gov vote 2 yes --from alice
 exampled tx gov vote 2 yes --from bob
 ```
 
-### Check proposal status
+#### Check proposal status
 
 ```
 exampled query gov proposals
-```
-
-### Another way to initiate source channel and symbol requests
-
-To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restat the chin by using `ignite chain serve -r -v` command.
-
-```yml
-pricefeed:
-    params:
-        source_channel: "channel-0"
-    symbol_requests: [{"symbol": "BAND", "oracle_script_id": 396, "block_interval":  40}]
 ```
 
 ### Query latest price that got from BandChain

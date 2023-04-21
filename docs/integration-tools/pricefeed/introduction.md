@@ -201,6 +201,18 @@ Example:
     ```
     oracle-consumerd tx gov submit-legacy-proposal update-symbol-request proposal.json --from alice
     ```
+
+### Another way to initiate source channel and symbol requests
+
+To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restat the chin by using `ignite chain serve -r -v` command.
+
+```yml
+pricefeed:
+    params:
+        source_channel: "channel-0"
+    symbol_requests: [{"symbol": "BAND", "oracle_script_id": 396, "block_interval":  40}]
+```
+
 ### Learn more
 
 - cosmos-sdk
