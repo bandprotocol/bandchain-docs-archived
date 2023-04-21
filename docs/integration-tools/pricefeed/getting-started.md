@@ -245,12 +245,49 @@ Here are the simple guides for setting up a relayer.
 - [Hermes relayer](https://github.com/bandprotocol/cw-band/blob/main/docs/setup_relayer_hermes.md)
 - [Go relayer](https://github.com/bandprotocol/cw-band/blob/main/docs/setup_relayer_go-relayer.md)
 
+### Step 3: Open source channel param change proposal and vote
 
-### Step 3: Open update symbol request proposal and vote
+The current default value for the source channel is `[not_set]`. If you wish to obtain BandChain data through IBC, you will need to open the proposal to change the source channel param to your own source channel. An example of how to open parameter change proposal is provided below.
+
+#### create param-change-proposal.json
+
+```json
+{
+  "title": "Param change for SourceChannel",
+  "description": "Proposal for change SourceChannel param in pricefeed module",
+  "changes": [
+    {
+      "subspace": "pricefeed",
+      "key": "SourceChannel",
+      "value": "channel-0"
+    }
+  ],
+  "deposit": "10000000stake"
+}
+```
+
+#### Submit proposal
+
+```
+oracle-consumerd tx gov submit-legacy-proposal param-change param-change-proposal.json --from alice
+```
+
+#### Vote the proposal
+
+```
+exampled tx gov vote 1 yes --from alice
+```
+
+```
+exampled tx gov vote 1 yes --from bob
+```
+
+
+### Step 4: Open update symbol request proposal and vote
 
 The purpose of this proposal is to request price data from BandChain at `block_interval` specified in the proposal. If the proposal is approved, the pricefeed module will retrieve the data and store the response on the consumer chain.
 
-#### create proposal.json
+#### create update-symbol-requests-proposal.json
 
 ```json
 {
@@ -275,20 +312,20 @@ The purpose of this proposal is to request price data from BandChain at `block_i
 #### Submit proposal
 
 ```
-exampled tx gov submit-legacy-proposal update-symbol-request proposal.json --from alice
+exampled tx gov submit-legacy-proposal update-symbol-request update-symbol-requests-proposal.json --from alice
 ```
 
 #### Vote the proposal
 
 ```
-exampled tx gov vote 1 yes --from alice
+exampled tx gov vote 2 yes --from alice
 ```
 
 ```
-exampled tx gov vote 1 yes --from bob
+exampled tx gov vote 2 yes --from bob
 ```
 
-#### Check proposal status
+### Check proposal status
 
 ```
 exampled query gov proposals

@@ -8,7 +8,7 @@ The [cosmos-sdk](https://docs.cosmos.network/main/intro/overview) is presently t
 
 It would be advantageous for your cosmos SDK app to possess an built-in oracle that obtains data from BandChain via IBC. By importing the pricefeed module implemented by Band Protocol.
 
-### Proposal
+## Proposal
 
 The initial step for the pricefeed module is to obtain information about the symbols that require price data from BandChain on every `n` block. This is accomplished by submitting the `UpdateSymbolRequest` Proposal.
 
@@ -27,13 +27,13 @@ After BandChain processes the request, it will send an acknowledgement message a
 
 After this stage, the cosmos-sdk app can safely use the data obtained from BandChain in its application at every `n` block interval. If the cosmos-sdk app requires additional data, it can submit an update symbols request proposal at any time.
 
-## pricefeed
+### pricefeed
 
 The pricefeed module obtains price data from BandChain through IBC and stores the most recent prices on your Cosmos SDK applications.
 
 An example of the usage of this module is provided on the [Oracle Consumer Chain](https://github.com/bandprotocol/oracle-consumer).
 
-### Params
+## Params
 
 The pricefeed module stores its params in state, it can be updated with governance or the address with authority. The information contained in these parameters is utilized to request data from BandChain.
 
@@ -57,7 +57,7 @@ message Params {
 }
 ```
 
-### Proposal
+## Proposal
 
 The pricefeed module includes the `UpdateSymbolRequestProposal` for updating symbols that request prices from BandChain on a block-by-block basis based on `block_interval` configuration by submit the proposal on your Cosmos SDK application.
 
@@ -81,13 +81,13 @@ message SymbolRequest {
 
 The example of submit and vote the proposal is demonstrated in the CLI section.
 
-### CLI
+## CLI
 
 A user can query and interact with the pricefeed module using the CLI.
 
 > Note: This example use `oracle-consumerd` as a command-line interface (CLI) from [oracle consumer chain](https://). Please replace it with your own cosmos app.
 
-#### Query
+### Query
 
 The query commands allow users to query pricefeed state.
 
@@ -95,7 +95,7 @@ The query commands allow users to query pricefeed state.
 oracle-consumerd query pricefeed --help
 ```
 
-##### Symbol Requests 
+#### Symbol Requests 
 
 The `symbol-requests` command enables users to retrieve information about all symbol requests that are save in this Cosmos SDK application.
 
@@ -103,7 +103,7 @@ The `symbol-requests` command enables users to retrieve information about all sy
 oracle-consumerd query pricefeed symbol-requests
 ```
 
-##### Price
+#### Price
 
 The `price` command allows users to query price data by symbol.
 
@@ -126,7 +126,7 @@ price:
   symbol: BTC
 ```
 
-#### Proposal
+### Proposal
 
 The `tx gov submit-legacy-proposal` commands allow users to submit proposal on your cosmos sdk app.
 
@@ -134,7 +134,39 @@ The `tx gov submit-legacy-proposal` commands allow users to submit proposal on y
 oracle-consumerd tx gov submit-legacy-proposal -h
 ```
 
-##### Update symbol request proposal
+#### Source Channel param change proposal
+
+In order to acquire BandChain data through the IBC, it is imperative to update the `source-channel` parameter by submitting a proposal for the change that reflects your own source channel.
+
+```
+oracle-consumerd tx gov submit-legacy-proposal param-change [proposal-file]
+```
+
+Example:
+
+1. create json file
+    > proposal.json
+    ```json
+    {
+      "title": "Param change for SourceChannel",
+      "description": "Proposal for change SourceChannel param in pricefeed module",
+      "changes": [
+        {
+          "subspace": "pricefeed",
+          "key": "SourceChannel",
+          "value": "channel-0"
+        }
+      ],
+      "deposit": "10000000stake"
+    }
+    ```
+2. submit the proposal
+    ```
+    oracle-consumerd tx gov submit-legacy-proposal param-change proposal.json --from alice
+    ```
+
+
+#### Update symbol request proposal
 
 The `update-symbol-request` command allows users to update symbol request to specify which symbols they desire to obtain price data from BandChain.
 
