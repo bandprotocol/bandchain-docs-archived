@@ -29,6 +29,7 @@ point to the correct base contract and show the most updated price feeds.
 | Cronos            |  0xD0b2234eB9431e850a814bCdcBCB18C1093F986B   |           [link](https://testnet.cronoscan.com/address/0xD0b2234eB9431e850a814bCdcBCB18C1093F986B)            |
 | Findora           |  0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68   |      [link](https://testnet-anvil.evm.findorascan.io/address/0x8c064bCf7C0DA3B3b090BAbFE8f3323534D84d68)      |
 | Godwoken          |  0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a   |           [link](https://v1.betanet.gwscan.com/address/0x0c2362c9a0586dd7295549c65a4a5e3afe10a88a)            |
+| Harmony           |  0xD0b2234eB9431e850a814bCdcBCB18C1093F986B   |           [link](https://explorer.pops.one/address/0xd0b2234eb9431e850a814bcdcbcb18c1093f986b)                |
 | Icon (Berlin)     |  cxd2bac764a0277efb9a6861fa991be4e5a46f16a2   |       [link](https://berlin.tracker.solidwallet.io/contract/cxd2bac764a0277efb9a6861fa991be4e5a46f16a2)       |
 | Icon (Lisbon)     |  cx734512ad03efdcedb69e0526415a7ce21340e0db   |       [link](https://lisbon.tracker.solidwallet.io/contract/cx734512ad03efdcedb69e0526415a7ce21340e0db)       |
 | Meter             |  0xe1bCC505f2Bdd02C9480C924856f5080834A3897   |        [link](https://scan-warringstakes.meter.io/address/0xe1bCC505f2Bdd02C9480C924856f5080834A3897)         |
