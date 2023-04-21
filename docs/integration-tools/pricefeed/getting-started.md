@@ -4,7 +4,7 @@ order: 2
 
 # Getting started
 
-This guide serves as a brief guide on how to utilize the pricefeed module in your cosmos-sdk app. For demonstrations on how to use the prices obtained from this module, kindly refer to the [Example Use Cases](https://) section.
+This guide serves as a brief guide on how to utilize the pricefeed module in your cosmos-sdk app.
 
 ## Prerequisites
 Be sure you have met the prerequisites before you following this guide.
