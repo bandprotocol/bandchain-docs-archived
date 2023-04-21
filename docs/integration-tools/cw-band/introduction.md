@@ -6,11 +6,11 @@ order: 1
 
 The correctness of the data is a crucial part of decentralized applications (dApps) that rely on data from the real world. Manipulated data can impact the security and the objective of the applications.
 
-The CW-Band introduces a standard for anyone looking to integrate data from Band's oracle into their CosmWasm smart contract on a Cosmos-SDK-based blockchain through [Inter-Blockchain Communication (IBC)](https://ibc.cosmos.network/main/ibc/overview.html). The standard itself consists of data types that require for requesting and receiving data.
+The `cw-band` introduces a standard for anyone looking to integrate data from Band's oracle into their CosmWasm smart contract on a Cosmos-SDK-based blockchain through [Inter-Blockchain Communication (IBC)](https://ibc.cosmos.network/main/ibc/overview.html). The standard itself consists of data types that require for requesting and receiving data.
 
 ### Workflow
 
-![workflow](https://user-images.githubusercontent.com/13800683/225241490-0cdc023b-e208-4594-941c-507cd68bf6f2.jpeg)
+![workflow](https://user-images.githubusercontent.com/13800683/229094449-924cd62b-1c0e-4733-875f-adfe34001e16.png)
 
 At a high level, the workflow will be as follows. First, the smart contract creates an IBC packet to request data from BandChain. Then, relayers will pick up the IBC packet and relay it on BandChain. 
 
@@ -18,9 +18,9 @@ After BandChain processes the request, it will send an acknowledgement message a
 
 At this point, the smart contract can use the data from BandChain in its smart contract securely. If the smart contract wants to have new or more data, it can always send a new IBC packet and start the process again at any time.
 
-### CW-Band
+### cw-band
 
-Our library (CW-Band) provides data types and functions that are necessary for requesting and receiving data from BandChain. It will help developers to easily integrate their CosmWasm smart contract with BandChain. 
+Our library (`cw-band`) provides data types and functions that are necessary for requesting and receiving data from BandChain. It will help developers to easily integrate their CosmWasm smart contract with BandChain. 
 
 Here are the data types and functions that the library provides for you.
 
