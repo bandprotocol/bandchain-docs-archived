@@ -4,7 +4,7 @@ order: 1
 
 # Introduction
 
-As the blockchain industry continues to evolve, the importance of interoperability and connectivity between different blockchain networks has become increasingly clear. While Cosmos and BandChain are two prominent players in this space, it's important to recognize the value that other chains can bring to the table.
+As the blockchain industry continues to evolve, the importance of interoperability and connectivity between different blockchain networks has become increasingly clear. While Cosmos is the prominent player in this space, it's important to recognize the value that other chains can bring to the table.
 
 The Falcon program is designed to enable secure and efficient cross-chain communication between different blockchain networks. It achieves this by requesting data from BandChain, and then sending the data along with the proof to the other chain.
 
@@ -69,8 +69,6 @@ Conceptually, you can think of the Bridge contract as a generic logic that helps
 
 #### Functions
 
-The two key functions of the Bridge contract are updateValidatorPowers and relayAndVerify.
-
-The updateValidatorPowers function can only be called by the owner of the Bridge contract. The function is used for updating the Bridge contract's validator set in order for the contract's state to be consistent with the actual validator set on the BandChain.
+The key function of the Bridge contract is relayAndVerify.
 
 The relayAndVerify function is a public function for anyone who wants to relay request data from the BandChain into the Bridge contract. As a result, the relayed and verified data can be used safely by those who wish to consume data from Band oracle.
