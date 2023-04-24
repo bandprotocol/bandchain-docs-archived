@@ -13,10 +13,28 @@ module.exports = {
       {
         delimiters: 'dollars',
       },
+    ],
+    [
       '@vuepress/google-analytics',
       {
-        ga: 'G-DCFFR6X15E',
+        ga: process.env.GA_MEASUREMENT_ID,
       },
+    ],
+  ],
+  head: [
+    [
+      'script',
+      {
+        async: true,
+        src: `https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`,
+      },
+    ],
+    [
+      'script',
+      {},
+      [
+        `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', ${process.env.GA_MEASUREMENT_ID});`,
+      ],
     ],
   ],
   base: process.env.VUEPRESS_BASE || '/',
