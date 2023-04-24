@@ -62,7 +62,7 @@ The following applications are required to build and run the BandChain node.
 # install required tools
 sudo apt-get update && \
 sudo apt-get upgrade -y && \
-sudo apt-get install -y build-essential curl wget
+sudo apt-get install -y build-essential curl wget jq
 ```
 
 - Install Go 1.19.1
