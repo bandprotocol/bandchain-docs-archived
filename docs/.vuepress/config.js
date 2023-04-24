@@ -14,12 +14,6 @@ module.exports = {
         delimiters: 'dollars',
       },
     ],
-    [
-      '@vuepress/google-analytics',
-      {
-        ga: process.env.GA_MEASUREMENT_ID,
-      },
-    ],
   ],
   head: [
     [
