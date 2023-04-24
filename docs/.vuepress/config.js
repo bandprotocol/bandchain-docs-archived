@@ -13,9 +13,10 @@ module.exports = {
       {
         delimiters: 'dollars',
       },
-      googleAnalyticsPlugin({
-        id: 'G-DCFFR6X15E',
-      }),
+      '@vuepress/google-analytics',
+      {
+        ga: 'G-DCFFR6X15E',
+      },
     ],
   ],
   base: process.env.VUEPRESS_BASE || '/',
