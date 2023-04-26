@@ -14,7 +14,7 @@ By using Falcon, any smart contract developers can easily integrate data from Ba
 
 The Falcon program consists of three key components, trigger, band, and relayer that work together to enable secure cross-chain communication. The first component is the Trigger, which can be set to initiate the 'band' requester at specified intervals or under specified conditions. The Band Requester component queries data from BandChain and its proof. Finally, The Relayer component then securely relays the data to other chains, such as EVM chains. Together, these components provide a comprehensive and secure solution for cross-chain communication and data exchange.
 
-![Falcon_Infographic_Chapter1](https://user-images.githubusercontent.com/54426055/233009144-a34e61cf-b088-4d95-b95c-9de4c41a8339.png)
+![Falcon_Infographic_Chapter1](https://user-images.githubusercontent.com/54426055/234471438-47b3de9f-4660-4c34-80ae-2d075c92d547.png)
 
 At a high level, the workflow will be as follows. Firstly, when reached the specified condition such as time interval, Trigger will trigger Falcon to request data from BandChain. Then, BandChain will run the Oracle script specified in the request which will get data from the Data sources and return data result along with its proof to Falcon.
 

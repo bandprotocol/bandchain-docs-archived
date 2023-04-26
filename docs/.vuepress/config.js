@@ -201,9 +201,9 @@ module.exports = {
               path: '/integration-tools/pricefeedx/introduction',
             },
             {
-              title: 'Falcon (coming soon)',
-              directory: false,
-              path: '/integration-tools/falcon/introduction',
+              title: 'Falcon',
+              directory: true,
+              path: '/integration-tools/falcon',
             },
           ],
         },
