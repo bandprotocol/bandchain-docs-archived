@@ -84,10 +84,10 @@ Go binary should be at /usr/local/go/bin and any executable compiled by go insta
 
 ```bash
 cd ~
-# Clone BandChain Laozi version v2.4.1
+# Clone BandChain Laozi version v2.5.1
 git clone https://github.com/bandprotocol/chain
 cd chain
-git fetch && git checkout v2.4.1
+git fetch && git checkout v2.5.1
 
 # Install binaries to $GOPATH/bin
 make install
@@ -196,6 +196,7 @@ You can see the detail of genesis and each upgrade in the table below.
 | ------------ | -------------- | --------------------------------------------------------------------------- | ---------- | ------------- | -------------------------------------- |
 | `genesis`    | `0`            | -                                                                           | `1.16.7`   | `v2.3.6`      | `~/.band/cosmovisor/genesis/bin`       |
 | `v2_4`       | `11525000`     | [link](https://medium.com/bandprotocol/bandchain-v2-4-upgrade-70dbb896618c) | `1.19.1`   | `v2.4.1`      | `~/.band/cosmovisor/upgrades/v2_4/bin` |
+| `v2_5`       | `16562500`     | [link](https://www.cosmoscan.io/proposal/11)                                | `1.19.1`   | `v2.5.1`      | `~/.band/cosmovisor/upgrades/v2_5/bin` |
 
 Before doing the next step, you have to build and provide each correct bandd binary version to Cosmovisor in the binary path so that Cosmovisor can automatically switch it correctly.
 
@@ -363,7 +364,7 @@ To check Yoda version, use the following command.
 
 ```bash
 yoda version
-# v2.4.1
+# v2.5.1
 ```
 
 ### Step 2: Set the Yoda configurations
