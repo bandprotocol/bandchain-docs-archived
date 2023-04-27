@@ -168,8 +168,8 @@ mkdir -p $HOME/.band/cosmovisor/upgrades
 cp $HOME/go/bin/bandd $HOME/.band/cosmovisor/genesis/bin
 
 # Setup folder and provide bandd binary for Cosmovisor Upgrades
-mkdir -p $HOME/.band/cosmovisor/upgrades/v2_4/bin
-cp $HOME/go/bin/bandd $DAEMON_HOME/cosmovisor/upgrades/v2_4/bin
+mkdir -p $HOME/.band/cosmovisor/upgrades/v2_5/bin
+cp $HOME/go/bin/bandd $DAEMON_HOME/cosmovisor/upgrades/v2_5/bin
 ```
 
 ## Sync Options
