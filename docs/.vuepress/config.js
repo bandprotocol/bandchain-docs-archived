@@ -15,6 +15,22 @@ module.exports = {
       },
     ],
   ],
+  head: [
+    [
+      'script',
+      {
+        async: true,
+        src: `https://www.googletagmanager.com/gtag/js?id=${process.env.GA_MEASUREMENT_ID}`,
+      },
+    ],
+    [
+      'script',
+      {},
+      [
+        `window.dataLayer = window.dataLayer || [];\nfunction gtag(){dataLayer.push(arguments);}\ngtag('js', new Date());\ngtag('config', ${process.env.GA_MEASUREMENT_ID});`,
+      ],
+    ],
+  ],
   base: process.env.VUEPRESS_BASE || '/',
   themeConfig: {
     repo: 'BandProtocol/bandchain',
