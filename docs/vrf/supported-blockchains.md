@@ -10,6 +10,13 @@ order: 5
 
 Our deployed `Bridge`, `VRFProvider`, `MockVRFConsumer` and `VRFLens`contracts on each chain are shown in the table below.
 
+#### Mainnet
+
+| Chain \ Contract                 | Bridge                                     | VRFProvider                                | VRFLens                                    |
+| -------------------------------- | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| [BSC](https://bscscan.com/)      | 0xB1bc084DFdf558C1DFE9332c955ffC60807Db350 | 0xaEC7D640E4F1970615e685286202486c26b7Bcb3 | 0x0753D058ae5D8A1297F09381B8Fe903fc5Da3D2f |
+| [Cronos](https://cronoscan.com/) | 0xB1bc084DFdf558C1DFE9332c955ffC60807Db350 | 0xaEC7D640E4F1970615e685286202486c26b7Bcb3 | 0x0cc0Ead2A44f179ef3C560A6b1d804D0e2239212 |
+
 #### Testnet
 
 | Chain \ Contract                                     | Bridge                                     | VRFProvider                                | MockVRFConsumer                            | VRFLens                                    |
