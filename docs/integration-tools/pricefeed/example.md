@@ -11,7 +11,7 @@ By utilizing pricefeed module in your cosmos-sdk application, you have the abili
 
 ### oracle-consumer
 
-The oracle-consumer is an application of the Cosmos SDK that demonstrates the use of the [pricefeed-module](https://github.com/bandprotocol/oracle-consumer/tree/main/docs/x/pricefeed.md) implemented by BandProtocol. This module allows other Cosmos SDK applications to easily obtain data from BandChain through IBC.
+The oracle-consumer is an application of the Cosmos SDK that demonstrates the use of the [pricefeed-module](https://github.com/bandprotocol/oracle-consumer/tree/main/x/pricefeed) implemented by BandProtocol. This module allows other Cosmos SDK applications to easily obtain data from BandChain through IBC.
 
 **Requirements:**
 oracle-consumer is built on the Cosmos SDK using the following modules:
