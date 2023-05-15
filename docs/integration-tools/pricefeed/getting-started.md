@@ -276,7 +276,7 @@ Here are the simple guides for setting up a relayer.
 
 ## Step 4 (optional): Open proposal for change params and update symbol requests
 
-Since you have already configured the symbol requests and source-channel in the `config.yml` file during the [step 2](#step-2-initiate-source-channel-and-symbol-requests-by-ignite) , you may skip this particular step.
+Since you have already configured the symbol requests and source-channel in the `config.yml` file during the [step 1](#initiate-source-channel-and-symbol-requests-by-ignite) , you may skip this particular step.
 
 ### Step 4.1 Open source channel param change proposal and vote
 
