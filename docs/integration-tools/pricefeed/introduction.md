@@ -14,7 +14,7 @@ The initial step for the pricefeed module is to obtain information about the sym
 
 The Proposal submitted to update tasks for the pricefeed module consists of three components - the name of the symbol, the oracle script ID required to obtain the price, and the block interval for requesting the data every `n` block.
 
-Upon the proposal's approval, the pricefeed module will request price data from BandChain based on the SymbolRequest that was updated through the proposal. 
+Upon the proposal's approval, the pricefeed module will request price data from BandChain based on the `SymbolRequest` that was updated through the proposal. 
 
 ## Workflow
 ![pricefeed](https://user-images.githubusercontent.com/13800683/233438703-c0835bcc-98ea-454f-ab87-5339dde43bc5.png)
@@ -144,8 +144,8 @@ oracle-consumerd tx gov submit-legacy-proposal param-change [proposal-file]
 
 Example:
 
-1. create json file
-    > proposal.json
+1. create `param_change.json` file
+
     ```json
     {
       "title": "Param change for SourceChannel",
@@ -160,9 +160,10 @@ Example:
       "deposit": "10000000stake"
     }
     ```
+
 2. submit the proposal
     ```
-    oracle-consumerd tx gov submit-legacy-proposal param-change proposal.json --from alice
+    oracle-consumerd tx gov submit-legacy-proposal param-change param_change.json --from alice
     ```
 
 
@@ -176,8 +177,8 @@ oracle-consumerd tx gov submit-legacy-proposal update-symbol-request [proposal-f
 
 Example:
 
-1. create json file
-    > proposal.json
+1. create `update_symbol_requests.json` file
+
     ```json
     {
         "title": "Update Symbol requests",
@@ -197,14 +198,15 @@ Example:
         "deposit": "10000000stake"
     }
     ```
+
 2. submit the proposal
     ```
-    oracle-consumerd tx gov submit-legacy-proposal update-symbol-request proposal.json --from alice
+    oracle-consumerd tx gov submit-legacy-proposal update-symbol-request update_symbol_requests.json --from alice
     ```
 
 ### Another way to initiate source channel and symbol requests
 
-To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restart the chin by using `ignite chain serve -r -v` command.
+To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restart the chain by using `ignite chain serve -r -v` command.
 
 ```yml
 pricefeed:

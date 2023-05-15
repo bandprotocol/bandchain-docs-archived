@@ -40,11 +40,13 @@ The ignite scaffold chain command will create a new blockchain in a new director
 
 
 
-## Step 1: Config proposal voting period by Ignite
+## Step 1: Replace the genesis state
 
-To expedite the testing of the pricefeed module, modify the default voting period to 40 seconds by incorporating this code in `example/config.yml`.
+### Config proposal voting period by Ignite
 
-```
+To expedite the testing of the pricefeed module, modify the default voting period to 40 seconds using Ignite feature to replace the genesis state by incorporating this code in `config.yml`.
+
+```yml
 ...
 genesis:
   app_state:
@@ -53,43 +55,35 @@ genesis:
         voting_period: "40s"
 ```
 
-## Step 2: Initiate source channel and symbol requests by Ignite
+### Initiate source channel and symbol requests by Ignite
 
-To utilize the Ignite feature to replace the genesis state, insert the code shown below into the `config.yml` file. and restart the chin by using `ignite chain serve -r -v` command.
+To utilize the Ignite feature to replace the genesis state without open `update-symbol-requests` proposal, insert the code shown below into the `config.yml` file.
 
 ```yml
-pricefeed:
-    params:
-        source_channel: "channel-0"
-    symbol_requests: [{"symbol": "BAND", "oracle_script_id": 396, "block_interval":  40}]
+...
+genesis:
+  app_state:
+    ...
+    pricefeed:
+        params:
+            source_channel: "channel-0"
+        symbol_requests: [{"symbol": "BAND", "oracle_script_id": 396, "block_interval":  40}]
 ```
-
 
 ## Step 3: Import pricefeed module to your cosmos app
 
-### Replace to use tendermint that develop by informalsystems 
+### Edit cosmos-sdk and ibc-go version
 
-As tendermint is no longer being developed, the pricefeed module now uses the version implemented by cometbft. Therefore, to replace the tendermint version, kindly add this line in `example/go.mod`.
-
-```
-replace (
-    ...
-    github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.27
-)
-```
-
-### Replace to use ibc-go v5
-
-To ensure compatibility with the pricefeed module, kindly update the ibc-go version to v5 by replacing
+To ensure compatibility with the pricefeed module, kindly update the cosmos-sdk version to `v0.46.12`.
 
 ```go
 require (
     ...
-    github.com/cosmos/ibc-go/v6 v6.1.0
+    github.com/cosmos/cosmos-sdk v0.46.12
 )
 ```
 
-With
+Additionally, modify the ibc-go dependency in both the go.mod and app.go files, replacing the version `v6.1.0` from the repository github.com/cosmos/ibc-go/v6 with version `v5.2.0` from the repository github.com/cosmos/ibc-go/v5.
 
 ```go
 require (
@@ -98,13 +92,28 @@ require (
 )
 ```
 
-### Install pricefeed package
+### Replace to use tendermint that develop by informalsystems 
+
+As tendermint is no longer being developed, the pricefeed module now uses the version implemented by cometbft. Therefore, to replace the tendermint version, kindly add this line in `go.mod`.
+
+```
+replace (
+    ...
+    github.com/tendermint/tendermint => github.com/cometbft/cometbft v0.34.27
+)
+```
+
+Then run `go mod tidy` to update all module packages.
+
+
+<!-- ### Install pricefeed package
 
 ```
 go install github.com/bandprotocol/oracle-consumer
-```
+``` -->
 
-### Add pricefeed in proposal handler
+### Add pricefeed keeper in `app/app.go`
+#### Add pricefeed proposal
 
 ```go
 import (
@@ -124,7 +133,7 @@ func getGovProposalHandlers() []govclient.ProposalHandler {
 }
 ```
 
-### Add pricefeed module basic
+#### Add pricefeed module basic
 
 ```go
 import (
@@ -138,7 +147,7 @@ ModuleBasics = module.NewBasicManager(
 )
 ```
 
-### Add pricefeed keeper
+#### Add pricefeed keeper type in `BandApp`
 
 ```go
 import (
@@ -148,52 +157,71 @@ import (
 
 type BandApp struct {
     ...
-    scopedpricefeedKeeper capabilitykeeper.ScopedKeeper
-    pricefeedKeeper pricefeedkeeper.Keeper
+    PricefeedKeeper       pricefeedkeeper.Keeper
+
+    ...
+    ScopedPricefeedKeeper capabilitykeeper.ScopedKeeper
 }
 ```
 
-### Add pricefeed store key
+#### Add pricefeed store key
 
 ```go
+import (
+    ...
+    pricefeedtypes "github.com/bandprotocol/oracle-consumer/x/pricefeed/types"
+)
+
 keys := sdk.NewKVStoreKeys(
     ...
     pricefeedtypes.StoreKey,
 )
 ```
 
-### Add pricefeed keeper in app
+#### Create new pricefeed keeper
 
 ```go
-scopedpricefeedKeeper := app.CapabilityKeeper.ScopeToModule(pricefeedtypes.ModuleName)
-app.scopedpricefeedKeeper = scopedpricefeedKeeper
-app.pricefeedKeeper = *pricefeedkeeper.NewKeeper(
-    appCodec,
-    keys[pricefeedtypes.StoreKey],
-    keys[pricefeedtypes.MemStoreKey],
-    app.GetSubspace(pricefeedtypes.ModuleName),
-    app.IBCKeeper.ChannelKeeper,
-    &app.IBCKeeper.PortKeeper,
-    scopedpricefeedKeeper,
+scopedPricefeedKeeper := app.CapabilityKeeper.ScopeToModule(pricefeedtypes.ModuleName)
+app.ScopedPricefeedKeeper = scopedPricefeedKeeper
+app.PricefeedKeeper = pricefeedkeeper.NewKeeper(
+	appCodec,
+	keys[pricefeedtypes.StoreKey],
+	app.GetSubspace(pricefeedtypes.ModuleName),
+	app.IBCKeeper.ChannelKeeper,
+	app.IBCKeeper.ChannelKeeper,
+	&app.IBCKeeper.PortKeeper,
+	scopedPricefeedKeeper,
 )
 ```
 
-### Create pricefeed module 
+#### Create pricefeed module
 
 ```go
-pricefeedModule := pricefeedmodule.NewAppModule(appCodec, app.pricefeedKeeper)
-pricefeedIBCModule := pricefeedmodule.NewIBCModule(app.pricefeedKeeper)
+import (
+    ...
+    pricefeedmodule "github.com/bandprotocol/oracle-consumer/x/pricefeed"
+)
+
+pricefeedModule := pricefeedmodule.NewAppModule(appCodec, app.PricefeedKeeper)
+pricefeedIBCModule := pricefeedmodule.NewIBCModule(app.PricefeedKeeper)
 ```
 
-### Add pricefeed in governance Handler router
+#### Add pricefeed module in IBC router
+```go
+ibcRouter.
+	AddRoute(...).
+	AddRoute(pricefeedtypes.ModuleName, pricefeedIBCModule)
+```
+
+#### Add pricefeed in governance Handler router
 
 ```go
 govRouter.
     AddRoute(...).
-    AddRoute(pricefeedtypes.RouterKey, pricefeedmodule.NewUpdateSymbolRequestProposalHandler(app.pricefeedKeeper))
+    AddRoute(pricefeedtypes.RouterKey, pricefeedmodule.NewUpdateSymbolRequestProposalHandler(app.PricefeedKeeper))
 ```
 
-### Add pricefeed in module manager
+#### Add pricefeed in module manager
 
 ```go
 app.mm = module.NewManager(
@@ -202,7 +230,7 @@ app.mm = module.NewManager(
 )
 ```
 
-### Set pricefeed order in begin block, end block and init genesis
+#### Set pricefeed order in begin block, end block and init genesis
 
 ```go
 app.mm.SetOrderBeginBlockers(
@@ -220,7 +248,7 @@ app.mm.SetOrderInitGenesis(
 )
 ```
 
-### Define the order of the pricefeed for deterministic simulations
+#### Set pricefeed order for deterministic simulations
 
 ```go
 app.sm = module.NewSimulationManager(
@@ -229,21 +257,18 @@ app.sm = module.NewSimulationManager(
 )
 ```
 
-### Add pricefeed subspace in params Keeper
+#### Add pricefeed subspace in params Keeper
 
 ```go
-func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino, key, tkey storetypes.StoreKey) paramskeeper.Keeper {
-	paramsKeeper := paramskeeper.NewKeeper(appCodec, legacyAmino, key, tkey)
-
+func initParamsKeeper(...) paramskeeper.Keeper {
 	paramsKeeper.Subspace(...)
 	paramsKeeper.Subspace(pricefeedmoduletypes.ModuleName)
-	// this line is used by starport scaffolding # stargate/app/paramSubspace
-
-	return paramsKeeper
 }
 ```
 
-You have completed importing the pricefeed module and can now execute the chain by running this command :tada:
+Once you have completed the addition of the pricefeed module in the app.go file, execute the command `go mod tidy` to import and update the necessary modules.
+
+Now have completed importing the pricefeed module and can now execute the chain by running this command :tada:
 ```
 ignite chain serve -v
 ```
@@ -284,7 +309,7 @@ The current default value for the source channel is `[not_set]`. If you wish to 
 #### Submit proposal
 
 ```
-oracle-consumerd tx gov submit-legacy-proposal param-change param-change-proposal.json --from alice
+exampled tx gov submit-legacy-proposal param-change param-change-proposal.json --from alice
 ```
 
 #### Vote the proposal
@@ -303,6 +328,8 @@ exampled tx gov vote 1 yes --from bob
 The purpose of this proposal is to request price data from BandChain at `block_interval` specified in the proposal. If the proposal is approved, the pricefeed module will retrieve the data and store the response on the consumer chain.
 
 #### create update-symbol-requests-proposal.json
+
+> Note: You can delete symbol request by set `"block_interval": "0"` on this proposal.
 
 ```json
 {
@@ -351,5 +378,5 @@ exampled query gov proposals
 Once the proposal has been approved, the pricefeed module will query BTC and ETH from BandChain every 40 blocks on your chain, and you can view the latest price by executing this command.
 
 ```
-exampled query pricefeed price BTC
+exampled query pricefeed price [symbol]
 ```
