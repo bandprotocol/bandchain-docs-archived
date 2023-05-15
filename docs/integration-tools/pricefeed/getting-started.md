@@ -94,7 +94,7 @@ require (
 
 ### Replace tendermint with cometbft 
 
-As tendermint is no longer being developed, the pricefeed module now uses the version implemented by cometbft. Therefore, to replace the tendermint version, kindly add this line in `go.mod`.
+The pricefeed module now uses the version implemented by cometbft. Therefore, to replace the tendermint version, kindly add this line in `go.mod`.
 
 ```
 replace (
