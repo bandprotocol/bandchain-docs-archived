@@ -105,13 +105,6 @@ replace (
 
 Then run `go mod tidy` to update all module packages.
 
-
-<!-- ### Install pricefeed package
-
-```
-go install github.com/bandprotocol/oracle-consumer
-``` -->
-
 ### Add pricefeed keeper in `app/app.go`
 #### Add pricefeed proposal
 
