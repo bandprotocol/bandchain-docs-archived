@@ -270,9 +270,8 @@ ignite chain serve -v
 The second step is to set up a relayer to listen and relay IBC packets between a your chain and BandChain.
 
 Here are the simple guides for setting up a relayer.
-
-- [Hermes relayer](https://github.com/bandprotocol/cw-band/blob/main/docs/setup_relayer_hermes.md)
-- [Go relayer](https://github.com/bandprotocol/cw-band/blob/main/docs/setup_relayer_go-relayer.md)
+- [Setup Hermes relayer](https://github.com/bandprotocol/oracle-consumer/blob/main/docs/setup_hermes_relayer.md) *(Recommend)*
+- [Setup Go relayer](https://github.com/cosmos/relayer)
 
 ## Step 4 (optional): Open proposal for change params and update symbol requests
 
