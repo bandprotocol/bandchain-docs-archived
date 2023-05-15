@@ -70,7 +70,7 @@ genesis:
         symbol_requests: [{"symbol": "BAND", "oracle_script_id": 396, "block_interval":  40}]
 ```
 
-## Step 3: Import pricefeed module to your cosmos app
+## Step 2: Import pricefeed module to your cosmos app
 
 ### Edit cosmos-sdk and ibc-go version
 
@@ -140,7 +140,7 @@ ModuleBasics = module.NewBasicManager(
 )
 ```
 
-#### Add pricefeed keeper type in `BandApp`
+#### Add pricefeed keeper type in `App`
 
 ```go
 import (
@@ -148,7 +148,7 @@ import (
     pricefeedkeeper "github.com/bandprotocol/oracle-consumer/x/pricefeed/keeper"
 )
 
-type BandApp struct {
+type App struct {
     ...
     PricefeedKeeper       pricefeedkeeper.Keeper
 
@@ -266,7 +266,7 @@ Now have completed importing the pricefeed module and can now execute the chain 
 ignite chain serve -v
 ```
 
-## Step 4: Setup a relayer
+## Step 3: Setup a relayer
 The second step is to set up a relayer to listen and relay IBC packets between a your chain and BandChain.
 
 Here are the simple guides for setting up a relayer.
@@ -274,11 +274,11 @@ Here are the simple guides for setting up a relayer.
 - [Hermes relayer](https://github.com/bandprotocol/cw-band/blob/main/docs/setup_relayer_hermes.md)
 - [Go relayer](https://github.com/bandprotocol/cw-band/blob/main/docs/setup_relayer_go-relayer.md)
 
-## Step 5 (optional): Open proposal for change params and update symbol requests
+## Step 4 (optional): Open proposal for change params and update symbol requests
 
 Since you have already configured the symbol requests and source-channel in the `config.yml` file during the [step 2](#step-2-initiate-source-channel-and-symbol-requests-by-ignite) , you may skip this particular step.
 
-### Step 5.1 Open source channel param change proposal and vote
+### Step 4.1 Open source channel param change proposal and vote
 
 The current default value for the source channel is `[not_set]`. If you wish to obtain BandChain data through IBC, you will need to open the proposal to change the source channel param to your own source channel. An example of how to open parameter change proposal is provided below.
 
@@ -316,7 +316,7 @@ exampled tx gov vote 1 yes --from bob
 ```
 
 
-### Step 5.2: Open update symbol request proposal and vote
+### Step 4.2: Open update symbol request proposal and vote
 
 The purpose of this proposal is to request price data from BandChain at `block_interval` specified in the proposal. If the proposal is approved, the pricefeed module will retrieve the data and store the response on the consumer chain.
 
