@@ -321,8 +321,6 @@ The purpose of this proposal is to request price data from BandChain at `block_i
 
 #### create update-symbol-requests-proposal.json
 
-> Note: You can delete symbol request by set `"block_interval": "0"` on this proposal.
-
 ```json
 {
     "title": "Update Symbol requests",
@@ -342,6 +340,7 @@ The purpose of this proposal is to request price data from BandChain at `block_i
     "deposit": "10000000stake"
 }
 ```
+> Note: You can also delete symbol request by set `"block_interval": "0"` on this proposal.
 
 #### Submit proposal
 

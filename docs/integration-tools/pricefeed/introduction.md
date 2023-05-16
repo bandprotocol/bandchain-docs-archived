@@ -198,6 +198,7 @@ Example:
         "deposit": "10000000stake"
     }
     ```
+    > Note: You can also delete symbol request by set `"block_interval": "0"` on this proposal.
 
 2. submit the proposal
     ```
