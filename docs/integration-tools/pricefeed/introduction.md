@@ -35,7 +35,7 @@ An example of the usage of this module is provided on the [Oracle Consumer Chain
 
 ## Params
 
-The pricefeed module stores its params in state, it can be updated with governance or the address with authority. The information contained in these parameters is utilized to request data from BandChain.
+The pricefeed module stores its params in state, it can be updated with governance. The information contained in these parameters is utilized to request data from BandChain.
 
 > proto/consumer/pricefeed/params.proto
 ```protobuf
@@ -59,7 +59,7 @@ message Params {
 
 ## Proposal
 
-The pricefeed module includes the `UpdateSymbolRequestProposal` for updating symbols that request prices from BandChain on a block-by-block basis based on `block_interval` configuration by submit the proposal on your Cosmos SDK application.
+The pricefeed module includes the `UpdateSymbolRequestProposal` for updating symbols to request price data on BandChain based on `block_interval` configuration by submitting the proposal on your Cosmos SDK application.
 
 > proto/consumer/pricefeed/pricefeed.proto
 ```protobuf

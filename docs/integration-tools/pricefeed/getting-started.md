@@ -140,7 +140,7 @@ ModuleBasics = module.NewBasicManager(
 )
 ```
 
-#### Add pricefeed keeper type in `App`
+#### Add pricefeed keeper type
 
 ```go
 import (
@@ -187,7 +187,7 @@ app.PricefeedKeeper = pricefeedkeeper.NewKeeper(
 )
 ```
 
-#### Create pricefeed module
+#### Create new pricefeed module
 
 ```go
 import (
@@ -206,7 +206,7 @@ ibcRouter.
     AddRoute(pricefeedtypes.ModuleName, pricefeedIBCModule)
 ```
 
-#### Add pricefeed in governance Handler router
+#### Add pricefeed module in governance Handler router
 
 ```go
 govRouter.
@@ -214,7 +214,7 @@ govRouter.
     AddRoute(pricefeedtypes.RouterKey, pricefeedmodule.NewUpdateSymbolRequestProposalHandler(app.PricefeedKeeper))
 ```
 
-#### Add pricefeed in module manager
+#### Add pricefeed module in module manager
 
 ```go
 app.mm = module.NewManager(
