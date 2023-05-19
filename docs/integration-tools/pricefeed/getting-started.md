@@ -177,13 +177,13 @@ keys := sdk.NewKVStoreKeys(
 scopedPricefeedKeeper := app.CapabilityKeeper.ScopeToModule(pricefeedtypes.ModuleName)
 app.ScopedPricefeedKeeper = scopedPricefeedKeeper
 app.PricefeedKeeper = pricefeedkeeper.NewKeeper(
-	appCodec,
-	keys[pricefeedtypes.StoreKey],
-	app.GetSubspace(pricefeedtypes.ModuleName),
-	app.IBCKeeper.ChannelKeeper,
-	app.IBCKeeper.ChannelKeeper,
-	&app.IBCKeeper.PortKeeper,
-	scopedPricefeedKeeper,
+    appCodec,
+    keys[pricefeedtypes.StoreKey],
+    app.GetSubspace(pricefeedtypes.ModuleName),
+    app.IBCKeeper.ChannelKeeper,
+    app.IBCKeeper.ChannelKeeper,
+    &app.IBCKeeper.PortKeeper,
+    scopedPricefeedKeeper,
 )
 ```
 
@@ -202,8 +202,8 @@ pricefeedIBCModule := pricefeedmodule.NewIBCModule(app.PricefeedKeeper)
 #### Add pricefeed module in IBC router
 ```go
 ibcRouter.
-	AddRoute(...).
-	AddRoute(pricefeedtypes.ModuleName, pricefeedIBCModule)
+    AddRoute(...).
+    AddRoute(pricefeedtypes.ModuleName, pricefeedIBCModule)
 ```
 
 #### Add pricefeed in governance Handler router
@@ -218,8 +218,8 @@ govRouter.
 
 ```go
 app.mm = module.NewManager(
-	...,
-	pricefeedModule,
+    ...,
+    pricefeedModule,
 )
 ```
 
@@ -254,8 +254,8 @@ app.sm = module.NewSimulationManager(
 
 ```go
 func initParamsKeeper(...) paramskeeper.Keeper {
-	paramsKeeper.Subspace(...)
-	paramsKeeper.Subspace(pricefeedmoduletypes.ModuleName)
+    paramsKeeper.Subspace(...)
+    paramsKeeper.Subspace(pricefeedmoduletypes.ModuleName)
 }
 ```
 
