@@ -212,9 +212,9 @@ module.exports = {
               path: '/integration-tools/cw-band',
             },
             {
-              title: 'Pricefeed',
+              title: 'Pricefeed Module',
               directory: true,
-              path: '/integration-tools/pricefeed',
+              path: '/integration-tools/pricefeed-module',
             },
             {
               title: 'Falcon (coming soon)',
